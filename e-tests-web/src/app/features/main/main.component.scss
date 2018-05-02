@@ -1,0 +1,29 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+mat-drawer-container {
+  height: calc(100vh - 64px);
+}
+
+mat-drawer {
+  @media #{$gt-sm_size} {
+    width: 250px;
+  }
+  @include box_shadow();
+}
+
+.small-drawer {
+  @include box_shadow();
+  width: 40px;
+  height: 100%;
+}
+
+.drawer-content {
+  padding: .5*$margin;
+  padding-top: $margin;
+}
+
+.main-content {
+  padding: $margin;
+  height: calc(100% - 48px); // no idea why - 48px
+}

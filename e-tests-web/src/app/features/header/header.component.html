@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+  <button mat-icon-button (click)="drawer.toggle()" [style.margin-right]="isSmallDevice ? '12px' : '24px'">
+    <mat-icon aria-label="Open menu icon">menu</mat-icon>
+  </button>
+
+  E-Tests
+
+</mat-toolbar>
