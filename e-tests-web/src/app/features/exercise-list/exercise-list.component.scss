@@ -1,0 +1,113 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  .header_left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: $margin 0;
+
+  .one-setting {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    @media #{$gt-md_size} {
+      width: 30%;
+    }
+    .counter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.exercise-container {
+  display: flex;
+  //align-items: center;
+  //justify-content: space-between;
+  //
+  .mat-icon {
+    @include mat-icon-size(32px);
+    line-height: 32px;
+  }
+  button {
+    @include size(48px, 48px);
+  }
+}
+
+.exercise-number {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 $margin;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 3.5*$margin;
+  right: 0;
+  @media #{$gt-md_size} {
+    right: .5*$margin;
+    top: 6*$margin;
+  }
+}
+
+.left-arrow {
+  position: absolute;
+  top: 3.5*$margin;
+  left: 0;
+  @media #{$gt-md_size} {
+    left: .5*$margin;
+    top: 6*$margin;
+  }
+}
+
+.button-invisible {
+  visibility: hidden;
+}
+
+.flex-1 {
+  flex: 1;
+
+}
+
+.progress {
+  padding: $margin .5*$margin 3*$margin;
+  .header {
+    padding: $margin 0;
+    display: flex;
+    justify-content: space-between
+  }
+}
+
+/deep/ .mat-tab-label {
+  min-width: 48px !important;
+  max-width: 48px !important;
+}
+
+/deep/ mat-tab-header {
+  display: none !important;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: .5*$margin .5*$margin $margin $margin;
+  .duration-input {
+    width: 75px;
+  }
+  > * {
+    margin-left: $margin;
+  }
+}

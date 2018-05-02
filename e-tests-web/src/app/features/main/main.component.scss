@@ -6,7 +6,7 @@ mat-drawer-container {
 }
 
 mat-drawer {
-  @media #{$gt-sm_size} {
+  @media #{$gt-md_size} {
     width: 250px;
   }
   @include box_shadow();
@@ -24,6 +24,9 @@ mat-drawer {
 }
 
 .main-content {
-  padding: $margin;
   height: calc(100% - 48px); // no idea why - 48px
+  padding: .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
 }

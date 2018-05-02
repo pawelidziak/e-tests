@@ -6,6 +6,16 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.23);
 }
 
+@mixin size($width, $height) {
+  height: $width;
+  width: $height;
+}
+
+@mixin mat-icon-size($size: 24px) {
+  font-size: $size;
+  @include size($size, $size)
+}
+
 /*
       FLEX UTILITIES
  */

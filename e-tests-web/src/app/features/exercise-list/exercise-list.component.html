@@ -1,0 +1,120 @@
+<div class="test-header">
+  <div class="header_left">
+    <button mat-icon-button>
+      <mat-icon aria-label="Back icon">arrow_back</mat-icon>
+    </button>
+    <span>{{test.testName}}</span>
+  </div>
+  <div class="settings-actions">
+    <button mat-mini-fab>
+      <mat-icon aria-label="Save icon">save</mat-icon>
+    </button>
+
+    <button mat-mini-fab (click)="showSettings = !showSettings" color="primary">
+      <mat-icon aria-label="Open test settings icon" *ngIf="!showSettings">settings</mat-icon>
+      <mat-icon aria-label="Close test settings icon" *ngIf="showSettings">close</mat-icon>
+    </button>
+
+    <button mat-mini-fab [matMenuTriggerFor]="more">
+      <mat-icon aria-label="More icon">more_vert</mat-icon>
+    </button>
+
+    <!-- More menu -->
+    <mat-menu #more="matMenu" xPosition="before">
+      <ng-template matMenuContent>
+        <button mat-menu-item>
+          <mat-icon aria-label="Profile icon">person</mat-icon>
+          <span>TODO</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon aria-label="User type icon">accessibility</mat-icon>
+          <span>TODO</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon aria-label="Logout icon">exit_to_app</mat-icon>
+          <span>TODO</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+
+  </div>
+</div>
+
+<div class="settings" *ngIf="showSettings">
+  <div class="one-setting">
+    <div class="counter">
+      <span>Liczba wystąpień zadania: </span>
+    </div>
+    <mat-slider
+      [min]="0"
+      [max]="10"
+      [step]="1"
+      [thumb-label]="true"
+      [(ngModel)]="occurrencesExerciseNumber">
+    </mat-slider>
+  </div>
+
+  <div class="one-setting">
+    <div class="counter">
+      <span>Liczba powtórzeń w przypadku błędnej odpowiedzi: </span>
+    </div>
+    <mat-slider
+      [min]="0"
+      [max]="10"
+      [step]="1"
+      [thumb-label]="true"
+      [(ngModel)]="occurrencesWrongExerciseNumber">
+    </mat-slider>
+  </div>
+</div>
+
+
+<div class="progress">
+  <div class="header">
+    <span>Progress:</span>
+    <span>{{masteredExercisesCount}} / {{test.exercises.length}}</span>
+  </div>
+  <mat-progress-bar
+    color="accent"
+    mode="determinate"
+    [value]="masteredRatio">
+  </mat-progress-bar>
+</div>
+
+
+<div *ngIf="!isTestEnd">
+
+  <mat-tab-group>
+    <mat-tab *ngFor="let exercise of testExercises; let i=index;" [label]="exercise.number">
+
+      <!--<span class="exercise-number">Exercise number: {{exercise.number}}</span>-->
+
+      <app-exercise [exercise]="exercise" (change)="handleSelectAnswer($event)"
+                    (answerClicked)="handleSelectedAnswer($event)"></app-exercise>
+
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="actions">
+
+    <mat-slide-toggle
+      class="example-margin"
+      color="accent"
+      [(ngModel)]="isAutoPlay">
+      Auto play
+    </mat-slide-toggle>
+
+    <mat-form-field *ngIf="isAutoPlay" class="duration-input">
+      <input matInput placeholder="Duration (s)" [(ngModel)]="autoPlayDuration" type="number" min="1" max="10">
+    </mat-form-field>
+
+    <button mat-raised-button
+            [disabled]="!answerClickedOutput"
+            *ngIf="!isAutoPlay"
+            (click)="nextExercise()">Next
+    </button>
+  </div>
+
+
+</div>
