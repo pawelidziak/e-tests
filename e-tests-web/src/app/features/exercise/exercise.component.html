@@ -1,20 +1,18 @@
 <div class="section-exercise">
 
-  <div class="header">
 
     <span class="question">{{exercise.question}}</span>
-
-  </div>
 
 
   <div class="answers-grid">
 
-    <div class="box" *ngFor="let answer of exercise.answers; let i=index;">
       <button mat-raised-button
+              *ngFor="let answer of exercise.answers; let i=index;"
               id="answer-button-{{i}}"
-              class="one-answer"
+              class="one-answer one-answer"
               (click)="checkAnswer(i)"
               [disabled]="isAnswerClicked">
+
 
         <!-- answer letters A, B, C, D -->
         <span *ngFor="let letter of answerLetters; let j=index;"
@@ -24,9 +22,9 @@
           </span>
         </span>
 
-        <span>{{answer}}</span>
+
+        <span class="answer-text">{{answer}}</span>
       </button>
-    </div>
 
   </div>
 

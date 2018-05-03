@@ -1,20 +1,10 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-exercise {
-  //height: 100%;
-  width: 100%;
-}
-
-.header {
-  text-align: center;
-  padding: 3*$margin 0;
-  @media #{$gt-md_size} {
-    padding: 5*$margin 0;
-  }
-}
-
 .question {
+  display: flex;
+  justify-content: center;
+  padding: 3*$margin $margin;
 }
 
 .answers-grid {
@@ -26,30 +16,49 @@
   }
 }
 
-.box {
+.one-answer {
   display: flex;
+  align-items: center;
   margin: 5px 0;
   @media #{$gt-md_size} {
     margin: .5*$margin;
-
-    justify-content: center;
     flex-basis: calc(50% - 24px);
     -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
   }
-}
-
-.one-answer {
-  width: 100%;
+  padding: 20px;
+  line-height: normal;
+  text-align: left;
   min-height: 72px;
   font-size: $font-normal;
 }
 
+// angular material class
+.mat-button-wrapper {
+  text-justify: inter-word;
+  white-space: normal;
+  width: 100%;
+}
+
+.answer-text {
+  margin: .5*$margin 0 .5*$margin $margin;
+}
+
 .answer-number {
-  position: absolute;
-  left: $margin;
   color: $accent;
+  position: absolute;
+  left: 3px;
+  top: 3px;
 }
 
 .answer-number_clicked {
   color: white;
 }
+
+
+
+
+
+
+
+
+

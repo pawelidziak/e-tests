@@ -10,6 +10,8 @@ import {
   MatMenuModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
   MatSliderModule,
   MatSlideToggleModule,
   MatTabsModule,
@@ -32,7 +34,9 @@ import {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatRadioModule
 
   ],
   exports: [

@@ -1,10 +1,12 @@
-<div class="test-header">
+<div class="exercise-header">
+
   <div class="header_left">
     <button mat-icon-button>
       <mat-icon aria-label="Back icon">arrow_back</mat-icon>
     </button>
     <span>{{test.testName}}</span>
   </div>
+
   <div class="settings-actions">
     <button mat-mini-fab>
       <mat-icon aria-label="Save icon">save</mat-icon>
@@ -36,85 +38,120 @@
         </button>
       </ng-template>
     </mat-menu>
-
-
   </div>
+
 </div>
 
-<div class="settings" *ngIf="showSettings">
-  <div class="one-setting">
-    <div class="counter">
-      <span>Liczba wystąpień zadania: </span>
+
+<div class="exercise-content">
+
+  <!-- CONTENT LEFT - exercise -->
+  <div class="content-left">
+
+    <!-- EXERCISES IN TABS -->
+    <mat-tab-group *ngIf="!isTestEnd">
+      <mat-tab *ngFor="let exercise of testExercises; let i=index;" [label]="exercise.number">
+        <app-exercise [exercise]="exercise"
+                      (change)="handleSelectAnswer($event)"
+                      (answerClicked)="handleSelectedAnswer($event)"></app-exercise>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div *ngIf="isTestEnd">
+      TODO test is end
     </div>
-    <mat-slider
-      [min]="0"
-      [max]="10"
-      [step]="1"
-      [thumb-label]="true"
-      [(ngModel)]="occurrencesExerciseNumber">
-    </mat-slider>
-  </div>
 
-  <div class="one-setting">
-    <div class="counter">
-      <span>Liczba powtórzeń w przypadku błędnej odpowiedzi: </span>
+    <!-- next exercise button-->
+    <div class="next-exercise">
+      <button mat-raised-button
+              [disabled]="!answerClickedOutput"
+              *ngIf="!isAutoPlay"
+              (click)="nextExercise()">Next
+      </button>
     </div>
-    <mat-slider
-      [min]="0"
-      [max]="10"
-      [step]="1"
-      [thumb-label]="true"
-      [(ngModel)]="occurrencesWrongExerciseNumber">
-    </mat-slider>
-  </div>
+  </div> <!-- end CONTENT LEFT -->
+
+
+  <!-- CONTENT RIGHT - STATS / OPTIONS -->
+  <div class="content-right">
+
+    <!-- STATS - RATIOS -->
+    <div class="progress">
+      <div class="progress-bar">
+        <span>Reviewed: {{reviewedExercisesCounter}} / {{test.exercises.length}}</span>
+        <mat-progress-bar
+          style="margin-top: 5px;"
+          color="accent"
+          mode="determinate"
+          [value]="countReviewedRatio()">
+        </mat-progress-bar>
+      </div>
+      <div class="progress-bar">
+        <span>Mastered: {{masteredExercisesCount}} / {{test.exercises.length}}</span>
+        <mat-progress-bar
+          style="margin-top: 5px;"
+          color="primary"
+          mode="determinate"
+          [value]="countMasteredRatio()">
+        </mat-progress-bar>
+      </div>
+    </div> <!-- end STATS -->
+
+    <!-- SETTINGS -->
+    <div class="settings" *ngIf="showSettings">
+      <div class="one-setting">
+        <span>The number of task occurrence</span>
+        <mat-slider
+          [min]="0"
+          [max]="10"
+          [step]="1"
+          [thumb-label]="true"
+          [(ngModel)]="occurrencesExerciseNumber">
+        </mat-slider>
+      </div>
+
+      <div class="one-setting">
+        <span>The number of repetitions in the case of an incorrect answer</span>
+        <mat-slider
+          [min]="0"
+          [max]="10"
+          [step]="1"
+          [thumb-label]="true"
+          [(ngModel)]="occurrencesWrongExerciseNumber">
+        </mat-slider>
+      </div>
+
+      <!-- Autoplay settings -->
+      <div class="auto-play">
+        <mat-slide-toggle
+          class="example-margin"
+          color="accent"
+          [disabled]="answerClickedOutput"
+          [(ngModel)]="isAutoPlay">
+          Auto play
+        </mat-slide-toggle>
+
+        <div class="one-setting" *ngIf="isAutoPlay">
+          <span>Autoplay duration (s)</span>
+          <mat-slider
+            [min]="0"
+            [max]="5"
+            [step]="1"
+            [thumb-label]="true"
+            [(ngModel)]="autoPlayDuration">
+          </mat-slider>
+        </div>
+      </div> <!-- end Autoplay settings-->
+    </div> <!-- end SETTINGS-->
+  </div> <!-- end CONTENT RIGHT-->
+
+
 </div>
 
 
-<div class="progress">
-  <div class="header">
-    <span>Progress:</span>
-    <span>{{masteredExercisesCount}} / {{test.exercises.length}}</span>
-  </div>
-  <mat-progress-bar
-    color="accent"
-    mode="determinate"
-    [value]="masteredRatio">
-  </mat-progress-bar>
-</div>
 
 
-<div *ngIf="!isTestEnd">
-
-  <mat-tab-group>
-    <mat-tab *ngFor="let exercise of testExercises; let i=index;" [label]="exercise.number">
-
-      <!--<span class="exercise-number">Exercise number: {{exercise.number}}</span>-->
-
-      <app-exercise [exercise]="exercise" (change)="handleSelectAnswer($event)"
-                    (answerClicked)="handleSelectedAnswer($event)"></app-exercise>
-
-    </mat-tab>
-  </mat-tab-group>
-
-  <div class="actions">
-
-    <mat-slide-toggle
-      class="example-margin"
-      color="accent"
-      [(ngModel)]="isAutoPlay">
-      Auto play
-    </mat-slide-toggle>
-
-    <mat-form-field *ngIf="isAutoPlay" class="duration-input">
-      <input matInput placeholder="Duration (s)" [(ngModel)]="autoPlayDuration" type="number" min="1" max="10">
-    </mat-form-field>
-
-    <button mat-raised-button
-            [disabled]="!answerClickedOutput"
-            *ngIf="!isAutoPlay"
-            (click)="nextExercise()">Next
-    </button>
-  </div>
 
 
-</div>
+
+

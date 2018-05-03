@@ -9,17 +9,16 @@ import {Test} from '../../core/models/Test';
 })
 export class ExerciseListComponent implements OnInit {
 
+  // bedzie id testu i bedzie laczenie do serwera
   public test: Test;
 
   // kiedys bedzie jako input
   public activeExerciseNumber: number;
+  public testExercises: Array<Exercise> = [];
 
   public answerClickedOutput: boolean;
 
-  public exercisesNumbers = [];
   public previousExercisesNo = [];
-
-  public testExercises: Array<Exercise> = [];
 
   public isTestEnd: boolean;
 
@@ -38,6 +37,10 @@ export class ExerciseListComponent implements OnInit {
 
   public isAutoPlay = false;
   public autoPlayDuration = 1;
+
+  public reviewedExercisesNumber = [];
+  public reviewedExercisesCounter = 0;
+
 
   constructor() {
   }
@@ -70,6 +73,14 @@ export class ExerciseListComponent implements OnInit {
       this.correctAnswerCount++;
     }
 
+    // jesli zadania jeszcze nie przegladnieto, to zwieksz licznik
+    if (this.reviewedExercisesNumber.findIndex(x => x === event.exercise.number) === -1) {
+      this.reviewedExercisesCounter++;
+      this.reviewedExercisesNumber.push(event.exercise.number);
+    }
+
+    console.log('reviewd: ' + this.reviewedExercisesCounter);
+
     if (this.isAutoPlay) {
       setTimeout(() => {
         this.nextExercise();
@@ -88,7 +99,7 @@ export class ExerciseListComponent implements OnInit {
     }
 
     this.correctIncorrectRatio = this.countRatio();
-    this.masteredRatio = this.countMasteredRatio();
+    // this.masteredRatio = this.countMasteredRatio();
 
     // sprawdz czy test jest zakonczony = brak zadan
     if (!this.checkIsTestEnd()) {
@@ -136,6 +147,13 @@ export class ExerciseListComponent implements OnInit {
     return this.masteredExercisesCount / this.test.exercises.length * 100;
   }
 
+  private countReviewedRatio(): number {
+    if (this.reviewedExercisesCounter === 0) {
+      return 0;
+    }
+    return this.reviewedExercisesCounter / this.test.exercises.length * 100;
+  }
+
   private countRatio(): number {
     if (this.incorrectAnswerCount === 0) {
       return 100;
@@ -166,7 +184,7 @@ export class ExerciseListComponent implements OnInit {
       tmpList.push({
         id: `id${i}`,
         question: `Question ${i}`,
-        answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
+        answers: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 0,
         number: i
       });

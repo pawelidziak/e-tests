@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
-  styleUrls: ['./exercise.component.scss']
+  styleUrls: ['./exercise.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ExerciseComponent implements OnInit {
 
