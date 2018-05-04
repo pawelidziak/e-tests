@@ -1,6 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 
+
+export interface AnswerClickedDTO {
+  isCorrect: boolean;
+  exerciseNumber: number;
+}
+
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -10,11 +16,9 @@ import {Exercise} from '../../core/models/Exercise';
 export class ExerciseComponent implements OnInit {
 
   @Input() exercise: Exercise;
-  @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() answerClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() answerClicked: EventEmitter<AnswerClickedDTO> = new EventEmitter<AnswerClickedDTO>();
 
   public isAnswerClicked: boolean;
-
   public answerLetters = [];
 
   constructor() {
@@ -35,16 +39,20 @@ export class ExerciseComponent implements OnInit {
       this.setCorrectStyle(correctButton);
     }
 
-    this.answerClicked.emit({exercise: this.exercise, answerIndex: answerIndex});
+    const tmp: AnswerClickedDTO = {
+      isCorrect: answerIndex === this.exercise.correctAnswer,
+      exerciseNumber: this.exercise.number
+    };
+
+    this.answerClicked.emit(tmp);
     this.isAnswerClicked = true;
-    this.change.emit(true);
   }
 
   private setCorrectStyle(button: any): void {
     button.style.backgroundColor = '#4CAF50';
     button.style.color = '#FAFAFA';
     // button.style.fontWeight = '700';
-    button.style.letterSpacing = '1px';
+    // button.style.letterSpacing = '1px';
   }
 
   private setIncorrectStyle(button: any): void {

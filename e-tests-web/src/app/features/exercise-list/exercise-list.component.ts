@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {Test} from '../../core/models/Test';
+import {AnswerClickedDTO} from '../exercise/exercise.component';
+import {TestService} from '../../core/services/TestService';
 
 @Component({
   selector: 'app-exercise-list',
@@ -9,31 +11,18 @@ import {Test} from '../../core/models/Test';
 })
 export class ExerciseListComponent implements OnInit {
 
-  // bedzie id testu i bedzie laczenie do serwera
+  // bedzie id testu i bedzie laczenie do serwera / LUB BEDZIE TO W KOMPONENCIE WYZEJ
   public test: Test;
-
-  // kiedys bedzie jako input
-  public activeExerciseNumber: number;
   public testExercises: Array<Exercise> = [];
 
-  public answerClickedOutput: boolean;
-
-  public previousExercisesNo = [];
-
-  public isTestEnd: boolean;
-
+  // SETTINGS
+  public showSettings = false;
 
   public occurrencesExerciseNumber = 1;
   public occurrencesWrongExerciseNumber = 2;
 
-  public correctAnswerCount: number;
-  public incorrectAnswerCount: number;
-  public correctIncorrectRatio: number;
-
   public masteredExercisesCount: number;
   public masteredRatio: number;
-
-  public showSettings = false;
 
   public isAutoPlay = false;
   public autoPlayDuration = 1;
@@ -41,93 +30,79 @@ export class ExerciseListComponent implements OnInit {
   public reviewedExercisesNumber = [];
   public reviewedExercisesCounter = 0;
 
+  // HELPERS
+  public answerClickedOutput: boolean;
+  public isTestEnd: boolean;
 
-  constructor() {
+
+  constructor(private testService: TestService) {
   }
 
   ngOnInit() {
-    this.correctAnswerCount = 0;
-    this.incorrectAnswerCount = 0;
-    this.correctIncorrectRatio = 1;
-
     this.masteredExercisesCount = 0;
     this.masteredRatio = 0;
 
-    this.TMPgenerateExercises();
+    this.getTest();
   }
 
-  handleSelectAnswer(event) {
-    this.answerClickedOutput = event;
+  public countMasteredRatio(): number {
+    if (this.masteredExercisesCount === 0) {
+      return 0;
+    }
+    return this.masteredExercisesCount / this.test.exercises.length * 100;
   }
 
-  handleSelectedAnswer(event: any) {
-    this.activeExerciseNumber = event.exercise.number;
-    // jesli odpowiedz jest nie poprawna to dodaj ja do aktualnych * liczba powtorzen
-    // oraz zwieksz liczbe niepoprawnych odpowiedzi
-    if (this.testExercises[0].correctAnswer !== event.answerIndex) {
-      for (let i = 0; i < this.occurrencesWrongExerciseNumber; i++) {
-        this.testExercises.push(this.addCurrentExercise());
-      }
-      this.incorrectAnswerCount++;
-    } else {
-      this.correctAnswerCount++;
+  public countReviewedRatio(): number {
+    if (this.reviewedExercisesCounter === 0) {
+      return 0;
     }
+    return this.reviewedExercisesCounter / this.test.exercises.length * 100;
+  }
 
-    // jesli zadania jeszcze nie przegladnieto, to zwieksz licznik
-    if (this.reviewedExercisesNumber.findIndex(x => x === event.exercise.number) === -1) {
-      this.reviewedExercisesCounter++;
-      this.reviewedExercisesNumber.push(event.exercise.number);
+  public handleSelectedAnswer(event: AnswerClickedDTO) {
+    this.answerClickedOutput = true;
+
+    if (!event.isCorrect) {
+      this.addExerciseRepetitionAndShuffle();
     }
-
-    console.log('reviewd: ' + this.reviewedExercisesCounter);
+    this.checkIfExerciseIsReviewed(event.exerciseNumber);
+    this.checkIfExerciseIsMastered(event.exerciseNumber);
 
     if (this.isAutoPlay) {
       setTimeout(() => {
         this.nextExercise();
       }, this.autoPlayDuration * 1000);
     }
-
   }
 
-  nextExercise(): void {
+  public checkNumberOfExerciseOccurrences(exerciseNumber: number): number {
+    return this.testService.countOccurrencesInArray(this.testExercises, exerciseNumber);
+  }
 
+  public nextExercise(): void {
     this.testExercises.splice(0, 1);
+    this.answerClickedOutput = false;
 
-    // sprawdz czy jest opanowana = czyli jej numeru nie ma = czyli juz nie jest w liscie
-    if (this.countOccurrences(this.testExercises, this.activeExerciseNumber) === 0) {
-      this.masteredExercisesCount++;
-    }
-
-    this.correctIncorrectRatio = this.countRatio();
-    // this.masteredRatio = this.countMasteredRatio();
-
-    // sprawdz czy test jest zakonczony = brak zadan
-    if (!this.checkIsTestEnd()) {
-      this.shuffleArray(this.testExercises);
-      this.answerClickedOutput = false;
-    } else {
+    if (this.checkIfTestIsEnd()) {
       this.isTestEnd = true;
+      return;
     }
-
   }
 
-  resetTest() {
+  public resetTest() {
     this.isTestEnd = false;
-    this.previousExercisesNo = [];
+    this.resetStats();
+    this.prepareTest();
   }
 
-  countOccurrences(dataSet, search: number) {
-    return dataSet.reduce(function (n, val) {
-      return n + (val.number === search);
-    }, 0);
-  }
-
-  private setActiveExercise(index: number) {
-    this.activeExerciseNumber = index;
-  }
-
-  private getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
+  private getTest() {
+    const sub$ = this.testService.getTest().subscribe(
+      res => {
+        this.test = res;
+        this.prepareTest();
+      },
+      error => console.log(error)
+    );
   }
 
   private addCurrentExercise(): Exercise {
@@ -140,66 +115,9 @@ export class ExerciseListComponent implements OnInit {
     };
   }
 
-  private countMasteredRatio(): number {
-    if (this.masteredExercisesCount === 0) {
-      return 0;
-    }
-    return this.masteredExercisesCount / this.test.exercises.length * 100;
-  }
-
-  private countReviewedRatio(): number {
-    if (this.reviewedExercisesCounter === 0) {
-      return 0;
-    }
-    return this.reviewedExercisesCounter / this.test.exercises.length * 100;
-  }
-
-  private countRatio(): number {
-    if (this.incorrectAnswerCount === 0) {
-      return 100;
-    }
-    return this.correctAnswerCount / this.incorrectAnswerCount * 100;
-  }
-
-  private checkIsTestEnd(): boolean {
-    return this.testExercises.length === 0;
-  }
-
-  /**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-  private shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  private TMPgenerateExercises() {
-    const tmpList: Array<Exercise> = [];
-    const MAX = 5;
-
-    for (let i = 0; i < MAX; i++) {
-      tmpList.push({
-        id: `id${i}`,
-        question: `Question ${i}`,
-        answers: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 0,
-        number: i
-      });
-    }
-
-    this.test = {
-      testId: '1',
-      testName: 'Test One',
-      exercises: tmpList
-    };
-
-
+  private prepareTest(): void {
     this.assignExercises();
-    this.shuffleArray(this.testExercises);
-    this.setActiveExercise(0);
+    this.testService.shuffleArray(this.testExercises);
   }
 
   /**
@@ -211,5 +129,39 @@ export class ExerciseListComponent implements OnInit {
         this.testExercises.push(exercise);
       }
     }
+  }
+
+  private addExerciseRepetitionAndShuffle() {
+    // +1 because in te next step we delete current exercise
+    for (let i = 0; i < this.occurrencesWrongExerciseNumber + 1; i++) {
+      this.testExercises.push(this.addCurrentExercise());
+    }
+    this.testService.shuffleArray(this.testExercises);
+  }
+
+  private checkIfExerciseIsReviewed(exerciseNumber: number): void {
+    if (this.reviewedExercisesNumber.findIndex(x => x === exerciseNumber) === -1) {
+      this.reviewedExercisesCounter++;
+      this.reviewedExercisesNumber.push(exerciseNumber);
+    }
+  }
+
+  private checkIfExerciseIsMastered(exerciseNumber: number): void {
+    // === 1 (not 0) because we delete this exercise in the next step
+    if (this.testService.countOccurrencesInArray(this.testExercises, exerciseNumber) === 1) {
+      this.masteredExercisesCount++;
+    }
+  }
+
+  private checkIfTestIsEnd(): boolean {
+    return this.testExercises.length === 0;
+  }
+
+
+  private resetStats(): void {
+    this.reviewedExercisesCounter = 0;
+    this.reviewedExercisesNumber = [];
+    this.masteredExercisesCount = 0;
+
   }
 }

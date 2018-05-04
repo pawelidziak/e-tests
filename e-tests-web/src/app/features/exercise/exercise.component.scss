@@ -19,7 +19,7 @@
 .one-answer {
   display: flex;
   align-items: center;
-  margin: 5px 0;
+  margin: 5px;
   @media #{$gt-md_size} {
     margin: .5*$margin;
     flex-basis: calc(50% - 24px);
