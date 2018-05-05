@@ -1,0 +1,65 @@
+@import '../../../shared/variables';
+@import '../../../shared/mixins';
+
+.question {
+  display: flex;
+  justify-content: center;
+  padding: 2*$margin $margin;
+}
+
+.answers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  @media #{$gt-md_size} {
+    flex-direction: row;
+  }
+}
+
+.one-answer {
+  background-color: $bg;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  @media #{$gt-md_size} {
+    margin: .5*$margin;
+    flex-basis: calc(50% - 24px);
+    -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
+  }
+  padding: 20px;
+  line-height: normal;
+  text-align: left;
+  min-height: 72px;
+  font-size: $font-normal;
+}
+
+// angular material class
+.mat-button-wrapper {
+  text-justify: inter-word;
+  white-space: normal;
+  width: 100%;
+}
+
+.answer-text {
+  margin: .5*$margin 0 .5*$margin $margin;
+}
+
+.answer-number {
+  color: $accent;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+}
+
+.answer-number_clicked {
+  color: white;
+}
+
+
+
+
+
+
+
+
+

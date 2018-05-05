@@ -1,9 +1,10 @@
 @import '~normalize.css/normalize.css';
-//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'app/shared/variables';
 
 html, body {
   padding: 0;
   margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 #my-spinner {
@@ -25,3 +26,6 @@ html, body {
   }
 }
 
+.small-text {
+  font-size: $font-small;
+}

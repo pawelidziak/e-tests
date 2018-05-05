@@ -7,9 +7,9 @@ import {Component, HostListener, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
+  private SMALL_DEVICES = 1279;
   public hideDrawer = false;
   public isSmallDevice = false;
-  private SMALL_DEVICES = 1279;
 
   constructor() {
     if (window.innerWidth < this.SMALL_DEVICES) {

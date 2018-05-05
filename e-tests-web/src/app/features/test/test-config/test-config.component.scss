@@ -1,0 +1,21 @@
+@import '../../../shared/variables';
+@import '../../../shared/mixins';
+
+.test-config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0 $margin;
+  .one-setting {
+    width: 100%;
+    @media #{$gt-md_size} {
+      width: 50%;
+    }
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: .5*$margin 0;
+  }
+}
