@@ -22,6 +22,16 @@ export class TestService {
     }, 0);
   }
 
+  public addNewExercise(exercise: Exercise): Exercise {
+    return {
+      id: exercise.id,
+      number: exercise.number,
+      question: exercise.question,
+      answers: exercise.answers,
+      correctAnswer: exercise.correctAnswer,
+    };
+  }
+
   /**
    * EXTENDED (by exclusion first element) modern version of the Fisher–Yates shuffle algorithm
    * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
@@ -43,7 +53,7 @@ export class TestService {
   // TMP
   private TMPgenerateExercises() {
     const tmpList: Array<Exercise> = [];
-    const MAX = 2;
+    const MAX = 1;
 
     for (let i = 0; i < MAX; i++) {
       tmpList.push({

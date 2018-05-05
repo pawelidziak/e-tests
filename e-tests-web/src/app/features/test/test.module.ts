@@ -1,18 +1,13 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {ExerciseListComponent} from './exercise-list.component';
-import {ExerciseModule} from '../exercise/exercise.module';
+import {ExerciseListComponent} from './test.component';
+import {TestConfigModule} from './test-config/test-config.module';
+import {ExerciseModule} from './exercise/exercise.module';
 import {
   MatButtonModule,
-  MatCardModule,
   MatIconModule,
-  MatInputModule,
   MatMenuModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSliderModule,
   MatSlideToggleModule,
   MatTabsModule,
 } from '@angular/material';
@@ -23,21 +18,15 @@ import {
   ],
   imports: [
     SharedModule,
+    TestConfigModule,
     ExerciseModule,
 
     MatTabsModule,
-    MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule,
-    MatSliderModule,
-    MatProgressSpinnerModule,
     MatProgressBarModule,
     MatMenuModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatRadioModule
-
+    MatSlideToggleModule
   ],
   exports: [
     ExerciseListComponent

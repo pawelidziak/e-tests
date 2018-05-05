@@ -1,10 +1,10 @@
-@import '../../shared/variables';
-@import '../../shared/mixins';
+@import '../../../shared/variables';
+@import '../../../shared/mixins';
 
 .question {
   display: flex;
   justify-content: center;
-  padding: 3*$margin $margin;
+  padding: 2*$margin $margin;
 }
 
 .answers-grid {
@@ -17,6 +17,7 @@
 }
 
 .one-answer {
+  background-color: $bg;
   display: flex;
   align-items: center;
   margin: 5px;

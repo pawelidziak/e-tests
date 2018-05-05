@@ -1,3 +1,8 @@
-.mat-toolbar {
+@import '../../shared/mixins';
+
+mat-toolbar {
   height: 56px;
+  position: relative;
+  z-index: 2;
+  @include box_shadow;
 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {Exercise} from '../../core/models/Exercise';
+import {Exercise} from '../../../core/models/Exercise';
 
 
 export interface AnswerClickedDTO {
@@ -16,7 +16,7 @@ export interface AnswerClickedDTO {
 export class ExerciseComponent implements OnInit {
 
   @Input() exercise: Exercise;
-  @Output() answerClicked: EventEmitter<AnswerClickedDTO> = new EventEmitter<AnswerClickedDTO>();
+  @Output() answerClicked: EventEmitter<AnswerClickedDTO> = new EventEmitter();
 
   public isAnswerClicked: boolean;
   public answerLetters = [];

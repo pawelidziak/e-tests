@@ -1,0 +1,26 @@
+<section class="test-config">
+  <div class="one-setting">
+    <span>The number of task occurrence: <strong>{{occurrencesExerciseNumber}}</strong></span>
+    <mat-slider
+      [min]="1"
+      [max]="10"
+      [step]="1"
+      [thumb-label]="true"
+      [(ngModel)]="occurrencesExerciseNumber">
+    </mat-slider>
+  </div>
+
+  <div class="one-setting">
+    <span>The number of repetitions in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
+    <mat-slider
+      [min]="0"
+      [max]="10"
+      [step]="1"
+      [thumb-label]="true"
+      [(ngModel)]="repetitionExerciseNumber">
+    </mat-slider>
+  </div>
+
+  <button mat-raised-button color="accent" (click)="startTest()">START TEST</button>
+
+</section> <!-- end SETTINGS-->

@@ -1,0 +1,79 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: $primary;
+  padding: .5*$margin;
+  color: $text-white;
+  box-shadow: 0px -4px 19px 0px rgba(0, 0, 0, 0.75);
+
+}
+
+.exercise-content {
+  display: flex;
+  flex-direction: column;
+  margin: .5*$margin;
+  @media #{$gt-md_size} {
+    width: 70%;
+    padding-top: 2*$margin;
+    margin: auto;
+  }
+}
+
+.next-exercise {
+  margin: $margin .5*$margin 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auto-play {
+  display: flex;
+  align-items: center;
+  div {
+    margin-left: $margin;
+  }
+}
+
+.third-row {
+  margin: $margin 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .progress-bar {
+    padding: .5*$margin 0;
+    text-align: center;
+  }
+}
+
+.test-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2*$margin;
+  span {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: $margin 0;
+  }
+  #done {
+    @include mat-icon-size(96px);
+    color: $material-green;
+  }
+}
+
+/deep/ .mat-tab-label {
+  min-width: 48px !important;
+  max-width: 48px !important;
+}
+
+/deep/ mat-tab-header {
+  display: none !important;
+}
