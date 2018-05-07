@@ -5,8 +5,13 @@ import {JwtInterceptor} from './jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {TestService} from './services/TestService';
+import {TestListService} from './services/TestListService';
+import {Overlay} from '@angular/cdk/overlay';
+import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import {GestureConfig} from '@angular/material';
 
 @NgModule({
+  declarations: [],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -19,6 +24,10 @@ import {TestService} from './services/TestService';
       useClass: JwtInterceptor,
       multi: true
     },
+    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
+
+    Overlay, // needed for angular ckd
+    TestListService,
     TestService
   ]
 })

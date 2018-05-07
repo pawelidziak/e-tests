@@ -1,0 +1,22 @@
+<section class="section-tests-list" *ngIf="dataSource">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+  <mat-card *ngFor="let test of dataSource.filteredData" class="one-test" [routerLink]="'/test/' + test.testId">
+    <div class="test-header">
+      <span>{{test.section}}</span>
+      <span>{{test.exercises.length}} exercises</span>
+      <span>
+        <mat-icon aria-label="Account icon">account_circle</mat-icon>
+        {{test.author | limitChar: 20}}
+      </span>
+    </div>
+    <div class="test-name">
+      {{test.testName }}
+    </div>
+  </mat-card>
+
+</section>

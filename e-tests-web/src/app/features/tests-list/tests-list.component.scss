@@ -1,0 +1,79 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.section-tests-list {
+  @media #{$gt-lg_size} {
+    //width: 50%;
+  }
+}
+
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.one-test {
+  outline: none;
+  padding: .5*$margin $margin;
+  margin: $margin;
+  &:hover {
+    cursor: pointer;
+    border-left: 5px solid $accent;
+  }
+
+}
+
+.test-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  span {
+    font-size: $font-small;
+    color: $text_secondary;
+
+    &:nth-child(1) {
+      display: none;
+      font-size: $font-normal;
+      padding-right: .5*$margin;
+      @media #{$gt-xs_size} {
+        display: block;
+      }
+    }
+
+    &:nth-child(2) {
+      padding-right: .5*$margin;
+      @media #{$gt-xs_size} {
+        border-left: 1px solid $divider_color;
+        padding: 0 .5*$margin;
+      }
+      border-right: 1px solid $divider_color;;
+    }
+
+    &:nth-child(3) {
+      padding-left: .5*$margin;
+      display: flex;
+      align-items: center;
+      mat-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.test-name {
+  padding: $margin 0 .5*$margin;
+  //font-weight: 600;
+}

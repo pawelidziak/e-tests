@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/do';
+import {BehaviorSubject} from 'rxjs/index';
 
 @Injectable()
 export class LoaderService {

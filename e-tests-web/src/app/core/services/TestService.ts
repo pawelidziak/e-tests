@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/do';
 import {Exercise} from '../models/Exercise';
 import {Test} from '../models/Test';
-import 'rxjs/add/observable/of';
-import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/index';
 
 @Injectable()
 export class TestService {
@@ -13,7 +11,8 @@ export class TestService {
 
   getTest() {
     // TODO connect to backend
-    return Observable.of(this.TMPgenerateExercises());
+    // return new Observable.create.arguments(this.TMPgenerateExercises());
+    return of(this.TMPgenerateExercises());
   }
 
   public countOccurrencesInArray(array: Array<any>, search: number): number {
@@ -68,7 +67,9 @@ export class TestService {
     const test: Test = {
       testId: '1',
       testName: 'Test One',
-      exercises: tmpList
+      exercises: tmpList,
+      section: 'Section test',
+      author: 'Paweł Idziak'
     };
 
     return test;
