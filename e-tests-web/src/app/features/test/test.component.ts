@@ -4,13 +4,16 @@ import {Test} from '../../core/models/Test';
 import {AnswerClickedDTO} from './exercise/exercise.component';
 import {TestService} from '../../core/services/TestService';
 import {StartTestEvent} from './test-config/test-config.component';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Subscription} from 'rxjs/index';
 
 @Component({
-  selector: 'app-exercise-list',
+  selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class ExerciseListComponent implements OnInit {
+export class TestComponent implements OnInit {
 
   // bedzie id testu i bedzie laczenie do serwera / LUB BEDZIE TO W KOMPONENCIE WYZEJ
   public test: Test;
@@ -30,13 +33,23 @@ export class ExerciseListComponent implements OnInit {
   public answerClickedOutput: boolean;
   public isTestEnd: boolean;
   public isTestStart: boolean;
+  private routeSub: Subscription;
+  private testId: string;
 
-  constructor(private testService: TestService) {
+  constructor(private testService: TestService,
+              private route: ActivatedRoute,
+              private location: Location) {
+    this.routeSub = this.route.parent.params.subscribe(params => this.testId = params['testId']);
+    console.log(this.testId);
   }
 
   ngOnInit() {
     this.initStats();
     this.getTest();
+  }
+
+  backClicked() {
+    this.location.back();
   }
 
   /**

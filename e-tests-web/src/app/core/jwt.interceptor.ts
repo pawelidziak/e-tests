@@ -7,8 +7,9 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {LoaderService} from "./services/loader.service";
+import {LoaderService} from './services/loader.service';
+import {Observable} from 'rxjs/index';
+import {tap} from 'rxjs/operators';
 
 const BASE_URL = 'http://35.229.74.15:8000/api/';
 
@@ -28,7 +29,7 @@ export class JwtInterceptor implements HttpInterceptor {
     });
 
 
-    return next.handle(request).do((event: HttpEvent<any>) => {
+    return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
         this.loader.complete();
@@ -40,6 +41,6 @@ export class JwtInterceptor implements HttpInterceptor {
           // or show a modal
         }
       }
-    });
+    }));
   }
 }

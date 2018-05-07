@@ -3,7 +3,6 @@ import {MainComponent} from './main.component';
 import {SharedModule} from '../../shared/shared.module';
 import {MatSidenavModule} from '@angular/material';
 import {HeaderModule} from '../header/header.module';
-import {ExerciseListModule} from '../test/test.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +12,6 @@ import {ExerciseListModule} from '../test/test.module';
     SharedModule,
     HeaderModule,
 
-    // chwilowo tutaj
-    ExerciseListModule,
 
     MatSidenavModule
   ],

@@ -7,13 +7,15 @@
     <mat-drawer [disableClose]="true" #drawer [mode]="isSmallDevice ? 'over' : 'side'" [opened]="!hideDrawer">
 
       <div class="drawer-content">
-        Some drawer content
+        <button routerLink="/tests-list">ALL TESTS</button>
       </div>
 
     </mat-drawer>
 
     <div class="main-content">
-      <app-exercise-list></app-exercise-list>
+      <!--<app-test></app-test>-->
+      <!--<app-tests-list></app-tests-list>-->
+      <router-outlet></router-outlet>
     </div>
 
   </mat-drawer-container>
