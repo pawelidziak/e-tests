@@ -1,4 +1,5 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RWDservice} from '../../core/services/RWDservice';
 
 @Component({
   selector: 'app-main',
@@ -7,23 +8,16 @@ import {Component, HostListener, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  private SMALL_DEVICES = 1279;
-  public hideDrawer = false;
-  public isSmallDevice = false;
+  public isSmallScreen = false;
 
-  constructor() {
-    if (window.innerWidth < this.SMALL_DEVICES) {
-      this.hideDrawer = true;
-      this.isSmallDevice = true;
-    }
+  constructor(private rwdService: RWDservice) {
+    this.rwdService.isSmallScreen.subscribe(res => {
+      this.isSmallScreen = res;
+    });
+
   }
 
   ngOnInit() {
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.hideDrawer = event.target.innerWidth <= this.SMALL_DEVICES;
-    this.isSmallDevice = event.target.innerWidth <= this.SMALL_DEVICES;
-  }
 }

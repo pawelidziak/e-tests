@@ -1,0 +1,29 @@
+@import '../../shared/mixins';
+@import '../../shared/variables';
+
+.section-test-info {
+  margin: $margin;
+}
+
+.actions-button {
+  margin-bottom: 2*$margin;
+  display: flex;
+  justify-content: space-between;
+}
+
+.one-action {
+  text-transform: uppercase;
+  margin-right: .5*$margin;
+  &:last-child {
+    margin-right: 0;
+  }
+
+  //
+  //@media #{$gt-md_size} {
+  //  height: 72px;
+  //}
+
+  mat-icon {
+    margin-right: .5*$margin;
+  }
+}

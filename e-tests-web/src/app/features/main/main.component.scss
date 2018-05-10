@@ -6,9 +6,9 @@ mat-drawer-container {
 }
 
 mat-drawer {
-  @media #{$gt-md_size} {
-    width: 250px;
-  }
+  //@media #{$gt-md_size} {
+  //  width: 250px;
+  //}
   @include box_shadow();
 }
 

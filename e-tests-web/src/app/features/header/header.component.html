@@ -1,10 +1,72 @@
 <mat-toolbar color="primary">
   <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
 
-  <button mat-icon-button (click)="drawer.toggle()" [style.margin-right]="isSmallDevice ? '12px' : '24px'">
-    <mat-icon aria-label="Open menu icon">menu</mat-icon>
-  </button>
+  <div class="header-content">
+    <div class="left">
 
-  E-Testo
+      <button mat-icon-button
+              (click)="drawer.toggle()"
+              *ngIf="headerButton === HeaderButtonType.HOME && isSmallScreen">
+        <mat-icon aria-label="Open menu icon">menu</mat-icon>
+      </button>
 
+      <button mat-icon-button
+              (click)="backClicked()"
+              *ngIf="headerButton === HeaderButtonType.BACK">
+        <mat-icon aria-label="Back icon">arrow_back</mat-icon>
+      </button>
+
+      <span style="margin-left: 12px;">{{headerText}}</span>
+
+    </div>
+
+    <div class="right">
+
+      <div *ngIf="isXSmallScreen">
+        <button mat-icon-button>
+          <mat-icon aria-label="Search icon">search</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon aria-label="Create icon">add</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="account">
+          <mat-icon aria-label="Account icon">account_circle</mat-icon>
+        </button>
+      </div>
+
+
+      <div *ngIf="!isXSmallScreen" class="buttons-big">
+        <button mat-button id="search-button">
+          <mat-icon aria-label="Search icon">search</mat-icon>
+          <span>Search</span>
+        </button>
+        <button mat-button>
+          <mat-icon aria-label="Create icon">add</mat-icon>
+          <span>Create</span>
+        </button>
+
+        <button mat-button [matMenuTriggerFor]="account">
+          <mat-icon aria-label="Account icon">account_circle</mat-icon>
+          <span>Username</span>
+        </button>
+      </div>
+
+      <!-- More menu -->
+      <mat-menu #account="matMenu" xPosition="before">
+        <ng-template matMenuContent>
+          <button mat-menu-item>
+            <mat-icon aria-label="Profile icon">person</mat-icon>
+            <span>TODO</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon aria-label="User type icon">accessibility</mat-icon>
+            <span>TODO</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+
+
+    </div>
+
+  </div>
 </mat-toolbar>

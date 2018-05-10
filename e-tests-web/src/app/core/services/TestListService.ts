@@ -1,80 +1,94 @@
 import {Injectable} from '@angular/core';
-import {Test} from '../models/Test';
-import {Exercise} from '../models/Exercise';
 import {Observable, of} from 'rxjs/index';
+import {CacheService} from './CacheService';
+import {map, shareReplay} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {TestShortInfo} from '../models/TestShortInfo';
+import {Exercise} from '../models/Exercise';
+
+const CACHE_SIZE = 1;
+const TESTS_LIST_CACHE_KEY = 'tests';
 
 @Injectable()
 export class TestListService {
 
-  constructor() {
+  private currentTestShortInfo: TestShortInfo;
+  private TMP_TESTS: Array<TestShortInfo> = [];
+  private TMP_EXERCISES: Array<Exercise> = [];
+
+  constructor(private http: HttpClient, private cache: CacheService) {
+    this.TMPgenerateTests2();
+    this.TMPgenerateTestExercise();
   }
 
-  getUserTests(): Observable<Array<Test>> {
-    // TODO connect to backend
-    // return new Observable.create.arguments(this.TMPgenerateTests());
-    return of(this.TMPgenerateTests());
-  }
-
-  getAllTests(): Observable<Array<Test>> {
-    // TODO connect to backend
-    // return new Observable.create.arguments(this.TMPgenerateTests());
-    return of(this.TMPgenerateTests2());
-  }
-
-  // TMP
-  private TMPgenerateTests() {
-    const tmpList: Array<Exercise> = [];
-    const MAX = 5;
-
-    for (let i = 0; i < MAX; i++) {
-      tmpList.push({
-        id: `id${i}`,
-        question: `Question ${i}`,
-        answers: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 0,
-        number: i
-      });
+  public getTestExercisesList(testId: string) {
+    const tmp = [];
+    for (const exercise of this.TMP_EXERCISES) {
+      if (exercise.testId === testId) {
+        tmp.push(exercise);
+      }
     }
+    return of(tmp);
+  }
 
-    const testList: Array<Test> = [];
-    const MAX_TESTS = 5;
-    for (let j = 0; j < MAX_TESTS; j++) {
-      testList.push({
-        testId: `id${j}`,
-        testName: `Test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusm ${j}`,
-        exercises: tmpList,
-        section: 'Section test',
-        author: 'Paweł Idziak'
-      });
+  public getOneTest(testId: string): Observable<TestShortInfo> {
+    return of(this.TMP_TESTS.find(x => x.testId === testId));
+  }
+
+  public getTestsList(): Observable<any> {
+    if (!this.cache.get(TESTS_LIST_CACHE_KEY)) {
+      this.cache.set(TESTS_LIST_CACHE_KEY, this.requestTestsList().pipe(shareReplay(CACHE_SIZE)));
     }
-    return testList;
+    return this.cache.get(TESTS_LIST_CACHE_KEY);
+  }
+
+  saveCurrentTest(test: TestShortInfo): void {
+    this.currentTestShortInfo = test;
+  }
+
+  getCurrentTest(): TestShortInfo {
+    return this.currentTestShortInfo;
+  }
+
+  TMPgetAllTests(): Observable<Array<TestShortInfo>> {
+    return of(this.TMP_TESTS);
+  }
+
+  private requestTestsList() {
+    return this.TMPgetAllTests().pipe(
+      map(response => response)
+    );
   }
 
   private TMPgenerateTests2() {
-    const tmpList: Array<Exercise> = [];
-    const MAX = 5;
-
-    for (let i = 0; i < MAX; i++) {
-      tmpList.push({
-        id: `id${i}`,
-        question: `Question ${i}`,
-        answers: ['Let dolore magna aliqua.', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 0,
-        number: i
-      });
-    }
-
-    const testList: Array<Test> = [];
     const MAX_TESTS = 5;
+
     for (let j = 0; j < MAX_TESTS; j++) {
-      testList.push({
-        testId: `id${j}`,
+      this.TMP_TESTS.push({
+        testId: `testId-${j}`,
         testName: `Test, sed do eiusm ${j}`,
-        exercises: tmpList,
-        section: 'Section test',
-        author: 'Paweł Idziak'
+        exercisesListId: `exercisesId-${j}`,
+        exercisesListSize: j,
+        section: `section-${j}`,
+        author: 'Paweł Idziak',
+        publicationDate: new Date()
       });
     }
-    return testList;
+  }
+
+  private TMPgenerateTestExercise() {
+    const MAX_EXERCISES = 5;
+    for (let i = 0; i < MAX_EXERCISES; i++) {
+      for (let j = 0; j < MAX_EXERCISES; j++) {
+        this.TMP_EXERCISES.push({
+          id: `exercise-${i}-${j}`,
+          question: `question-${i}-${j}`,
+          answers: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
+          correctAnswer: 0,
+          number: j + 1,
+          testId: `testId-${i}`,
+        });
+      }
+    }
   }
 }

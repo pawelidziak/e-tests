@@ -1,53 +1,44 @@
-<div class="exercise-header">
+<div class="exercise-header" *ngIf="isTestStart">
 
-  <div class="header_left">
-    <button mat-icon-button (click)="backClicked()">
-      <mat-icon aria-label="Back icon">arrow_back</mat-icon>
-    </button>
-    <span>{{test.testName}}</span>
-  </div>
+  <button mat-icon-button (click)="saveProgress()">
+    <mat-icon aria-label="Save icon">save</mat-icon>
+  </button>
 
-  <div class="header-actions" *ngIf="isTestStart">
-    <button mat-icon-button>
-      <mat-icon aria-label="Save icon">save</mat-icon>
-    </button>
+  <button mat-icon-button [matMenuTriggerFor]="more">
+    <mat-icon aria-label="More icon">more_vert</mat-icon>
+  </button>
 
-    <button mat-icon-button [matMenuTriggerFor]="more">
-      <mat-icon aria-label="More icon">more_vert</mat-icon>
-    </button>
+  <!-- More menu -->
+  <mat-menu #more="matMenu" xPosition="before">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="Profile icon">person</mat-icon>
+        <span>TODO</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon aria-label="User type icon">accessibility</mat-icon>
+        <span>TODO</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="resetMenu">
+        <mat-icon aria-label="Refresh icon">refresh</mat-icon>
+        <span>Reset test</span>
+      </button>
+    </ng-template>
+  </mat-menu>
 
-    <!-- More menu -->
-    <mat-menu #more="matMenu" xPosition="before">
-      <ng-template matMenuContent>
-        <button mat-menu-item>
-          <mat-icon aria-label="Profile icon">person</mat-icon>
-          <span>TODO</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon aria-label="User type icon">accessibility</mat-icon>
-          <span>TODO</span>
-        </button>
-        <button mat-menu-item [matMenuTriggerFor]="resetMenu">
-          <mat-icon aria-label="Refresh icon">refresh</mat-icon>
-          <span>Reset test</span>
-        </button>
-      </ng-template>
-    </mat-menu>
-
-    <!-- Reset menu -->
-    <mat-menu #resetMenu="matMenu" xPosition="before">
-      <ng-template matMenuContent>
-        <button mat-menu-item>
-          <mat-icon aria-label="Cancel reset">cancel</mat-icon>
-          <span>Cancel</span>
-        </button>
-        <button mat-menu-item (click)="resetTest()">
-          <mat-icon aria-label="Done reset">done</mat-icon>
-          <span>Reset</span>
-        </button>
-      </ng-template>
-    </mat-menu>
-  </div>
+  <!-- Reset menu -->
+  <mat-menu #resetMenu="matMenu" xPosition="before">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="Cancel reset">cancel</mat-icon>
+        <span>Cancel</span>
+      </button>
+      <button mat-menu-item (click)="resetTest()">
+        <mat-icon aria-label="Done reset">done</mat-icon>
+        <span>Reset</span>
+      </button>
+    </ng-template>
+  </mat-menu>
 
 </div>
 
@@ -124,8 +115,8 @@
 </div>
 
 
-
-
+<br><br><br><br><br><br><br><br>
+test
 
 
 

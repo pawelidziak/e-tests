@@ -3,11 +3,14 @@
 
 .exercise-header {
   display: flex;
-  justify-content: space-between;
-  background-color: $primary;
-  padding: .5*$margin;
-  color: $text-white;
-  box-shadow: 0px -4px 19px 0px rgba(0, 0, 0, 0.75);
+  //background-color: ;
+  justify-content: flex-end;
+  padding: 5px .5*$margin;
+  //color: $text-white;
+  //@include box_shadow;
+  //position: fixed;
+  //top: 56px;
+  //left: 0;
 
 }
 

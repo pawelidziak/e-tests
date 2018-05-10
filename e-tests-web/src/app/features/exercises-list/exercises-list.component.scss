@@ -1,0 +1,141 @@
+@import '../../shared/mixins';
+@import '../../shared/variables';
+
+.exercises-list {
+  margin: $margin;
+}
+
+.exercise-actions {
+  display: flex;
+  margin-bottom: 2*$margin;
+  &:first-child {
+    margin-left: .5*$margin;
+  }
+}
+
+.one-exercise {
+  mat-form-field {
+    width: 100%;
+  }
+  margin: 24px 0;
+}
+
+.my-card {
+  @include box_shadow;
+  background-color: white;
+}
+
+.exercises-list-header {
+  display: flex;
+  align-items: center;
+  &:hover {
+    background-color: $hover_color;
+  }
+
+  padding-right: .5*$margin;
+  .exercise-question {
+    width: 100%;
+    cursor: pointer;
+    margin-right: $margin;
+    padding: $margin 0 $margin $margin;
+  }
+}
+
+.exercise-header-buttons {
+  display: flex;
+  mat-icon {
+    color: $divider_color;
+    &:hover {
+      color: $text_secondary;
+    }
+  }
+}
+
+.question_not-editable {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.question_editable {
+  width: 100%;
+}
+
+.answers {
+  padding: $margin 1.2*$margin $margin $margin;
+  font-size: $font-small;
+}
+
+.answer_not-editable {
+  padding: .5*$margin 0;
+  display: flex;
+  align-items: center;
+}
+
+.answer-letter {
+  margin-right: 29px;
+  font-size: $font-normal;
+}
+
+.correct-answer {
+  color: $accent;
+}
+
+.correct-answer_editable {
+  display: inline-flex;
+  flex-direction: column;
+  mat-radio-button {
+    margin-right: $margin;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+//
+//.one-answer {
+//  display: flex;
+//  align-items: center;
+//  margin: .5*$margin 0 !important;
+//}
+//
+//.one-answer_editable {
+//  display: flex;
+//  align-items: center;
+//  width: 100%;
+//  mat-checkbox {
+//    margin-left: $margin;
+//  }
+//}
+//
+//.correct-answer {
+//  color: $accent;
+//}
+//
+//.correct-answer_editable {
+//  display: inline-flex;
+//  flex-direction: column;
+//  mat-radio-button {
+//    margin-right: $margin;
+//  }
+//  mat-form-field {
+//    width: 100%;
+//  }
+//}
+
+mat-radio-group, /deep/ label, /deep/ .mat-radio-label-content {
+  width: 100%;
+}
+
+.new-exercise {
+  padding: $margin;
+}
+
+.new-answers {
+
+  mat-form-field {
+    //width: 100%;
+  }
+  display: flex;
+  flex-direction: column;
+}

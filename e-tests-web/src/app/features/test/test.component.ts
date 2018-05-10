@@ -5,8 +5,9 @@ import {AnswerClickedDTO} from './exercise/exercise.component';
 import {TestService} from '../../core/services/TestService';
 import {StartTestEvent} from './test-config/test-config.component';
 import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/index';
+import {HeaderService} from '../../core/services/HeaderService';
+import {TestListService} from '../../core/services/TestListService';
 
 @Component({
   selector: 'app-test',
@@ -37,10 +38,10 @@ export class TestComponent implements OnInit {
   private testId: string;
 
   constructor(private testService: TestService,
+              private testsListService: TestListService,
               private route: ActivatedRoute,
-              private location: Location) {
+              private headerService: HeaderService) {
     this.routeSub = this.route.parent.params.subscribe(params => this.testId = params['testId']);
-    console.log(this.testId);
   }
 
   ngOnInit() {
@@ -48,8 +49,28 @@ export class TestComponent implements OnInit {
     this.getTest();
   }
 
-  backClicked() {
-    this.location.back();
+  saveProgress(): void {
+    console.log(this.testExercises);
+  }
+
+  public nextExercise(): void {
+    this.testExercises.splice(0, 1);
+    this.answerClickedOutput = false;
+
+    if (this.checkIfTestIsEnd()) {
+      this.isTestEnd = true;
+    }
+  }
+
+  /**
+   *    RESETS
+   */
+  public resetTest() {
+    this.isTestEnd = false;
+    this.isTestStart = false;
+    this.answerClickedOutput = false;
+    this.resetStats();
+    this.prepareTestExercises();
   }
 
   /**
@@ -79,6 +100,23 @@ export class TestComponent implements OnInit {
     }
   }
 
+  private initStats(): void {
+    this.masteredExercisesCount = 0;
+    this.reviewedExercisesNumber = [];
+    this.reviewedExercisesCounter = 0;
+  }
+
+  private getTest() {
+    const sub$ = this.testService.getTest('id').subscribe(
+      res => {
+        this.test = res;
+        this.headerService.setHeaderText(res.testName);
+        this.headerService.setBackButton();
+      },
+      error => console.log(error)
+    );
+  }
+
   /**
    *    COUNTERS
    */
@@ -101,51 +139,6 @@ export class TestComponent implements OnInit {
    */
   public checkNumberOfExerciseOccurrences(exerciseNumber: number): number {
     return this.testService.countOccurrencesInArray(this.testExercises, exerciseNumber);
-  }
-
-  /**
-   *    RESETS
-   */
-  public resetTest() {
-    this.isTestEnd = false;
-    this.isTestStart = false;
-    this.answerClickedOutput = false;
-    this.resetStats();
-    this.prepareTestExercises();
-  }
-
-  public nextExercise(): void {
-    this.testExercises.splice(0, 1);
-    this.answerClickedOutput = false;
-
-    if (this.checkIfTestIsEnd()) {
-      this.isTestEnd = true;
-    }
-  }
-
-  private initStats(): void {
-    this.masteredExercisesCount = 0;
-    this.reviewedExercisesNumber = [];
-    this.reviewedExercisesCounter = 0;
-  }
-
-  private getTest() {
-    const sub$ = this.testService.getTest().subscribe(
-      res => {
-        this.test = res;
-      },
-      error => console.log(error)
-    );
-  }
-
-  private prepareTestExercises(): void {
-    this.testExercises = [];
-    for (const exercise of this.test.exercises) {
-      for (let i = 0; i < this.occurrencesExerciseNumber; i++) {
-        this.testExercises.push(this.testService.addNewExercise(exercise));
-      }
-    }
-    this.testService.shuffleArray(this.testExercises);
   }
 
   private checkIfExerciseIsReviewed(exerciseNumber: number): void {
@@ -181,6 +174,16 @@ export class TestComponent implements OnInit {
     this.reviewedExercisesCounter = 0;
     this.reviewedExercisesNumber = [];
     this.masteredExercisesCount = 0;
+  }
+
+  private prepareTestExercises(): void {
+    this.testExercises = [];
+    for (const exercise of this.test.exercises) {
+      for (let i = 0; i < this.occurrencesExerciseNumber; i++) {
+        this.testExercises.push(this.testService.addNewExercise(exercise));
+      }
+    }
+    this.testService.shuffleArray(this.testExercises);
   }
 
 }

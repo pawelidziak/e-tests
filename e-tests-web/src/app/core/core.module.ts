@@ -9,6 +9,9 @@ import {TestListService} from './services/TestListService';
 import {Overlay} from '@angular/cdk/overlay';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {GestureConfig} from '@angular/material';
+import {HeaderService} from './services/HeaderService';
+import {RWDservice} from './services/RWDservice';
+import {CacheService} from './services/CacheService';
 
 @NgModule({
   declarations: [],
@@ -27,6 +30,9 @@ import {GestureConfig} from '@angular/material';
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
     Overlay, // needed for angular ckd
+    RWDservice,
+    CacheService,
+    HeaderService,
     TestListService,
     TestService
   ]

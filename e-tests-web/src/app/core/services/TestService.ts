@@ -9,7 +9,8 @@ export class TestService {
   constructor() {
   }
 
-  getTest() {
+
+  public getTest(testId: string) {
     // TODO connect to backend
     // return new Observable.create.arguments(this.TMPgenerateExercises());
     return of(this.TMPgenerateExercises());
@@ -28,6 +29,7 @@ export class TestService {
       question: exercise.question,
       answers: exercise.answers,
       correctAnswer: exercise.correctAnswer,
+      testId: exercise.testId
     };
   }
 
@@ -52,7 +54,7 @@ export class TestService {
   // TMP
   private TMPgenerateExercises() {
     const tmpList: Array<Exercise> = [];
-    const MAX = 1;
+    const MAX = 15;
 
     for (let i = 0; i < MAX; i++) {
       tmpList.push({
@@ -60,7 +62,8 @@ export class TestService {
         question: `Question ${i}`,
         answers: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 0,
-        number: i
+        number: i,
+        testId: ''
       });
     }
 

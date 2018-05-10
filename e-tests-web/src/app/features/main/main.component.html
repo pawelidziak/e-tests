@@ -2,9 +2,9 @@
 
   <app-header [drawer]="drawer"></app-header>
 
-  <mat-drawer-container (backdropClick)="hideDrawer ? drawer.close() : null">
+  <mat-drawer-container (backdropClick)="drawer.close()">
 
-    <mat-drawer [disableClose]="true" #drawer [mode]="isSmallDevice ? 'over' : 'side'" [opened]="!hideDrawer">
+    <mat-drawer [disableClose]="true" #drawer [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen">
 
       <div class="drawer-content">
         <button routerLink="/tests-list">ALL TESTS</button>

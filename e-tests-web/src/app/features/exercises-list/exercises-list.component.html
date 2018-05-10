@@ -1,0 +1,134 @@
+<section class="exercises-list">
+  <div class="exercise-actions">
+    <mat-form-field style="width: 100%">
+      <mat-icon matPrefix>search</mat-icon>
+      <span matPrefix>&nbsp;</span>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search exercise">
+    </mat-form-field>
+
+    <button mat-mini-fab style="margin: 0 12px 0 24px;" (click)="showNewExercise()">
+      <mat-icon aria-label="Add exercise">add</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="settings">
+      <mat-icon aria-label="Settings icon">more_vert</mat-icon>
+    </button>
+
+    <!-- More menu -->
+    <mat-menu #settings="matMenu" xPosition="before">
+      <ng-template matMenuContent>
+        <button mat-menu-item>
+          <mat-icon aria-label="Profile icon">person</mat-icon>
+          <span>TODO</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon aria-label="Profile icon">person</mat-icon>
+          <span>TODO</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon aria-label="Delete icon">delete_outline</mat-icon>
+          <span>Delete exercises</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+  </div>
+
+  <!-- TEST EXERCISES -->
+  <div *ngFor="let exercise of dataSource.filteredData; let i=index;" class="my-card">
+
+    <!-- EXERCISE HEADER -->
+    <div class="exercises-list-header">
+
+      <!-- QUESTION -->
+      <div class="exercise-question" (click)="changeAnswersVisibility(i)">
+
+        <!-- NOT EDITABLE QUESTION -->
+        <div class="question_not-editable" *ngIf="!exerciseEditableBooleans[i]">
+          <span style="margin-right: 24px;">{{i+1}}.</span>
+          <span>{{exercise.question}}</span>
+        </div>
+
+        <!-- EDITABLE QUESTION -->
+        <mat-form-field class="question_editable" *ngIf="exerciseEditableBooleans[i]">
+          <input matInput placeholder="Question" [(ngModel)]="exercise.question">
+        </mat-form-field>
+
+      </div>
+      <!-- end QUESTION -->
+
+      <!-- EXERCISE ACTION BUTTONS -->
+      <button mat-icon-button *ngIf="exerciseEditableBooleans[i]"
+              (click)="saveNewExercise(exercise, i)">
+        <mat-icon aria-label="Done editing" style="color: #8BC34A;">check_circle</mat-icon>
+      </button>
+      <div *ngIf="!exerciseEditableBooleans[i]" class="exercise-header-buttons">
+        <button mat-icon-button (click)="startEditExercise(i)">
+          <mat-icon aria-label="Edit exercise">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="delete">
+          <mat-icon aria-label="Delete icon">delete</mat-icon>
+        </button>
+
+        <!-- More menu -->
+        <mat-menu #delete="matMenu" xPosition="before">
+          <ng-template matMenuContent>
+            <button mat-menu-item>
+              <mat-icon aria-label="No icon">close</mat-icon>
+              <span>NO</span>
+            </button>
+            <button mat-menu-item (click)="deleteOneExercise(exercise)">
+              <mat-icon aria-label="Yes icon">done</mat-icon>
+              <span>YES</span>
+            </button>
+          </ng-template>
+        </mat-menu>
+      </div>
+    </div>
+    <!-- end EXERCISE HEADER -->
+
+    <!-- ANSWERS -->
+    <div *ngIf="showAnswers[i]" class="answers">
+      <!-- NOT EDITABLE ANSWERS -->
+      <div *ngIf="!exerciseEditableBooleans[i]">
+        <div *ngFor="let answer of exercise.answers; let j=index;"
+             class="answer_not-editable"
+             [ngClass]="{'correct-answer': exercise.correctAnswer === j}">
+          <span class="answer-letter">{{getLetterFromAscii(j)}}</span>
+          <span>{{answer}}</span>
+        </div>
+      </div>
+      <!-- end NOT EDITABLE ANSWERS -->
+
+      <!-- EDITABLE ANSWERS -->
+      <div *ngIf="exerciseEditableBooleans[i]" class="">
+        <mat-radio-group class="correct-answer_editable" [(ngModel)]="exercise.correctAnswer">
+          <mat-radio-button [value]="j"
+                            *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy">
+            <mat-form-field>
+              <input matInput [placeholder]="'Answer ' + getLetterFromAscii(j)" [(ngModel)]="exercise.answers[j]">
+            </mat-form-field>
+
+            <button mat-icon-button (click)="deleteOneAnswer(exercise.answers, j)" *ngIf="j > 1">
+              <mat-icon aria-label="Delete answer" style="color: #F44336">delete_outline</mat-icon>
+            </button>
+
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <div style="display: flex; justify-content: center">
+          <button mat-button (click)="exercise.answers.push('');">
+            <mat-icon aria-label="Add answer">add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <!-- end EDITABLE ANSWERS -->
+
+    </div>
+    <!-- end ANSWERS -->
+
+  </div>
+
+
+</section>
