@@ -71,7 +71,7 @@ export class TestService {
       testId: '1',
       testName: 'Test One',
       exercises: tmpList,
-      section: 'Section test',
+      section: 'Section test-learn',
       author: 'Paweł Idziak'
     };
 

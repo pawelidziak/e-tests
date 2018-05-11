@@ -7,7 +7,7 @@ const appRoutes: Routes = [
    */
   {
     path: 'test/:testId',
-    loadChildren: 'app/features/test/test.module#TestModule'
+    loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
   {
     path: 'tests-list',

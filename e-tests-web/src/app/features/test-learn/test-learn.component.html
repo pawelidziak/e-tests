@@ -45,13 +45,12 @@
 <app-test-config *ngIf="!isTestStart"
                  (startTestEvent)="handleStartTest($event)"></app-test-config>
 
-
 <div class="exercise-content" *ngIf="isTestStart">
 
   <!-- STATS - RATIOS -->
   <div class="progress">
     <div class="progress-bar">
-      <span>Reviewed: {{reviewedExercisesCounter}} / {{test.exercises.length}}</span>
+      <span>Reviewed: {{reviewedExercisesCounter}} / {{origTestExercises.length}}</span>
       <mat-progress-bar
         style="margin-top: 5px;"
         color="accent"
@@ -60,7 +59,7 @@
       </mat-progress-bar>
     </div>
     <div class="progress-bar">
-      <span>Mastered: {{masteredExercisesCount}} / {{test.exercises.length}}</span>
+      <span>Mastered: {{masteredExercisesCount}} / {{origTestExercises.length}}</span>
       <mat-progress-bar
         style="margin-top: 5px;"
         color="primary"
@@ -73,8 +72,7 @@
 
   <div class="third-row" *ngIf="!isTestEnd">
     <div>
-      Occurrences: {{answerClickedOutput ? checkNumberOfExerciseOccurrences(testExercises[0].number) - 1 :
-      checkNumberOfExerciseOccurrences(testExercises[0].number)}}
+      Occurrences: {{currentExercise.occurrences}}
     </div>
 
     <div class="auto-play">
@@ -89,13 +87,20 @@
 
   </div>
 
+
+  <app-exercise *ngIf="!isTestEnd"
+                [exerciseWithOccurrences]="currentExercise"
+                (answerClicked)="handleSelectedAnswer($event)"
+                style="overflow-x: hidden">
+  </app-exercise>
+
   <!-- EXERCISES IN TABS -->
-  <mat-tab-group *ngIf="!isTestEnd">
-    <mat-tab *ngFor="let exercise of testExercises; let i=index;" [label]="exercise.number">
-      <app-exercise [exercise]="exercise"
-                    (answerClicked)="handleSelectedAnswer($event)"></app-exercise>
-    </mat-tab>
-  </mat-tab-group>
+  <!--<mat-tab-group *ngIf="!isTestEnd">-->
+  <!--<mat-tab *ngFor="let exercise of preparedTestExercises; let i=index;" [label]="exercise.exercise.number">-->
+  <!--<app-exercise *ngIf="exercise.occurrences > 0" [exerciseWithOccurrences]="exercise"-->
+  <!--(answerClicked)="handleSelectedAnswer($event)"></app-exercise>-->
+  <!--</mat-tab>-->
+  <!--</mat-tab-group>-->
 
   <div *ngIf="isTestEnd" class="test-end">
     <mat-icon id="done" aria-label="Done icon">done</mat-icon>
@@ -103,7 +108,7 @@
     <button mat-raised-button color="accent" (click)="resetTest()">RESET TEST</button>
   </div>
 
-  <!-- next exercise button-->
+  <!-- next exerciseWithOccurrences button-->
   <div class="next-exercise" *ngIf="!isTestEnd">
     <button mat-raised-button
             *ngIf="!isAutoPlay"
@@ -113,11 +118,3 @@
     </button>
   </div>
 </div>
-
-
-<br><br><br><br><br><br><br><br>
-test
-
-
-
-

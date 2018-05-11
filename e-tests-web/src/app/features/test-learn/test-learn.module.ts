@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {TestComponent} from './test.component';
+import {TestLearnComponent} from './test-learn.component';
 import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
-import {testRouting} from './test.routing';
+import {testLearnRouting} from './test-learn.routing';
 import {
   MatButtonModule,
   MatIconModule,
@@ -15,11 +15,11 @@ import {
 
 @NgModule({
   declarations: [
-    TestComponent
+    TestLearnComponent
   ],
   imports: [
     SharedModule,
-    testRouting,
+    testLearnRouting,
     TestConfigModule,
     ExerciseModule,
 
@@ -35,5 +35,5 @@ import {
   ],
   providers: []
 })
-export class TestModule {
+export class TestLearnModule {
 }

@@ -4,7 +4,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 
 @Injectable()
-export class RWDservice {
+export class RWDService {
   constructor(breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe(
       Breakpoints.XSmall

@@ -3,9 +3,6 @@ import {SharedModule} from '../../shared/shared.module';
 import {ExercisesListComponent} from './exercises-list.component';
 import {
   MatButtonModule,
-  MatCardModule,
-  MatDialogModule,
-  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -25,15 +22,11 @@ import {exercisesListRouting} from './exercises-list.routing';
 
     MatButtonModule,
     MatIconModule,
-    MatExpansionModule,
     MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatListModule,
-
-    MatCardModule,
-    MatDialogModule
+    MatListModule
   ],
   exports: [
     ExercisesListComponent

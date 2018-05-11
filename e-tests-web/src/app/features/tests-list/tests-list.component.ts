@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {TestListService} from '../../core/services/TestListService';
+import {TestListService} from '../../core/services/test-list.service';
 import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs/index';
-import {HeaderService} from '../../core/services/HeaderService';
+import {HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
 import {TestShortInfo} from '../../core/models/TestShortInfo';
 

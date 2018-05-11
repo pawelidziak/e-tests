@@ -7,10 +7,7 @@ export interface Exercise {
   testId: string;
 }
 
-export interface NewExercise {
-  question: string;
-  answers: Array<string>;
-  correctAnswer: number;
-  number: number;
-  testId: string;
+export interface ExerciseWithOccurrences {
+  exercise: Exercise;
+  occurrences: number;
 }

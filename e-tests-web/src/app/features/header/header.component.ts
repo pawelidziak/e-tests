@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSidenav} from '@angular/material';
-import {HeaderButtonType, HeaderService} from '../../core/services/HeaderService';
+import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 import {Location} from '@angular/common';
-import {RWDservice} from '../../core/services/RWDservice';
+import {RWDService} from '../../core/services/RWD.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   public headerButton: HeaderButtonType;
   public HeaderButtonType = HeaderButtonType;
 
-  constructor(private rwdService: RWDservice,
+  constructor(private rwdService: RWDService,
               private location: Location,
               private headerService: HeaderService) {
     rwdService.isXSmallScreen.subscribe(res => this.isXSmallScreen = res);

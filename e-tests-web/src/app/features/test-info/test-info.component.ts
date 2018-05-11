@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HeaderService} from '../../core/services/HeaderService';
-import {TestService} from '../../core/services/TestService';
+import {HeaderService} from '../../core/services/header.service';
+import {TestService} from '../../core/services/test.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatTableDataSource} from '@angular/material';
 import {Exercise} from '../../core/models/Exercise';
-import {TestListService} from '../../core/services/TestListService';
+import {TestListService} from '../../core/services/test-list.service';
 import {TestShortInfo} from '../../core/models/TestShortInfo';
 
 @Component({
@@ -34,7 +34,7 @@ export class TestInfoComponent implements OnInit {
 
   private getTest() {
 
-    // first check if the test was set (it was, when te page wasn't refresh)
+    // first check if the test-learn was set (it was, when te page wasn't refresh)
     this.currentTestShortInfo = this.testListService.getCurrentTest();
 
     if (this.currentTestShortInfo) {

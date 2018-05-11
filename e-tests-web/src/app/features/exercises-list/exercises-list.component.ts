@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {MatTableDataSource} from '@angular/material';
-import {TestListService} from '../../core/services/TestListService';
+import {TestListService} from '../../core/services/test-list.service';
 import {ActivatedRoute} from '@angular/router';
-import {HeaderService} from '../../core/services/HeaderService';
+import {HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-exercises-list',
@@ -51,12 +51,12 @@ export class ExercisesListComponent implements OnInit {
   }
 
   public deleteOneAnswer(answers: Array<string>, i: number): void {
-    // TODO connect to FB and delete one answer in exercise
+    // TODO connect to FB and delete one answer in exerciseWithOccurrences
     answers.splice(i, 1);
   }
 
   public deleteOneExercise(exercise: Exercise): void {
-    // TODO connect to FB and delete one exercise
+    // TODO connect to FB and delete one exerciseWithOccurrences
     const index = this.dataSource.filteredData.findIndex(x => x.id === exercise.id);
     this.dataSource.filteredData.splice(index, 1);
     this.showAnswers.splice(index, 1);

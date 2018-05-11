@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs/index';
-import {CacheService} from './CacheService';
+import {CacheService} from './cache.service';
 import {map, shareReplay} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {TestShortInfo} from '../models/TestShortInfo';
@@ -77,7 +77,7 @@ export class TestListService {
   }
 
   private TMPgenerateTestExercise() {
-    const MAX_EXERCISES = 5;
+    const MAX_EXERCISES = 2;
     for (let i = 0; i < MAX_EXERCISES; i++) {
       for (let j = 0; j < MAX_EXERCISES; j++) {
         this.TMP_EXERCISES.push({
