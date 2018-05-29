@@ -7,11 +7,19 @@ const appRoutes: Routes = [
    */
   {
     path: 'test/:testId',
-    loadChildren: 'app/features/test/test.module#TestModule'
+    loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
   {
     path: 'tests-list',
     loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule'
+  },
+  {
+    path: 'test-info/:testId',
+    loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
+  },
+  {
+    path: 'test/:testId/exercises',
+    loadChildren: 'app/features/exercises-list/exercises-list.module#ExercisesListModule'
   },
   // otherwise redirect to plan
   {path: '', redirectTo: 'tests-list', pathMatch: 'full'},

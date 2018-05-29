@@ -1,0 +1,121 @@
+<div class="exercise-header" *ngIf="isTestStart">
+
+  <button mat-icon-button (click)="saveProgress()">
+    <mat-icon aria-label="Save icon">save</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="more">
+    <mat-icon aria-label="More icon">more_vert</mat-icon>
+  </button>
+
+  <!-- More menu -->
+  <mat-menu #more="matMenu" xPosition="before">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="Profile icon">person</mat-icon>
+        <span>TODO</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon aria-label="User type icon">accessibility</mat-icon>
+        <span>TODO</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="resetMenu">
+        <mat-icon aria-label="Refresh icon">refresh</mat-icon>
+        <span>Reset test</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- Reset menu -->
+  <mat-menu #resetMenu="matMenu" xPosition="before">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="Cancel reset">cancel</mat-icon>
+        <span>Cancel</span>
+      </button>
+      <button mat-menu-item (click)="resetTest()">
+        <mat-icon aria-label="Done reset">done</mat-icon>
+        <span>Reset</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+</div>
+
+<app-test-config *ngIf="!isTestStart"
+                 (startTestEvent)="handleStartTest($event)"></app-test-config>
+
+<div class="exercise-content" *ngIf="isTestStart">
+
+  <!-- STATS - RATIOS -->
+  <div class="progress">
+    <div class="progress-bar">
+      <span>Reviewed: {{reviewedExercisesCounter}} / {{origTestExercises.length}}</span>
+      <mat-progress-bar
+        style="margin-top: 5px;"
+        color="accent"
+        mode="determinate"
+        [value]="countReviewedRatio()">
+      </mat-progress-bar>
+    </div>
+    <div class="progress-bar">
+      <span>Mastered: {{masteredExercisesCount}} / {{origTestExercises.length}}</span>
+      <mat-progress-bar
+        style="margin-top: 5px;"
+        color="primary"
+        mode="determinate"
+        [value]="countMasteredRatio()">
+      </mat-progress-bar>
+    </div>
+  </div> <!-- end STATS -->
+
+
+  <div class="third-row" *ngIf="!isTestEnd">
+    <div>
+      Occurrences: {{currentExercise.occurrences}}
+    </div>
+
+    <div class="auto-play">
+      <mat-slide-toggle
+        class="example-margin"
+        color="accent"
+        [disabled]="answerClickedOutput"
+        [(ngModel)]="isAutoPlay">
+        Auto play
+      </mat-slide-toggle>
+    </div>
+
+  </div>
+
+
+  <app-exercise *ngIf="!isTestEnd"
+                [exerciseWithOccurrences]="currentExercise"
+                [repetitionExerciseNumber]="repetitionExerciseNumber"
+                (answerClicked)="handleSelectedAnswer($event)"
+                style="overflow-x: hidden">
+  </app-exercise>
+
+  <!-- EXERCISES IN TABS -->
+  <!--<mat-tab-group *ngIf="!isTestEnd">-->
+  <!--<mat-tab *ngFor="let exercise of preparedTestExercises; let i=index;" [label]="exercise.exercise.number">-->
+  <!--<app-exercise *ngIf="exercise.occurrences > 0" [exerciseWithOccurrences]="exercise"-->
+  <!--(answerClicked)="handleSelectedAnswer($event)"></app-exercise>-->
+  <!--</mat-tab>-->
+  <!--</mat-tab-group>-->
+
+  <div *ngIf="isTestEnd" class="test-end">
+    <mat-icon id="done" aria-label="Done icon">done</mat-icon>
+    <span>Congratulations, you've mastered all the tasks!</span>
+    <button mat-raised-button color="accent" (click)="resetTest()">RESET TEST</button>
+  </div>
+
+  <!-- next exerciseWithOccurrences button-->
+  <div class="next-exercise" *ngIf="!isTestEnd">
+    <button mat-raised-button
+            *ngIf="!isAutoPlay"
+            [disabled]="!answerClickedOutput"
+            (click)="nextExercise()">
+      Next
+    </button>
+  </div>
+</div>

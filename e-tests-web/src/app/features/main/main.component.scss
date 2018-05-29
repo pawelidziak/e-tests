@@ -2,27 +2,50 @@
 @import '../../shared/mixins';
 
 mat-drawer-container {
-  height: calc(100vh - 56px);
+  height: 100vh;
 }
 
 mat-drawer {
-  @media #{$gt-md_size} {
-    width: 250px;
+  overflow-x: hidden;
+  min-width: 200px;
+  @media #{$gt-sm_size} {
+    min-width: 250px;
   }
   @include box_shadow();
 }
 
-.small-drawer {
-  @include box_shadow();
-  width: 40px;
-  height: 100%;
-}
-
-.drawer-content {
-  padding: .5*$margin;
-  padding-top: $margin;
-}
 
 .main-content {
   height: calc(100% - 64px);
 }
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .topbar-content {
+    margin-top: 75px;
+  }
+  .footer {
+    display: flex;
+    button {
+      width: 50%;
+    }
+  }
+}
+
+.test-actions {
+  display: flex;
+  button {
+    width: 50%;
+  }
+}
+
+.topbar-actions {
+  margin-top: $margin;
+  display: flex;
+  flex-direction: column;
+}
+

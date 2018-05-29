@@ -4,4 +4,10 @@ export interface Exercise {
   answers: Array<string>;
   correctAnswer: number;
   number: number;
+  testId: string;
+}
+
+export interface ExerciseWithOccurrences {
+  exercise: Exercise;
+  occurrences: number;
 }

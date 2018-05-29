@@ -1,0 +1,36 @@
+<section class="section-test-info">
+
+  <div class="actions-button">
+
+    <div>
+
+    </div>
+    <div>
+      <button mat-raised-button color="primary" class="one-action" [routerLink]="'/test/' + testId">
+        <mat-icon aria-label="Start learn icon">play_circle_outline</mat-icon>
+        <span>learn</span>
+      </button>
+
+      <button mat-raised-button color="accent" class="one-action">
+        <mat-icon aria-label="Start learn icon">assignment</mat-icon>
+        <span>test</span>
+      </button>
+
+      <button mat-raised-button class="one-action" [routerLink]="'/test/' + testId + '/exercises'">
+        <mat-icon aria-label="Start learn icon">edit</mat-icon>
+        <span>edit</span>
+      </button>
+    </div>
+
+
+    <div>
+      <button mat-icon-button>
+        <mat-icon aria-label="Settings icon">settings</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+
+</section>
+

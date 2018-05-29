@@ -4,11 +4,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JwtInterceptor} from './jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {throwIfAlreadyLoaded} from './module-import-guard';
-import {TestService} from './services/TestService';
-import {TestListService} from './services/TestListService';
+import {TestService} from './services/test.service';
+import {TestListService} from './services/test-list.service';
 import {Overlay} from '@angular/cdk/overlay';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {GestureConfig} from '@angular/material';
+import {HeaderService} from './services/header.service';
+import {RWDService} from './services/RWD.service';
+import {CacheService} from './services/cache.service';
 
 @NgModule({
   declarations: [],
@@ -27,6 +30,9 @@ import {GestureConfig} from '@angular/material';
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
     Overlay, // needed for angular ckd
+    RWDService,
+    CacheService,
+    HeaderService,
     TestListService,
     TestService
   ]

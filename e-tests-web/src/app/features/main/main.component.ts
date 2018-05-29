@@ -1,4 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {RWDService} from '../../core/services/RWD.service';
+import {OverlayContainer} from '@angular/cdk/overlay';
+import {AppSettingsComponent} from '../app-settings/app-settings.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-main',
@@ -7,23 +11,35 @@ import {Component, HostListener, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  private SMALL_DEVICES = 1279;
-  public hideDrawer = false;
-  public isSmallDevice = false;
+  @HostBinding('class') componentCssClass;
+  public isSmallScreen = false;
 
-  constructor() {
-    if (window.innerWidth < this.SMALL_DEVICES) {
-      this.hideDrawer = true;
-      this.isSmallDevice = true;
-    }
+  constructor(private rwdService: RWDService,
+              public dialog: MatDialog,
+              public overlayContainer: OverlayContainer) {
+    this.rwdService.isSmallScreen.subscribe(res => {
+      this.isSmallScreen = res;
+    });
+
   }
 
   ngOnInit() {
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.hideDrawer = event.target.innerWidth <= this.SMALL_DEVICES;
-    this.isSmallDevice = event.target.innerWidth <= this.SMALL_DEVICES;
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(AppSettingsComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.theme) {
+        this.onSetTheme(result.theme);
+      }
+    });
+  }
+
+  private onSetTheme(theme) {
+    this.overlayContainer.getContainerElement().classList.add(theme);
+    this.componentCssClass = theme;
   }
 }
