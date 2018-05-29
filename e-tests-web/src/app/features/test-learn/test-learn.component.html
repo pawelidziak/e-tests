@@ -90,6 +90,7 @@
 
   <app-exercise *ngIf="!isTestEnd"
                 [exerciseWithOccurrences]="currentExercise"
+                [repetitionExerciseNumber]="repetitionExerciseNumber"
                 (answerClicked)="handleSelectedAnswer($event)"
                 style="overflow-x: hidden">
   </app-exercise>

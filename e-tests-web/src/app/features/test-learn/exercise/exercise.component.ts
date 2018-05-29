@@ -2,11 +2,6 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
 import {sliderAnimation} from '../../../shared/animations';
 
-export interface AnswerClickedDTO {
-  isCorrect: boolean;
-  exerciseNumber: number;
-}
-
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -16,6 +11,7 @@ export interface AnswerClickedDTO {
 export class ExerciseComponent implements OnInit, OnChanges {
 
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
+  @Input() repetitionExerciseNumber: number;
   @Output() answerClicked: EventEmitter<ExerciseWithOccurrences> = new EventEmitter();
 
   public isAnswerClicked: boolean;
@@ -97,7 +93,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   private increaseExerciseOccurrences(): void {
-    this.exerciseWithOccurrences.occurrences += 1;
+    this.exerciseWithOccurrences.occurrences += this.repetitionExerciseNumber;
   }
 
   private decreaseExerciseOccurrences(): void {

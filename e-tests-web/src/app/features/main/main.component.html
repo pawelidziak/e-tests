@@ -1,13 +1,43 @@
 <section class="section-main">
 
-  <app-header [drawer]="drawer"></app-header>
-
+  <!--<app-header [drawer]="drawer"></app-header>-->
   <mat-drawer-container (backdropClick)="drawer.close()">
 
     <mat-drawer [disableClose]="true" #drawer [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen">
 
       <div class="drawer-content">
-        <button routerLink="/tests-list">ALL TESTS</button>
+        <div class="topbar">
+          <app-header></app-header>
+
+          <div class="topbar-content">
+
+            <div class="test-actions">
+              <button mat-button id="search-button">
+                <mat-icon aria-label="Search icon">search</mat-icon>
+                <span>Search</span>
+              </button>
+              <button mat-button>
+                <mat-icon aria-label="Create icon">add</mat-icon>
+                <span>Create</span>
+              </button>
+            </div>
+
+            <div class="topbar-actions">
+              <button mat-button routerLink="/tests-list">Browse tests</button>
+              <button mat-button>Your tests</button>
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <div class="footer">
+          <button mat-button>Contact</button>
+          <button mat-button (click)="openDialog()">Settings</button>
+        </div>
+
       </div>
 
     </mat-drawer>

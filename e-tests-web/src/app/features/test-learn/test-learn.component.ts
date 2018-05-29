@@ -150,7 +150,6 @@ export class TestLearnComponent implements OnInit {
   private getRandomExercise(): ExerciseWithOccurrences {
     while (true) {
       const item = this.preparedTestExercises[Math.floor(Math.random() * this.preparedTestExercises.length)];
-      console.log(item);
       if (item.occurrences > 0) {
         return {
           exercise: item.exercise,
@@ -197,7 +196,6 @@ export class TestLearnComponent implements OnInit {
     for (const exercise of this.origTestExercises) {
       this.preparedTestExercises.push({exercise: exercise, occurrences: this.occurrencesExerciseNumber});
     }
-    console.log(this.preparedTestExercises);
     this.testService.shuffleArray(this.preparedTestExercises);
   }
 

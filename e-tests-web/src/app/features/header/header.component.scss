@@ -27,3 +27,40 @@ mat-toolbar {
     }
   }
 }
+
+//////
+
+.wave-bg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $primary-dark;
+  width: 150%;
+  height: 200px;
+  margin-top: -110px;
+  border-radius: 50%;
+  @include box_shadow();
+}
+
+.app-name {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: $font-normal;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  color: $text-white;
+}
+
+.header-title {
+  padding: 10px 10px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  transform: translateX(-50%);
+}
