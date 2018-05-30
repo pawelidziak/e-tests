@@ -8,12 +8,10 @@ import {SpinnerModule} from './shared/spinner/spinner.module';
 import {MainModule} from './features/main/main.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
-import {AppSettingsComponent} from './features/app-settings/app-settings.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AppSettingsComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(AppSettingsComponent, {
-      width: '250px'
+      width: '300px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
     });
   }
 
-  private onSetTheme(theme) {
+  private onSetTheme(theme: string) {
     this.overlayContainer.getContainerElement().classList.add(theme);
     this.componentCssClass = theme;
   }

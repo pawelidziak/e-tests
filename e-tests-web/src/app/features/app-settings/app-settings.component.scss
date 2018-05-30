@@ -1,0 +1,44 @@
+@import '../../shared/variables';
+
+.section-app-settings {
+}
+
+.app-theme {
+  display: flex;
+  flex-direction: column;
+  .app-theme-options {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.header {
+  overflow: hidden;
+  //font-size: 1.1*$font-normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  .fancy {
+    line-height: .5;
+    display: inline-block;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      border-bottom: 1px solid $divider_color;
+      width: 100vw;
+      margin-left: 5px;
+    }
+  }
+  margin-bottom: $margin;
+}
+
+#dark-button {
+  background-color: $bg-dark;
+  color: $text-white;
+}
+
+#light-button {
+  background-color: $text-white;
+  color: $text-dark;
+}
