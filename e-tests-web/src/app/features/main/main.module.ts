@@ -4,6 +4,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {MatButtonModule, MatDialogModule, MatIconModule, MatSidenavModule} from '@angular/material';
 import {HeaderModule} from '../header/header.module';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
+import {AppSettingsModule} from '../app-settings/app-settings.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {AppSettingsComponent} from '../app-settings/app-settings.component';
   imports: [
     SharedModule,
     HeaderModule,
+    AppSettingsModule,
 
     MatDialogModule,
     MatSidenavModule,
