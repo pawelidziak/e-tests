@@ -3,8 +3,7 @@ import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
 import {TestService} from '../../core/services/test.service';
 import {StartTestEvent} from './test-config/test-config.component';
 import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs/index';
-import {HeaderService} from '../../core/services/header.service';
+import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 import {TestListService} from '../../core/services/test-list.service';
 
 @Component({
@@ -35,23 +34,21 @@ export class TestLearnComponent implements OnInit {
   public answerClickedOutput: boolean;
   public isTestEnd: boolean;
   public isTestStart: boolean;
-  private routeSub: Subscription;
   private testId: string;
 
   constructor(private testService: TestService,
               private testListService: TestListService,
               private route: ActivatedRoute,
               private headerService: HeaderService) {
-    this.routeSub = this.route.parent.params.subscribe(params => this.testId = params['testId']);
   }
 
   ngOnInit() {
+    const routeSub$ = this.route.parent.params.subscribe(params => this.testId = params['testId']);
     this.initStats();
     this.getTestExercises();
   }
 
   saveProgress(): void {
-    const cos = [];
     console.log(this.preparedTestExercises);
   }
 
@@ -141,7 +138,7 @@ export class TestLearnComponent implements OnInit {
       res => {
         this.origTestExercises = res;
         // this.headerService.setHeaderText(res.testName);
-        this.headerService.setBackButton();
+        this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, '');
       },
       error => console.log(error)
     );

@@ -8,45 +8,22 @@ export enum HeaderButtonType {
 
 @Injectable()
 export class HeaderService {
+  private _headerText: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _headerButton: BehaviorSubject<HeaderButtonType> = new BehaviorSubject<HeaderButtonType>(null);
+
   constructor() {
   }
 
-  private _headerText: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  get headerText(): BehaviorSubject<string> {
+  public getHeaderTextValue(): BehaviorSubject<string> {
     return this._headerText;
   }
 
-  set headerText(value: BehaviorSubject<string>) {
-    this._headerText = value;
-  }
-
-  private _headerButton: BehaviorSubject<HeaderButtonType> = new BehaviorSubject<HeaderButtonType>(null);
-
-  get headerButton(): BehaviorSubject<HeaderButtonType> {
+  public getHeaderButtonValue(): BehaviorSubject<HeaderButtonType> {
     return this._headerButton;
   }
 
-  set headerButton(value: BehaviorSubject<HeaderButtonType>) {
-    this._headerButton = value;
+  public setHeaderButtonAndText(button: HeaderButtonType, text: string): void {
+    this._headerButton.next(button);
+    this._headerText.next(text);
   }
-
-  public setHomeButtonAndText(): void {
-    this.setHomeButton();
-    this.setHeaderText('E-Testo');
-  }
-
-  public setHeaderText(text: string): void {
-    this.headerText.next(text);
-  }
-
-  public setHomeButton(): void {
-    this.headerButton.next(HeaderButtonType.HOME);
-  }
-
-  public setBackButton(): void {
-    this.headerButton.next(HeaderButtonType.BACK);
-  }
-
-
 }
