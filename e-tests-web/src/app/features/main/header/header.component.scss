@@ -1,0 +1,11 @@
+@import '../../../shared/variables';
+@import '../../../shared/mixins';
+
+.my-header {
+  display: flex;
+  align-items: center;
+  background-color: $primary-dark;
+  padding: .25*$margin;
+  @include box_shadow;
+  color: $text-white;
+}

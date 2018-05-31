@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HeaderService} from '../../core/services/header.service';
+import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatTableDataSource} from '@angular/material';
@@ -62,8 +62,7 @@ export class TestInfoComponent implements OnInit {
   }
 
   private setHeader(headerText: string) {
-    this.headerService.setHeaderText(headerText);
-    this.headerService.setBackButton();
+    this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, headerText);
   }
 
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TestListService} from '../../core/services/test-list.service';
 import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs/index';
-import {HeaderService} from '../../core/services/header.service';
+import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
 import {TestShortInfo} from '../../core/models/TestShortInfo';
 
@@ -19,7 +19,6 @@ export class TestsListComponent implements OnInit {
   constructor(private testListService: TestListService,
               private headerService: HeaderService,
               private router: Router) {
-    this.headerService.setHomeButtonAndText();
   }
 
   applyFilter(filterValue: string) {
@@ -41,6 +40,7 @@ export class TestsListComponent implements OnInit {
     this.source$ = this.testListService.getTestsList().subscribe(
       res => {
         this.dataSource = new MatTableDataSource(res);
+        this.headerService.setHeaderButtonAndText(HeaderButtonType.HOME, '');
       },
       error => console.log(error)
     );

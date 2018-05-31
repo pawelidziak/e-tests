@@ -1,0 +1,9 @@
+<div class="my-header">
+  <button mat-icon-button *ngIf="isSmallScreen && headerButton === HeaderButtonType.HOME" (click)="drawer.toggle()">
+    <mat-icon aria-label="Home icon">home</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="headerButton === HeaderButtonType.BACK" (click)="backClicked()">
+    <mat-icon aria-label="Home icon">arrow_back</mat-icon>
+  </button>
+  <span>{{headerText}}</span>
+</div>

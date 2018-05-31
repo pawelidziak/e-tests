@@ -3,7 +3,7 @@ import {Exercise} from '../../core/models/Exercise';
 import {MatTableDataSource} from '@angular/material';
 import {TestListService} from '../../core/services/test-list.service';
 import {ActivatedRoute} from '@angular/router';
-import {HeaderService} from '../../core/services/header.service';
+import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-exercises-list',
@@ -112,8 +112,7 @@ export class ExercisesListComponent implements OnInit {
   }
 
   private setHeader(headerText: string) {
-    this.headerService.setHeaderText(headerText);
-    this.headerService.setBackButton();
+    this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, headerText);
   }
 
   private initAuxiliaryTabs(): void {

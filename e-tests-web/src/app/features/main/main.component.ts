@@ -17,14 +17,18 @@ export class MainComponent implements OnInit {
   constructor(private rwdService: RWDService,
               public dialog: MatDialog,
               public overlayContainer: OverlayContainer) {
-    this.rwdService.isSmallScreen.subscribe(res => {
-      this.isSmallScreen = res;
-    });
-
   }
 
   ngOnInit() {
+    this.getRWDValue();
   }
+
+  private getRWDValue(): void {
+    const RWDsub$ = this.rwdService.isSmallScreen.subscribe(res => {
+      this.isSmallScreen = res;
+    });
+  }
+
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(AppSettingsComponent, {
