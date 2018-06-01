@@ -5,6 +5,12 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Injectable()
 export class RWDService {
+  private _isXSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  private _isSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  private _isMediumScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  private _isLargeScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  private _isXLargeScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+
   constructor(breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe(
       Breakpoints.XSmall
@@ -27,35 +33,24 @@ export class RWDService {
     ).subscribe(res => this._isXLargeScreen.next(res.matches));
   }
 
-  private _isXSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-
   get isXSmallScreen(): BehaviorSubject<boolean> {
     return this._isXSmallScreen;
   }
-
-  private _isSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   get isSmallScreen(): BehaviorSubject<boolean> {
     return this._isSmallScreen;
   }
 
-  private _isMediumScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-
   get isMediumScreen(): BehaviorSubject<boolean> {
     return this._isMediumScreen;
   }
-
-  private _isLargeScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   get isLargeScreen(): BehaviorSubject<boolean> {
     return this._isLargeScreen;
   }
 
-  private _isXLargeScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-
   get isXLargeScreen(): BehaviorSubject<boolean> {
     return this._isXLargeScreen;
   }
-
 
 }

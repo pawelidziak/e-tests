@@ -2,18 +2,7 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {TestInfoComponent} from './test-info.component';
 import {testInfoRouting} from './test-info.routing';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatRadioModule,
-  MatTableModule
-} from '@angular/material';
-import {CdkTableModule} from '@angular/cdk/table';
+import {MatButtonModule, MatIconModule,} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -23,17 +12,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     SharedModule,
     testInfoRouting,
 
-
     MatButtonModule,
-    MatIconModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    CdkTableModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatCardModule,
-    MatExpansionModule
+    MatIconModule
   ],
   exports: [],
   providers: []

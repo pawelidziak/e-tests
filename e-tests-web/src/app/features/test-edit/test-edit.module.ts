@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {ExercisesListComponent} from './exercises-list.component';
+import {TestEditComponent} from './test-edit.component';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -8,30 +8,30 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
-  MatRadioModule,
 } from '@angular/material';
-import {exercisesListRouting} from './exercises-list.routing';
+import {testEditRouting} from './test-edit.routing';
+import {ExerciseListModule} from '../exercise-list/exercise-list.module';
 
 @NgModule({
   declarations: [
-    ExercisesListComponent
+    TestEditComponent
   ],
   imports: [
     SharedModule,
-    exercisesListRouting,
+    testEditRouting,
+    ExerciseListModule,
 
     MatButtonModule,
     MatIconModule,
-    MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
     MatListModule
   ],
   exports: [
-    ExercisesListComponent
+    TestEditComponent
   ],
   providers: []
 })
-export class ExercisesListModule {
+export class TestEditModule {
 }

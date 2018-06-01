@@ -1,10 +1,10 @@
 export interface Exercise {
-  id: string;
+  id?: string;
   question: string;
   answers: Array<string>;
   correctAnswer: number;
   number: number;
-  testId: string;
+  testId?: string;
 }
 
 export interface ExerciseWithOccurrences {

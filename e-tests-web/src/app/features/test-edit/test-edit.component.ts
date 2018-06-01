@@ -6,16 +6,16 @@ import {ActivatedRoute} from '@angular/router';
 import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 
 @Component({
-  selector: 'app-exercises-list',
-  templateUrl: './exercises-list.component.html',
-  styleUrls: ['./exercises-list.component.scss']
+  selector: 'app-test-edit',
+  templateUrl: './test-edit.component.html',
+  styleUrls: ['./test-edit.component.scss']
 })
-export class ExercisesListComponent implements OnInit {
+export class TestEditComponent implements OnInit {
 
+  public testId: string;
   public dataSource: MatTableDataSource<Exercise>;
   public showAnswers = [];
   public exerciseEditableBooleans = [];
-  private testId: string;
 
   constructor(private route: ActivatedRoute,
               private headerService: HeaderService,

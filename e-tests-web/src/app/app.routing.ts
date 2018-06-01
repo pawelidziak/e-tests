@@ -10,6 +10,10 @@ const appRoutes: Routes = [
     loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
   {
+    path: 'create',
+    loadChildren: 'app/features/create-test/create-test.module#CreateTestModule'
+  },
+  {
     path: 'tests-list',
     loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule'
   },
@@ -19,7 +23,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'test/:testId/exercises',
-    loadChildren: 'app/features/exercises-list/exercises-list.module#ExercisesListModule'
+    loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule'
   },
   // otherwise redirect to plan
   {path: '', redirectTo: 'tests-list', pathMatch: 'full'},

@@ -1,0 +1,36 @@
+<section class="section-test-edit">
+  <div class="test-edit-actions">
+    <mat-form-field style="width: 100%">
+      <mat-icon matPrefix>search</mat-icon>
+      <span matPrefix>&nbsp;</span>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search exercise">
+    </mat-form-field>
+
+    <button mat-icon-button [matMenuTriggerFor]="settings">
+      <mat-icon aria-label="Settings icon">more_vert</mat-icon>
+    </button>
+
+    <!-- More menu -->
+    <mat-menu #settings="matMenu" xPosition="before">
+      <ng-template matMenuContent>
+        <button mat-menu-item>
+          <mat-icon aria-label="Profile icon">person</mat-icon>
+          <span>TODO</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon aria-label="Profile icon">person</mat-icon>
+          <span>TODO</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon aria-label="Delete icon">delete_outline</mat-icon>
+          <span>Delete exercises</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+  </div>
+
+  <app-exercise-list [exerciseList]="dataSource.filteredData" [testId]="testId"></app-exercise-list>
+
+</section>

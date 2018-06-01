@@ -34,7 +34,7 @@ export class TestInfoComponent implements OnInit {
 
   private getTest() {
 
-    // first check if the test-learn was set (it was, when te page wasn't refresh)
+    // first check if the test-learn was set (it was, then te page wasn't refresh)
     this.currentTestShortInfo = this.testListService.getCurrentTest();
 
     if (this.currentTestShortInfo) {
