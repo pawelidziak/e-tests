@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {CreateTestComponent} from './create-test.component';
-import {createTestRouting} from './create-test.routing';
+import {TestDetailComponent} from './test-detail.component';
 import {
   MatButtonModule,
   MatDialogModule,
@@ -10,18 +9,17 @@ import {
   MatInputModule,
   MatStepperModule
 } from '@angular/material';
-import {ExerciseListModule} from '../exercise-list/exercise-list.module';
-import {SectionsModule} from './sections/sections.module';
+import {ExerciseListModule} from './exercise-list/exercise-list.module';
+import {CategoriesModule} from './categories/categories.module';
 
 @NgModule({
   declarations: [
-    CreateTestComponent
+    TestDetailComponent
   ],
   imports: [
     SharedModule,
-    createTestRouting,
     ExerciseListModule,
-    SectionsModule,
+    CategoriesModule,
 
     MatFormFieldModule,
     MatInputModule,
@@ -30,8 +28,10 @@ import {SectionsModule} from './sections/sections.module';
     MatDialogModule,
     MatStepperModule
   ],
-  exports: [],
+  exports: [
+    TestDetailComponent
+  ],
   providers: []
 })
-export class CreateTestModule {
+export class TestDetailModule {
 }

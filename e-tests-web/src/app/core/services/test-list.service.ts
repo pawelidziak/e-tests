@@ -5,6 +5,7 @@ import {map, shareReplay} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {TestShortInfo} from '../models/TestShortInfo';
 import {Exercise} from '../models/Exercise';
+import {Test} from '../models/Test';
 
 const CACHE_SIZE = 1;
 const TESTS_LIST_CACHE_KEY = 'tests';
@@ -35,7 +36,7 @@ export class TestListService {
     return of(this.TMP_TESTS.find(x => x.testId === testId));
   }
 
-  public getTestsList(): Observable<any> {
+  public getTestsList(): Observable<Test> {
     if (!this.cache.get(TESTS_LIST_CACHE_KEY)) {
       this.cache.set(TESTS_LIST_CACHE_KEY, this.requestTestsList().pipe(shareReplay(CACHE_SIZE)));
     }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exercise} from '../../core/models/Exercise';
+import {Exercise} from '../../../core/models/Exercise';
 
 @Component({
   selector: 'app-exercise-list',
@@ -11,8 +11,8 @@ export class ExerciseListComponent implements OnInit {
   @Input() exerciseList: Array<Exercise>;
   @Input() testId: string;
 
+  public searchText: string;
   public newExercise: Exercise;
-
   constructor() {
   }
 

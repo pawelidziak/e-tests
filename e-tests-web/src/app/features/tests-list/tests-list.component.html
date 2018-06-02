@@ -1,11 +1,11 @@
-<section class="section-tests-list" *ngIf="dataSource">
+<section class="section-tests-list">
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      <input matInput [(ngModel)]="searchText" placeholder="Search">
     </mat-form-field>
   </div>
 
-  <mat-card *ngFor="let test of dataSource.filteredData"
+  <mat-card *ngFor="let test of shortTestList | filterTest: searchText"
             class="one-test"
             (click)="navigateToTest(test)">
     <div class="test-header">
@@ -20,5 +20,7 @@
       {{test.testName }}
     </div>
   </mat-card>
-
+  <div *ngIf="shortTestList.length > 0 && (shortTestList | filterTest: searchText).length === 0" class="no-matches">No
+    matches
+  </div>
 </section>

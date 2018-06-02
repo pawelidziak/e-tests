@@ -11,7 +11,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'create',
-    loadChildren: 'app/features/create-test/create-test.module#CreateTestModule'
+    loadChildren: 'app/features/test-create/test-create.module#TestCreateModule'
   },
   {
     path: 'tests-list',

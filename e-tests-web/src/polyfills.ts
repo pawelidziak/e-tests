@@ -1,8 +1,8 @@
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
- * You can add your own extra polyfills to this file.
+ * You can addManually your own extra polyfills to this file.
  *
- * This file is divided into 2 sections:
+ * This file is divided into 2 testCategories:
  *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
  *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
  *      file.
@@ -36,7 +36,7 @@
 /** IE10 and IE11 requires the following for the Reflect API. */
 // import 'core-js/es6/reflect';
 /** Evergreen browsers require these. **/
-// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
+// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can removeSection.
 import 'core-js/es7/reflect';
 /**
  * Required to support Web Animations `@angular/platform-browser/animations`.

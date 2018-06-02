@@ -9,11 +9,9 @@ export class TestService {
   constructor() {
   }
 
-
   public getTest(testId: string) {
     // TODO connect to backend
-    // return new Observable.create.arguments(this.TMPgenerateExercises());
-    return of(this.TMPgenerateExercises());
+    return of(this.TMPgenerateTest());
   }
 
   public countOccurrencesInArray(array: Array<any>, search: number): number {
@@ -52,7 +50,7 @@ export class TestService {
 
 
   // TMP
-  private TMPgenerateExercises() {
+  private TMPgenerateTest() {
     const tmpList: Array<Exercise> = [];
     const MAX = 15;
 
@@ -71,7 +69,7 @@ export class TestService {
       testId: '1',
       testName: 'Test One',
       exercises: tmpList,
-      section: 'Section test-learn',
+      section: 'Category test-learn',
       author: 'Paweł Idziak'
     };
 

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {SharedModule} from '../../shared/shared.module';
+import {SharedModule} from '../../../shared/shared.module';
 import {ExerciseListComponent} from './exercise-list.component';
 import {
   MatButtonModule,
@@ -12,11 +12,13 @@ import {
   MatRadioModule
 } from '@angular/material';
 import {OneExerciseComponent} from './one-exercise/one-exercise.component';
+import {FilterExercisePipe} from '../../../shared/pipes/filter-exercise.pipe';
 
 @NgModule({
   declarations: [
     ExerciseListComponent,
-    OneExerciseComponent
+    OneExerciseComponent,
+    FilterExercisePipe
   ],
   imports: [
     SharedModule,
