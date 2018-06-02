@@ -1,0 +1,19 @@
+@import '../../../shared/mixins';
+@import '../../../shared/variables';
+
+.no-exercises {
+  text-align: center;
+  margin: 2*$margin .5*$margin;
+  color: $text_secondary;
+}
+
+#addExercise {
+  width: 100%;
+  height: 48px;
+  text-transform: uppercase;
+}
+
+.exercise-list-actions {
+  display: flex;
+
+}

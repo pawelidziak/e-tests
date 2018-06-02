@@ -1,0 +1,61 @@
+<section class="section-create-test" *ngIf="test">
+
+  <button mat-raised-button
+          class="button-fixed"
+          (click)="saveTest()">
+    SAVE
+  </button>
+  <mat-vertical-stepper>
+    <!-- STEP ONE -->
+    <mat-step>
+      <ng-template matStepLabel>
+        <div class="step-header">
+          <span>Test info</span>
+          <mat-icon *ngIf="hasError(test.testName)"
+                    aria-label="Warning icon">warning
+          </mat-icon>
+        </div>
+      </ng-template>
+
+      <div *ngIf="hasError(test.testName)" class="step-warning">
+        <p>Name cannot be empty</p>
+      </div>
+
+      <mat-form-field style="width: 100%" color="accent">
+        <input matInput placeholder="Test name" [(ngModel)]="test.testName">
+      </mat-form-field>
+    </mat-step>
+
+    <!-- STEP TWO -->
+    <mat-step>
+      <ng-template matStepLabel>
+        <div class="step-header">
+          <span>Categories</span>
+          <mat-icon *ngIf="hasError(test.categories)"
+                    aria-label="Warning icon">warning
+          </mat-icon>
+        </div>
+      </ng-template>
+
+      <div *ngIf="hasError(test.categories)" class="step-warning">
+        <p>Choose at least one category</p>
+      </div>
+
+      <app-categories [testCategories]="test.categories"></app-categories>
+    </mat-step>
+
+    <!-- STEP THREE -->
+    <mat-step class="step-exercises">
+      <ng-template matStepLabel>
+        <div class="step-header">
+          <span>Exercise</span>
+          <mat-icon *ngIf="hasError(test.exercises)"
+                    aria-label="Warning icon">warning
+          </mat-icon>
+        </div>
+      </ng-template>
+      <app-exercise-list [exerciseList]="test.exercises"></app-exercise-list>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</section>

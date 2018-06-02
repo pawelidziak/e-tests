@@ -11,13 +11,15 @@ import {
   MatInputModule,
   MatTableModule
 } from '@angular/material';
-import {CharLimitPipe} from '../../shared/pipes/CharLimitPipe';
+import {CharLimitPipe} from '../../shared/pipes/char-limit.pipe';
+import {FilterTestPipe} from '../../shared/pipes/filter-test.pipe';
 
 
 @NgModule({
   declarations: [
     TestsListComponent,
-    CharLimitPipe
+    CharLimitPipe,
+    FilterTestPipe
   ],
   imports: [
     SharedModule,

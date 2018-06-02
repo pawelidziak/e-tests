@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {RWDService} from '../../core/services/RWD.service';
-import {OverlayContainer} from '@angular/cdk/overlay';
+import {CdkScrollable, OverlayContainer} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {MatDialog} from '@angular/material';
 
@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material';
 export class MainComponent implements OnInit {
 
   @HostBinding('class') componentCssClass;
+  @ViewChild(CdkScrollable) scrollable: CdkScrollable;
   public isSmallScreen = false;
 
   constructor(private rwdService: RWDService,

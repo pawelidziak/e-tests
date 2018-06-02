@@ -1,0 +1,37 @@
+<section class="section-exercise-list" *ngIf="exerciseList">
+
+  <div class="exercise-list-actions">
+
+    <button mat-button color="accent" id="addExercise" (click)="showNewExercise()">
+      <mat-icon aria-label="Add exercise">add</mat-icon>
+      <span>Add exercise</span>
+    </button>
+    <mat-form-field color="accent" floatLabel="never">
+      <mat-icon matPrefix>search</mat-icon>
+      <span matPrefix>&nbsp;</span>
+      <input matInput [(ngModel)]="searchText" placeholder="Search exercise">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="!newExercise && exerciseList.length === 0" class="no-exercises">
+    <span>Lack of exercises. Add some!</span>
+  </div>
+
+  <div *ngIf="newExercise">
+    <app-one-exercise [exercise]="newExercise"
+                      [editMode]="true"
+                      [showAnswers]="true"
+                      (addedExercise)="handleAddedExercise($event)"
+    ></app-one-exercise>
+  </div>
+  <app-one-exercise *ngFor="let exercise of exerciseList | filterExercise : searchText"
+                    [exercise]="exercise"
+                    (addedExercise)="handleAddedExercise($event)"
+  ></app-one-exercise>
+
+  <div *ngIf="exerciseList.length > 0 && (exerciseList | filterExercise: searchText).length === 0" class="no-matches">No
+    matches
+  </div>
+
+
+</section>

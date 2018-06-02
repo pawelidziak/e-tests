@@ -5,16 +5,16 @@
     <mat-drawer [disableClose]="true" #drawer [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen">
 
       <div class="drawer-content">
+        <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
         <div class="topbar">
           <app-top-bar></app-top-bar>
-
           <div class="topbar-content">
             <div class="test-actions">
               <button mat-button id="search-button">
                 <mat-icon aria-label="Search icon">search</mat-icon>
                 <span>Search</span>
               </button>
-              <button mat-button>
+              <button mat-button routerLink="create">
                 <mat-icon aria-label="Create icon">add</mat-icon>
                 <span>Create</span>
               </button>
@@ -39,11 +39,17 @@
 
     </mat-drawer>
 
-    <div class="main-content">
-      <app-header [drawer]="drawer" [isSmallScreen]="isSmallScreen"></app-header>
-      <router-outlet></router-outlet>
-    </div>
+    <div cdkScrollable>
 
+      <app-header [drawer]="drawer"
+                  [isSmallScreen]="isSmallScreen"
+      ></app-header>
+
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
   </mat-drawer-container>
 
 </section>

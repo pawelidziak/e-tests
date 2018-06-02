@@ -6,6 +6,7 @@ import {TopBarModule} from './top-bar/top-bar.module';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {AppSettingsModule} from '../app-settings/app-settings.module';
 import {HeaderModule} from './header/header.module';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import {HeaderModule} from './header/header.module';
     MatDialogModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+
+    ScrollDispatchModule
   ],
   exports: [
     MainComponent

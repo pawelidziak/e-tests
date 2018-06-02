@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: calc(100% - 52px); // - header
   margin: 0 $margin;
   .one-setting {
     width: 100%;

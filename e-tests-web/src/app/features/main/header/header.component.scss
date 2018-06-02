@@ -6,6 +6,15 @@
   align-items: center;
   background-color: $primary-dark;
   padding: .25*$margin;
-  @include box_shadow;
   color: $text-white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  @media #{$gt-md_size} {
+    left: 250px;
+    width: calc(100% - 250px);
+  }
+  z-index: 1;
+  @include box_shadow;
 }

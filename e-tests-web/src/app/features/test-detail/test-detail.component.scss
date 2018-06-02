@@ -1,0 +1,45 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.button-fixed {
+  position: fixed;
+  top: 8px;
+  right: .5*$margin;
+  z-index: 2;
+  @media #{$gt-lg_size} {
+    right: $margin;
+  }
+}
+
+mat-vertical-stepper {
+  background: transparent !important;
+}
+
+.stepper-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/deep/ .mat-step-header .mat-step-icon {
+  background-color: $accent !important;
+}
+
+/deep/ mat-vertical-stepper > div:nth-child(3) > div {
+  margin: 0;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin-left: $margin;
+    color: $material-red;
+    @include mat-icon-size(32px);
+  }
+}
+
+.step-warning {
+  text-align: center;
+  color: $material-red;
+}
