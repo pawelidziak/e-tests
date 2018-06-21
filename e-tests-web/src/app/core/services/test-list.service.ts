@@ -35,7 +35,7 @@ export class TestListService {
     return of(this.TMP_TESTS.find(x => x.testId === testId));
   }
 
-  public getTestsList(): Observable<TestShortInfo> {
+  public getTestsList(): Observable<TestShortInfo[]> {
     if (!this.cache.get(TESTS_LIST_CACHE_KEY)) {
       this.cache.set(TESTS_LIST_CACHE_KEY, this.requestTestsList().pipe(shareReplay(CACHE_SIZE)));
     }
