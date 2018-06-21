@@ -12,11 +12,13 @@ import {GestureConfig} from '@angular/material';
 import {HeaderService} from './services/header.service';
 import {RWDService} from './services/RWD.service';
 import {CacheService} from './services/cache.service';
+import {FirebaseModule} from './firebase.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    FirebaseModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],
