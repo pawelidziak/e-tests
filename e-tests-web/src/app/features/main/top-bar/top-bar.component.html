@@ -3,14 +3,20 @@
 
   <div class="header-title">
     <div class="z-index-2 app-name">E-Testo</div>
-    <button mat-icon-button>
+    <button mat-icon-button *ngIf="user">
       <mat-icon class="z-index-2" aria-label="Logout icon" style="color: white">exit_to_app</mat-icon>
     </button>
   </div>
   <div class="user-info">
-    <button mat-raised-button [matMenuTriggerFor]="account">
+    <button *ngIf="user" mat-raised-button [matMenuTriggerFor]="account">
       <mat-icon aria-label="Account icon" style="margin-right: 5px;">account_circle</mat-icon>
-      <span>User</span>
+      <span>nazwa</span>
+    </button>
+    <button *ngIf="!user"
+            routerLink="login"
+            mat-raised-button class="login-button">
+      <mat-icon aria-label="Account icon" style="margin-right: 5px;">account_circle</mat-icon>
+      <span>login</span>
     </button>
   </div>
 

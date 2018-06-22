@@ -1,0 +1,72 @@
+<section class="section-login">
+
+
+  <mat-card class="tabs-container">
+
+    <mat-tab-group [dynamicHeight]="true">
+      <mat-tab label="Login">
+
+        <div class="login-container">
+
+          <button mat-raised-button id="google"> Login with Google</button>
+
+          <span class="or-divider">or</span>
+          <span class="or-text">login with created account</span>
+
+          <mat-form-field color="accent">
+            <input matInput placeholder="Email" type="text">
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+            <input matInput placeholder="Password" type="password">
+          </mat-form-field>
+
+          <div class="login-actions">
+            <mat-checkbox class="example-margin" [(ngModel)]="rememberMe">Remember me</mat-checkbox>
+            <button mat-button color="accent">login</button>
+          </div>
+
+
+        </div>
+
+        <button mat-button id="forgotButton">Forgot password?</button>
+
+      </mat-tab>
+
+      <mat-tab label="Register">
+
+        <div class="register-container">
+
+          <span class="register-text">create account for free!</span>
+
+          <form class="register-form" [formGroup]="registerForm">
+            <mat-form-field color="accent">
+              <input type="text" matInput placeholder="Display Name" [formControl]="displayName">
+            </mat-form-field>
+
+            <mat-form-field color="accent">
+              <input type="email" matInput placeholder="Email" [formControl]="email">
+            </mat-form-field>
+
+            <mat-form-field color="accent">
+              <input type="password" matInput placeholder="Password" [formControl]="password">
+            </mat-form-field>
+
+            <mat-form-field color="accent">
+              <input type="password" matInput placeholder="Confirm password" [formControl]="confirmPassword">
+            </mat-form-field>
+
+            <button mat-button color="accent" (click)="register();error; response = ''" style="margin-top: 20px;">
+              <span>Register</span>
+            </button>
+
+          </form>
+        </div>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </mat-card>
+
+</section>

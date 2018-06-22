@@ -6,6 +6,10 @@ const appRoutes: Routes = [
    * Define lazy loading routes here
    */
   {
+    path: 'login',
+    loadChildren: 'app/features/login/login.module#LoginModule'
+  },
+  {
     path: 'test/:testId',
     loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },

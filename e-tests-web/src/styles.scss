@@ -34,7 +34,7 @@ html, body {
   z-index: 2;
 }
 
-.header-line-after {
+.header-line-right {
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
@@ -49,6 +49,28 @@ html, body {
     height: 1px;
     position: absolute;
     top: 50%;
+  }
+}
+
+.header-line-both {
+  display: table;
+  white-space: nowrap;
+  width: 100%;
+  &:before, &:after {
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-color: $divider_color;
+    height: 1px;
+    content: "";
+    display: table-cell;
+    width: 50%;
+  }
+  &:before {
+    border-right: 15px solid transparent;
+  }
+  &::after {
+    border-left: 15px solid transparent;
+
   }
 }
 
