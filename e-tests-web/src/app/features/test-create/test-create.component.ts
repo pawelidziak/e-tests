@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Test} from '../../core/models/Test';
+import {NEWTest} from '../../core/models/Test';
 import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
+import {Exercise} from '../../core/models/Exercise';
 
 @Component({
   selector: 'app-test-create',
@@ -8,7 +9,8 @@ import {HeaderButtonType, HeaderService} from '../../core/services/header.servic
   styleUrls: ['./test-create.component.scss']
 })
 export class TestCreateComponent implements OnInit {
-  public newTest: Test;
+  public newTest: NEWTest;
+  public testExercises: Array<Exercise>;
   private readonly HEADER_TEXT = 'Create';
 
   constructor(private headerService: HeaderService) {
@@ -16,16 +18,17 @@ export class TestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, this.HEADER_TEXT);
-    this.defineEmptyTestInterface();
+    this.defineEmptyTest();
   }
 
-  private defineEmptyTestInterface() {
+  private defineEmptyTest() {
     this.newTest = {
       testName: '',
-      exercises: [],
-      section: '',
       categories: [],
-      author: ''
+      author: '',
+      desc: '',
+      createDate: new Date()
     };
+    this.testExercises = [];
   }
 }

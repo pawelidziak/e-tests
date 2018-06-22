@@ -13,9 +13,11 @@ import {TestService} from '../../core/services/test.service';
 })
 export class TestEditComponent implements OnInit {
 
-  public testId: string;
+  private testId: string;
   public dataSource: MatTableDataSource<Exercise>;
-  public test: Test;
+  // TODO change to NEWTest
+  public testInfo: Test;
+  public testExercises: Array<Exercise>;
   constructor(private route: ActivatedRoute,
               private headerService: HeaderService,
               private testService: TestService) {
@@ -31,7 +33,8 @@ export class TestEditComponent implements OnInit {
   private getExercises(): void {
     const sub$ = this.testService.getTest(this.testId).subscribe(
       res => {
-        this.test = res;
+        this.testInfo = res;
+        this.testExercises = res.exercises;
         // TODO change text to testName
         this.setHeader('Exercises');
       },
