@@ -77,3 +77,11 @@
 mat-radio-group, /deep/ label, /deep/ .mat-radio-label-content {
   width: 100%;
 }
+
+.save-edit {
+  @include size(48px, 48px);
+  mat-icon {
+    @include mat-icon-size(36px);
+    line-height: 1;
+  }
+}

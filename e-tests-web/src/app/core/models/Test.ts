@@ -9,3 +9,13 @@ export interface Test {
   categories?: Array<Category>;
   author: string;
 }
+
+export interface NEWTest {
+  testId?: string;
+  testName: string;
+  categories: Array<Category>;
+  desc: string;
+  author: string;
+  createDate: Date;
+  updateDate?: Date;
+}

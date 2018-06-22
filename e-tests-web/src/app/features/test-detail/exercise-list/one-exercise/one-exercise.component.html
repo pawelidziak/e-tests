@@ -23,7 +23,8 @@
 
     <!-- EXERCISE ACTION BUTTONS -->
     <button mat-icon-button *ngIf="editMode"
-            (click)="stopEditExercise()">
+            (click)="stopEditExercise()"
+            class="save-edit">
       <mat-icon aria-label="Done editing" style="color: #8BC34A;">check_circle</mat-icon>
     </button>
     <div *ngIf="!editMode" class="exercise-header-buttons">

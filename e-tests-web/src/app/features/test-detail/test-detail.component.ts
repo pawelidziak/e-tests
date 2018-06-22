@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Test} from '../../core/models/Test';
+import {NEWTest} from '../../core/models/Test';
 import {RWDService} from '../../core/services/RWD.service';
+import {Exercise} from '../../core/models/Exercise';
 
 @Component({
   selector: 'app-test-detail',
@@ -9,7 +10,8 @@ import {RWDService} from '../../core/services/RWD.service';
 })
 export class TestDetailComponent implements OnInit {
 
-  @Input() test: Test;
+  @Input() testInfo: NEWTest;
+  @Input() testExercises: Array<Exercise>;
   public isSmallScreen = false;
   public savedClicked = false;
 
@@ -18,14 +20,14 @@ export class TestDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getRWDValue();
-    console.log(this.test);
+    console.log(this.testInfo);
   }
 
   public saveTest(): void {
     this.savedClicked = true;
     if (!this.isInvalidTest()) {
       // TODO add to db
-      console.log(this.test);
+      console.log(this.testInfo);
     }
   }
 
@@ -44,8 +46,8 @@ export class TestDetailComponent implements OnInit {
   }
 
   private isInvalidTest(): boolean {
-    return this.hasError(this.test.testName) ||
-      this.hasError(this.test.categories) ||
-      this.hasError(this.test.exercises);
+    return this.hasError(this.testInfo.testName) ||
+      this.hasError(this.testInfo.categories) ||
+      this.hasError(this.testExercises);
   }
 }
