@@ -138,7 +138,7 @@ export class TestLearnComponent implements OnInit {
       res => {
         this.origTestExercises = res;
         // this.headerService.setHeaderText(res.testName);
-        this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, '');
+        // this.headerService.setHeaderText('');
       },
       error => console.log(error)
     );

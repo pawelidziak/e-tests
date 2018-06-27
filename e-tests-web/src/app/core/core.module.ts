@@ -13,6 +13,7 @@ import {HeaderService} from './services/header.service';
 import {RWDService} from './services/RWD.service';
 import {CacheService} from './services/cache.service';
 import {FirebaseModule} from './firebase.module';
+import {AuthService} from './services/auth.service';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import {FirebaseModule} from './firebase.module';
 
     Overlay, // needed for angular ckd
     RWDService,
+    AuthService,
     CacheService,
     HeaderService,
     TestListService,

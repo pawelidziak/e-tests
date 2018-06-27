@@ -1,0 +1,41 @@
+@import '../../../shared/variables';
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-icon {
+  color: $text_secondary;
+}
+
+.register-text {
+  margin: 2*$margin $margin $margin;
+  text-align: center;
+  text-transform: uppercase;
+  color: $text_secondary;
+  letter-spacing: 1px;
+  font-size: $font-small;
+}
+
+.register-form {
+  div {
+    padding: .5*$margin .5*$margin 0;
+    @media #{$gt-xs_size} {
+      padding: $margin $margin 0;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+    height: 48px;
+    font-size: $font-normal;
+    margin-top: $margin;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}

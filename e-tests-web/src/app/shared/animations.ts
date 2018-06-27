@@ -1,4 +1,4 @@
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
 
 
 export function sliderAnimation() {
@@ -33,3 +33,21 @@ export function fadeInAnimation() {
     ]),
   ]);
 }
+
+export const routerTransition = trigger('routerTransition', [
+  transition('* <=> *', [
+    /* order */
+    /* 1 */ query(':enter, :leave', style({opacity: 0, position: 'fixed', width: '100%'})
+      , {optional: true}),
+    /* 2 */ group([  // block executes in parallel
+      query(':enter', [
+        style({transform: 'translateY(-3%)', opacity: 0}),
+        animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
+      ], {optional: true}),
+      query(':leave', [
+        style({transform: 'translateY(0%)', opacity: 1}),
+        animate('0.2s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0})),
+      ], {optional: true}),
+    ])
+  ])
+]);

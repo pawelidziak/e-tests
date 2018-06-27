@@ -40,14 +40,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 .light-theme {
   @include angular-material-theme($light-theme);
-  @include mat-dialog-theme($light-theme);
-  @include mat-menu-theme($light-theme)
 }
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
-  @include mat-dialog-theme($light-theme);
-  @include mat-menu-theme($light-theme)
 }
 
 
