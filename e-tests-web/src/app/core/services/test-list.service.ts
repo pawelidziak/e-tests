@@ -71,6 +71,7 @@ export class TestListService {
         exercisesListSize: j,
         section: `section-${j}`,
         author: 'Paweł Idziak',
+        desc: 'Superior developer experience, code completion, refactoring and less bugs\n',
         publicationDate: new Date()
       });
     }

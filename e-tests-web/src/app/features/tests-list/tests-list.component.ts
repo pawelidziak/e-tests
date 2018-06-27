@@ -12,7 +12,7 @@ import {TestShortInfo} from '../../core/models/TestShortInfo';
 export class TestsListComponent implements OnInit {
 
   public searchText: string;
-  private shortTestList: Array<TestShortInfo>;
+  public shortTestList: Array<TestShortInfo>;
 
   constructor(private testListService: TestListService,
               private headerService: HeaderService,
@@ -38,4 +38,14 @@ export class TestsListComponent implements OnInit {
     );
   }
 
+  public getTooltipText(value: string, test: TestShortInfo) {
+    switch (value) {
+      case 'progress':
+        return '49%';
+      case 'exercises':
+        return `${test.exercisesListSize} exercises`;
+      case 'sections':
+        return test.section;
+    }
+  }
 }

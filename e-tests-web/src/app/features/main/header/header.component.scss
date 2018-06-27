@@ -14,7 +14,9 @@
     padding: 16px;
   }
   @include box_shadow;
-  //height: 64px;
+  button {
+    outline: none;
+  }
 }
 
 .header-text {
