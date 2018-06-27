@@ -18,7 +18,7 @@ import {MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@
   exports: [
     TopBarComponent
   ],
-  providers: []
+  providers: [],
 })
 export class TopBarModule {
 }

@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs/index';
 
 export enum HeaderButtonType {
   HOME,
+  MENU,
   BACK
 }
 
@@ -24,6 +25,10 @@ export class HeaderService {
 
   public setHeaderButtonAndText(button: HeaderButtonType, text: string): void {
     this._headerButton.next(button);
+    this._headerText.next(text);
+  }
+
+  public setHeaderText(text: string): void {
     this._headerText.next(text);
   }
 }

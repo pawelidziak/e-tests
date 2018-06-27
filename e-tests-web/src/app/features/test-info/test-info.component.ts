@@ -62,7 +62,7 @@ export class TestInfoComponent implements OnInit {
   }
 
   private setHeader(headerText: string) {
-    this.headerService.setHeaderButtonAndText(HeaderButtonType.BACK, headerText);
+    this.headerService.setHeaderText(headerText);
   }
 
 }

@@ -3,15 +3,8 @@
 
 .exercise-header {
   display: flex;
-  //background-color: ;
   justify-content: flex-end;
   padding: 5px .5*$margin;
-  //color: $text-white;
-  //@include box_shadow;
-  //position: fixed;
-  //top: 56px;
-  //left: 0;
-
 }
 
 .exercise-content {
@@ -72,11 +65,8 @@
   }
 }
 
-/deep/ .mat-tab-label {
-  min-width: 48px !important;
-  max-width: 48px !important;
-}
+///deep/ .mat-tab-label {
+//  min-width: 48px !important;
+//  max-width: 48px !important;
+//}
 
-/deep/ mat-tab-header {
-  //display: none !important;
-}

@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NEWTest} from '../../core/models/Test';
 import {RWDService} from '../../core/services/RWD.service';
 import {Exercise} from '../../core/models/Exercise';
+import {fadeInAnimation} from "../../shared/animations";
 
 @Component({
   selector: 'app-test-detail',
   templateUrl: './test-detail.component.html',
-  styleUrls: ['./test-detail.component.scss']
+  styleUrls: ['./test-detail.component.scss'],
+  animations: [fadeInAnimation()]
 })
 export class TestDetailComponent implements OnInit {
 

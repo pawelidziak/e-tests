@@ -38,7 +38,7 @@ export class JwtInterceptor implements HttpInterceptor {
       this.loader.complete();
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
-          // redirect to the login route
+          // redirect to the auth route
           // or show a modal
         }
       }

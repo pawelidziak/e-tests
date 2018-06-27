@@ -2,13 +2,20 @@
 @import '../../shared/mixins';
 
 .button-fixed {
-  position: fixed;
-  top: 8px;
-  right: .5*$margin;
-  z-index: 2;
-  @media #{$gt-lg_size} {
-    right: $margin;
-  }
+  //position: fixed;
+  //top: 8px;
+  //right: .5*$margin;
+  //z-index: 2;
+  //@media #{$gt-lg_size} {
+  //  right: $margin;
+  //}
+
+}
+
+.button-save {
+  margin-right: .5*$margin;
+  display: flex;
+  justify-content: flex-end;
 }
 
 mat-vertical-stepper {

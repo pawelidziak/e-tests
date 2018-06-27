@@ -1,5 +1,6 @@
 @import '~normalize.css/normalize.css';
 @import 'app/shared/variables';
+@import 'app/shared/mixins';
 
 html, body {
   padding: 0;
@@ -28,6 +29,27 @@ html, body {
 
 .small-text {
   font-size: $font-small;
+}
+/*
+      MESSAGES
+ */
+.my-msg{
+  text-align: center;
+  margin: $margin;
+  padding: .5*$margin;
+  color: $text-white;
+  border-radius: $border-radius;
+  @include box_shadow;
+}
+
+.error-msg {
+  @extend .my-msg;
+  background-color: $material-red;
+}
+
+.ok-msg {
+  @extend .my-msg;
+  background-color: $material-green;
 }
 
 .z-index-2 {

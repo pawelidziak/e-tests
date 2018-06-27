@@ -32,7 +32,7 @@ export class TestsListComponent implements OnInit {
     const sub$ = this.testListService.getTestsList().subscribe(
       res => {
         this.shortTestList = res;
-        this.headerService.setHeaderButtonAndText(HeaderButtonType.HOME, '');
+        this.headerService.setHeaderButtonAndText(HeaderButtonType.MENU, '');
       },
       error => console.log(error)
     );

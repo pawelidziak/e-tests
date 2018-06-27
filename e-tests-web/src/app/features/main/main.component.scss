@@ -1,11 +1,11 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-mat-drawer-container {
+.sidenav-container {
   height: 100vh;
 }
 
-mat-drawer {
+.sidenav {
   overflow-x: hidden;
   min-width: 200px;
   @media #{$gt-sm_size} {
@@ -14,69 +14,32 @@ mat-drawer {
   @include box_shadow();
 }
 
-
 .main-content {
-  //height: calc(100% - 64px);
-  margin-top: 3*$margin;
-  overflow: auto;
+  padding-top: 3*$margin;
+}
+
+.my-nav {
   height: 100%;
 }
 
-.drawer-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-
-  .topbar-content {
-    margin-top: 75px;
-  }
-  .footer {
-    display: flex;
-    button {
-      width: 50%;
-    }
-  }
-}
-
-.test-actions {
-  display: flex;
-  button {
-    width: 50%;
-  }
-}
-
-.topbar-actions {
-  margin-top: $margin;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-fixed {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  left: 0;
-  @media #{$gt-md_size} {
-    left: 250px;
-    width: calc(100% - 250px);
-  }
-  z-index: 99;
-  //background-color: $primary-dark;
-  transition: all .2s ease-in-out;
+.nav-header {
   @include box_shadow;
-  ///deep/ .mat-form-field-underline {
-  //  background-color: $primary-light;
-  //}
-  ///deep/ .mat-input-element {
-  //  color: $primary-light;
-  //}
-  ///deep/ .mat-form-field-label {
-  //  color: $primary-light;
-  //  opacity: .7;
-  //}
 }
 
-.move-top {
-  margin-top: 150px;
+.my-list {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 72px);
+}
+
+.list-item {
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background-color: $hover_color;
+  }
+}
+
+.my-divider-stretch {
+  flex-grow: 1;
 }
