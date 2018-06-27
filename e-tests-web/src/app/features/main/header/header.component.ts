@@ -34,9 +34,7 @@ export class HeaderComponent implements OnInit {
 
   private getUser() {
     this.auth.currentUserAuthState.subscribe(
-      res => {
-        this.user = res;
-      },
+      res => this.user = res,
       error => console.log(error)
     );
   }

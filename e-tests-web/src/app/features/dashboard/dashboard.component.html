@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar class="sub-nav">
+  <a mat-tab-link
+     *ngFor="let e of examples"
+     [routerLink]="e.path"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    <mat-icon *ngIf="!isSmallScreen" aria-label="Link icon" class="link-icon">{{e.icon}}</mat-icon>
+    <span>{{e.label}}</span>
+  </a>
+</nav>
+
+<div style="margin-top: 200px"></div>
+<router-outlet></router-outlet>

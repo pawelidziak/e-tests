@@ -6,6 +6,10 @@ const appRoutes: Routes = [
    * Define lazy loading routes here
    */
   {
+    path: 'dashboard',
+    loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
+  },
+  {
     path: 'test/:testId',
     loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
@@ -25,9 +29,9 @@ const appRoutes: Routes = [
     path: 'test/:testId/exercises',
     loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule'
   },
-  // otherwise redirect to plan
-  {path: '', redirectTo: 'tests-list', pathMatch: 'full'},
-  {path: '**', redirectTo: 'tests-list'}
+  // otherwise redirect to dashboard
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '**', redirectTo: 'dashboard'}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

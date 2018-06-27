@@ -14,8 +14,16 @@
   @include box_shadow();
 }
 
+.app-name {
+  text-decoration: none;
+  color: $text-white;
+}
+
 .main-content {
-  padding-top: 3*$margin;
+  margin-top: 56px;
+  @media #{$gt-xs_size} {
+    margin-top: 64px;
+  }
 }
 
 .my-nav {

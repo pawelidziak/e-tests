@@ -9,7 +9,6 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-import {TopBarModule} from './top-bar/top-bar.module';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {AppSettingsModule} from '../app-settings/app-settings.module';
 import {HeaderModule} from './header/header.module';
@@ -24,7 +23,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     SharedModule,
-    TopBarModule,
     HeaderModule,
     AppSettingsModule,
     AuthModule,

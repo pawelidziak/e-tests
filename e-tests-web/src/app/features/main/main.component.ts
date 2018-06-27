@@ -17,21 +17,20 @@ export class MainComponent implements OnInit {
 
   private readonly HEADER_TEXT = 'E-testo';
   public generalLinks = [
-    {text: 'Search', link: '/', icon: 'search'},
-    {text: 'Create', link: 'create', icon: 'add'},
+    {label: 'Search', path: '/', icon: 'search'},
+    {label: 'Create', path: 'create', icon: 'add'},
   ];
   public privateLinks = [
-    {text: 'Your tests', link: 'tests-list', icon: 'view_list'},
+    {label: 'Your tests', path: 'tests-list', icon: 'view_list'},
   ];
   public othersLinks = [
-    {text: 'Contact', link: '/', icon: 'contact_support'},
-    {text: 'Settings', link: '/', icon: 'settings'},
+    {label: 'Contact', path: '/', icon: 'contact_support'},
+    {label: 'Settings', path: '/', icon: 'settings'},
   ];
 
   @HostBinding('class') componentCssClass;
   @ViewChild(CdkScrollable) scrollable: CdkScrollable;
   public isSmallScreen = false;
-
 
   constructor(private rwdService: RWDService,
               public dialog: MatDialog,
@@ -40,7 +39,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.headerService.setHeaderButtonAndText(HeaderButtonType.MENU, this.HEADER_TEXT);
+    // this.headerService.setHeaderButtonAndText(HeaderButtonType.MENU, this.HEADER_TEXT);
     this.getRWDValue();
   }
 
