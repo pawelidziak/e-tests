@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatIconModule, MatSelectModule} from '@angular/material';
 import {AppSettingsComponent} from './app-settings.component';
 
 @NgModule({
@@ -9,6 +9,8 @@ import {AppSettingsComponent} from './app-settings.component';
   ],
   imports: [
     SharedModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatIconModule
   ],

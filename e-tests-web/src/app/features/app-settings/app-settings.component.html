@@ -3,9 +3,17 @@
 
   <div class="app-theme">
     <p class="header-line-right">App theme</p>
-    <div class="app-theme-options">
-      <button mat-raised-button (click)="setTheme('dark-theme')" id="dark-button">Dark</button>
-      <button mat-raised-button (click)="setTheme('light-theme')" id="light-button">Light</button>
-    </div>
+    <mat-form-field floatLabel="never">
+      <mat-select placeholder="Color theme"
+                  (selectionChange)="setTheme($event)">
+        <mat-option *ngFor="let t of themes" [value]="t.value">
+          {{t.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!--<div class="app-theme-options">-->
+      <!--<button mat-raised-button (click)="setTheme('dark-theme')" id="dark-button">Dark</button>-->
+      <!--<button mat-raised-button (click)="setTheme('light-theme')" id="light-button">Light</button>-->
+    <!--</div>-->
   </div>
 </section>
