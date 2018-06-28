@@ -9,12 +9,12 @@
 
       <!-- NOT EDITABLE QUESTION -->
       <div class="question_not-editable" *ngIf="!editMode">
-        <span style="margin-right: 24px;">{{exercise.number}}.</span>
+        <span class="question-no">{{exercise.number}}.</span>
         <span>{{exercise.question}}</span>
       </div>
 
       <!-- EDITABLE QUESTION -->
-      <mat-form-field color="accent" class="question_editable" *ngIf="editMode">
+      <mat-form-field color="accent" class="question_editable" *ngIf="editMode" floatLabel="never">
         <input matInput placeholder="Question" [(ngModel)]="exercise.question">
       </mat-form-field>
 

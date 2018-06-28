@@ -4,6 +4,7 @@
                mode="push">
 
     <nav class="my-nav">
+      <!-- NAV HEADER -->
       <mat-toolbar color="primary" class="nav-header">
         <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
         <button mat-icon-button routerLink="dashboard" (click)="drawer.close()">
@@ -11,8 +12,8 @@
         </button>
         <h1 (click)="drawer.close()"><a routerLink="dashboard" class="app-name">E-Testo</a></h1>
       </mat-toolbar>
-      <button mat-button style="height: 0; position: absolute;"></button>
 
+      <!-- NAV LIST -->
       <mat-list class="my-list">
         <h3 mat-subheader>General</h3>
         <mat-list-item *ngFor="let link of generalLinks"
@@ -47,7 +48,6 @@
 
       </mat-list>
 
-
     </nav> <!-- /my-nav -->
 
   </mat-sidenav>
@@ -56,7 +56,7 @@
 
     <app-header [drawer]="drawer" [isSmallScreen]="isSmallScreen"></app-header>
 
-    <main class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''">
+    <main class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''" cdkScrollable>
       <router-outlet #o="outlet"></router-outlet>
     </main>
 

@@ -21,12 +21,6 @@
 
     <!-- SMALL DEVICES -->
     <div *ngIf="isSmallScreen">
-      <!--<button mat-icon-button>-->
-        <!--<mat-icon aria-label="Search icon">search</mat-icon>-->
-      <!--</button>-->
-      <!--<button mat-icon-button>-->
-        <!--<mat-icon aria-label="Create icon">add</mat-icon>-->
-      <!--</button>-->
       <button *ngIf="!user" mat-icon-button (click)="openAuthDialog()">
         <mat-icon aria-label="Account icon">account_circle</mat-icon>
       </button>
@@ -52,7 +46,8 @@
       </button>
 
       <button *ngIf="!user"
-              mat-raised-button class="login-button"
+              mat-stroked-button color="accent"
+              class="login-button"
               (click)="openAuthDialog()">
         <span>login</span>
       </button>

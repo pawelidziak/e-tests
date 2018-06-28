@@ -41,7 +41,7 @@ export class TestsListComponent implements OnInit {
   public getTooltipText(value: string, test: TestShortInfo) {
     switch (value) {
       case 'progress':
-        return '49%';
+        return '49% progress';
       case 'exercises':
         return `${test.exercisesListSize} exercises`;
       case 'sections':

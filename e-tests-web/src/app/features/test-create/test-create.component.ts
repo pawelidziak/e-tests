@@ -12,6 +12,7 @@ import {Exercise} from '../../core/models/Exercise';
 export class TestCreateComponent implements OnInit {
   public newTest: NEWTest;
   public testExercises: Array<Exercise>;
+  public todayDate: Date;
   private readonly HEADER_TEXT = 'Create';
 
   constructor(private headerService: HeaderService) {
@@ -22,11 +23,15 @@ export class TestCreateComponent implements OnInit {
     this.defineEmptyTest();
   }
 
+  canDeactivate() {
+    return window.confirm('Are you sure? Unsaved changes will be lost.');
+  }
+
   private defineEmptyTest() {
     this.newTest = {
       testName: '',
       categories: [],
-      author: '',
+      author: 'sd',
       desc: '',
       createDate: new Date()
     };

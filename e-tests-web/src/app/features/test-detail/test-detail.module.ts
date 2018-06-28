@@ -7,7 +7,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatStepperModule
+  MatStepperModule, MatToolbarModule
 } from '@angular/material';
 import {ExerciseListModule} from './exercise-list/exercise-list.module';
 import {CategoriesModule} from './categories/categories.module';
@@ -26,7 +26,8 @@ import {CategoriesModule} from './categories/categories.module';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule
   ],
   exports: [
     TestDetailComponent

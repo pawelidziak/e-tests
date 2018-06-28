@@ -12,10 +12,8 @@ import {
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {AppSettingsModule} from '../app-settings/app-settings.module';
 import {HeaderModule} from './header/header.module';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {AuthComponent} from '../auth/auth.component';
 import {AuthModule} from '../auth/auth.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,9 +29,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    BrowserAnimationsModule,
-    ScrollDispatchModule,
-
     MatListModule,
     MatToolbarModule
   ],

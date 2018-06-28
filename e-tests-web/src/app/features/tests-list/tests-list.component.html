@@ -11,10 +11,7 @@
     <div class="col-lg-6 col-xl-4 single-test" *ngFor="let test of shortTestList | filterTest: searchText">
       <mat-card>
 
-        <mat-card-title class="my-title">
-          <span>{{test.testName | limitChar: 20}}</span>
-          <!--<div class="test-progress">49%</div>-->
-        </mat-card-title>
+        <mat-card-title>{{test.testName | limitChar: 20}}</mat-card-title>
 
         <mat-card-subtitle class="my-subtitle">
           <a class="subtitle-item test-author" routerLink=".">
@@ -33,7 +30,7 @@
         </mat-card-content>
 
         <mat-card-actions class="card-actions">
-          <div class="hehe">
+          <div class="card-footer">
           <mat-chip-list class="chip-list">
             <mat-chip [disabled]="true"
                       matTooltipPosition="above"
@@ -46,6 +43,7 @@
                       [matTooltip]="getTooltipText('sections', test)">{{test.section}}</mat-chip>
           </mat-chip-list>
           <button mat-stroked-button color="accent"
+                  class="go-test"
                   (click)="navigateToTest(test)">
             <span>SEE</span>
           </button>
@@ -54,28 +52,8 @@
       </mat-card>
     </div>
   </div>
-</section>
-
-<section class="section-tests-list">
-
-
-  <!--<mat-card *ngFor="let test of shortTestList | filterTest: searchText"-->
-  <!--class="one-test"-->
-  <!--(click)="navigateToTest(test)">-->
-  <!--<div class="test-header">-->
-  <!--<span>{{test.section}}</span>-->
-  <!--<span>{{test.exercisesListSize}} exercises</span>-->
-  <!--<span>-->
-  <!--<mat-icon aria-label="Account icon">account_circle</mat-icon>-->
-  <!--{{test.author | limitChar: 20}}-->
-  <!--</span>-->
-  <!--</div>-->
-  <!--<div class="test-name">-->
-  <!--{{test.testName }}-->
-  <!--</div>-->
-  <!--</mat-card>-->
-
   <div *ngIf="shortTestList.length > 0 && (shortTestList | filterTest: searchText).length === 0" class="no-matches">No
     matches
   </div>
 </section>
+

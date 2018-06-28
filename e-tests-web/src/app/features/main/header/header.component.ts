@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
       console.log('The dialog was closed = ' + result);
     });
   }
+
   public backClicked(): void {
     this.location.back();
   }

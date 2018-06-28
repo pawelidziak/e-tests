@@ -5,15 +5,7 @@
   justify-content: center;
 }
 
-.mat-tab-link {
-  min-width: 0;
-  padding: 0 .5*$margin;
-  @media #{$gt-xs_size} {
-    min-width: 130px;
-    padding: 0;
-  }
-}
-
 .link-icon {
   margin-right: .5*$margin;
+  text-decoration: none;
 }

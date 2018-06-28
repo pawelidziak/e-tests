@@ -1,1 +1,35 @@
-<app-test-detail [testInfo]="newTest" [testExercises]="testExercises"></app-test-detail>
+<!--<app-test-detail [testInfo]="newTest"-->
+<!--[testExercises]="testExercises">-->
+<!--</app-test-detail>-->
+<section class="section-create" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+
+    <mat-card>
+
+      <mat-form-field style="width: 100%" color="accent">
+        <input matInput placeholder="Test name" [(ngModel)]="newTest.testName">
+      </mat-form-field>
+
+      <app-categories [testCategories]="newTest.categories"></app-categories>
+
+      <mat-form-field style="width: 100%" color="accent">
+        <textarea matInput placeholder="Description" rows="5"
+                  [(ngModel)]="newTest.desc"></textarea>
+      </mat-form-field>
+
+
+      <div class="details">
+
+        <mat-form-field color="accent">
+          <input matInput placeholder="Create date" disabled
+                 [ngModel]="newTest.createDate | date: 'dd.MM.yyy'">
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <input matInput placeholder="Author" disabled [ngModel]="newTest.author">
+        </mat-form-field>
+      </div>
+
+    </mat-card>
+
+  </div>
+</section>

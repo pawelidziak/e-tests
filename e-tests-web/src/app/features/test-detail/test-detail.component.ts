@@ -1,35 +1,47 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NEWTest} from '../../core/models/Test';
 import {RWDService} from '../../core/services/RWD.service';
 import {Exercise} from '../../core/models/Exercise';
-import {fadeInAnimation} from "../../shared/animations";
+import {NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'app-test-detail',
   templateUrl: './test-detail.component.html',
-  styleUrls: ['./test-detail.component.scss'],
-  animations: [fadeInAnimation()]
+  styleUrls: ['./test-detail.component.scss']
 })
 export class TestDetailComponent implements OnInit {
 
   @Input() testInfo: NEWTest;
   @Input() testExercises: Array<Exercise>;
+  @Output() testSaved: EventEmitter<boolean> = new EventEmitter();
+
   public isSmallScreen = false;
   public savedClicked = false;
 
-  constructor(private rwdService: RWDService) {
+  private testInfoOrig: NEWTest;
+  private testExercisesOrig: Array<Exercise>;
+
+  constructor(private rwdService: RWDService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.getRWDValue();
-    console.log(this.testInfo);
+    this.testInfoOrig = {...this.testInfo};
+    this.testExercisesOrig = {...this.testExercises};
+
+    const routeSub$ = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        // save your data
+        console.log('save');
+      }
+    });
   }
 
   public saveTest(): void {
     this.savedClicked = true;
     if (!this.isInvalidTest()) {
       // TODO add to db
-      console.log(this.testInfo);
     }
   }
 
@@ -52,4 +64,5 @@ export class TestDetailComponent implements OnInit {
       this.hasError(this.testInfo.categories) ||
       this.hasError(this.testExercises);
   }
+
 }

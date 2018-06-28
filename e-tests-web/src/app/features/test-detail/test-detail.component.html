@@ -1,15 +1,15 @@
 <section class="section-create-test" *ngIf="testInfo">
 
-  <div class="button-save" [@fadeInAnimation]>
+  <mat-toolbar class="sub-header">
 
     <button mat-raised-button
             color="primary"
             (click)="saveTest()">
       SAVE
     </button>
-  </div>
+  </mat-toolbar>
 
-  <mat-vertical-stepper>
+  <mat-vertical-stepper class="container">
     <!-- STEP ONE -->
     <mat-step>
       <ng-template matStepLabel>

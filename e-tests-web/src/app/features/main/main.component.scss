@@ -20,9 +20,15 @@
 }
 
 .main-content {
-  margin-top: 56px;
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   @media #{$gt-xs_size} {
-    margin-top: 64px;
+    top: 64px;
   }
 }
 

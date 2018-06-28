@@ -10,10 +10,11 @@
   left: 0;
   z-index: 999;
   padding: 0;
+  overflow: hidden;
+  @include box_shadow;
   @media #{$gt-xs_size} {
     padding: 16px;
   }
-  @include box_shadow;
   button {
     outline: none;
   }
@@ -28,18 +29,7 @@
   align-items: center;
 }
 
-.content-center {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  .app-icon {
-    display: flex;
-    margin: 0 .5*$margin;
-  }
-}
-
 .login-button {
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: $text_secondary;
 }
