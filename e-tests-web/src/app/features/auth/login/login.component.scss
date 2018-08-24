@@ -4,6 +4,9 @@
 .login-container {
   display: flex;
   flex-direction: column;
+  button {
+    outline: none;
+  }
 }
 
 mat-icon {

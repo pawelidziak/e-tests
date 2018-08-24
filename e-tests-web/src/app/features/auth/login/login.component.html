@@ -1,6 +1,7 @@
 <div class="login-container">
 
   <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
+  <div class="ok-msg" *ngIf="responseMsg">{{responseMsg}}</div>
 
   <button mat-raised-button id="google"> Login with Google</button>
 
@@ -31,7 +32,7 @@
 
     <div class="login-actions">
       <mat-checkbox class="example-margin" [(formControl)]="rememberMe">Remember me</mat-checkbox>
-      <button mat-button color="accent" type="submit">login</button>
+      <button mat-raised-button color="accent" type="submit">login</button>
     </div>
 
   </form>
@@ -42,7 +43,7 @@
     </mat-expansion-panel-header>
 
     <form class="forgot-password" (ngSubmit)="forgotPassword()">
-      <mat-form-field color="accent" floatLabel="never">
+      <mat-form-field color="accent" floatLabel="never" style="width: 100%;">
         <input matInput type="email"
                placeholder="Email"
                [formControl]="forgotEmail">

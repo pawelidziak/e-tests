@@ -14,7 +14,6 @@ export class AuthComponent implements OnInit {
               private auth: AuthService) {
     this.auth.currentUserAuthState.subscribe(
       res => {
-        console.log(res);
         if (!res) {
           // dialogRef.disableClose = true;
         }

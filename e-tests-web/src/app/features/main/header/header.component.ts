@@ -27,14 +27,20 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUser();
     this.getHeaderButton();
     this.getHeaderText();
-    this.getUser();
   }
 
   private getUser() {
     this.auth.currentUserAuthState.subscribe(
-      res => this.user = res,
+      res => {
+        this.user = res;
+        // if (res && res.emailVerified) {
+        // } else {
+        //   this.user = null;
+        // }
+      },
       error => console.log(error)
     );
   }
@@ -61,4 +67,7 @@ export class HeaderComponent implements OnInit {
       res => this.headerText = res);
   }
 
+  public logout(): void {
+    this.auth.signOut();
+  }
 }

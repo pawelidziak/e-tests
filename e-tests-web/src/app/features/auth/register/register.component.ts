@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../../core/services/auth.service';
+import {MatTabGroup} from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +9,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+  @Input() matTabGrp: MatTabGroup;
 
   public hidePassword = true;
 
@@ -19,7 +23,7 @@ export class RegisterComponent implements OnInit {
   public password = new FormControl('', Validators.required);
   public confirmPassword = new FormControl('', Validators.required);
 
-  constructor() {
+  constructor(private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -42,12 +46,17 @@ export class RegisterComponent implements OnInit {
     }
 
     // show some loader
+    this.auth.emailPasswordRegister(this.displayName.value, this.email.value, this.password.value)
+      .then(res => {
+        this.matTabGrp.realignInkBar();
+        this.responseMsg = 'Verification email has been sent';
+        this.errorMsg = '';
+      })
+      .catch(error => {
+        this.matTabGrp.realignInkBar();
+        this.errorMsg = error;
+        this.responseMsg = '';
+      });
 
-    console.group('FORM');
-    console.log(this.displayName.value);
-    console.log(this.email.value);
-    console.log(this.password.value);
-    console.log(this.confirmPassword.value);
-    console.groupEnd();
   }
 }

@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../../core/services/auth.service';
+import {MatDialogRef, MatTabGroup} from '@angular/material';
+import {AuthComponent} from '../auth.component';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +11,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  @Input() matTabGrp: MatTabGroup;
+  @Input() authDialog: MatDialogRef<AuthComponent>;
+
   public hidePassword = true;
   public errorMsg: string;
+  public responseMsg: string;
 
   public loginForm: FormGroup;
   public email = new FormControl('', [Validators.required, Validators.email]);
@@ -18,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   public forgotEmail = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor() {
+  constructor(private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -38,13 +45,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // show some loader
+    // TODO show some loader
 
-    console.group('FORM');
-    console.log(this.email.value);
-    console.log(this.password.value);
-    console.log(this.rememberMe.value);
-    console.groupEnd();
+    this.auth.emailPasswordLogin(this.email.value, this.password.value)
+      .then(() => this.authDialog.close())
+      .catch(error => {
+        this.matTabGrp.realignInkBar();
+        this.errorMsg = error;
+      });
   }
 
   public forgotPassword(): void {
@@ -52,6 +60,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // TODO reset password
+    this.auth.resetPassword(this.forgotEmail.value)
+      .then(() => {
+        this.matTabGrp.realignInkBar();
+        this.responseMsg = 'Instructions have been sent to the email.';
+      })
+      .catch(error => {
+        this.matTabGrp.realignInkBar();
+        this.errorMsg = error;
+      });
   }
 }
