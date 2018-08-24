@@ -41,7 +41,7 @@ export class TestDetailComponent implements OnInit {
   public saveTest(): void {
     this.savedClicked = true;
     if (!this.isInvalidTest()) {
-      // TODO add to db
+      // TODO addTag to db
     }
   }
 
@@ -61,7 +61,7 @@ export class TestDetailComponent implements OnInit {
 
   private isInvalidTest(): boolean {
     return this.hasError(this.testInfo.testName) ||
-      this.hasError(this.testInfo.categories) ||
+      this.hasError(this.testInfo.tags) ||
       this.hasError(this.testExercises);
   }
 

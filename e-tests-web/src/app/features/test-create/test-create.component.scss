@@ -1,5 +1,57 @@
 @import '../../shared/variables';
+@import '../../shared/mixins';
 
-.section-create{
+.section-create {
   margin: $margin 0;
 }
+
+button {
+  @include upper-text();
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: .25*$margin 0;
+  font-size: 1.2*$font-normal;
+  outline: none;
+}
+
+.create-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    @include mat-icon-size(120px);
+  }
+  .message {
+    margin: $margin .5*$margin;
+    color: $text_secondary;
+    font-size: $font-small;
+    @include upper-text();
+    @include upper-text();
+  }
+}
+
+.details {
+  padding-bottom: 2*$margin;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  @media #{$gt-sm_size} {
+    flex-direction: row;
+  }
+  .detail {
+    width: 100%;
+    @media #{$gt-sm_size} {
+      width: auto;
+    }
+  }
+}
+
+.error-field {
+  margin-bottom: $margin;
+}
+

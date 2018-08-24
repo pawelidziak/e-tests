@@ -10,7 +10,6 @@ import {
   MatStepperModule, MatToolbarModule
 } from '@angular/material';
 import {ExerciseListModule} from './exercise-list/exercise-list.module';
-import {CategoriesModule} from './categories/categories.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import {CategoriesModule} from './categories/categories.module';
   imports: [
     SharedModule,
     ExerciseListModule,
-    CategoriesModule,
 
     MatFormFieldModule,
     MatInputModule,

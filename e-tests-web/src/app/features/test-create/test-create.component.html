@@ -1,35 +1,81 @@
-<!--<app-test-detail [testInfo]="newTest"-->
-<!--[testExercises]="testExercises">-->
-<!--</app-test-detail>-->
-<section class="section-create" xmlns="http://www.w3.org/1999/html">
+<section class="section-create">
+
   <div class="container">
 
-    <mat-card>
+    <div class="row justify-content-md-center">
 
-      <mat-form-field style="width: 100%" color="accent">
-        <input matInput placeholder="Test name" [(ngModel)]="newTest.testName">
-      </mat-form-field>
+      <div class="col-md-auto">
 
-      <app-categories [testCategories]="newTest.categories"></app-categories>
+        <mat-card>
 
-      <mat-form-field style="width: 100%" color="accent">
-        <textarea matInput placeholder="Description" rows="5"
-                  [(ngModel)]="newTest.desc"></textarea>
-      </mat-form-field>
+          <div class="create-header">
+            <mat-icon class="icon" aria-label="Create icon" color="accent">tag_faces</mat-icon>
+            <span class="message">Let's create a new test! </span>
+          </div>
 
+          <form class="new-test-form" [formGroup]="newTestForm" (ngSubmit)="createTest()">
 
-      <div class="details">
+            <!-- TEST NAME -->
+            <mat-form-field style="width: 100%" color="accent" appearance="outline">
+              <mat-label>Test name</mat-label>
+              <input matInput placeholder="Test name..." type="text" [formControl]="newName">
+              <mat-hint>Recognizable names are the best!</mat-hint>
+              <mat-error *ngIf="newName.hasError('required')">Test name is <strong>required</strong></mat-error>
+            </mat-form-field>
 
-        <mat-form-field color="accent">
-          <input matInput placeholder="Create date" disabled
-                 [ngModel]="newTest.createDate | date: 'dd.MM.yyy'">
-        </mat-form-field>
-        <mat-form-field color="accent">
-          <input matInput placeholder="Author" disabled [ngModel]="newTest.author">
-        </mat-form-field>
-      </div>
+            <!-- TEST TAGS -->
+            <mat-form-field style="width: 100%" color="accent" appearance="outline">
+              <mat-label>Tags</mat-label>
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let tag of testTags"
+                          [selectable]="selectable"
+                          [removable]="removable"
+                          (removed)="removeTag(tag)">
+                  {{tag}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New tag..."
+                       [formControl]="tags"
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addTag($event)"/>
+              </mat-chip-list>
+              <mat-hint>Don't use special characters</mat-hint>
+              <mat-error *ngIf="chipList.errorState">Choose at least <strong>1</strong> tag</mat-error>
+            </mat-form-field>
 
-    </mat-card>
+            <!-- TEST DESCRIPTION -->
+            <mat-form-field style="width: 100%" color="accent" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="Description..." rows="5" type="text"
+                        [formControl]="desc"></textarea>
+            </mat-form-field>
 
-  </div>
+            <div class="details">
+              <!-- TEST AUTHOR-->
+              <mat-form-field color="accent" appearance="outline" class="detail">
+                <mat-label>Author</mat-label>
+                <input matInput placeholder="Author" type="text" [formControl]="author">
+              </mat-form-field>
+
+              <!-- TEST CREATE DATE-->
+              <mat-form-field color="accent" appearance="outline" class="detail">
+                <mat-label>Create date</mat-label>
+                <input matInput placeholder="Create date" [formControl]="createDate">
+              </mat-form-field>
+
+              <!-- TEST VISIBLE -->
+              <mat-checkbox [formControl]="availability"
+                            matTooltip="Private option is unavailable at this moment">Public
+              </mat-checkbox>
+            </div>
+
+            <button mat-button color="accent" type="submit">save</button>
+          </form>
+        </mat-card>
+
+      </div> <!-- /col-md-auto -->
+    </div> <!-- /row -->
+  </div> <!-- /container -->
 </section>

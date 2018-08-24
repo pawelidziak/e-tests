@@ -30,6 +30,5 @@
 }
 
 .login-button {
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  @include upper-text();
 }
