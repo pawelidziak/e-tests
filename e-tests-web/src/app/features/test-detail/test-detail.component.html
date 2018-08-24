@@ -1,15 +1,15 @@
 <section class="section-create-test" *ngIf="testInfo">
 
-  <div class="button-save" [@fadeInAnimation]>
+  <mat-toolbar class="sub-header">
 
     <button mat-raised-button
             color="primary"
             (click)="saveTest()">
       SAVE
     </button>
-  </div>
+  </mat-toolbar>
 
-  <mat-vertical-stepper>
+  <mat-vertical-stepper class="container">
     <!-- STEP ONE -->
     <mat-step>
       <ng-template matStepLabel>
@@ -35,17 +35,16 @@
       <ng-template matStepLabel>
         <div class="step-header">
           <span>Categories</span>
-          <mat-icon *ngIf="hasError(testInfo.categories)"
+          <mat-icon *ngIf="hasError(testInfo.tags)"
                     aria-label="Warning icon">warning
           </mat-icon>
         </div>
       </ng-template>
 
-      <div *ngIf="hasError(testInfo.categories)" class="step-warning">
+      <div *ngIf="hasError(testInfo.tags)" class="step-warning">
         <p>Choose at least one category</p>
       </div>
 
-      <app-categories [testCategories]="testInfo.categories"></app-categories>
     </mat-step>
 
     <!-- STEP THREE -->

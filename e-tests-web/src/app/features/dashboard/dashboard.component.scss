@@ -1,0 +1,14 @@
+@import '../../shared/variables';
+
+.sub-nav {
+  display: flex;
+  justify-content: center;
+  a {
+    text-decoration: none;
+  }
+}
+
+.link-icon {
+  margin-right: .5*$margin;
+  text-decoration: none;
+}

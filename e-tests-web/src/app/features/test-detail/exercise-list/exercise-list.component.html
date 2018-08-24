@@ -1,16 +1,15 @@
 <section class="section-exercise-list" *ngIf="exerciseList">
 
   <div class="exercise-list-actions">
-
-    <button mat-button color="accent" id="addExercise" (click)="showNewExercise()">
-      <mat-icon aria-label="Add exercise">add</mat-icon>
-      <span>Add exercise</span>
-    </button>
-    <mat-form-field color="accent" floatLabel="never">
+    <mat-form-field color="accent" floatLabel="never" class="search-form">
       <mat-icon matPrefix>search</mat-icon>
       <span matPrefix>&nbsp;</span>
       <input matInput [(ngModel)]="searchText" placeholder="Search exercise">
     </mat-form-field>
+    <button mat-button color="accent" class="add-exercise" (click)="showNewExercise()">
+      <mat-icon aria-label="Add exercise">add</mat-icon>
+      <span>Add exercise</span>
+    </button>
   </div>
 
   <div *ngIf="!newExercise && exerciseList.length === 0" class="no-exercises">

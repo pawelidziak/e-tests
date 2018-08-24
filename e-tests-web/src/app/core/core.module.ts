@@ -14,6 +14,7 @@ import {RWDService} from './services/RWD.service';
 import {CacheService} from './services/cache.service';
 import {FirebaseModule} from './firebase.module';
 import {AuthService} from './services/auth.service';
+import {CanDeactivateGuard} from './can-deactivate-guard';
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,7 @@ import {AuthService} from './services/auth.service';
     Overlay, // needed for angular ckd
     RWDService,
     AuthService,
+    CanDeactivateGuard,
     CacheService,
     HeaderService,
     TestListService,

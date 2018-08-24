@@ -1,4 +1,5 @@
 @import '../../../shared/variables';
+@import '../../../shared/mixins';
 
 .register-container {
   display: flex;
@@ -12,10 +13,9 @@ mat-icon {
 .register-text {
   margin: 2*$margin $margin $margin;
   text-align: center;
-  text-transform: uppercase;
   color: $text_secondary;
-  letter-spacing: 1px;
   font-size: $font-small;
+  @include upper-text();
 }
 
 .register-form {
@@ -35,7 +35,6 @@ mat-icon {
     height: 48px;
     font-size: $font-normal;
     margin-top: $margin;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    @include upper-text();
   }
 }

@@ -13,7 +13,7 @@ export interface Test {
 export interface NEWTest {
   testId?: string;
   testName: string;
-  categories: Array<Category>;
+  tags: Array<String>;
   desc: string;
   author: string;
   createDate: Date;

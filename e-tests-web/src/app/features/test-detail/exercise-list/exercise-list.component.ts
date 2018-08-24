@@ -13,6 +13,7 @@ export class ExerciseListComponent implements OnInit {
 
   public searchText: string;
   public newExercise: Exercise;
+
   constructor() {
   }
 
@@ -33,10 +34,10 @@ export class ExerciseListComponent implements OnInit {
     const index = this.exerciseList.findIndex(x => x.number === exercise.number);
     if (index === -1) {
       this.exerciseList.push(exercise);
+      this.newExercise = null;
     } else {
       this.exerciseList[index] = exercise;
     }
-    this.newExercise = null;
   }
 
 }

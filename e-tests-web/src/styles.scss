@@ -1,4 +1,6 @@
 @import '~normalize.css/normalize.css';
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
 @import 'app/shared/variables';
 @import 'app/shared/mixins';
 
@@ -30,10 +32,11 @@ html, body {
 .small-text {
   font-size: $font-small;
 }
+
 /*
       MESSAGES
  */
-.my-msg{
+.my-msg {
   text-align: center;
   margin: $margin;
   padding: .5*$margin;
@@ -55,6 +58,7 @@ html, body {
 .z-index-2 {
   z-index: 2;
 }
+
 
 .header-line-right {
   position: relative;
@@ -100,9 +104,8 @@ html, body {
 .no-matches {
   text-align: center;
   color: $material-red;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   margin: 3*$margin $margin $margin;
+  @include upper-text();
 }
 
 // BOUNCE ANIMATION

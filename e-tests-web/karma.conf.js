@@ -1,4 +1,4 @@
-// Karma configuration file, see link for more information
+// Karma configuration file, see path for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
@@ -19,7 +19,7 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, 'coverage'), reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    
+
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

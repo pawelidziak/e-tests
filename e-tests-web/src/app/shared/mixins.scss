@@ -25,3 +25,13 @@
   justify-content: center;
   align-items: center;
 }
+
+
+/*
+      BUTTONS
+ */
+@mixin upper-text($size: $font-normal) {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: $size;
+}

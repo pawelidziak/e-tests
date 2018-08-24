@@ -1,10 +1,9 @@
-import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {RWDService} from '../../core/services/RWD.service';
-import {CdkScrollable, OverlayContainer} from '@angular/cdk/overlay';
+import {OverlayContainer} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {MatDialog} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
-import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-main',
@@ -15,32 +14,24 @@ import {HeaderButtonType, HeaderService} from '../../core/services/header.servic
 })
 export class MainComponent implements OnInit {
 
-  private readonly HEADER_TEXT = 'E-testo';
+  @HostBinding('class') componentCssClass;
+
   public generalLinks = [
-    {text: 'Search', link: '/', icon: 'search'},
-    {text: 'Create', link: 'create', icon: 'add'},
+    {label: 'Search', path: '/', icon: 'search'},
+    {label: 'Create', path: 'create', icon: 'add'},
   ];
   public privateLinks = [
-    {text: 'Your tests', link: 'tests-list', icon: 'view_list'},
-  ];
-  public othersLinks = [
-    {text: 'Contact', link: '/', icon: 'contact_support'},
-    {text: 'Settings', link: '/', icon: 'settings'},
+    {label: 'Your tests', path: 'tests-list', icon: 'view_list'},
   ];
 
-  @HostBinding('class') componentCssClass;
-  @ViewChild(CdkScrollable) scrollable: CdkScrollable;
   public isSmallScreen = false;
-
 
   constructor(private rwdService: RWDService,
               public dialog: MatDialog,
-              private headerService: HeaderService,
               public overlayContainer: OverlayContainer) {
   }
 
   ngOnInit() {
-    this.headerService.setHeaderButtonAndText(HeaderButtonType.MENU, this.HEADER_TEXT);
     this.getRWDValue();
   }
 
@@ -49,7 +40,6 @@ export class MainComponent implements OnInit {
       this.isSmallScreen = res;
     });
   }
-
 
   public openSettingsDialog(): void {
     const dialogRef = this.dialog.open(AppSettingsComponent, {

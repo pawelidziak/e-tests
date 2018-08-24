@@ -9,7 +9,19 @@
   top: 0;
   left: 0;
   z-index: 999;
+  padding: 0;
+  overflow: hidden;
   @include box_shadow;
+  @media #{$gt-xs_size} {
+    padding: 16px;
+  }
+  button {
+    outline: none;
+  }
+}
+
+.header-text {
+  margin-left: .5*$margin;
 }
 
 .left, .right {
@@ -18,7 +30,5 @@
 }
 
 .login-button {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: $text_secondary;
+  @include upper-text();
 }

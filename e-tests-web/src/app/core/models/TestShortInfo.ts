@@ -8,5 +8,6 @@ export interface TestShortInfo {
   exercisesListSize: number;
   section: string;
   author: string;
+  desc: string;
   publicationDate: Date;
 }

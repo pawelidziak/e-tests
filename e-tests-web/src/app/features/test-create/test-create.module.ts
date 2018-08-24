@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {testCreateRouting} from './test-create.routing';
 import {TestCreateComponent} from './test-create.component';
-import {TestDetailModule} from '../test-detail/test-detail.module';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule, MatChipsModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule, MatTooltipModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -11,7 +18,15 @@ import {TestDetailModule} from '../test-detail/test-detail.module';
   imports: [
     SharedModule,
     testCreateRouting,
-    TestDetailModule
+
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatChipsModule
   ],
   exports: [],
   providers: []

@@ -5,11 +5,11 @@ import {testsListRouting} from './tests-list.routing';
 import {
   MatAutocompleteModule,
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatChipsModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
-  MatTableModule
+  MatInputModule, MatProgressBarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {CharLimitPipe} from '../../shared/pipes/char-limit.pipe';
 import {FilterTestPipe} from '../../shared/pipes/filter-test.pipe';
@@ -25,13 +25,14 @@ import {FilterTestPipe} from '../../shared/pipes/filter-test.pipe';
     SharedModule,
     testsListRouting,
 
+    MatChipsModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule,
     MatCardModule,
-    MatTableModule
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   exports: [],
   providers: []

@@ -1,108 +1,54 @@
-<!--<section class="section-main">-->
-
-<!--<mat-drawer-container (backdropClick)="drawer.close()">-->
-
-<!--<mat-drawer [disableClose]="true" #drawer [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen">-->
-
-<!--<div class="drawer-content">-->
-<!--<div class="topbar">-->
-<!--<app-top-bar></app-top-bar>-->
-<!--<div class="topbar-content">-->
-<!--<div class="test-actions">-->
-<!--<button mat-button id="search-button">-->
-<!--<mat-icon aria-label="Search icon">search</mat-icon>-->
-<!--<span>Search</span>-->
-<!--</button>-->
-<!--<button mat-button routerLink="create">-->
-<!--<mat-icon aria-label="Create icon">add</mat-icon>-->
-<!--<span>Create</span>-->
-<!--</button>-->
-<!--</div>-->
-
-<!--<div class="topbar-actions">-->
-<!--<button mat-button routerLink="tests-list">Browse tests</button>-->
-<!--<button mat-button>Your tests</button>-->
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-
-<!--<div class="footer">-->
-<!--<button mat-button>Contact</button>-->
-<!--<button mat-button (click)="openSettingsDialog()">Settings</button>-->
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</mat-drawer>-->
-
-<!--<div cdkScrollable>-->
-
-<!--<app-header [drawer]="drawer"-->
-<!--[isSmallScreen]="isSmallScreen"-->
-<!--&gt;</app-header>-->
-
-<!--<div class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''">-->
-<!--<router-outlet #o="outlet"></router-outlet>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</mat-drawer-container>-->
-
-<!--</section>-->
-
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer
                class="sidenav"
-               mode="over">
+               mode="push">
 
-      <nav class="my-nav">
-        <mat-toolbar color="primary" class="nav-header">E-testo</mat-toolbar>
-        <button mat-button style="height: 0; position: absolute;"></button>
+    <nav class="my-nav">
+      <!-- NAV HEADER -->
+      <mat-toolbar color="primary" class="nav-header">
+        <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+        <button mat-icon-button routerLink="dashboard" (click)="drawer.close()">
+          <mat-icon aria-label="Home icon">dashboard</mat-icon>
+        </button>
+        <h1 (click)="drawer.close()"><a routerLink="dashboard" class="app-name">E-Testo</a></h1>
+      </mat-toolbar>
 
-        <mat-list class="my-list">
-          <h3 mat-subheader>General</h3>
-          <mat-list-item *ngFor="let link of generalLinks"
-                         [routerLink]="link.link"
-                         class="list-item" (click)="drawer.close()">
-            <mat-icon matListIcon>{{link.icon}}</mat-icon>
-            <h3 matLine>{{link.text}}</h3>
-          </mat-list-item>
+      <!-- NAV LIST -->
+      <mat-list class="my-list">
+        <h3 mat-subheader>General</h3>
+        <mat-list-item *ngFor="let link of generalLinks"
+                       [routerLink]="link.path"
+                       class="list-item" (click)="drawer.close()">
+          <mat-icon matListIcon>{{link.icon}}</mat-icon>
+          <h3 matLine>{{link.label}}</h3>
+        </mat-list-item>
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <h3 mat-subheader>Yours</h3>
-          <mat-list-item *ngFor="let link of privateLinks"
-                         [routerLink]="link.link"
-                         class="list-item" (click)="drawer.close()">
-            <mat-icon matListIcon>{{link.icon}}</mat-icon>
-            <h3 matLine>{{link.text}}</h3>
-          </mat-list-item>
+        <h3 mat-subheader>Yours</h3>
+        <mat-list-item *ngFor="let link of privateLinks"
+                       [routerLink]="link.path"
+                       class="list-item" (click)="drawer.close()">
+          <mat-icon matListIcon>{{link.icon}}</mat-icon>
+          <h3 matLine>{{link.label}}</h3>
+        </mat-list-item>
 
-          <div class="my-divider-stretch"></div>
-          <mat-divider class=""></mat-divider>
+        <div class="my-divider-stretch"></div>
+        <mat-divider class=""></mat-divider>
 
-          <h3 mat-subheader>Others</h3>
-          <mat-list-item class="list-item" (click)="drawer.close();">
-            <mat-icon matListIcon>contact_support</mat-icon>
-            <h3 matLine>Contact</h3>
-          </mat-list-item>
-          <mat-list-item class="list-item" (click)="drawer.close(); openSettingsDialog()">
-            <mat-icon matListIcon>settings</mat-icon>
-            <h3 matLine>Settings</h3>
-          </mat-list-item>
+        <h3 mat-subheader>Others</h3>
+        <mat-list-item class="list-item" (click)="drawer.close();">
+          <mat-icon matListIcon>contact_support</mat-icon>
+          <h3 matLine>Contact</h3>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="drawer.close(); openSettingsDialog()">
+          <mat-icon matListIcon>settings</mat-icon>
+          <h3 matLine>Settings</h3>
+        </mat-list-item>
 
-        </mat-list>
+      </mat-list>
 
-
-      </nav> <!-- /my-nav -->
-
-      <!--<div class="footer">-->
-        <!--<button mat-button>Contact</button>-->
-        <!--<button mat-button (click)="openSettingsDialog()">Settings</button>-->
-      <!--</div>-->
+    </nav> <!-- /my-nav -->
 
   </mat-sidenav>
 
@@ -110,7 +56,7 @@
 
     <app-header [drawer]="drawer" [isSmallScreen]="isSmallScreen"></app-header>
 
-    <main class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''">
+    <main class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''" cdkScrollable>
       <router-outlet #o="outlet"></router-outlet>
     </main>
 

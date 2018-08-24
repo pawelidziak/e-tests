@@ -8,6 +8,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class AppSettingsComponent implements OnInit {
 
+  public themes = [
+    { value: 'indigo-theme', label: 'Indigo' },
+    { value: 'teal-theme', label: 'Teal' },
+    { value: 'light-theme', label: 'Light' },
+    { value: 'dark-theme', label: 'Dark' }
+  ];
+
   constructor(public dialogRef: MatDialogRef<AppSettingsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -20,8 +27,9 @@ export class AppSettingsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public setTheme(theme: string): void {
-    this.dialogRef.close({theme: theme});
+  public setTheme(event: any): void {
+    console.log(event);
+    this.dialogRef.close({theme: event.value});
   }
 
 }

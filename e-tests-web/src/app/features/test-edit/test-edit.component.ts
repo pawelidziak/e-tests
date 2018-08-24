@@ -35,7 +35,7 @@ export class TestEditComponent implements OnInit {
       res => {
         this.testInfo = res;
         this.testExercises = res.exercises;
-        // TODO change text to testName
+        // TODO change label to testName
         this.setHeader('Exercises');
       },
       error => console.log(error)

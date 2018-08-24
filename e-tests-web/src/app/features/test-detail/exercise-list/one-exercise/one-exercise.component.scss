@@ -19,14 +19,23 @@
     width: 100%;
     cursor: pointer;
     margin-right: $margin;
-    padding: $margin 0 $margin $margin;
+    padding-left: .5*$margin;
+    @media #{$gt-sm_size} {
+      padding: $margin 0 $margin $margin;
+    }
   }
 }
 
 .question_not-editable {
-  font-weight: 700;
   display: flex;
   align-items: center;
+  .question-no {
+    margin-right: .5*$margin;
+    @media #{$gt-sm_size} {
+      margin-right: $margin;
+      font-weight: 700;
+    }
+  }
 }
 
 .question_editable {
@@ -84,4 +93,8 @@ mat-radio-group, /deep/ label, /deep/ .mat-radio-label-content {
     @include mat-icon-size(36px);
     line-height: 1;
   }
+}
+
+/deep/ .mat-form-field-infix {
+  width: auto;
 }

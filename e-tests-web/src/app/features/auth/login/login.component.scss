@@ -1,4 +1,5 @@
 @import '../../../shared/variables';
+@import '../../../shared/mixins';
 
 .login-container {
   display: flex;
@@ -10,8 +11,7 @@ mat-icon {
 }
 
 button {
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  @include upper-text();
 }
 
 #google {
@@ -19,8 +19,7 @@ button {
   @media #{$gt-xs_size} {
     margin: $margin $margin 0;
   }
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  @include upper-text();
   padding: .5*$margin 0 .5*$margin .5*$margin;
   background: url('../../../../assets/icons/google.svg') no-repeat 15px;
   background-size: 36px;
@@ -33,18 +32,16 @@ button {
   padding: $margin $margin 0;
   text-align: center;
   font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   color: $text_secondary;
+  @include upper-text();
 }
 
 .or-text {
   padding: $margin;
   text-align: center;
-  text-transform: uppercase;
   color: $text_secondary;
-  letter-spacing: 1px;
   font-size: $font-small;
+  @include upper-text();
 }
 
 .login-actions {

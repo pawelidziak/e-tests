@@ -2,78 +2,67 @@
 @import '../../shared/mixins';
 
 .section-tests-list {
-  @media #{$gt-lg_size} {
-    //width: 50%;
-  }
+
 }
 
-/* Structure */
-.example-container {
+.tests-search {
+  padding: .5*$margin;
+}
+
+.single-test {
+  padding: .5*$margin;
+}
+
+.my-subtitle {
   display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  overflow: auto;
-}
-
-.example-header {
-  min-height: 64px;
-  padding: 8px 24px 0;
-}
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-.one-test {
-  outline: none;
-  padding: .5*$margin $margin;
-  margin: $margin;
-  &:hover {
-    cursor: pointer;
-    border-left: 5px solid $accent;
-  }
-
-}
-
-.test-header {
-  display: flex;
-  flex-wrap: wrap;
+  font-size: $font-small;
   align-items: center;
-  span {
-    font-size: $font-small;
-    color: $text_secondary;
+}
 
-    &:nth-child(1) {
-      display: none;
-      font-size: $font-normal;
-      padding-right: .5*$margin;
-      @media #{$gt-xs_size} {
-        display: block;
-      }
-    }
-
-    &:nth-child(2) {
-      padding-right: .5*$margin;
-      @media #{$gt-xs_size} {
-        border-left: 1px solid $divider_color;
-        padding: 0 .5*$margin;
-      }
-      border-right: 1px solid $divider_color;;
-    }
-
-    &:nth-child(3) {
-      padding-left: .5*$margin;
-      display: flex;
-      align-items: center;
-      mat-icon {
-        margin-right: 5px;
-      }
-    }
+.test-author {
+  &:hover {
+    color: cornflowerblue;
   }
 }
 
-.test-name {
-  padding: $margin 0 .5*$margin;
-  //font-weight: 600;
+.subtitle-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $text_secondary;
+  span {
+    margin-left: 5px;
+  }
+  margin-right: .5*$margin;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.card-actions {
+  padding-top: 2*$margin;
+  display: flex;
+  .chip-list {
+    outline: none;
+  }
+}
+
+.card-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  background-color: $hover_color;
+  justify-content: space-between;
+  button {
+    min-width: 48px;
+    outline: none;
+  }
+  padding: .5*$margin;
+}
+
+.go-test {
+  display: flex;
+  align-items: center;
 }

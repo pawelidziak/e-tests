@@ -9,14 +9,11 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-import {TopBarModule} from './top-bar/top-bar.module';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {AppSettingsModule} from '../app-settings/app-settings.module';
 import {HeaderModule} from './header/header.module';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {AuthComponent} from '../auth/auth.component';
 import {AuthModule} from '../auth/auth.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +21,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     SharedModule,
-    TopBarModule,
     HeaderModule,
     AppSettingsModule,
     AuthModule,
@@ -33,9 +29,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    BrowserAnimationsModule,
-    ScrollDispatchModule,
-
     MatListModule,
     MatToolbarModule
   ],

@@ -1,21 +1,10 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.button-fixed {
-  //position: fixed;
-  //top: 8px;
-  //right: .5*$margin;
-  //z-index: 2;
-  //@media #{$gt-lg_size} {
-  //  right: $margin;
-  //}
-
-}
-
-.button-save {
-  margin-right: .5*$margin;
+.sub-header {
   display: flex;
   justify-content: flex-end;
+  border-bottom: 1px solid $hover_color;
 }
 
 mat-vertical-stepper {
