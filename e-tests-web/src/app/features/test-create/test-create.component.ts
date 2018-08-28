@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NEWTest} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {TestCreate} from '../../core/models/Test';
+import {AuthService} from '../../core/services/auth.service';
+import {NewTestService} from '../../core/services/NewTest.service';
 
 @Component({
   selector: 'app-test-create',
@@ -15,32 +16,52 @@ export class TestCreateComponent implements OnInit {
   private readonly HEADER_TEXT = 'Create';
   public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  public testTags: string[] = [];
+  /*
+    Tags variables
+   */
+  @ViewChild('chipList') chipList;
   public selectable = true;
   public removable = true;
   public addOnBlur = false;
+  public testTags: string[] = [];
+  public createTestForm: FormGroup;
 
-  @ViewChild('chipList') chipList;
-
-  public newTestForm: FormGroup;
-  public newName = new FormControl('', Validators.required);
-  public tags = new FormControl('', Validators.required);
-  public desc = new FormControl();
-  public author = new FormControl({value: '', disabled: true}, Validators.required);
-  public createDate = new FormControl({value: '', disabled: true}, Validators.required);
-  public availability = new FormControl({value: true, disabled: true}, Validators.required);
-
-
-  constructor(private headerService: HeaderService) {
+  constructor(private headerService: HeaderService,
+              private auth: AuthService,
+              private testService: NewTestService) {
   }
 
   ngOnInit() {
     this.buildForm();
     this.headerService.setHeaderText(this.HEADER_TEXT);
+    this.isLoggedIn();
   }
 
-  /*
-          Method used by CanDeactivateGuard to show redirect alert
+  private buildForm(): void {
+    this.createTestForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      tags: new FormControl(this.testTags),
+      desc: new FormControl(''),
+      createDate: new FormControl({value: new Date(), disabled: true}, Validators.required),
+      isPublic: new FormControl({value: true, disabled: true}, Validators.required)
+    });
+  }
+
+  /**
+   * If is not logged in - open auth dialog
+   */
+  private isLoggedIn() {
+    const sub$ = this.auth.currentUserAuthState.subscribe(
+      res => {
+        if (!res) {
+          this.auth.openAuthDialog(true);
+        }
+      }
+    );
+  }
+
+  /**
+   Method used by CanDeactivateGuard to show redirect alert
    */
   canDeactivate() {
     if (this.checkUnsavedData()) {
@@ -49,66 +70,65 @@ export class TestCreateComponent implements OnInit {
     return true;
   }
 
-  private buildForm(): void {
-    this.newTestForm = new FormGroup({
-      newName: this.newName,
-      tags: this.tags,
-      desc: this.desc,
-      author: this.author,
-      createDate: this.createDate,
-      availability: this.availability
-    });
-    // TODO get author from service
-    this.author.setValue('Paweł Idziak');
-    this.createDate.setValue(new Date().toLocaleDateString());
-  }
-
   public checkUnsavedData(): boolean {
-    return this.newName.value.length > 0 || this.testTags.length > 0;
+    return this.createTestForm.get('name').value.length > 0 || this.testTags.length > 0;
   }
 
-  public createTest(): void {
+
+  /*
+          TEST FUNCTIONALITY
+    */
+  public saveTest(): void {
     this.checkTagsAndSetError();
-    if (this.newTestForm.valid && this.testTags.length > 0) {
-      console.log('tworze test');
+    if (this.createTestForm.valid && this.testTags.length > 0) {
+      const sub$ = this.testService.addTest(this.createTest())
+        .then(() => {
+          // TODO redirect
+          console.log('stworzylem')
+        })
+        .catch(error => console.log(error));
     }
+  }
+
+  private createTest(): TestCreate {
+    return {
+      name: this.createTestForm.get('name').value,
+      tags: this.createTestForm.get('tags').value,
+      desc: this.createTestForm.get('desc').value,
+      createDate: this.createTestForm.get('createDate').value,
+      authorId: this.auth.id,
+      isPublic: this.createTestForm.get('isPublic').value
+    };
   }
 
   /*
           TAGS FUNCTIONALITY
     */
-  public addTag(event: MatChipInputEvent): void {
-    const input = event.input;
-    const tag = event.value;
+  public addTag(input: any): void {
+    const tag = input.value;
 
     // Add tag if is correct
-    console.log(this.checkTagCorrectness(tag));
     if (this.checkTagCorrectness(tag)) {
       this.testTags.push(tag.trim());
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
-
     // check tags correctness
     this.checkTagsAndSetError();
   }
 
   public removeTag(tag: any): void {
     const index = this.testTags.indexOf(tag);
-
     if (index >= 0) {
       this.testTags.splice(index, 1);
     }
-
     // check tags correctness
     this.checkTagsAndSetError();
   }
 
   private checkTagCorrectness(tag: string): boolean {
-    console.log(tag);
     // check if tag exists, if it's letter or number and if its new
     return (tag || '').trim() &&
       tag.match(/^[0-9a-zA-Z-\s]+$/) &&

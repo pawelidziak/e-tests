@@ -15,6 +15,7 @@ import {CacheService} from './services/cache.service';
 import {FirebaseModule} from './firebase.module';
 import {AuthService} from './services/auth.service';
 import {CanDeactivateGuard} from './can-deactivate-guard';
+import {NewTestService} from './services/NewTest.service';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import {CanDeactivateGuard} from './can-deactivate-guard';
     CacheService,
     HeaderService,
     TestListService,
-    TestService
+    TestService,
+    NewTestService
   ]
 })
 export class CoreModule {

@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HeaderButtonType, HeaderService} from '../../../core/services/header.service';
 import {Location} from '@angular/common';
-import {MatDialog, MatSidenav} from '@angular/material';
-import {AuthComponent} from '../../auth/auth.component';
+import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private headerService: HeaderService,
               private location: Location,
-              private auth: AuthService,
-              public dialog: MatDialog) {
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -33,24 +31,16 @@ export class HeaderComponent implements OnInit {
   }
 
   private getUser() {
-    this.auth.currentUserAuthState.subscribe(
+    const sub$ = this.auth.currentUserAuthState.subscribe(
       res => {
         this.user = res;
-        // if (res && res.emailVerified) {
-        // } else {
-        //   this.user = null;
-        // }
       },
       error => console.log(error)
     );
   }
 
   public openAuthDialog(): void {
-    const dialogRef = this.dialog.open(AuthComponent);
-
-    const sub$ = dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed = ' + result);
-    });
+    this.auth.openAuthDialog(false);
   }
 
   public backClicked(): void {
