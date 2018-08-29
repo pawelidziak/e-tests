@@ -13,14 +13,17 @@
             <span class="message">Let's create a new test! </span>
           </div>
 
-          <form class="new-test-form" [formGroup]="newTestForm" (ngSubmit)="createTest()">
+          <form class="new-test-form" [formGroup]="createTestForm" (ngSubmit)="saveTest()">
 
             <!-- TEST NAME -->
             <mat-form-field style="width: 100%" color="accent" appearance="outline">
               <mat-label>Test name</mat-label>
-              <input matInput placeholder="Test name..." type="text" [formControl]="newName">
+              <input matInput
+                     placeholder="Test name..."
+                     type="text"
+                     formControlName="name">
               <mat-hint>Recognizable names are the best!</mat-hint>
-              <mat-error *ngIf="newName.hasError('required')">Test name is <strong>required</strong></mat-error>
+              <mat-error *ngIf="createTestForm.invalid">Test name is <strong>required</strong></mat-error>
             </mat-form-field>
 
             <!-- TEST TAGS -->
@@ -35,38 +38,40 @@
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input placeholder="New tag..."
-                       [formControl]="tags"
+                       #chipInput
                        [matChipInputFor]="chipList"
                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="addOnBlur"
-                       (matChipInputTokenEnd)="addTag($event)"/>
+                       (matChipInputTokenEnd)="addTag(chipInput)"
+                       (focusout)="addTag(chipInput)"/>
               </mat-chip-list>
-              <mat-hint>Don't use special characters</mat-hint>
+              <mat-hint>Separate by <strong>ENTER</strong> or <strong>COMMA</strong></mat-hint>
+              <mat-hint align="end">Don't use special characters</mat-hint>
               <mat-error *ngIf="chipList.errorState">Choose at least <strong>1</strong> tag</mat-error>
             </mat-form-field>
 
             <!-- TEST DESCRIPTION -->
             <mat-form-field style="width: 100%" color="accent" appearance="outline">
               <mat-label>Description</mat-label>
-              <textarea matInput placeholder="Description..." rows="5" type="text"
-                        [formControl]="desc"></textarea>
+              <textarea matInput
+                        placeholder="Description..."
+                        rows="5"
+                        type="text"
+                        formControlName="desc"></textarea>
             </mat-form-field>
 
             <div class="details">
-              <!-- TEST AUTHOR-->
-              <mat-form-field color="accent" appearance="outline" class="detail">
-                <mat-label>Author</mat-label>
-                <input matInput placeholder="Author" type="text" [formControl]="author">
-              </mat-form-field>
-
               <!-- TEST CREATE DATE-->
               <mat-form-field color="accent" appearance="outline" class="detail">
                 <mat-label>Create date</mat-label>
-                <input matInput placeholder="Create date" [formControl]="createDate">
+                <input matInput
+                       placeholder="Create date"
+                       formControlName="createDate"
+                       [value]="createTestForm.get('createDate').value | date: 'dd.MM.yyyy'">
               </mat-form-field>
 
               <!-- TEST VISIBLE -->
-              <mat-checkbox [formControl]="availability"
+              <mat-checkbox formControlName="isPublic"
                             matTooltip="Private option is unavailable at this moment">Public
               </mat-checkbox>
             </div>

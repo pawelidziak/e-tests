@@ -64,10 +64,12 @@ export class LoginComponent implements OnInit {
       .then(() => {
         this.matTabGrp.realignInkBar();
         this.responseMsg = 'Instructions have been sent to the email.';
+        this.errorMsg = '';
       })
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;
+        this.responseMsg = '';
       });
   }
 }

@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {User} from 'firebase';
 import {Observable} from 'rxjs/internal/Observable';
-import * as firebase from 'firebase';
+import {MatDialog} from '@angular/material';
+import {AuthComponent} from '../../features/auth/auth.component';
+import * as firebase from 'firebase/app';
 
 
 @Injectable()
@@ -10,7 +12,8 @@ export class AuthService {
 
   private _user: User = null;
 
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth,
+              public dialog: MatDialog) {
     this.afAuth.authState.subscribe((auth) => {
       this._user = auth;
     });
@@ -18,6 +21,14 @@ export class AuthService {
 
   get currentUserAuthState(): Observable<any> {
     return this.afAuth.authState;
+  }
+
+  get userName(): string {
+    return this._user ? this._user.displayName : 'Not logged in';
+  }
+
+  get id(): string {
+    return this._user ? this._user.uid : '';
   }
 
   // Logout
@@ -68,11 +79,22 @@ export class AuthService {
 
   // Sends email allowing user to reset password
   public resetPassword(email: string) {
-    const auth = firebase.auth();
-
+    const auth = this.afAuth.auth;
     return auth.sendPasswordResetEmail(email)
       .catch((error: any) => {
         throw new Error((error.message));
       });
+  }
+
+  public openAuthDialog(disableClose: boolean): void {
+    const dialogRef = this.dialog.open(AuthComponent, {
+      data: {
+        disableClose: disableClose
+      }
+    });
+
+    // const sub$ = dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed = ' + result);
+    // });
   }
 }

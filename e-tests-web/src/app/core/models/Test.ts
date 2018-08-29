@@ -19,3 +19,12 @@ export interface NEWTest {
   createDate: Date;
   updateDate?: Date;
 }
+
+export interface TestCreate {
+  name: string;
+  tags: string[];
+  desc?: string;
+  createDate: Date;
+  authorId: string;
+  isPublic: boolean;
+}
