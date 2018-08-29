@@ -1,36 +1,50 @@
-<section class="section-test-info">
+<section class="section-test-info" *ngIf="test">
 
-  <div class="actions-button">
+  <mat-card>
+    <div class="container">
+      <div class="first-row">
 
-    <div>
+        <div class="author-date">
+          <span style="margin-right: 24px">{{test.createDate.seconds * 1000 | date: 'dd.MM.yyyy'}}</span>
+          <span>TODO autor</span>
+        </div>
 
+        <div>
+          <button mat-mini-fab matTooltip="Learn" color="primary">
+            <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
+          </button>
+          <button mat-mini-fab matTooltip="Edit">
+            <mat-icon aria-label="Edit icon">edit</mat-icon>
+          </button>
+          <button mat-mini-fab matTooltip="Settings" (click)="openBottomSheet()">
+            <mat-icon aria-label="Settings icon">settings</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="test-name">Test name ab lorem cos tam</div>
+
+      <mat-chip-list class="tag-chip-list">
+        <mat-chip *ngFor="let tag of test.tags" [disabled]="true">
+          {{tag}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <div class="test-desc">
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+        est laborum."
+      </div>
     </div>
-    <div>
-      <button mat-raised-button color="primary" class="one-action" [routerLink]="'/test/' + testId">
-        <mat-icon aria-label="Start learn icon">play_circle_outline</mat-icon>
-        <span>learn</span>
-      </button>
+  </mat-card>
 
-      <button mat-raised-button color="accent" class="one-action">
-        <mat-icon aria-label="Start learn icon">assignment</mat-icon>
-        <span>test</span>
-      </button>
-
-      <button mat-raised-button class="one-action" [routerLink]="'/test/' + testId + '/exercises'">
-        <mat-icon aria-label="Start learn icon">edit</mat-icon>
-        <span>edit</span>
-      </button>
-    </div>
-
-
-    <div>
-      <button mat-icon-button>
-        <mat-icon aria-label="Settings icon">settings</mat-icon>
-      </button>
-    </div>
-
-  </div>
-
+  <!--<div class="container">-->
+    <!--<app-exercise-list [exerciseList]="exercises"></app-exercise-list>-->
+  <!--</div>-->
 
 </section>
+
+
 

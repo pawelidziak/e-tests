@@ -4,6 +4,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {MatDialog} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
+import {ALL_ROUTES} from '../../app.routing';
 
 @Component({
   selector: 'app-main',
@@ -17,11 +18,11 @@ export class MainComponent implements OnInit {
   @HostBinding('class') componentCssClass;
 
   public generalLinks = [
-    {label: 'Search', path: '/', icon: 'search'},
-    {label: 'Create', path: 'create', icon: 'add'},
+    {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
+    {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'},
   ];
   public privateLinks = [
-    {label: 'Your tests', path: 'tests-list', icon: 'view_list'},
+    {label: 'Your tests', path: ALL_ROUTES.USER_TESTS_LIST, icon: 'view_list'},
   ];
 
   public isSmallScreen = false;

@@ -5,6 +5,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TestCreate} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {NewTestService} from '../../core/services/NewTest.service';
+import {Router} from '@angular/router';
+import {ALL_ROUTES} from '../../app.routing';
 
 @Component({
   selector: 'app-test-create',
@@ -26,9 +28,12 @@ export class TestCreateComponent implements OnInit {
   public testTags: string[] = [];
   public createTestForm: FormGroup;
 
+  private testCreatedFlag = false;
+
   constructor(private headerService: HeaderService,
               private auth: AuthService,
-              private testService: NewTestService) {
+              private testService: NewTestService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -64,7 +69,7 @@ export class TestCreateComponent implements OnInit {
    Method used by CanDeactivateGuard to show redirect alert
    */
   canDeactivate() {
-    if (this.checkUnsavedData()) {
+    if (!this.testCreatedFlag && this.checkUnsavedData()) {
       return window.confirm('Are you sure? Unsaved changes will be lost.');
     }
     return true;
@@ -82,9 +87,9 @@ export class TestCreateComponent implements OnInit {
     this.checkTagsAndSetError();
     if (this.createTestForm.valid && this.testTags.length > 0) {
       const sub$ = this.testService.addTest(this.createTest())
-        .then(() => {
-          // TODO redirect
-          console.log('stworzylem')
+        .then((createdTest) => {
+          this.testCreatedFlag = true;
+          this.router.navigate([`/${ALL_ROUTES.CREATED_TEST}/${createdTest.id}`]);
         })
         .catch(error => console.log(error));
     }

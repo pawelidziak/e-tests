@@ -2,7 +2,7 @@
 
   <div class="left">
     <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
-    <button mat-icon-button (click)="drawer.close()" routerLink="dashboard">
+    <button mat-icon-button (click)="drawer.close()" [routerLink]="ALL_ROUTES.DASHBOARD">
       <mat-icon aria-label="Home icon">home</mat-icon>
     </button>
     <button mat-icon-button (click)="drawer.toggle()">
@@ -31,11 +31,11 @@
 
     <!-- GRATER DEVICES -->
     <div *ngIf="!isSmallScreen">
-      <button mat-button>
+      <button mat-button [routerLink]="ALL_ROUTES.SEARCH">
         <mat-icon aria-label="Search icon">search</mat-icon>
         <span>Search</span>
       </button>
-      <button mat-button routerLink="create">
+      <button mat-button [routerLink]="ALL_ROUTES.CREATE_TEST">
         <mat-icon aria-label="Create icon">add</mat-icon>
         <span>Create</span>
       </button>
