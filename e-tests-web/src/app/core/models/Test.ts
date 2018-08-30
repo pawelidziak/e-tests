@@ -21,6 +21,7 @@ export interface NEWTest {
 }
 
 export interface TestCreate {
+  id?: string;
   name: string;
   tags: string[];
   desc?: string;

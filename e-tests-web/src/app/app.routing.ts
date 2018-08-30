@@ -1,5 +1,6 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
+import {AuthGuard} from './core/auth.guard';
 
 export const ALL_ROUTES = {
   DASHBOARD: 'dashboard',
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
   },
   {
     path: ALL_ROUTES.USER_TESTS_LIST,
-    loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule'
+    loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule',
+    canActivate: [AuthGuard]
   },
   {
     path: `${ALL_ROUTES.CREATED_TEST}/:testId`,

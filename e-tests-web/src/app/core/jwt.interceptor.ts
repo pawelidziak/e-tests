@@ -24,9 +24,9 @@ export class JwtInterceptor implements HttpInterceptor {
     // show loader
     this.loader.start();
 
-    request = request.clone({
-      url: BASE_URL + request.url
-    });
+    // request = request.clone({
+    //   url: BASE_URL + request.url
+    // });
 
 
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {

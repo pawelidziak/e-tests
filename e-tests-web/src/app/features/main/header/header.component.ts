@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private getUser() {
-    const sub$ = this.auth.currentUserAuthState.subscribe(
+    const sub$ = this.auth.currentUserObservable.subscribe(
       res => {
         this.user = res;
       },

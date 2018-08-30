@@ -56,7 +56,7 @@ export class TestCreateComponent implements OnInit {
    * If is not logged in - open auth dialog
    */
   private isLoggedIn() {
-    const sub$ = this.auth.currentUserAuthState.subscribe(
+    const sub$ = this.auth.currentUserObservable.subscribe(
       res => {
         if (!res) {
           this.auth.openAuthDialog(true);
@@ -101,7 +101,7 @@ export class TestCreateComponent implements OnInit {
       tags: this.createTestForm.get('tags').value,
       desc: this.createTestForm.get('desc').value,
       createDate: this.createTestForm.get('createDate').value,
-      authorId: this.auth.id,
+      authorId: this.auth.currentUserId,
       isPublic: this.createTestForm.get('isPublic').value
     };
   }

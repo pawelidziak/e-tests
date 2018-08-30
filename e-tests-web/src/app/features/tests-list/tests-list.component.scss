@@ -13,47 +13,13 @@
   padding: .5*$margin;
 }
 
-.my-subtitle {
-  display: flex;
-  font-size: $font-small;
-  align-items: center;
+.chip-list {
+  outline: none;
 }
 
-.test-author {
-  &:hover {
-    color: cornflowerblue;
-  }
-}
-
-.subtitle-item {
+.my-card-footer {
+  width: 100%;
   display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: $text_secondary;
-  span {
-    margin-left: 5px;
-  }
-  margin-right: .5*$margin;
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.card-actions {
-  padding-top: 2*$margin;
-  display: flex;
-  .chip-list {
-    outline: none;
-  }
-}
-
-.card-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  background-color: $hover_color;
   justify-content: space-between;
   button {
     min-width: 48px;
@@ -62,7 +28,23 @@
   padding: .5*$margin;
 }
 
-.go-test {
+.footer-item {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: $text_secondary;
+  font-size: $font-small;
+  span {
+    margin-left: 5px;
+  }
+}
+
+.test-author {
+  &:hover {
+    color: cornflowerblue;
+  }
+}
+
+.no-matches-icon {
+  @include mat-icon-size(100px);
 }
