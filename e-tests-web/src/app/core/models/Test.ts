@@ -21,10 +21,16 @@ export interface NEWTest {
 }
 
 export interface TestCreate {
+  id?: string;
   name: string;
   tags: string[];
   desc?: string;
-  createDate: Date;
+  createDate: FirebaseTimestamp;
   authorId: string;
   isPublic: boolean;
+}
+
+interface FirebaseTimestamp {
+  nanoseconds: number;
+  seconds: number;
 }

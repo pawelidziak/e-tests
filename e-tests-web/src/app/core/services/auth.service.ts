@@ -12,24 +12,33 @@ export class AuthService {
 
   private _user: User = null;
 
-  constructor(public afAuth: AngularFireAuth,
-              public dialog: MatDialog) {
-    this.afAuth.authState.subscribe((auth) => {
+  constructor(private  afAuth: AngularFireAuth,
+              private dialog: MatDialog) {
+    const sub$ = this.afAuth.authState.subscribe(auth => {
       this._user = auth;
     });
   }
 
-  get currentUserAuthState(): Observable<any> {
+  get currentUserObservable(): Observable<any> {
     return this.afAuth.authState;
   }
 
-  get userName(): string {
-    return this._user ? this._user.displayName : 'Not logged in';
+
+  // Returns true if user is logged in
+  get isAuthenticated(): boolean {
+    return this._user !== null;
   }
 
-  get id(): string {
-    return this._user ? this._user.uid : '';
+  // Returns current user data
+  get currentUser(): any {
+    return this.isAuthenticated ? this._user : null;
   }
+
+  // Returns current user UID
+  get currentUserId(): string {
+    return this._user.uid ;
+  }
+
 
   // Logout
   public signOut() {

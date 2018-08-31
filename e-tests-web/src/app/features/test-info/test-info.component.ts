@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
-import {TestService} from '../../core/services/test.service';
+import {HeaderService} from '../../core/services/header.service';
 import {ActivatedRoute} from '@angular/router';
-import {MatTableDataSource} from '@angular/material';
-import {Exercise} from '../../core/models/Exercise';
+import {MatBottomSheet} from '@angular/material';
 import {TestListService} from '../../core/services/test-list.service';
-import {TestShortInfo} from '../../core/models/TestShortInfo';
+import {NewTestService} from '../../core/services/NewTest.service';
+import {TestCreate} from '../../core/models/Test';
+import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 
 @Component({
   selector: 'app-test-info',
@@ -15,48 +15,36 @@ import {TestShortInfo} from '../../core/models/TestShortInfo';
 export class TestInfoComponent implements OnInit {
 
   public testId: string;
-  public dataSource: MatTableDataSource<Exercise>;
-  private currentTestShortInfo: TestShortInfo;
+
+  public test: TestCreate;
+  public exercises: any;
 
   constructor(private route: ActivatedRoute,
-              private testService: TestService,
+              private testService: NewTestService,
               private testListService: TestListService,
-              private headerService: HeaderService) {
+              private headerService: HeaderService,
+              private bottomSheet: MatBottomSheet) {
     const routeSub$ = this.route.parent.params.subscribe(params => {
       this.testId = params['testId'];
+      this.getTest();
+      this.getExercises();
     });
   }
 
 
   ngOnInit() {
-    this.getTest();
   }
 
   private getTest() {
-
-    // first check if the test-learn was set (it was, then te page wasn't refresh)
-    this.currentTestShortInfo = this.testListService.getCurrentTest();
-
-    if (this.currentTestShortInfo) {
-      this.setHeader(this.currentTestShortInfo.testName);
-      this.getExercises();
-    } else {
-      const sub$ = this.testListService.getOneTest(this.testId).subscribe(
-        res => {
-          this.currentTestShortInfo = res;
-          this.setHeader(res.testName);
-          this.getExercises();
-        },
-        error => console.log(error)
-      );
-    }
+    const sub$ = this.testService.getTestById(this.testId).subscribe(
+      res => this.test = res,
+      error => console.log(error)
+    );
   }
 
   private getExercises() {
-    const sub$ = this.testListService.getTestExercisesList(this.currentTestShortInfo.testId).subscribe(
-      res => {
-        this.dataSource = new MatTableDataSource<Exercise>(res);
-      },
+    const sub$ = this.testService.getTestExercises(this.testId).subscribe(
+      res => this.exercises = res,
       error => console.log(error)
     );
   }
@@ -65,4 +53,8 @@ export class TestInfoComponent implements OnInit {
     this.headerService.setHeaderText(headerText);
   }
 
+  openBottomSheet(): void {
+    this.bottomSheet.open(TestSettingsBottomSheetComponent);
+  }
 }
+

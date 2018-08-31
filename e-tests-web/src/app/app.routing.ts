@@ -1,28 +1,38 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
+import {AuthGuard} from './core/auth.guard';
+
+export const ALL_ROUTES = {
+  DASHBOARD: 'dashboard',
+  SEARCH: 'search',
+  CREATE_TEST: 'create',
+  CREATED_TEST: 'test',
+  USER_TESTS_LIST: 'tests-list'
+};
 
 const appRoutes: Routes = [
   /**
    * Define lazy loading routes here
    */
   {
-    path: 'dashboard',
+    path: ALL_ROUTES.DASHBOARD,
     loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
   },
   {
-    path: 'test/:testId',
+    path: 'test1/:testId',
     loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
   {
-    path: 'create',
+    path: ALL_ROUTES.CREATE_TEST,
     loadChildren: 'app/features/test-create/test-create.module#TestCreateModule'
   },
   {
-    path: 'tests-list',
-    loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule'
+    path: ALL_ROUTES.USER_TESTS_LIST,
+    loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule',
+    canActivate: [AuthGuard]
   },
   {
-    path: 'test-info/:testId',
+    path: `${ALL_ROUTES.CREATED_TEST}/:testId`,
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
   {

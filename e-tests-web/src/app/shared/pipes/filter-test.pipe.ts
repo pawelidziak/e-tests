@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {TestShortInfo} from '../../core/models/TestShortInfo';
+import {TestCreate} from '../../core/models/Test';
 
 @Pipe({
   name: 'filterTest'
@@ -13,9 +13,11 @@ export class FilterTestPipe implements PipeTransform {
       return items;
     }
     searchText = searchText.toLowerCase();
-    return items.filter((test: TestShortInfo) => {
-      return test.testName.toLowerCase().includes(searchText) || test.author.toLowerCase().includes(searchText);
+    return items.filter((test: TestCreate) => {
+      return test.name.toLowerCase().includes(searchText) ||
+        test.desc.toLowerCase().includes(searchText) ||
+        JSON.stringify(test.tags).toLowerCase().includes(searchText);
     });
-    // TODO sections
+
   }
 }

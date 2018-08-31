@@ -16,6 +16,8 @@ import {FirebaseModule} from './firebase.module';
 import {AuthService} from './services/auth.service';
 import {CanDeactivateGuard} from './can-deactivate-guard';
 import {NewTestService} from './services/NewTest.service';
+import {LoaderService} from './services/loader.service';
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [],
@@ -27,6 +29,8 @@ import {NewTestService} from './services/NewTest.service';
   ],
   exports: [],
   providers: [
+    AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
@@ -34,9 +38,9 @@ import {NewTestService} from './services/NewTest.service';
     },
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
+    LoaderService,
     Overlay, // needed for angular ckd
     RWDService,
-    AuthService,
     CanDeactivateGuard,
     CacheService,
     HeaderService,

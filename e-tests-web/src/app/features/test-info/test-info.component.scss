@@ -2,28 +2,51 @@
 @import '../../shared/variables';
 
 .section-test-info {
-  padding: $margin;
 }
 
-.actions-button {
-  margin-bottom: 2*$margin;
+.first-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
-.one-action {
-  text-transform: uppercase;
-  margin-right: .5*$margin;
-  &:last-child {
-    margin-right: 0;
+
+.tag-chip-list {
+  outline: none;
+}
+
+.test-name {
+  font-size: 2*$font-normal;
+  font-weight: 600;
+  margin-bottom: .5*$margin;
+}
+
+.author-date {
+  font-size: $font-small;
+}
+
+.test-desc {
+  margin-top: .5*$margin;
+
+}
+
+.first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media #{$lt_md_size} {
+    flex-direction: column-reverse;
+    > * {
+      margin-bottom: $margin;
+    }
   }
 
-  //
-  //@media #{$gt-md_size} {
-  //  height: 72px;
-  //}
-
-  mat-icon {
-    margin-right: .5*$margin;
+  button {
+    margin-right: 5px;
+    outline: none;
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

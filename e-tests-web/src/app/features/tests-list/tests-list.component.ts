@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {TestListService} from '../../core/services/test-list.service';
-import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
+import {HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
-import {TestShortInfo} from '../../core/models/TestShortInfo';
+import {NewTestService} from '../../core/services/NewTest.service';
+import {TestCreate} from '../../core/models/Test';
+import {ALL_ROUTES} from '../../app.routing';
 
 @Component({
   selector: 'app-tests-list',
@@ -12,40 +13,27 @@ import {TestShortInfo} from '../../core/models/TestShortInfo';
 export class TestsListComponent implements OnInit {
 
   public searchText: string;
-  public shortTestList: Array<TestShortInfo>;
 
-  constructor(private testListService: TestListService,
-              private headerService: HeaderService,
-              private router: Router) {
+  public testList: Array<TestCreate>;
+
+  constructor(private headerService: HeaderService,
+              private router: Router,
+              private testService: NewTestService) {
   }
 
   ngOnInit() {
     this.getTestsList();
   }
 
-  public navigateToTest(test: TestShortInfo): void {
-    this.testListService.saveCurrentTest(test);
-    this.router.navigateByUrl(`/test-info/${test.testId}`);
+  public navigateToTest(testId: string): void {
+   this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${testId}`]);
   }
 
   private getTestsList(): void {
-    const sub$ = this.testListService.getTestsList().subscribe(
-      res => {
-        this.shortTestList = res;
-        this.headerService.setHeaderButtonAndText(HeaderButtonType.MENU, '');
-      },
+    this.testService.getTestByCurrentUser().subscribe(
+      res => this.testList = res,
       error => console.log(error)
     );
   }
 
-  public getTooltipText(value: string, test: TestShortInfo) {
-    switch (value) {
-      case 'progress':
-        return '49% progress';
-      case 'exercises':
-        return `${test.exercisesListSize} exercises`;
-      case 'sections':
-        return test.section;
-    }
-  }
 }

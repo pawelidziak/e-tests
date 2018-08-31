@@ -3,6 +3,7 @@ import {HeaderButtonType, HeaderService} from '../../../core/services/header.ser
 import {Location} from '@angular/common';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../core/services/auth.service';
+import {ALL_ROUTES} from '../../../app.routing';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,8 @@ import {AuthService} from '../../../core/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  public readonly ALL_ROUTES = ALL_ROUTES;
 
   @Input() drawer: MatSidenav;
   @Input() isSmallScreen: boolean;
@@ -31,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private getUser() {
-    const sub$ = this.auth.currentUserAuthState.subscribe(
+    const sub$ = this.auth.currentUserObservable.subscribe(
       res => {
         this.user = res;
       },

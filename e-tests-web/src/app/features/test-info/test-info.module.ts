@@ -2,21 +2,37 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {TestInfoComponent} from './test-info.component';
 import {testInfoRouting} from './test-info.routing';
-import {MatButtonModule, MatIconModule,} from '@angular/material';
+import {
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatIconModule,
+  MatTooltipModule
+} from '@angular/material';
+import { TestSettingsBottomSheetComponent } from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
+import {ExerciseListModule} from '../test-detail/exercise-list/exercise-list.module';
 
 @NgModule({
   declarations: [
-    TestInfoComponent
+    TestInfoComponent,
+    TestSettingsBottomSheetComponent
   ],
   imports: [
     SharedModule,
     testInfoRouting,
+    // ExerciseListModule,
 
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatBottomSheetModule
   ],
   exports: [],
-  providers: []
+  providers: [],
+  entryComponents: [TestSettingsBottomSheetComponent]
 })
 export class TestInfoModule {
 }
