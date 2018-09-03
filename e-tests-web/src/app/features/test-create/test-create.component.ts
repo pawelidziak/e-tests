@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +7,7 @@ import {AuthService} from '../../core/services/auth.service';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../app.routing';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-test-create',
@@ -14,7 +15,7 @@ import {ALL_ROUTES} from '../../app.routing';
   styleUrls: ['./test-create.component.scss'],
 
 })
-export class TestCreateComponent implements OnInit {
+export class TestCreateComponent implements OnInit, OnDestroy {
   private readonly HEADER_TEXT = 'Create';
   public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -29,6 +30,7 @@ export class TestCreateComponent implements OnInit {
   public createTestForm: FormGroup;
 
   private testCreatedFlag = false;
+  private isLoggedSub$: Subscription;
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,
@@ -40,6 +42,11 @@ export class TestCreateComponent implements OnInit {
     this.buildForm();
     this.headerService.setHeaderText(this.HEADER_TEXT);
     this.isLoggedIn();
+  }
+
+
+  ngOnDestroy(): void {
+    this.isLoggedSub$.unsubscribe();
   }
 
   private buildForm(): void {
@@ -56,7 +63,7 @@ export class TestCreateComponent implements OnInit {
    * If is not logged in - open auth dialog
    */
   private isLoggedIn() {
-    const sub$ = this.auth.currentUserObservable.subscribe(
+    this.isLoggedSub$ = this.auth.currentUserObservable.subscribe(
       res => {
         if (!res) {
           this.auth.openAuthDialog(true);

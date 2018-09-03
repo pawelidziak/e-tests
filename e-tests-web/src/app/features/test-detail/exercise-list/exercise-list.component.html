@@ -23,14 +23,14 @@
                       (addedExercise)="handleAddedExercise($event)"
     ></app-one-exercise>
   </div>
-  <app-one-exercise *ngFor="let exercise of exerciseList | filterExercise : searchText"
+  <app-one-exercise *ngFor="let exercise of exerciseList"
                     [exercise]="exercise"
                     (addedExercise)="handleAddedExercise($event)"
   ></app-one-exercise>
 
-  <div *ngIf="exerciseList.length > 0 && (exerciseList | filterExercise: searchText).length === 0" class="no-matches">No
-    matches
-  </div>
+  <!--<div *ngIf="exerciseList.length > 0 && (exerciseList | filterExercise: searchText).length === 0" class="no-matches">No-->
+    <!--matches-->
+  <!--</div>-->
 
 
 </section>

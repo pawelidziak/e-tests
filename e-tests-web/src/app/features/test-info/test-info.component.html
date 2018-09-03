@@ -1,48 +1,46 @@
-<section class="section-test-info" *ngIf="test">
+<section *ngIf="test && exercises">
 
   <mat-card>
-    <div class="container">
-      <div class="first-row">
+    <div class="container test-info-container">
+
+      <div class="left-side">
 
         <div class="author-date">
           <span style="margin-right: 24px">{{test.createDate.seconds * 1000 | date: 'dd.MM.yyyy'}}</span>
           <span>TODO autor</span>
         </div>
 
-        <div>
-          <button mat-mini-fab matTooltip="Learn" color="primary">
-            <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
-          </button>
-          <button mat-mini-fab matTooltip="Edit">
-            <mat-icon aria-label="Edit icon">edit</mat-icon>
-          </button>
-          <button mat-mini-fab matTooltip="Settings" (click)="openBottomSheet()">
-            <mat-icon aria-label="Settings icon">settings</mat-icon>
-          </button>
-        </div>
+        <div class="test-name">{{test.name}}</div>
+
+        <mat-chip-list class="tag-chip-list">
+          <mat-chip *ngFor="let tag of test.tags" [disabled]="true">
+            {{tag}}
+          </mat-chip>
+        </mat-chip-list>
+
+        <div class="test-desc">{{test.desc}}</div>
+
       </div>
 
-      <div class="test-name">{{test.name}}</div>
-
-      <mat-chip-list class="tag-chip-list">
-        <mat-chip *ngFor="let tag of test.tags" [disabled]="true">
-          {{tag}}
-        </mat-chip>
-      </mat-chip-list>
-
-      <div class="test-desc">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-        est laborum."
+      <div class="right-side">
+        <button mat-raised-button color="accent" [disabled]="exercises.length === 0">
+          <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
+          <span>Learn</span>
+        </button>
+        <button mat-icon-button matTooltip="Edit">
+          <mat-icon aria-label="Edit icon">edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="More" (click)="openBottomSheet()">
+          <mat-icon aria-label="More icon">more_horiz</mat-icon>
+        </button>
       </div>
+
     </div>
   </mat-card>
 
-  <!--<div class="container">-->
-    <!--<app-exercise-list [exerciseList]="exercises"></app-exercise-list>-->
-  <!--</div>-->
+  <div class="container">
+    <app-exercises-no-editable [exerciseList]="exercises"></app-exercises-no-editable>
+  </div>
 
 </section>
 

@@ -1,18 +1,30 @@
-@import '../../shared/mixins';
 @import '../../shared/variables';
 
-.section-test-info {
-}
-
-.first-row {
+.test-info-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  @media #{$gt-md_size} {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 }
 
+.right-side {
+  display: flex;
+  justify-content: center;
+  button {
+    outline: none;
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
 
-.tag-chip-list {
-  outline: none;
+  }
+}
+
+.author-date {
+  font-size: $font-small;
 }
 
 .test-name {
@@ -21,32 +33,11 @@
   margin-bottom: .5*$margin;
 }
 
-.author-date {
-  font-size: $font-small;
+.tag-chip-list {
+  outline: none;
 }
 
 .test-desc {
   margin-top: .5*$margin;
-
-}
-
-.first-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media #{$lt_md_size} {
-    flex-direction: column-reverse;
-    > * {
-      margin-bottom: $margin;
-    }
-  }
-
-  button {
-    margin-right: 5px;
-    outline: none;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+  margin-bottom: $margin;
 }

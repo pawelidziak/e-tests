@@ -5,6 +5,7 @@ import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
 import {map} from 'rxjs/operators';
+import {Exercise} from '../models/Exercise';
 
 @Injectable()
 export class NewTestService {
@@ -12,6 +13,7 @@ export class NewTestService {
   private readonly TEST_PATH = 'tests';
   private readonly USER_ID_FIELD = 'authorId';
   private readonly EXERCISES_PATH = 'exercises';
+  private POSITION_ON_LIST_FIELD = 'number';
 
   constructor(private readonly afs: AngularFirestore,
               private auth: AuthService) {
@@ -25,8 +27,9 @@ export class NewTestService {
     return this.afs.doc<TestCreate>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
-  public getTestExercises(testId: string) {
-    return this.afs.collection(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`).valueChanges();
+  public getTestExercises(testId: string): Observable<Exercise[]> {
+    return this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
+        ref => ref.orderBy(this.POSITION_ON_LIST_FIELD, )).valueChanges();
   }
 
   public getTestByCurrentUser(): Observable<TestCreate[]> {

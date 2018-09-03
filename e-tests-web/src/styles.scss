@@ -102,7 +102,7 @@ html, body {
 // NO MATCHES
 .no-matches {
   text-align: center;
-  margin: 3*$margin $margin $margin;
+  margin: $margin 0;
   font-size: 1.3*$font-normal;
   .text {
     color: $material-red;
@@ -110,6 +110,9 @@ html, body {
   }
   button {
     @include upper-text();
+  }
+  .no-matches-icon {
+    @include mat-icon-size(100px);
   }
 }
 
