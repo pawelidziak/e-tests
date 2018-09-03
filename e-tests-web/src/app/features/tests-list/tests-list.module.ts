@@ -3,7 +3,6 @@ import {TestsListComponent} from './tests-list.component';
 import {SharedModule} from '../../shared/shared.module';
 import {testsListRouting} from './tests-list.routing';
 import {
-  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule, MatChipsModule,
   MatFormFieldModule,
@@ -11,19 +10,17 @@ import {
   MatInputModule, MatProgressBarModule,
   MatTooltipModule
 } from '@angular/material';
-import {CharLimitPipe} from '../../shared/pipes/char-limit.pipe';
-import {FilterTestPipe} from '../../shared/pipes/filter-test.pipe';
+import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 
 
 @NgModule({
   declarations: [
-    TestsListComponent,
-    CharLimitPipe,
-    FilterTestPipe
+    TestsListComponent
   ],
   imports: [
     SharedModule,
     testsListRouting,
+    MyPipesModule,
 
     MatChipsModule,
     MatButtonModule,

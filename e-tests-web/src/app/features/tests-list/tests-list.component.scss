@@ -1,10 +1,6 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-tests-list {
-
-}
-
 .tests-search {
   padding: .5*$margin;
 }
@@ -17,8 +13,17 @@
   outline: none;
 }
 
+.test-desc {
+  padding-bottom: 2*$margin;
+}
+
 .my-card-footer {
+  border-top: 1px solid $hover_color;
+  background-color: $hover_color;
   width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   button {
@@ -45,6 +50,3 @@
   }
 }
 
-.no-matches-icon {
-  @include mat-icon-size(100px);
-}

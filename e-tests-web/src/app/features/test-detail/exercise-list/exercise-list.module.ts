@@ -12,13 +12,11 @@ import {
   MatRadioModule
 } from '@angular/material';
 import {OneExerciseComponent} from './one-exercise/one-exercise.component';
-import {FilterExercisePipe} from '../../../shared/pipes/filter-exercise.pipe';
 
 @NgModule({
   declarations: [
     ExerciseListComponent,
-    OneExerciseComponent,
-    FilterExercisePipe
+    OneExerciseComponent
   ],
   imports: [
     SharedModule,

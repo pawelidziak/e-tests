@@ -2,9 +2,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 
 @Pipe({
-  name: 'filterExercise'
+  name: 'searchExercise'
 })
-export class FilterExercisePipe implements PipeTransform {
+export class SearchExercisePipe implements PipeTransform {
   transform(items: any[], searchText: string): any[] {
     if (!items) {
       return [];

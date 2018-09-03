@@ -6,8 +6,7 @@
     </mat-form-field>
   </div>
   <div class="row">
-    <!--<div class="col-lg-6 col-xl-4 single-test" *ngFor="let test of shortTestList | filterTest: searchText">-->
-    <div class="col-lg-6 col-xl-4 single-test" *ngFor="let my_test of testList | filterTest: searchText">
+    <div class="col-lg-6 col-xl-4 single-test" *ngFor="let my_test of testList | searchTest: searchText">
 
       <mat-card>
 
@@ -21,11 +20,10 @@
             </mat-chip>
           </mat-chip-list>
 
-
         </mat-card-subtitle>
 
-        <mat-card-content>
-          <p *ngIf="my_test.desc?.length > 0">{{my_test.desc}}</p>
+        <mat-card-content class="test-desc">
+          <p *ngIf="my_test.desc?.length > 0">{{my_test.desc | limitChar: 170}}</p>
           <p *ngIf="my_test.desc?.length === 0">No description</p>
         </mat-card-content>
 
@@ -48,10 +46,12 @@
       </mat-card>
     </div>
   </div>
-  <div *ngIf="testList.length > 0 && (testList | filterTest: searchText).length === 0" class="no-matches">
+
+  <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0" class="no-matches">
     <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
     <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
   </div>
+
 </section>
 
