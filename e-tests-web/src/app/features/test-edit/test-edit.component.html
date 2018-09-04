@@ -1,3 +1,56 @@
-<app-test-detail [testInfo]="testInfo"
-                 [testExercises]="testExercises">
-</app-test-detail>
+<section *ngIf="testInfo">
+  <mat-toolbar class="sub-header">
+
+    <button mat-raised-button
+            color="primary">
+      SAVE
+    </button>
+  </mat-toolbar>
+
+
+  <mat-card>
+    <div class="container">
+
+      <!-- TEST NAME -->
+      <app-test-name [testName]="testInfo.name" ></app-test-name>
+
+      <!-- TEST TAGS -->
+      <app-test-tags [testTags]="testInfo.tags"></app-test-tags>
+
+      <!-- TEST DESCRIPTION -->
+      <app-test-desc [testDesc]="testInfo.desc"></app-test-desc>
+    </div>
+  </mat-card>
+
+
+  <!--<div class="container test-edit-container">-->
+    <!--<mat-accordion>-->
+
+      <!--<mat-expansion-panel [expanded]="'true'">-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title class="expansion-title">Test information</mat-panel-title>-->
+        <!--</mat-expansion-panel-header>-->
+
+        <!--&lt;!&ndash; TEST NAME &ndash;&gt;-->
+        <!--<app-test-name [testName]="testInfo.name"></app-test-name>-->
+
+        <!--&lt;!&ndash; TEST TAGS &ndash;&gt;-->
+        <!--<app-test-tags [testTags]="testInfo.tags"></app-test-tags>-->
+
+        <!--&lt;!&ndash; TEST DESCRIPTION &ndash;&gt;-->
+        <!--<app-test-desc [testDesc]="testInfo.desc"></app-test-desc>-->
+      <!--</mat-expansion-panel>-->
+
+
+      <!--<mat-expansion-panel>-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title class="expansion-title">Test exercises</mat-panel-title>-->
+        <!--</mat-expansion-panel-header>-->
+
+        <!--TODO-->
+      <!--</mat-expansion-panel>-->
+    <!--</mat-accordion>-->
+  <!--</div>-->
+
+
+</section>

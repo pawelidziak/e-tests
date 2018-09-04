@@ -7,6 +7,7 @@ export const ALL_ROUTES = {
   SEARCH: 'search',
   CREATE_TEST: 'create',
   CREATED_TEST: 'test',
+  EDIT_TEST: 'edit',
   USER_TESTS_LIST: 'tests-list'
 };
 
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
   {
-    path: 'test/:testId/exercises',
+    path: `${ALL_ROUTES.CREATED_TEST}/:testId/${ALL_ROUTES.EDIT_TEST}`,
     loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule'
   },
   // otherwise redirect to dashboard

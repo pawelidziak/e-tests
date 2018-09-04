@@ -30,7 +30,7 @@ export class TestsListComponent implements OnInit {
   }
 
   private getTestsList(): void {
-    this.testService.getTestByCurrentUser().subscribe(
+    this.testService.getTestsByCurrentUser().subscribe(
       res => this.testList = res,
       error => console.log(error)
     );

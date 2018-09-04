@@ -48,7 +48,7 @@
   </div>
 
   <div class="change-button" *ngIf="!searchText">
-    <button mat-raised-button color="accent">
+    <button mat-raised-button color="accent" (click)="navigateToEdit()">
       <span *ngIf="exerciseList.length > 0">make changes</span>
       <span *ngIf="exerciseList.length === 0">add exercise</span>
     </button>

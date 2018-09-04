@@ -25,12 +25,12 @@ export interface TestCreate {
   name: string;
   tags: string[];
   desc?: string;
-  createDate: FirebaseTimestamp;
+  createDate: Date | FirebaseTimestamp;
   authorId: string;
   isPublic: boolean;
 }
 
-interface FirebaseTimestamp {
+export interface FirebaseTimestamp {
   nanoseconds: number;
   seconds: number;
 }

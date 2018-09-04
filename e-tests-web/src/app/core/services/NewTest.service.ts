@@ -13,7 +13,8 @@ export class NewTestService {
   private readonly TEST_PATH = 'tests';
   private readonly USER_ID_FIELD = 'authorId';
   private readonly EXERCISES_PATH = 'exercises';
-  private POSITION_ON_LIST_FIELD = 'number';
+  private readonly EXERCISE_NUMBER_FIELD = 'number';
+  private readonly TEST_CREATE_DATE_FIELD = 'createDate';
 
   constructor(private readonly afs: AngularFirestore,
               private auth: AuthService) {
@@ -29,14 +30,15 @@ export class NewTestService {
 
   public getTestExercises(testId: string): Observable<Exercise[]> {
     return this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
-        ref => ref.orderBy(this.POSITION_ON_LIST_FIELD, )).valueChanges();
+        ref => ref.orderBy(this.EXERCISE_NUMBER_FIELD)).valueChanges();
   }
 
-  public getTestByCurrentUser(): Observable<TestCreate[]> {
+  public getTestsByCurrentUser(): Observable<TestCreate[]> {
     // first get the user tests
     const userTest = this.afs.collection<TestCreate>(this.TEST_PATH,
       ref => ref
-        .where(this.USER_ID_FIELD, '==', this.auth.currentUserId));
+        .where(this.USER_ID_FIELD, '==', this.auth.currentUserId)
+        .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
 
     // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
     // not valueChanges())

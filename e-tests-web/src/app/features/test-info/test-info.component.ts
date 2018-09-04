@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatBottomSheet} from '@angular/material';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {TestCreate} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
+import {ALL_ROUTES} from '../../app.routing';
 
 @Component({
   selector: 'app-test-info',
@@ -19,6 +20,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private testService: NewTestService,
               private bottomSheet: MatBottomSheet) {
 
@@ -59,5 +61,10 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public openBottomSheet(): void {
     this.bottomSheet.open(TestSettingsBottomSheetComponent);
   }
+
+  public navigateToEdit2(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.EDIT_TEST}`]);
+  }
+
 }
 

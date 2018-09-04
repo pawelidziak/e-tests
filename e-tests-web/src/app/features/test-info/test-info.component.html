@@ -27,7 +27,7 @@
           <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
-        <button mat-icon-button matTooltip="Edit">
+        <button mat-icon-button matTooltip="Edit" (click)="navigateToEdit2()">
           <mat-icon aria-label="Edit icon">edit</mat-icon>
         </button>
         <button mat-icon-button matTooltip="More" (click)="openBottomSheet()">
@@ -39,7 +39,8 @@
   </mat-card>
 
   <div class="container">
-    <app-exercises-no-editable [exerciseList]="exercises"></app-exercises-no-editable>
+    <app-exercises-no-editable [exerciseList]="exercises"
+                               [testId]="testId"></app-exercises-no-editable>
   </div>
 
 </section>

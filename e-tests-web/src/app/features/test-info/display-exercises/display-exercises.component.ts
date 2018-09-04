@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
+import {ALL_ROUTES} from '../../../app.routing';
+import {Router} from '@angular/router';
 
 interface SortOption {
   value: string;
@@ -19,12 +21,13 @@ enum sortOptionValue {
 export class DisplayExercisesComponent implements OnInit {
 
   @Input() exerciseList: Array<Exercise>;
+  @Input() testId: string;
 
   public searchText: string;
   public sortOption: SortOption[];
   public selectedOption: SortOption;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -48,5 +51,9 @@ export class DisplayExercisesComponent implements OnInit {
         this.exerciseList.sort((a, b) => a.question > b.question ? 1 : -1);
         break;
     }
+  }
+
+  public navigateToEdit(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.EDIT_TEST}`]);
   }
 }

@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {TestEditComponent} from './test-edit.component';
 import {testEditRouting} from './test-edit.routing';
-import {TestDetailModule} from '../test-detail/test-detail.module';
+import {
+  MatButtonModule,
+  MatCardModule, MatExpansionModule,
+  MatToolbarModule
+} from '@angular/material';
+import {TestNameModule} from '../../shared/test-create-edit-parts/test-name/test-name.module';
+import {TestTagsModule} from '../../shared/test-create-edit-parts/test-tags/test-tags.module';
+import {TestDescModule} from '../../shared/test-create-edit-parts/test-desc/test-desc.module';
 
 @NgModule({
   declarations: [
@@ -11,10 +18,17 @@ import {TestDetailModule} from '../test-detail/test-detail.module';
   imports: [
     SharedModule,
     testEditRouting,
-    TestDetailModule
+
+    TestNameModule,
+    TestTagsModule,
+    TestDescModule,
+
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    MatExpansionModule
   ],
   exports: [
-    TestEditComponent
   ],
   providers: []
 })

@@ -1,13 +1,10 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TestCreate} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../app.routing';
-import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-test-create',
@@ -17,20 +14,11 @@ import {Subscription} from 'rxjs/internal/Subscription';
 })
 export class TestCreateComponent implements OnInit, OnDestroy {
   private readonly HEADER_TEXT = 'Create';
-  public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  /*
-    Tags variables
-   */
-  @ViewChild('chipList') chipList;
-  public selectable = true;
-  public removable = true;
-  public addOnBlur = false;
-  public testTags: string[] = [];
-  public createTestForm: FormGroup;
-
+  private subscriptions: any = [];
   private testCreatedFlag = false;
-  private isLoggedSub$: Subscription;
+
+  public checkTags = false;
+  public newTest: TestCreate;
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,
@@ -39,61 +27,63 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.buildForm();
+    this.createEmptyTest();
     this.headerService.setHeaderText(this.HEADER_TEXT);
     this.isLoggedIn();
   }
 
 
   ngOnDestroy(): void {
-    this.isLoggedSub$.unsubscribe();
-  }
-
-  private buildForm(): void {
-    this.createTestForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      tags: new FormControl(this.testTags),
-      desc: new FormControl(''),
-      createDate: new FormControl({value: new Date(), disabled: true}, Validators.required),
-      isPublic: new FormControl({value: true, disabled: true}, Validators.required)
-    });
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   /**
    * If is not logged in - open auth dialog
    */
   private isLoggedIn() {
-    this.isLoggedSub$ = this.auth.currentUserObservable.subscribe(
+    this.subscriptions.push(this.auth.currentUserObservable.subscribe(
       res => {
         if (!res) {
           this.auth.openAuthDialog(true);
+        } else {
+          this.newTest.authorId = this.auth.currentUserId;
         }
-      }
+      })
     );
   }
 
   /**
-   Method used by CanDeactivateGuard to show redirect alert
+   * Method used by CanDeactivateGuard to show redirect alert
    */
   canDeactivate() {
-    if (!this.testCreatedFlag && this.checkUnsavedData()) {
+    if (!this.testCreatedFlag && this.isUnsavedData()) {
       return window.confirm('Are you sure? Unsaved changes will be lost.');
     }
     return true;
   }
 
-  public checkUnsavedData(): boolean {
-    return this.createTestForm.get('name').value.length > 0 || this.testTags.length > 0;
+  public isUnsavedData(): boolean {
+    return this.newTest.name.length > 0 || this.newTest.tags.length > 0 || this.newTest.desc.length > 0;
   }
 
+  /**
+   * TEST FUNCTIONALITY
+   */
+  private createEmptyTest(): void {
+    this.newTest = {
+      name: '',
+      tags: [],
+      desc: '',
+      createDate: new Date(),
+      authorId: '',
+      isPublic: true
+    };
+  }
 
-  /*
-          TEST FUNCTIONALITY
-    */
   public saveTest(): void {
-    this.checkTagsAndSetError();
-    if (this.createTestForm.valid && this.testTags.length > 0) {
-      const sub$ = this.testService.addTest(this.createTest())
+    this.checkTags = true;
+    if (this.checkCreateTestCondition()) {
+      this.testService.addTest(this.newTest)
         .then((createdTest) => {
           this.testCreatedFlag = true;
           this.router.navigate([`/${ALL_ROUTES.CREATED_TEST}/${createdTest.id}`]);
@@ -102,57 +92,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  private createTest(): TestCreate {
-    return {
-      name: this.createTestForm.get('name').value,
-      tags: this.createTestForm.get('tags').value,
-      desc: this.createTestForm.get('desc').value,
-      createDate: this.createTestForm.get('createDate').value,
-      authorId: this.auth.currentUserId,
-      isPublic: this.createTestForm.get('isPublic').value
-    };
+  private checkCreateTestCondition(): boolean {
+    return !(this.newTest.name.length === 0 || this.newTest.tags.length === 0);
   }
-
-  /*
-          TAGS FUNCTIONALITY
-    */
-  public addTag(input: any): void {
-    const tag = input.value;
-
-    // Add tag if is correct
-    if (this.checkTagCorrectness(tag)) {
-      this.testTags.push(tag.trim());
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-    // check tags correctness
-    this.checkTagsAndSetError();
-  }
-
-  public removeTag(tag: any): void {
-    const index = this.testTags.indexOf(tag);
-    if (index >= 0) {
-      this.testTags.splice(index, 1);
-    }
-    // check tags correctness
-    this.checkTagsAndSetError();
-  }
-
-  private checkTagCorrectness(tag: string): boolean {
-    // check if tag exists, if it's letter or number and if its new
-    return (tag || '').trim() &&
-      tag.match(/^[0-9a-zA-Z-\s]+$/) &&
-      this.testTags.indexOf(tag) === -1;
-  }
-
-  private checkTagsAndSetError(): void {
-    if (this.testTags.length > 0) {
-      this.chipList.errorState = false;
-    } else if (this.testTags.length === 0) {
-      this.chipList.errorState = true;
-    }
-  }
-
 }
