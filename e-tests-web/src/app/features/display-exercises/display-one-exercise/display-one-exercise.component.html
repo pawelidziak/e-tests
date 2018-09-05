@@ -1,0 +1,97 @@
+<mat-expansion-panel class="single-exercise"
+                     (closed)="stopEditExercise()">
+  <mat-expansion-panel-header class="expansion-header"
+                              expandedHeight="auto"
+                              collapsedHeight="auto">
+    <mat-panel-title>
+
+      <!-- NO EDITABLE TITLE -->
+      <div *ngIf="!editMode">
+        <span class="exercise-number">{{exercise.number}}.</span>
+        <span>{{exercise.question}}</span>
+      </div>
+
+      <!-- EDITABLE TITLE -->
+      <div *ngIf="editMode" class="editable-title">
+        <span class="exercise-number">{{exercise.number}}.</span>
+        <mat-form-field *ngIf="editMode"
+                        color="accent"
+                        style="width: 100%;"
+                        (click)="$event.stopPropagation();"
+                        floatLabel="never">
+          <input matInput
+                 type="text"
+                 placeholder="Question"
+                 [(ngModel)]="exercise.question">
+        </mat-form-field>
+      </div>
+
+    </mat-panel-title>
+
+  </mat-expansion-panel-header>
+
+  <div class="exercise-answers row">
+    <div *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy"
+         class="col-md-6 single-answer">
+
+      <!-- NO EDITABLE ANSWER -->
+      <div *ngIf="!editMode" class="no-editable-answer">
+        <span [ngClass]="{'correct-answer': exercise.correctAnswer === j}">{{getLetterFromAscii(j)}}</span>
+        <span class="answer-text">{{answer}}</span>
+      </div>
+
+      <!-- EDITABLE ANSWER -->
+      <div *ngIf="editMode" class="editable-answer">
+        <mat-checkbox [ngModel]="exercise.correctAnswer === j"
+                      class="answer-checkbox"></mat-checkbox>
+
+        <mat-form-field color="accent"
+                        class="answer-text width-100"
+                        style="margin-top: 12px;"
+                        appearance="outline">
+          <mat-label>{{'Answer ' + getLetterFromAscii(j)}}</mat-label>
+          <input matInput
+                 placeholder="Type the answer..."
+                 [(ngModel)]="exercise.answers[j]">
+        </mat-form-field>
+
+        <button mat-icon-button
+                style="outline: none;"
+                id="deleteAnswerButton"
+                (click)="deleteOneAnswer(exercise.answers, j)"
+                *ngIf="j > 1">
+          <mat-icon aria-label="Delete answer">delete_outline</mat-icon>
+        </button>
+      </div>
+
+    </div><!-- /single-answer -->
+
+    <div *ngIf="editMode" class="col-md-6 add-answer">
+      <button mat-button color="accent" (click)="exercise.answers.push('');">
+        <mat-icon aria-label="Add answer">add</mat-icon>
+        <span>Add answer</span>
+      </button>
+    </div>
+
+  </div><!-- /exercise-answers -->
+
+  <mat-action-row class="action-row" *ngIf="showActionRow">
+    <div *ngIf="!editMode">
+      <button mat-icon-button id="editButton" (click)="startEditExercise()">
+        <mat-icon aria-label="Edit exercise">edit_mode</mat-icon>
+      </button>
+      <button mat-icon-button id="deleteExerciseButton">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="editMode">
+      <button mat-icon-button id="cancelButton" (click)="stopEditExercise()">
+        <mat-icon aria-label="Cancel exercise">close</mat-icon>
+      </button>
+      <button mat-icon-button id="saveButton" (click)="saveExercise()">
+        <mat-icon aria-label="Save exercise">save</mat-icon>
+      </button>
+    </div>
+  </mat-action-row>
+
+</mat-expansion-panel>

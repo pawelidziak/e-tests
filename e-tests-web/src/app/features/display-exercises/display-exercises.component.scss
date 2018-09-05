@@ -1,5 +1,5 @@
-@import '../../../shared/variables';
-@import '../../../shared/mixins';
+@import '../../shared/variables';
+@import '../../shared/mixins';
 
 .section-display-exercises {
   margin: $margin 0;
@@ -25,35 +25,6 @@
       }
     }
   }
-}
-
-.single-exercise {
-  margin-bottom: .5*$margin;
-  .exercise-number {
-    margin-right: .5*$margin;
-  }
-  .expansion-header {
-    padding: .75*$margin $margin;
-  }
-}
-
-.exercise-answers {
-  font-size: $font-small;
-}
-
-.single-answer {
-  padding: .5*$margin 0;
-  display: flex;
-  align-items: center;
-}
-
-.correct-answer {
-  color: $accent;
-}
-
-.answer-letter {
-  margin-right: 29px;
-  font-size: $font-normal;
 }
 
 .change-button {

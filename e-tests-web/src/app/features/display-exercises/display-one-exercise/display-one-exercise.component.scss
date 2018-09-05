@@ -1,0 +1,125 @@
+@import '../../../shared/variables';
+
+.single-exercise {
+  margin-bottom: .5*$margin;
+}
+
+.expansion-header {
+  padding: .5*$margin;
+  @media #{$gt-xs_size}{
+    padding: $margin;
+  }
+}
+
+.editable-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.exercise-number {
+  margin-right: .5*$margin;
+  font-weight: 600;
+}
+
+/*
+  ANSWERS
+ */
+.exercise-answers {
+  @media #{$gt-xs_size}{
+    padding: .5*$margin .5*$margin 0;
+  }
+}
+
+.single-answer {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+@mixin padding-on-odd-elements() {
+  &:nth-child(odd) {
+    padding-bottom: .5*$margin;
+    @media #{$gt-xs_size}{
+      padding: 0 $margin $margin 0;
+    }
+  }
+}
+
+.no-editable-answer {
+  display: flex;
+  align-items: center;
+  @include padding-on-odd-elements;
+}
+
+.answer-text {
+  padding-left: .5*$margin;
+  @media #{$gt-xs_size}{
+    padding-left: $margin;
+  }
+  font-size: $font-small;
+}
+
+.correct-answer {
+  color: $accent;
+}
+
+.editable-answer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  &:nth-child(odd) {
+    @media #{$gt-sm_size}{
+      padding-left: .5*$margin;
+    }
+  }
+}
+
+.answer-checkbox {
+  height: 20px;
+}
+
+.add-answer {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    outline: none;
+  }
+}
+
+/*
+  ACTIONS
+ */
+.action-row {
+  padding: .5*$margin;
+  button {
+    outline: none;
+  }
+}
+
+#editButton {
+  color: $text_secondary;
+  transition: color .3s;
+  &:hover {
+    color: $text-dark;
+  }
+}
+
+#deleteExerciseButton, #deleteAnswerButton, #cancelButton {
+  color: $text_secondary;
+  transition: color .3s;
+  &:hover {
+    color: $material-red;
+  }
+}
+
+#saveButton {
+  color: $material-green;
+  opacity: .7;
+  transition: opacity .3s;
+  &:hover {
+    opacity: 1;
+  }
+}

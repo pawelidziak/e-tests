@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Test, TestCreate} from '../../core/models/Test';
+import {TestCreate} from '../../core/models/Test';
 import {NewTestService} from '../../core/services/NewTest.service';
-import {FormControl, Validators} from "@angular/forms";
+import {Exercise} from '../../core/models/Exercise';
 
 @Component({
   selector: 'app-test-edit',
@@ -12,10 +12,9 @@ import {FormControl, Validators} from "@angular/forms";
 export class TestEditComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
 
-  private testId: string;
-  // TODO change to NEWTest
+  public testId: string;
   public testInfo: TestCreate;
-  public testNameControl: FormControl;
+  public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,
               private testService: NewTestService) {
@@ -36,21 +35,25 @@ export class TestEditComponent implements OnInit, OnDestroy {
   }
 
   private getExercises() {
-
-  }
-
-  private getTest(): void {
     this.subscriptions.push(
-      this.testService.getTestById(this.testId).subscribe(
-        res => {
-          this.testInfo = res;
-
-          this.testNameControl  = new FormControl(this.testInfo.name, Validators.required);
-        },
+      this.testService.getTestExercises(this.testId).subscribe(
+        res => this.exercises = res,
         error => console.log(error)
       )
     );
   }
 
+  private getTest(): void {
+    this.subscriptions.push(
+      this.testService.getTestById(this.testId).subscribe(
+        res => this.testInfo = res,
+        error => console.log(error)
+      )
+    );
+  }
+
+  public saveTestInfo() {
+
+  }
 
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exercise} from '../../../core/models/Exercise';
-import {ALL_ROUTES} from '../../../app.routing';
+import {Exercise} from '../../core/models/Exercise';
+import {ALL_ROUTES} from '../../app.routing';
 import {Router} from '@angular/router';
 
 interface SortOption {
@@ -14,13 +14,14 @@ enum sortOptionValue {
 }
 
 @Component({
-  selector: 'app-exercises-no-editable',
+  selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
   styleUrls: ['./display-exercises.component.scss']
 })
 export class DisplayExercisesComponent implements OnInit {
 
   @Input() exerciseList: Array<Exercise>;
+  @Input() editExercisesMode = false;
   @Input() testId: string;
 
   public searchText: string;
@@ -38,9 +39,6 @@ export class DisplayExercisesComponent implements OnInit {
     this.selectedOption = this.sortOption[0];
   }
 
-  public getLetterFromAscii(i: number): string {
-    return String.fromCharCode(65 + i);
-  }
 
   public changeSortOption(): void {
     switch (this.selectedOption.value) {

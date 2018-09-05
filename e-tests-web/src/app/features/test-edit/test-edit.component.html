@@ -2,55 +2,42 @@
   <mat-toolbar class="sub-header">
 
     <button mat-raised-button
-            color="primary">
+            color="accent">
       SAVE
     </button>
   </mat-toolbar>
-
 
   <mat-card>
     <div class="container">
 
       <!-- TEST NAME -->
-      <app-test-name [testName]="testInfo.name" ></app-test-name>
+      <app-test-name [(testName)]="testInfo.name"
+                     [width100]="true"
+                     [appearance]="'outline'">
+      </app-test-name>
 
       <!-- TEST TAGS -->
-      <app-test-tags [testTags]="testInfo.tags"></app-test-tags>
+      <app-test-tags [(testTags)]="testInfo.tags"
+                     [width100]="true"
+                     [appearance]="'outline'"
+                     [margins]="'24px 0'">
+      </app-test-tags>
 
       <!-- TEST DESCRIPTION -->
-      <app-test-desc [testDesc]="testInfo.desc"></app-test-desc>
+      <app-test-desc [(testDesc)]="testInfo.desc"
+                     [width100]="true"
+                     [appearance]="'outline'">
+      </app-test-desc>
+
     </div>
   </mat-card>
 
-
-  <!--<div class="container test-edit-container">-->
-    <!--<mat-accordion>-->
-
-      <!--<mat-expansion-panel [expanded]="'true'">-->
-        <!--<mat-expansion-panel-header>-->
-          <!--<mat-panel-title class="expansion-title">Test information</mat-panel-title>-->
-        <!--</mat-expansion-panel-header>-->
-
-        <!--&lt;!&ndash; TEST NAME &ndash;&gt;-->
-        <!--<app-test-name [testName]="testInfo.name"></app-test-name>-->
-
-        <!--&lt;!&ndash; TEST TAGS &ndash;&gt;-->
-        <!--<app-test-tags [testTags]="testInfo.tags"></app-test-tags>-->
-
-        <!--&lt;!&ndash; TEST DESCRIPTION &ndash;&gt;-->
-        <!--<app-test-desc [testDesc]="testInfo.desc"></app-test-desc>-->
-      <!--</mat-expansion-panel>-->
-
-
-      <!--<mat-expansion-panel>-->
-        <!--<mat-expansion-panel-header>-->
-          <!--<mat-panel-title class="expansion-title">Test exercises</mat-panel-title>-->
-        <!--</mat-expansion-panel-header>-->
-
-        <!--TODO-->
-      <!--</mat-expansion-panel>-->
-    <!--</mat-accordion>-->
-  <!--</div>-->
+  <div class="container">
+    <app-display-exercises [exerciseList]="exercises"
+                           [testId]="testId"
+                           [editExercisesMode]="true">
+    </app-display-exercises>
+  </div>
 
 
 </section>

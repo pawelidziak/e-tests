@@ -1,15 +1,6 @@
 @import '../../shared/variables';
-@import '../../shared/mixins';
 
 .sub-header {
   display: flex;
   justify-content: flex-end;
-  border-bottom: 1px solid $hover_color;
-}
-.test-edit-container{
-  padding: $margin 0;
-}
-.expansion-title{
-  @include upper-text;
-  font-weight: 600;
 }
