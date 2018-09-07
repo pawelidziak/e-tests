@@ -22,22 +22,26 @@
     </mat-form-field>
   </div>
 
-  <app-display-one-exercise *ngFor="let exercise of exerciseList | searchExercise : searchText"
+  <app-display-one-exercise *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index;  trackBy: identifier"
                             [exercise]="exercise"
-                            [editMode]="editExercisesMode"
-                            [showActionRow]="!editExercisesMode">
+                            [editMode]="editExercisesMode || (addNewExercise && i === exerciseList.length - 1)"
+                            [isNew]="addNewExercise"
+                            [testId]="testId"
+                            [number]="i + 1"
+                            (addedExercise)="handleAddedExercise($event)">
   </app-display-one-exercise>
+
 
   <div *ngIf="exerciseList.length === 0" class="no-matches">
     <p>Lack of exercises</p>
   </div>
 
-  <!--<div class="change-button" *ngIf="!searchText">-->
-  <!--<button mat-raised-button color="accent" (click)="navigateToEdit()">-->
-  <!--<span *ngIf="exerciseList.length > 0">make changes</span>-->
-  <!--<span *ngIf="exerciseList.length === 0">add exercise</span>-->
-  <!--</button>-->
-  <!--</div>-->
+  <div class="change-button" *ngIf="!searchText && !addNewExercise">
+    <button mat-raised-button color="accent" (click)="addExercise()">
+      <mat-icon aria-label="Add exercise">add</mat-icon>
+      <span>add exercise</span>
+    </button>
+  </div>
 
   <div *ngIf="exerciseList.length > 0 && (exerciseList | searchExercise: searchText).length === 0"
        class="no-matches">

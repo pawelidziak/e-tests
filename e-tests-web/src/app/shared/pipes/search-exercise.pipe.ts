@@ -18,8 +18,7 @@ export class SearchExercisePipe implements PipeTransform {
         return answer.toLowerCase().includes(searchText);
       });
       return foundAnswer !== -1 ||
-        exercise.question.toLowerCase().includes(searchText) ||
-        `${exercise.number}`.includes(searchText);
+        exercise.question.toLowerCase().includes(searchText);
     });
   }
 }

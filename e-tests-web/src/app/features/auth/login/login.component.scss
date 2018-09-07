@@ -39,14 +39,6 @@ button {
   @include upper-text();
 }
 
-.or-text {
-  padding: $margin;
-  text-align: center;
-  color: $text_secondary;
-  font-size: $font-small;
-  @include upper-text();
-}
-
 .login-actions {
   display: flex;
   justify-content: space-around;

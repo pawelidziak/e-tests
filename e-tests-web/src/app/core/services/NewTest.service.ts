@@ -13,7 +13,6 @@ export class NewTestService {
   private readonly TEST_PATH = 'tests';
   private readonly USER_ID_FIELD = 'authorId';
   private readonly EXERCISES_PATH = 'exercises';
-  private readonly EXERCISE_NUMBER_FIELD = 'number';
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
 
   constructor(private readonly afs: AngularFirestore,
@@ -29,8 +28,18 @@ export class NewTestService {
   }
 
   public getTestExercises(testId: string): Observable<Exercise[]> {
-    return this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
-        ref => ref.orderBy(this.EXERCISE_NUMBER_FIELD)).valueChanges();
+    // const testExercises = this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
+    //   ref => ref.orderBy(this.EXERCISE_NUMBER_FIELD));
+
+    const testExercises = this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`);
+
+    return testExercises.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const id = a.payload.doc.id;
+        const data = a.payload.doc.data() as Exercise;
+        return {id, ...data};
+      });
+    }));
   }
 
   public getTestsByCurrentUser(): Observable<TestCreate[]> {

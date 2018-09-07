@@ -31,7 +31,7 @@
           <div class="my-card-footer">
             <span class="footer-item">
               <mat-icon aria-label="Date icon">date_range</mat-icon>
-              <span>{{my_test.createDate.seconds * 1000 | date: 'dd.MM.yyyy'}}</span>
+              <span>{{my_test.createDate | date: 'dd.MM.yyyy'}}</span>
             </span>
             <a class="footer-item test-author" routerLink=".">
               <mat-icon aria-label="Account icon">account_circle</mat-icon>

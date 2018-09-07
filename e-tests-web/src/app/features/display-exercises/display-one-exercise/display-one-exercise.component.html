@@ -1,5 +1,6 @@
 <mat-expansion-panel class="single-exercise"
-                     (closed)="stopEditExercise()">
+                     #matExpansionPanel
+                     [expanded]="exerciseWasChanged || editMode">
   <mat-expansion-panel-header class="expansion-header"
                               expandedHeight="auto"
                               collapsedHeight="auto">
@@ -7,13 +8,13 @@
 
       <!-- NO EDITABLE TITLE -->
       <div *ngIf="!editMode">
-        <span class="exercise-number">{{exercise.number}}.</span>
+        <span class="exercise-number">{{number}}.</span>
         <span>{{exercise.question}}</span>
       </div>
 
       <!-- EDITABLE TITLE -->
       <div *ngIf="editMode" class="editable-title">
-        <span class="exercise-number">{{exercise.number}}.</span>
+        <span class="exercise-number">{{number}}.</span>
         <mat-form-field *ngIf="editMode"
                         color="accent"
                         style="width: 100%;"
@@ -75,20 +76,20 @@
 
   </div><!-- /exercise-answers -->
 
-  <mat-action-row class="action-row" *ngIf="showActionRow">
+  <mat-action-row class="action-row">
     <div *ngIf="!editMode">
-      <button mat-icon-button id="editButton" (click)="startEditExercise()">
+      <button mat-icon-button id="editButton" (click)="startEditExercise()" matTooltip="Edit">
         <mat-icon aria-label="Edit exercise">edit_mode</mat-icon>
       </button>
-      <button mat-icon-button id="deleteExerciseButton">
+      <button mat-icon-button id="deleteExerciseButton" (click)="deleteExercise()" matTooltip="Delete">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
     <div *ngIf="editMode">
-      <button mat-icon-button id="cancelButton" (click)="stopEditExercise()">
+      <button mat-icon-button id="cancelButton" (click)="stopEditExercise()" matTooltip="Cancel">
         <mat-icon aria-label="Cancel exercise">close</mat-icon>
       </button>
-      <button mat-icon-button id="saveButton" (click)="saveExercise()">
+      <button mat-icon-button id="saveButton" (click)="saveExercise()" matTooltip="Save">
         <mat-icon aria-label="Save exercise">save</mat-icon>
       </button>
     </div>

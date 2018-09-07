@@ -4,8 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JwtInterceptor} from './jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {throwIfAlreadyLoaded} from './module-import-guard';
-import {TestService} from './services/test.service';
-import {TestListService} from './services/test-list.service';
 import {Overlay} from '@angular/cdk/overlay';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {GestureConfig} from '@angular/material';
@@ -18,6 +16,7 @@ import {CanDeactivateGuard} from './can-deactivate-guard';
 import {NewTestService} from './services/NewTest.service';
 import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
+import {TestExercisesService} from './services/test-exercises.service';
 
 @NgModule({
   declarations: [],
@@ -44,9 +43,8 @@ import {AuthGuard} from './auth.guard';
     CanDeactivateGuard,
     CacheService,
     HeaderService,
-    TestListService,
-    TestService,
-    NewTestService
+    NewTestService,
+    TestExercisesService
   ]
 })
 export class CoreModule {

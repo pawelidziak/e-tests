@@ -1,34 +1,32 @@
 <section *ngIf="testInfo">
-  <mat-toolbar class="sub-header">
-
-    <button mat-raised-button
-            color="accent">
-      SAVE
-    </button>
-  </mat-toolbar>
-
   <mat-card>
     <div class="container">
 
-      <!-- TEST NAME -->
-      <app-test-name [(testName)]="testInfo.name"
-                     [width100]="true"
-                     [appearance]="'outline'">
-      </app-test-name>
+      <form (ngSubmit)="saveTestInfo()">
+        <!-- TEST NAME -->
+        <app-test-name [(testName)]="testInfo.name"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-name>
 
-      <!-- TEST TAGS -->
-      <app-test-tags [(testTags)]="testInfo.tags"
-                     [width100]="true"
-                     [appearance]="'outline'"
-                     [margins]="'24px 0'">
-      </app-test-tags>
+        <!-- TEST TAGS -->
+        <app-test-tags [(testTags)]="testInfo.tags"
+                       [width100]="true"
+                       [appearance]="'outline'"
+                       [margins]="'24px 0'">
+        </app-test-tags>
 
-      <!-- TEST DESCRIPTION -->
-      <app-test-desc [(testDesc)]="testInfo.desc"
-                     [width100]="true"
-                     [appearance]="'outline'">
-      </app-test-desc>
+        <!-- TEST DESCRIPTION -->
+        <app-test-desc [(testDesc)]="testInfo.desc"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-desc>
 
+        <div class="test-form-actions">
+          <button mat-raised-button color="accent" type="submit">save</button>
+        </div>
+
+      </form>
     </div>
   </mat-card>
 

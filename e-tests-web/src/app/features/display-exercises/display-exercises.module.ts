@@ -3,12 +3,10 @@ import {DisplayOneExerciseComponent} from './display-one-exercise/display-one-ex
 import {DisplayExercisesComponent} from './display-exercises.component';
 import {SharedModule} from '../../shared/shared.module';
 import {
-  MatButtonModule,
-  MatCheckboxModule, MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatSelectModule
+  MatButtonModule, MatCheckboxModule,
+  MatExpansionModule, MatFormFieldModule,
+  MatIconModule, MatInputModule,
+  MatSelectModule, MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 
@@ -27,7 +25,8 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatIconModule,
     MatSelectModule,
     MatExpansionModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   exports: [DisplayExercisesComponent],
   providers: []

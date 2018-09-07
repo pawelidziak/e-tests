@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TestCreate} from '../../core/models/Test';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {Exercise} from '../../core/models/Exercise';
+import {TestExercisesService} from '../../core/services/test-exercises.service';
 
 @Component({
   selector: 'app-test-edit',
@@ -17,7 +18,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
   public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,
-              private testService: NewTestService) {
+              private testService: NewTestService,
+              private exercisesService: TestExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params['testId'];
@@ -34,15 +36,6 @@ export class TestEditComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private getExercises() {
-    this.subscriptions.push(
-      this.testService.getTestExercises(this.testId).subscribe(
-        res => this.exercises = res,
-        error => console.log(error)
-      )
-    );
-  }
-
   private getTest(): void {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
@@ -52,8 +45,23 @@ export class TestEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  public saveTestInfo() {
-
+  private getExercises() {
+    this.subscriptions.push(
+      this.exercisesService.getTestExercises(this.testId).subscribe(
+        res => this.exercises = res,
+        error => console.log(error)
+      )
+    );
   }
 
+  public saveTestInfo() {
+    if (this.checkCreateTestCondition()) {
+      // TODO update test
+      console.log('save');
+    }
+  }
+
+  private checkCreateTestCondition(): boolean {
+    return !(this.testInfo.name.length === 0 || this.testInfo.tags.length === 0);
+  }
 }

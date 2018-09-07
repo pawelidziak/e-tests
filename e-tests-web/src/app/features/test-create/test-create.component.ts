@@ -74,7 +74,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
       name: '',
       tags: [],
       desc: '',
-      createDate: new Date(),
+      createDate: new Date().getTime(),
       authorId: '',
       isPublic: true
     };
