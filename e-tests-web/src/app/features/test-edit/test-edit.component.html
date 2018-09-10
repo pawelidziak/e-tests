@@ -1,5 +1,5 @@
 <section *ngIf="testInfo">
-  <mat-card>
+  <mat-card [@fadeInAnimation]>
     <div class="container">
 
       <form (ngSubmit)="saveTestInfo()">
@@ -38,7 +38,8 @@
   <div class="container">
     <app-display-exercises [exerciseList]="exercises"
                            [testId]="testId"
-                           [editExercisesMode]="true">
+                           [editExercisesMode]="true"
+                           [authorId]="testInfo.authorId">
     </app-display-exercises>
   </div>
 

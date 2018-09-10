@@ -4,7 +4,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {MatDialog} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
-import {ALL_ROUTES} from '../../app.routing';
+import {ALL_ROUTES} from '../../shared/ROUTES';
 
 @Component({
   selector: 'app-main',

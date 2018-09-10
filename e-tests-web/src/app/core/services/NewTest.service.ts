@@ -4,7 +4,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class NewTestService {
@@ -14,7 +16,8 @@ export class NewTestService {
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
 
   constructor(private readonly afs: AngularFirestore,
-              private auth: AuthService) {
+              private readonly auth: AuthService,
+              private readonly router: Router) {
   }
 
   public addTest(newTest: TestCreate): Promise<DocumentReference> {
@@ -28,6 +31,7 @@ export class NewTestService {
   }
 
   public getTestById(testId: string): Observable<TestCreate> {
+    this.checkIfTestExists(testId);
     return this.afs.doc<TestCreate>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
@@ -47,5 +51,18 @@ export class NewTestService {
         return {id, ...data};
       });
     }));
+  }
+
+  /**
+   * Method checks if 'test' with given id exists in firestore, if not it navigate to 404 page
+   * @param {string} testId
+   */
+  private checkIfTestExists(testId: string): void {
+    this.afs.doc(`${this.TEST_PATH}/${testId}`).ref.get()
+      .then(docSnapshot => {
+        if (!docSnapshot.exists) {
+          this.router.navigate([ALL_ROUTES.DASHBOARD]);
+        }
+      });
   }
 }

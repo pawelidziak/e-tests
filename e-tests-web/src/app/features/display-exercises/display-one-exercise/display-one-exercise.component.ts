@@ -1,27 +1,28 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-display-one-exercise',
   templateUrl: './display-one-exercise.component.html',
   styleUrls: ['./display-one-exercise.component.scss']
 })
-export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
-  private subscriptions: any = [];
+export class DisplayOneExerciseComponent implements OnInit {
 
   @Input() exercise: Exercise;
   @Input() editMode = false;
   @Input() isNew = false;
+  @Input() expanded: boolean;
   @Input() readonly testId: string;
-  @Input() readonly expanded: boolean;
+  @Input() readonly isAuthor: boolean;
   @Input() readonly number: string;
   @Output() addedExercise: EventEmitter<boolean> = new EventEmitter();
 
   private copyExercise: Exercise;
-  public exerciseWasChanged: boolean;
 
-  constructor(private exercisesService: TestExercisesService) {
+  constructor(private exercisesService: TestExercisesService,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -30,19 +31,15 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-
   public startEditExercise(): void {
     this.editMode = true;
+    this.expanded = false;
     this.copyExercise = JSON.parse(JSON.stringify(this.exercise));
   }
 
   public stopEditExercise(): void {
     this.editMode = false;
-    this.exerciseWasChanged = true;
+    this.expanded = true;
     this.checkExerciseThenFix();
     if (this.copyExercise) {
       this.exercise = JSON.parse(JSON.stringify(this.copyExercise));
@@ -57,7 +54,7 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
 
   public saveExercise(): void {
     this.editMode = false;
-    this.exerciseWasChanged = true;
+    this.expanded = true;
     this.checkExerciseThenFix();
     if (this.isNew) {
       this.addNewExercise();
@@ -70,19 +67,22 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
     this.isNew = false;
     this.addedExercise.emit(true);
     this.exercisesService.addOneExercise(this.testId, this.exercise)
-      .catch(error => console.log(error));
+      .then(() => this.openSnackBar('Exercise added', 3000))
+      .catch(error => this.openSnackBar(error, 10000));
   }
 
   private updateExercise(): void {
     if (this.isExerciseChanged()) {
       this.exercisesService.updateOneExercise(this.testId, this.exercise)
-        .catch(error => console.log(error));
+        .then(() => this.openSnackBar('Exercise updated', 3000))
+        .catch(error => this.openSnackBar(error, 10000));
     }
   }
 
   public deleteExercise(): void {
     this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-      .catch(error => console.log(error));
+      .then(() => this.openSnackBar('Exercise deleted', 3000000000000))
+      .catch(error => this.openSnackBar(error, 10000));
   }
 
   /**
@@ -122,7 +122,14 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
       }
     }
   }
-  handleSpacebar(ev) {
+
+  private openSnackBar(text: string, duration: number): void {
+    this.snackBar.open(text, 'OK', {
+      duration: duration
+    });
+  }
+
+  public handleSpacebar(ev) {
     if (ev.keyCode === 32) {
       ev.stopPropagation();
     }

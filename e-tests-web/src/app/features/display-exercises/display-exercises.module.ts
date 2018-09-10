@@ -6,7 +6,7 @@ import {
   MatButtonModule, MatCheckboxModule,
   MatExpansionModule, MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatSelectModule, MatTooltipModule
+  MatSelectModule, MatSnackBarModule, MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 
@@ -26,7 +26,8 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatSelectModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   exports: [DisplayExercisesComponent],
   providers: []

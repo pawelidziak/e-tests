@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
+import {AuthService} from '../../core/services/auth.service';
+import {listAnimation} from '../../shared/animations';
 
 interface SortOption {
   value: string;
@@ -14,11 +16,13 @@ enum sortOptionValue {
 @Component({
   selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
-  styleUrls: ['./display-exercises.component.scss']
+  styleUrls: ['./display-exercises.component.scss'],
+  animations: [listAnimation()]
 })
 export class DisplayExercisesComponent implements OnInit {
 
   @Input() exerciseList: Array<Exercise>;
+  @Input() readonly authorId: string;
   @Input() readonly editExercisesMode = false;
   @Input() readonly testId: string;
 
@@ -28,7 +32,7 @@ export class DisplayExercisesComponent implements OnInit {
   public addNewExercise = false;
   public expandAllExercises = false;
 
-  constructor() {
+  constructor(public auth: AuthService) {
   }
 
   ngOnInit() {
@@ -51,14 +55,16 @@ export class DisplayExercisesComponent implements OnInit {
   }
 
   public addExercise() {
-    this.addNewExercise = true;
-    const newExercise: Exercise = {
-      question: '',
-      answers: ['', ''],
-      correctAnswer: 0,
-      createDate: new Date().getTime()
-    };
-    this.exerciseList.push(newExercise);
+    if (!this.addNewExercise) {
+      this.addNewExercise = true;
+      const newExercise: Exercise = {
+        question: '',
+        answers: ['', ''],
+        correctAnswer: 0,
+        createDate: new Date().getTime()
+      };
+      this.exerciseList.push(newExercise);
+    }
   }
 
   public handleAddedExercise(exerciseWasAdded: boolean): void {
@@ -69,5 +75,4 @@ export class DisplayExercisesComponent implements OnInit {
   }
 
   public identifier = (index: number, item: any) => item.name;
-
 }

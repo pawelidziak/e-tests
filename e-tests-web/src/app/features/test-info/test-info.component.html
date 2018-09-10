@@ -1,6 +1,6 @@
 <section *ngIf="test && exercises">
 
-  <mat-card>
+  <mat-card [@fadeInAnimation]>
     <div class="container test-info-container">
 
       <div class="left-side">
@@ -27,7 +27,9 @@
           <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
-        <button mat-icon-button matTooltip="Edit" (click)="navigateToEdit()">
+        <button mat-icon-button matTooltip="Edit"
+                *ngIf="auth.currentUserId === test.authorId"
+                (click)="navigateToEdit()">
           <mat-icon aria-label="Edit icon">edit</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Share">
@@ -43,7 +45,8 @@
 
   <div class="container">
     <app-display-exercises [exerciseList]="exercises"
-                           [testId]="testId">
+                           [testId]="testId"
+                           [authorId]="test.authorId">
     </app-display-exercises>
   </div>
 

@@ -3,7 +3,7 @@ import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
 import {StartTestEvent} from './test-config/test-config.component';
 import {ActivatedRoute} from '@angular/router';
 import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
-import {ROUTE_PARAMS} from '../../app.routing';
+import {ROUTE_PARAMS} from '../../shared/ROUTES';
 
 @Component({
   selector: 'app-test',

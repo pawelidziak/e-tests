@@ -1,17 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderButtonType, HeaderService} from '../../../core/services/header.service';
 import {Location} from '@angular/common';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../core/services/auth.service';
-import {ALL_ROUTES} from '../../../app.routing';
+import {ALL_ROUTES} from '../../../shared/ROUTES';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent implements OnInit, OnDestroy {
+  private subscriptions: any = [];
   public readonly ALL_ROUTES = ALL_ROUTES;
 
   @Input() drawer: MatSidenav;
@@ -33,13 +33,18 @@ export class HeaderComponent implements OnInit {
     this.getHeaderText();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   private getUser() {
-    const sub$ = this.auth.currentUserObservable.subscribe(
-      res => {
-        this.user = res;
-      },
-      error => console.log(error)
-    );
+    this.subscriptions.push(
+      this.auth.currentUserObservable.subscribe(
+        res => {
+          this.user = res;
+        },
+        error => console.log(error)
+      ));
   }
 
   public openAuthDialog(): void {
@@ -51,13 +56,17 @@ export class HeaderComponent implements OnInit {
   }
 
   private getHeaderButton(): void {
-    const buttonSub$ = this.headerService.getHeaderButtonValue().subscribe(
-      res => this.headerButton = res);
+    this.subscriptions.push(
+      this.headerService.getHeaderButtonValue().subscribe(
+      res => this.headerButton = res)
+    );
   }
 
   private getHeaderText(): void {
-    const textSub$ = this.headerService.getHeaderTextValue().subscribe(
-      res => this.headerText = res);
+    this.subscriptions.push(
+      this.headerService.getHeaderTextValue().subscribe(
+      res => this.headerText = res)
+    );
   }
 
   public logout(): void {

@@ -1,16 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TestCreate} from '../../core/models/Test';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
-import {ROUTE_PARAMS} from '../../app.routing';
+import {AuthService} from '../../core/services/auth.service';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
+import {fadeInAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-edit',
   templateUrl: './test-edit.component.html',
-  styleUrls: ['./test-edit.component.scss']
+  styleUrls: ['./test-edit.component.scss'],
+  animations: [fadeInAnimation()]
 })
 export class TestEditComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
@@ -21,6 +24,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
   public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
+              private auth: AuthService,
               private testService: NewTestService,
               private exercisesService: TestExercisesService,
               public snackBar: MatSnackBar) {
@@ -44,12 +49,15 @@ export class TestEditComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
-          this.testInfo = res;
-          this.copyTest = JSON.parse(JSON.stringify(this.testInfo));
+          if (res && this.auth.currentUserId !== res.authorId) {
+            this.router.navigate([ALL_ROUTES.DASHBOARD]);
+          } else {
+            this.testInfo = res;
+            this.copyTest = JSON.parse(JSON.stringify(this.testInfo));
+          }
+
         },
-        error => {
-          console.log(error);
-        }
+        error => console.log(error)
       )
     );
   }

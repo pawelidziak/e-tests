@@ -4,7 +4,7 @@ import {TestCreate} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {Router} from '@angular/router';
-import {ALL_ROUTES} from '../../app.routing';
+import {ALL_ROUTES} from '../../shared/ROUTES';
 
 @Component({
   selector: 'app-test-create',

@@ -1,7 +1,7 @@
 <mat-expansion-panel class="single-exercise"
                      #matExpansionPanel
                      [disabled]="editMode"
-                     [expanded]="exerciseWasChanged || editMode || expanded">
+                     [expanded]="expanded || editMode">
   <mat-expansion-panel-header class="expansion-header"
                               expandedHeight="auto"
                               collapsedHeight="auto">
@@ -77,7 +77,7 @@
 
   </div><!-- /exercise-answers -->
 
-  <mat-action-row class="action-row">
+  <mat-action-row class="action-row" *ngIf="isAuthor">
     <div *ngIf="!editMode" class="edit-actions">
       <button mat-icon-button id="deleteExerciseButton" (click)="deleteExercise()" matTooltip="Delete">
         <mat-icon>delete</mat-icon>

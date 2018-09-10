@@ -1,5 +1,6 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
+@import '~@angular/material/theming';
 
 .section-display-exercises {
   margin: $margin 0;
@@ -14,12 +15,10 @@
   }
 
   .one-field {
-    margin-right: .5*$margin;
     &:first-child {
       width: 100%;
     }
     &:last-child {
-      margin-right: 0;
       display: flex;
       align-items: center;
       width: 100%;
@@ -39,7 +38,9 @@
   }
 }
 
-.expandButton {
+.exercises-header-button {
   margin-top: -22px;
-  outline: none;
+  button {
+    outline: none;
+  }
 }

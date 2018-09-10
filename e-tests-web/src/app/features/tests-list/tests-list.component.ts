@@ -3,12 +3,14 @@ import {HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
 import {NewTestService} from '../../core/services/NewTest.service';
 import {TestCreate} from '../../core/models/Test';
-import {ALL_ROUTES} from '../../app.routing';
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {listAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-tests-list',
   templateUrl: './tests-list.component.html',
-  styleUrls: ['./tests-list.component.scss']
+  styleUrls: ['./tests-list.component.scss'],
+  animations: [listAnimation()]
 })
 export class TestsListComponent implements OnInit {
 

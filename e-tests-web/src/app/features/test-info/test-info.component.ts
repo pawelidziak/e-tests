@@ -5,13 +5,16 @@ import {NewTestService} from '../../core/services/NewTest.service';
 import {TestCreate} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
-import {ALL_ROUTES, ROUTE_PARAMS} from '../../app.routing';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
+import {AuthService} from '../../core/services/auth.service';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
+import {fadeInAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
-  styleUrls: ['./test-info.component.scss']
+  styleUrls: ['./test-info.component.scss'],
+  animations: [fadeInAnimation()]
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
@@ -21,6 +24,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,
+              public auth: AuthService,
               private router: Router,
               private testService: NewTestService,
               private exercisesService: TestExercisesService,
@@ -36,10 +40,15 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.checkAuthor();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  private checkAuthor() {
+
   }
 
   private getTest() {
