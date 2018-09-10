@@ -1,6 +1,7 @@
 <mat-expansion-panel class="single-exercise"
                      #matExpansionPanel
-                     [expanded]="exerciseWasChanged || editMode">
+                     [disabled]="editMode"
+                     [expanded]="exerciseWasChanged || editMode || expanded">
   <mat-expansion-panel-header class="expansion-header"
                               expandedHeight="auto"
                               collapsedHeight="auto">
@@ -13,12 +14,12 @@
       </div>
 
       <!-- EDITABLE TITLE -->
-      <div *ngIf="editMode" class="editable-title">
+      <div *ngIf="editMode" class="editable-title"
+           (keydown)="handleSpacebar($event)">
         <span class="exercise-number">{{number}}.</span>
         <mat-form-field *ngIf="editMode"
                         color="accent"
                         style="width: 100%;"
-                        (click)="$event.stopPropagation();"
                         floatLabel="never">
           <input matInput
                  type="text"
@@ -59,7 +60,7 @@
         <button mat-icon-button
                 style="outline: none;"
                 id="deleteAnswerButton"
-                (click)="deleteOneAnswer(exercise.answers, j)"
+                (click)="deleteOneAnswer(j)"
                 *ngIf="j > 1">
           <mat-icon aria-label="Delete answer">delete_outline</mat-icon>
         </button>
@@ -77,17 +78,20 @@
   </div><!-- /exercise-answers -->
 
   <mat-action-row class="action-row">
-    <div *ngIf="!editMode">
-      <button mat-icon-button id="editButton" (click)="startEditExercise()" matTooltip="Edit">
-        <mat-icon aria-label="Edit exercise">edit_mode</mat-icon>
-      </button>
+    <div *ngIf="!editMode" class="edit-actions">
       <button mat-icon-button id="deleteExerciseButton" (click)="deleteExercise()" matTooltip="Delete">
         <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button id="editButton" (click)="startEditExercise()" matTooltip="Edit">
+        <mat-icon aria-label="Edit exercise">edit_mode</mat-icon>
       </button>
     </div>
     <div *ngIf="editMode">
       <button mat-icon-button id="cancelButton" (click)="stopEditExercise()" matTooltip="Cancel">
         <mat-icon aria-label="Cancel exercise">close</mat-icon>
+      </button>
+      <button mat-icon-button id="addImageButton" matTooltip="Not available yet">
+        <mat-icon aria-label="Add image">add_photo_alternate</mat-icon>
       </button>
       <button mat-icon-button id="saveButton" (click)="saveExercise()" matTooltip="Save">
         <mat-icon aria-label="Save exercise">save</mat-icon>

@@ -3,6 +3,7 @@ import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
 import {StartTestEvent} from './test-config/test-config.component';
 import {ActivatedRoute} from '@angular/router';
 import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
+import {ROUTE_PARAMS} from '../../app.routing';
 
 @Component({
   selector: 'app-test',
@@ -39,7 +40,7 @@ export class TestLearnComponent implements OnInit {
   }
 
   ngOnInit() {
-    const routeSub$ = this.route.parent.params.subscribe(params => this.testId = params['testId']);
+    const routeSub$ = this.route.parent.params.subscribe(params => this.testId = params[ROUTE_PARAMS.TEST_ID]);
     this.initStats();
     this.getTestExercises();
   }

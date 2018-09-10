@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
-import {FirebaseTimestamp} from "../../core/models/Test";
 
 interface SortOption {
   value: string;
@@ -27,6 +26,7 @@ export class DisplayExercisesComponent implements OnInit {
   public sortOption: SortOption[];
   public selectedOption: SortOption;
   public addNewExercise = false;
+  public expandAllExercises = false;
 
   constructor() {
   }

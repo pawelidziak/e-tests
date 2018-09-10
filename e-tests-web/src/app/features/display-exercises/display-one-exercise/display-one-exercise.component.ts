@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
 
@@ -14,6 +14,7 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
   @Input() editMode = false;
   @Input() isNew = false;
   @Input() readonly testId: string;
+  @Input() readonly expanded: boolean;
   @Input() readonly number: string;
   @Output() addedExercise: EventEmitter<boolean> = new EventEmitter();
 
@@ -33,17 +34,6 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  public getLetterFromAscii(i: number): string {
-    return String.fromCharCode(65 + i);
-  }
-
-  public deleteOneAnswer(answers: Array<string>, i: number): void {
-    answers.splice(i, 1);
-  }
-
-  public customTrackBy(index: number, obj: any): any {
-    return index;
-  }
 
   public startEditExercise(): void {
     this.editMode = true;
@@ -65,7 +55,6 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
     }
   }
 
-
   public saveExercise(): void {
     this.editMode = false;
     this.exerciseWasChanged = true;
@@ -85,7 +74,7 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
   }
 
   private updateExercise(): void {
-    if (!this.areTwoExercisesEqual(this.exercise, this.copyExercise)) {
+    if (this.isExerciseChanged()) {
       this.exercisesService.updateOneExercise(this.testId, this.exercise)
         .catch(error => console.log(error));
     }
@@ -96,17 +85,24 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
       .catch(error => console.log(error));
   }
 
-  private areTwoExercisesEqual(e1: Exercise, e2: Exercise): boolean {
-    if (e1.question !== e2.question || e1.answers.length !== e2.answers.length) {
-      return false;
-    } else if (e1.answers.length === e2.answers.length) {
-      for (let i = 0; i < e1.answers.length; i++) {
-        if (e1.answers[i] !== e2.answers[i]) {
-          return false;
-        }
-      }
-    }
-    return true;
+  /**
+   * HELPERS
+   */
+
+  public getLetterFromAscii(i: number): string {
+    return String.fromCharCode(65 + i);
+  }
+
+  public deleteOneAnswer(i: number): void {
+    this.exercise.answers.splice(i, 1);
+  }
+
+  public customTrackBy(index: number, obj: any): any {
+    return index;
+  }
+
+  private isExerciseChanged(): boolean {
+    return JSON.stringify(this.exercise) !== JSON.stringify(this.copyExercise);
   }
 
   private checkExerciseThenFix(): void {
@@ -124,6 +120,11 @@ export class DisplayOneExerciseComponent implements OnInit, OnDestroy {
         this.exercise.answers.splice(i, 1);
         i--;
       }
+    }
+  }
+  handleSpacebar(ev) {
+    if (ev.keyCode === 32) {
+      ev.stopPropagation();
     }
   }
 }

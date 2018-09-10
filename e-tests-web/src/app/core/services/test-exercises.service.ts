@@ -3,9 +3,6 @@ import {AngularFirestore, DocumentReference} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/internal/Observable';
 import {Exercise} from '../models/Exercise';
 import {map} from 'rxjs/operators';
-import * as firebase from "firebase";
-import Timestamp = firebase.firestore.Timestamp;
-import {FirebaseTimestamp} from "../models/Test";
 
 @Injectable()
 export class TestExercisesService {
@@ -35,7 +32,7 @@ export class TestExercisesService {
       .add(exercise);
   }
 
-  public updateOneExercise(testId: string, exercise: Exercise): any {
+  public updateOneExercise(testId: string, exercise: Exercise): Promise<void> {
     const copyExercise = JSON.parse(JSON.stringify(exercise));
     delete copyExercise.id;
 

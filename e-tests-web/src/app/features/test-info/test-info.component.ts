@@ -5,7 +5,7 @@ import {NewTestService} from '../../core/services/NewTest.service';
 import {TestCreate} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
-import {ALL_ROUTES} from '../../app.routing';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../app.routing';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
-        this.testId = params['testId'];
+        this.testId = params[ROUTE_PARAMS.TEST_ID];
         this.getTest();
         this.getExercises();
       })

@@ -11,6 +11,10 @@ export const ALL_ROUTES = {
   USER_TESTS_LIST: 'tests-list'
 };
 
+export const ROUTE_PARAMS = {
+  TEST_ID: 'testId'
+};
+
 const appRoutes: Routes = [
   /**
    * Define lazy loading routes here
@@ -33,7 +37,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: `${ALL_ROUTES.CREATED_TEST}/:testId`,
+    path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}`,
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
   {

@@ -6,6 +6,7 @@
 
 .expansion-header {
   padding: .5*$margin;
+  color: currentColor !important;
   @media #{$gt-xs_size}{
     padding: $margin;
   }
@@ -97,9 +98,15 @@
   button {
     outline: none;
   }
+
+  .edit-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
-#editButton {
+#editButton, #addImageButton {
   color: $text_secondary;
   transition: color .3s;
   &:hover {

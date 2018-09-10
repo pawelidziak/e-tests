@@ -23,7 +23,12 @@
         </app-test-desc>
 
         <div class="test-form-actions">
-          <button mat-raised-button color="accent" type="submit">save</button>
+          <button mat-raised-button
+                  color="accent"
+                  type="submit"
+                  [disabled]="!isTestChanged()">
+            save
+          </button>
         </div>
 
       </form>

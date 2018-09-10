@@ -9,26 +9,45 @@
              [disabled]="exerciseList.length === 0">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="one-field">
-      <mat-label>Sort by</mat-label>
-      <mat-select placeholder="Sort by"
-                  [(ngModel)]="selectedOption"
-                  (selectionChange)="changeSortOption()"
-                  [disabled]="exerciseList.length === 0">
-        <mat-option *ngFor="let option of sortOption" [value]="option">
-          {{option.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+
+    <div class="one-field">
+
+      <mat-form-field appearance="outline" class="one-field">
+        <mat-label>Sort by</mat-label>
+        <mat-select placeholder="Sort by"
+                    [(ngModel)]="selectedOption"
+                    (selectionChange)="changeSortOption()"
+                    [disabled]="exerciseList.length === 0">
+          <mat-option *ngFor="let option of sortOption" [value]="option">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-icon-button
+              class="expandButton"
+              *ngIf="!editExercisesMode && !expandAllExercises"
+              (click)="expandAllExercises = true">
+        <mat-icon aria-label="Expand all">unfold_more</mat-icon>
+      </button>
+      <button mat-icon-button
+              class="expandButton"
+              *ngIf="!editExercisesMode && expandAllExercises"
+              (click)="expandAllExercises = false">
+        <mat-icon aria-label="Collapse all">unfold_less</mat-icon>
+      </button>
+    </div>
   </div>
 
-  <app-display-one-exercise *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index;  trackBy: identifier"
-                            [exercise]="exercise"
-                            [editMode]="editExercisesMode || (addNewExercise && i === exerciseList.length - 1)"
-                            [isNew]="addNewExercise"
-                            [testId]="testId"
-                            [number]="i + 1"
-                            (addedExercise)="handleAddedExercise($event)">
+  <app-display-one-exercise
+    *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index;  trackBy: identifier"
+    [exercise]="exercise"
+    [editMode]="editExercisesMode || (addNewExercise && i === exerciseList.length - 1)"
+    [isNew]="addNewExercise"
+    [testId]="testId"
+    [number]="i + 1"
+    [expanded]="expandAllExercises"
+    (addedExercise)="handleAddedExercise($event)">
   </app-display-one-exercise>
 
 

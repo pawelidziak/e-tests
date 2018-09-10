@@ -5,14 +5,12 @@ import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
 import {map} from 'rxjs/operators';
-import {Exercise} from '../models/Exercise';
 
 @Injectable()
 export class NewTestService {
 
   private readonly TEST_PATH = 'tests';
   private readonly USER_ID_FIELD = 'authorId';
-  private readonly EXERCISES_PATH = 'exercises';
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
 
   constructor(private readonly afs: AngularFirestore,
@@ -23,23 +21,14 @@ export class NewTestService {
     return this.afs.collection(this.TEST_PATH).add(newTest);
   }
 
-  public getTestById(testId: string): Observable<TestCreate> {
-    return this.afs.doc<TestCreate>(`${this.TEST_PATH}/${testId}`).valueChanges();
+  public updateTest(testId: string, test: TestCreate): Promise<void> {
+    return this.afs.collection(this.TEST_PATH)
+      .doc(testId)
+      .update(test);
   }
 
-  public getTestExercises(testId: string): Observable<Exercise[]> {
-    // const testExercises = this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
-    //   ref => ref.orderBy(this.EXERCISE_NUMBER_FIELD));
-
-    const testExercises = this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`);
-
-    return testExercises.snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const id = a.payload.doc.id;
-        const data = a.payload.doc.data() as Exercise;
-        return {id, ...data};
-      });
-    }));
+  public getTestById(testId: string): Observable<TestCreate> {
+    return this.afs.doc<TestCreate>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
   public getTestsByCurrentUser(): Observable<TestCreate[]> {
