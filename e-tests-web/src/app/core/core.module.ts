@@ -17,6 +17,7 @@ import {NewTestService} from './services/NewTest.service';
 import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
 import {TestExercisesService} from './services/test-exercises.service';
+import {ScrollService} from './services/scroll.service';
 
 @NgModule({
   declarations: [],
@@ -38,6 +39,7 @@ import {TestExercisesService} from './services/test-exercises.service';
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
     LoaderService,
+    ScrollService,
     Overlay, // needed for angular ckd
     RWDService,
     CanDeactivateGuard,

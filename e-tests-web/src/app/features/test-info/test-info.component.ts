@@ -22,13 +22,14 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public testId: string;
   public test: TestCreate;
   public exercises: Exercise[];
+  public originalExercisesLength: number;
 
   constructor(private route: ActivatedRoute,
-              public auth: AuthService,
               private router: Router,
               private testService: NewTestService,
               private exercisesService: TestExercisesService,
-              private bottomSheet: MatBottomSheet) {
+              private bottomSheet: MatBottomSheet,
+              public auth: AuthService) {
 
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
@@ -40,15 +41,10 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.checkAuthor();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  private checkAuthor() {
-
   }
 
   private getTest() {
@@ -63,7 +59,10 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   private getExercises() {
     this.subscriptions.push(
       this.exercisesService.getTestExercises(this.testId).subscribe(
-        res => this.exercises = res,
+        res => {
+          this.exercises = res;
+          this.originalExercisesLength = this.exercises.length;
+        },
         error => console.log(error)
       )
     );

@@ -1,7 +1,8 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
 import {listAnimation} from '../../shared/animations';
+import {ScrollService} from '../../core/services/scroll.service';
 
 interface SortOption {
   value: string;
@@ -19,29 +20,60 @@ enum sortOptionValue {
   styleUrls: ['./display-exercises.component.scss'],
   animations: [listAnimation()]
 })
-export class DisplayExercisesComponent implements OnInit {
+export class DisplayExercisesComponent implements OnInit, OnDestroy {
+  private subscriptions: any[] = [];
 
   @Input() exerciseList: Array<Exercise>;
   @Input() readonly authorId: string;
   @Input() readonly editExercisesMode = false;
   @Input() readonly testId: string;
+  @Input() readonly learnButton: any;
+  @ViewChild('startList') startList: ElementRef;
 
+  public readonly lastExerciseId = 'lastExercise';
   public searchText: string;
   public sortOption: SortOption[];
   public selectedOption: SortOption;
   public addNewExercise = false;
   public expandAllExercises = false;
+  public fixedAddButton = false;
 
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService,
+              private scrollService: ScrollService) {
   }
 
   ngOnInit() {
+    this.setSortOption();
+    this.checkScrollPos();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  /**
+   * INIT METHODS
+   */
+
+  private setSortOption(): void {
     this.sortOption = [
       {value: sortOptionValue.ORIGINAL, viewValue: 'Original'},
       {value: sortOptionValue.ALPHABETICALLY, viewValue: 'Alphabetically'}
     ];
     this.selectedOption = this.sortOption[0];
   }
+
+  private checkScrollPos(): void {
+    this.subscriptions.push(
+      this.scrollService.scrollPosition.subscribe(
+        res => this.fixedAddButton = this.startList && res >= this.startList.nativeElement.offsetTop - 40
+      )
+    );
+  }
+
+  /**
+   * FUNCTIONAL METHODS
+   */
 
   public changeSortOption(): void {
     switch (this.selectedOption.value) {
@@ -54,7 +86,11 @@ export class DisplayExercisesComponent implements OnInit {
     }
   }
 
-  public addExercise() {
+  public addExercise(): void {
+    if (this.exerciseList.length > 0) {
+      this.scrollToLastExercise();
+    }
+
     if (!this.addNewExercise) {
       this.addNewExercise = true;
       const newExercise: Exercise = {
@@ -74,5 +110,24 @@ export class DisplayExercisesComponent implements OnInit {
     }
   }
 
-  public identifier = (index: number, item: any) => item.name;
+  private scrollToLastExercise(): void {
+    const element = document.querySelector(`#${this.lastExerciseId}`);
+    this.scrollTo(element);
+  }
+
+  public scrollTop(): void {
+    const element = document.querySelector('#testInfoSection') || document.querySelector('#testEditSection');
+    this.scrollTo(element);
+  }
+
+  /**
+   * HELPERS
+   */
+
+  private scrollTo(element: any): void {
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  public identifier = (index: number, item: Exercise) => item.createDate;
+
 }

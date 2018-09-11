@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.auth.currentUserObservable.pipe(map((auth) => {
         if (!auth) {
-          console.log('no logged');
           this.router.navigate([ALL_ROUTES.DASHBOARD]);
           return false;
         }

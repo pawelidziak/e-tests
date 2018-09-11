@@ -1,20 +1,21 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {RWDService} from '../../core/services/RWD.service';
-import {OverlayContainer} from '@angular/cdk/overlay';
+import {CdkScrollable, OverlayContainer, ScrollDispatcher} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {MatDialog} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
 import {ALL_ROUTES} from '../../shared/ROUTES';
+import {ScrollService} from '../../core/services/scroll.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   animations: [routerTransition]
-
 })
-export class MainComponent implements OnInit {
-
+export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
+  private subscriptions: any[] = [];
+  @ViewChild(CdkScrollable) scrollable: CdkScrollable;
   @HostBinding('class') componentCssClass;
 
   public generalLinks = [
@@ -28,6 +29,9 @@ export class MainComponent implements OnInit {
   public isSmallScreen = false;
 
   constructor(private rwdService: RWDService,
+              private scrollService: ScrollService,
+              private zone: NgZone,
+              private scroll: ScrollDispatcher,
               public dialog: MatDialog,
               public overlayContainer: OverlayContainer) {
   }
@@ -36,10 +40,24 @@ export class MainComponent implements OnInit {
     this.getRWDValue();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  ngAfterViewInit() {
+    this.subscriptions.push(
+      this.scroll.scrolled(0).subscribe((scrolled: CdkScrollable) => {
+        this.zone.run(() => this.scrollService.setScrollPosition(scrolled.getElementRef().nativeElement.scrollTop));
+      })
+    );
+  }
+
   private getRWDValue(): void {
-    const RWDsub$ = this.rwdService.isSmallScreen.subscribe(res => {
-      this.isSmallScreen = res;
-    });
+    this.subscriptions.push(
+      this.rwdService.isSmallScreen.subscribe(res => {
+        this.isSmallScreen = res;
+      })
+    );
   }
 
   public openSettingsDialog(): void {
@@ -47,14 +65,16 @@ export class MainComponent implements OnInit {
       width: '300px'
     });
 
-    const sub$ = dialogRef.afterClosed().subscribe(result => {
-      if (result && result.theme) {
-        this.onSetTheme(result.theme);
-      }
-    });
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.theme) {
+          this.onSetTheme(result.theme);
+        }
+      })
+    );
   }
 
-  private onSetTheme(theme: string) {
+  private onSetTheme(theme: string): void {
     const effectiveTheme = theme;
     this.componentCssClass = effectiveTheme;
     const classList = this.overlayContainer.getContainerElement().classList;
@@ -66,4 +86,7 @@ export class MainComponent implements OnInit {
     }
     classList.add(effectiveTheme);
   }
+
 }
+
+

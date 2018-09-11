@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-display-one-exercise',
@@ -81,7 +81,7 @@ export class DisplayOneExerciseComponent implements OnInit {
 
   public deleteExercise(): void {
     this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-      .then(() => this.openSnackBar('Exercise deleted', 3000000000000))
+      .then(() => this.openSnackBar('Exercise deleted', 3000))
       .catch(error => this.openSnackBar(error, 10000));
   }
 
