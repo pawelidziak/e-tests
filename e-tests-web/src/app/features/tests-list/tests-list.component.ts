@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
-import {NewTestService} from '../../core/services/NewTest.service';
+import {TestService} from '../../core/services/test.service';
 import {TestCreate} from '../../core/models/Test';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {listAnimation} from '../../shared/animations';
@@ -12,29 +12,35 @@ import {listAnimation} from '../../shared/animations';
   styleUrls: ['./tests-list.component.scss'],
   animations: [listAnimation()]
 })
-export class TestsListComponent implements OnInit {
+export class TestsListComponent implements OnInit, OnDestroy {
+  private subscriptions: any[] = [];
 
   public searchText: string;
-
   public testList: Array<TestCreate>;
 
   constructor(private headerService: HeaderService,
               private router: Router,
-              private testService: NewTestService) {
+              private testService: TestService) {
   }
 
   ngOnInit() {
     this.getTestsList();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   public navigateToTest(testId: string): void {
-   this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${testId}`]);
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${testId}`]);
   }
 
   private getTestsList(): void {
-    this.testService.getTestsByCurrentUser().subscribe(
-      res => this.testList = res,
-      error => console.log(error)
+    this.subscriptions.push(
+      this.testService.getTestsByCurrentUser().subscribe(
+        res => this.testList = res,
+        error => console.log(error)
+      )
     );
   }
 

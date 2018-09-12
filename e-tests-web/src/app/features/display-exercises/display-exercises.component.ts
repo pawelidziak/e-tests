@@ -76,14 +76,15 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
    */
 
   public changeSortOption(): void {
-    switch (this.selectedOption.value) {
-      case sortOptionValue.ORIGINAL :
-        this.exerciseList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
-        break;
-      case sortOptionValue.ALPHABETICALLY:
-        this.exerciseList.sort((a, b) => a.question > b.question ? 1 : -1);
-        break;
-    }
+    // TODO
+    // switch (this.selectedOption.value) {
+    //   case sortOptionValue.ORIGINAL :
+    //     this.exerciseList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
+    //     break;
+    //   case sortOptionValue.ALPHABETICALLY:
+    //     this.exerciseList.sort((a, b) => a.question > b.question ? 1 : -1);
+    //     break;
+    // }
   }
 
   public addExercise(): void {

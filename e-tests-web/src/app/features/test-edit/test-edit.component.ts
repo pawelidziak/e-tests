@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TestCreate} from '../../core/models/Test';
-import {NewTestService} from '../../core/services/NewTest.service';
+import {TestService} from '../../core/services/test.service';
 import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
@@ -26,7 +26,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private auth: AuthService,
-              private testService: NewTestService,
+              private testService: TestService,
               private exercisesService: TestExercisesService,
               public snackBar: MatSnackBar) {
     this.subscriptions.push(
@@ -55,7 +55,6 @@ export class TestEditComponent implements OnInit, OnDestroy {
             this.testInfo = res;
             this.copyTest = JSON.parse(JSON.stringify(this.testInfo));
           }
-
         },
         error => console.log(error)
       )

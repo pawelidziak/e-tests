@@ -37,19 +37,14 @@ export function fadeInAnimation() {
 export function listAnimation() {
   return trigger('listStagger', [
     transition('* <=> *', [
-      query(':enter', style({ opacity: 0 }), {
-        optional: true
-      }),
-      query(
-        ':enter' ,
+      query(':enter', style({ opacity: 0 }), {optional: true}),
+      query(':enter',
         stagger(100, [
           style({ transform: 'translateY(15%)', opacity: 0 }),
-          animate(
-            '0.5s ease-in-out',
+          animate('0.5s ease-in-out',
             style({ transform: 'translateY(0%)', opacity: 1 })
           )
-        ]),
-        { optional: true }
+        ]), { optional: true }
       )
     ])
   ]);

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatBottomSheet} from '@angular/material';
-import {NewTestService} from '../../core/services/NewTest.service';
+import {TestService} from '../../core/services/test.service';
 import {TestCreate} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
@@ -17,7 +17,7 @@ import {fadeInAnimation} from '../../shared/animations';
   animations: [fadeInAnimation()]
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
-  private subscriptions: any = [];
+  private subscriptions: any[] = [];
 
   public testId: string;
   public test: TestCreate;
@@ -26,7 +26,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private testService: NewTestService,
+              private testService: TestService,
               private exercisesService: TestExercisesService,
               private bottomSheet: MatBottomSheet,
               public auth: AuthService) {

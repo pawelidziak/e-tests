@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
 import {TestCreate} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
-import {NewTestService} from '../../core/services/NewTest.service';
+import {TestService} from '../../core/services/test.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 
@@ -22,7 +22,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,
-              private testService: NewTestService,
+              private testService: TestService,
               private router: Router) {
   }
 

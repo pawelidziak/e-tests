@@ -13,7 +13,7 @@ import {CacheService} from './services/cache.service';
 import {FirebaseModule} from './firebase.module';
 import {AuthService} from './services/auth.service';
 import {CanDeactivateGuard} from './can-deactivate-guard';
-import {NewTestService} from './services/NewTest.service';
+import {TestService} from './services/test.service';
 import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
 import {TestExercisesService} from './services/test-exercises.service';
@@ -45,7 +45,7 @@ import {ScrollService} from './services/scroll.service';
     CanDeactivateGuard,
     CacheService,
     HeaderService,
-    NewTestService,
+    TestService,
     TestExercisesService
   ]
 })
