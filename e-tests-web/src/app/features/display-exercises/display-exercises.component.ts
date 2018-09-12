@@ -112,22 +112,17 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
 
   private scrollToLastExercise(): void {
     const element = document.querySelector(`#${this.lastExerciseId}`);
-    this.scrollTo(element);
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
   public scrollTop(): void {
     const element = document.querySelector('#testInfoSection') || document.querySelector('#testEditSection');
-    this.scrollTo(element);
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
   /**
    * HELPERS
    */
-
-  private scrollTo(element: any): void {
-    element.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }
-
   public identifier = (index: number, item: Exercise) => item.createDate;
 
 }

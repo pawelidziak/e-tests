@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {ScrollService} from '../../core/services/scroll.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -46,9 +47,11 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.subscriptions.push(
-      this.scroll.scrolled(0).subscribe((scrolled: CdkScrollable) => {
-        this.zone.run(() => this.scrollService.setScrollPosition(scrolled.getElementRef().nativeElement.scrollTop));
-      })
+      this.scroll.scrolled()
+        .pipe(map(() => {
+          this.zone.run(() => this.scrollService.setScrollPosition(this.scrollable.getElementRef().nativeElement.scrollTop));
+        }))
+        .subscribe()
     );
   }
 

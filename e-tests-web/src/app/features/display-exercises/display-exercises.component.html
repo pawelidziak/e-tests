@@ -72,7 +72,7 @@
   </div>
 
   <!-- EXERCISES FOOTER-->
-  <mat-toolbar color="primary" class="exercise-footer" *ngIf="fixedAddButton">
+  <mat-toolbar color="primary" class="exercise-footer" [hidden]="!fixedAddButton">
 
     <button mat-mini-fab *ngIf="!editExercisesMode"
             class="exercise-footer_element">

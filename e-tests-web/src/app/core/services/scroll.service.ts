@@ -9,11 +9,11 @@ export class ScrollService {
   constructor() {
   }
 
-  get scrollPosition(): BehaviorSubject<number> {
+  public get scrollPosition(): BehaviorSubject<number> {
     return this._scrollPosition;
   }
 
-  setScrollPosition(value: number) {
+  public setScrollPosition(value: number) {
     this._scrollPosition.next(value);
   }
 }
