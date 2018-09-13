@@ -3,7 +3,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {AuthComponent} from './auth.component';
 import {
   MatButtonModule,
-  MatCardModule, MatCheckboxModule, MatExpansionModule,
+  MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -29,7 +29,8 @@ import {CompareValidatorDirective} from '../../shared/directives/compare-validat
     MatIconModule,
     MatTabsModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   exports: [],
   providers: []

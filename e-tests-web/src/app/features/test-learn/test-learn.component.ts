@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
-import {TestService} from '../../core/services/test.service';
 import {StartTestEvent} from './test-config/test-config.component';
 import {ActivatedRoute} from '@angular/router';
 import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
-import {TestListService} from '../../core/services/test-list.service';
+import {ROUTE_PARAMS} from '../../shared/ROUTES';
 
 @Component({
   selector: 'app-test',
@@ -36,14 +35,12 @@ export class TestLearnComponent implements OnInit {
   public isTestStart: boolean;
   private testId: string;
 
-  constructor(private testService: TestService,
-              private testListService: TestListService,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private headerService: HeaderService) {
   }
 
   ngOnInit() {
-    const routeSub$ = this.route.parent.params.subscribe(params => this.testId = params['testId']);
+    const routeSub$ = this.route.parent.params.subscribe(params => this.testId = params[ROUTE_PARAMS.TEST_ID]);
     this.initStats();
     this.getTestExercises();
   }
@@ -123,8 +120,8 @@ export class TestLearnComponent implements OnInit {
    *    CHECKS
    */
 
-  public checkNumberOfExerciseOccurrences(exerciseNumber: number): number {
-    return this.testService.countOccurrencesInArray(this.preparedTestExercises, exerciseNumber);
+  public checkNumberOfExerciseOccurrences(exerciseNumber: number): any {
+    // return this.testService.countOccurrencesInArray(this.preparedTestExercises, exerciseNumber);
   }
 
   private initStats(): void {
@@ -134,14 +131,14 @@ export class TestLearnComponent implements OnInit {
   }
 
   private getTestExercises() {
-    const sub$ = this.testListService.getTestExercisesList(this.testId).subscribe(
-      res => {
-        this.origTestExercises = res;
-        // this.headerService.setHeaderText(res.testName);
-        // this.headerService.setHeaderText('');
-      },
-      error => console.log(error)
-    );
+  //   const sub$ = this.testListService.getTestExercisesList(this.testId).subscribe(
+  //     res => {
+  //       this.origTestExercises = res;
+  //       // this.headerService.setHeaderText(res.testName);
+  //       // this.headerService.setHeaderText('');
+  //     },
+  //     error => console.log(error)
+  //   );
   }
 
   private getRandomExercise(): ExerciseWithOccurrences {
@@ -165,9 +162,9 @@ export class TestLearnComponent implements OnInit {
 
   private checkIfExerciseIsMastered(exerciseNumber: number): void {
     // === 1 (not 0) because we delete this exerciseWithOccurrences in the next step
-    if (this.testService.countOccurrencesInArray(this.preparedTestExercises, exerciseNumber) === 1) {
-      this.masteredExercisesCount++;
-    }
+    // if (this.testService.countOccurrencesInArray(this.preparedTestExercises, exerciseNumber) === 1) {
+    //   this.masteredExercisesCount++;
+    // }
   }
 
   private checkIfTestIsEnd(): boolean {
@@ -193,7 +190,7 @@ export class TestLearnComponent implements OnInit {
     for (const exercise of this.origTestExercises) {
       this.preparedTestExercises.push({exercise: exercise, occurrences: this.occurrencesExerciseNumber});
     }
-    this.testService.shuffleArray(this.preparedTestExercises);
+    // this.testService.shuffleArray(this.preparedTestExercises);
   }
 
 }

@@ -11,7 +11,8 @@
   z-index: 999;
   padding: 0;
   overflow: hidden;
-  @include box_shadow;
+  //@include box_shadow;
+  border-bottom: 1px solid $hover_color;
   @media #{$gt-xs_size} {
     padding: 16px;
   }

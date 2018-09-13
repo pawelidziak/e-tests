@@ -4,12 +4,13 @@
 .section-auth {
   display: flex;
   justify-content: center;
-  //overflow: hidden;
+  overflow: hidden;
   margin: -$margin;
 }
 
-/deep/ .mat-dialog-container {
-  //padding: 0;
+/deep/ .mat-dialog-content {
+  padding: 0;
+  margin: 0;
 }
 
 mat-card {

@@ -1,14 +1,8 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './core/auth.guard';
+import {ALL_ROUTES, ROUTE_PARAMS} from './shared/ROUTES';
 
-export const ALL_ROUTES = {
-  DASHBOARD: 'dashboard',
-  SEARCH: 'search',
-  CREATE_TEST: 'create',
-  CREATED_TEST: 'test',
-  USER_TESTS_LIST: 'tests-list'
-};
 
 const appRoutes: Routes = [
   /**
@@ -32,16 +26,17 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: `${ALL_ROUTES.CREATED_TEST}/:testId`,
+    path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}`,
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
   {
-    path: 'test/:testId/exercises',
-    loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule'
+    path: `${ALL_ROUTES.CREATED_TEST}/:testId/${ALL_ROUTES.EDIT_TEST}`,
+    loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule',
+    canActivate: [AuthGuard]
   },
   // otherwise redirect to dashboard
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '', redirectTo: ALL_ROUTES.DASHBOARD, pathMatch: 'full'},
+  {path: '**', redirectTo: ALL_ROUTES.DASHBOARD}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

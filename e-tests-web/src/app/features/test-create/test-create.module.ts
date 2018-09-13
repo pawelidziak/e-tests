@@ -2,14 +2,8 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {testCreateRouting} from './test-create.routing';
 import {TestCreateComponent} from './test-create.component';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule, MatChipsModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule, MatTooltipModule
-} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule,} from '@angular/material';
+import {TestCreateEditPartsModule} from '../../shared/test-create-edit-parts/test-create-edit-parts.module';
 
 @NgModule({
   declarations: [
@@ -19,14 +13,11 @@ import {
     SharedModule,
     testCreateRouting,
 
+    TestCreateEditPartsModule,
+
     MatCardModule,
     MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatTooltipModule,
-    MatChipsModule
+    MatButtonModule
   ],
   exports: [],
   providers: []

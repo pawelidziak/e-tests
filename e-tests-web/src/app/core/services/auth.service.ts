@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/internal/Observable';
 import {MatDialog} from '@angular/material';
 import {AuthComponent} from '../../features/auth/auth.component';
 import * as firebase from 'firebase/app';
+import {Router} from '@angular/router';
+import {ALL_ROUTES} from '../../shared/ROUTES';
 
 
 @Injectable()
@@ -12,7 +14,8 @@ export class AuthService {
 
   private _user: User = null;
 
-  constructor(private  afAuth: AngularFireAuth,
+  constructor(private afAuth: AngularFireAuth,
+              private router: Router,
               private dialog: MatDialog) {
     const sub$ = this.afAuth.authState.subscribe(auth => {
       this._user = auth;
@@ -36,13 +39,16 @@ export class AuthService {
 
   // Returns current user UID
   get currentUserId(): string {
-    return this._user.uid ;
+    return this.isAuthenticated ? this._user.uid : '';
   }
 
 
   // Logout
   public signOut() {
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut()
+      .then(() => this.router.navigate([ALL_ROUTES.DASHBOARD]))
+      .catch(error => console.log(error));
+
   }
 
   // Email password register / login

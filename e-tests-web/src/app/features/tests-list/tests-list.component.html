@@ -1,12 +1,14 @@
 <section class="section-tests-list container" *ngIf="testList">
 
-  <div class="row tests-search">
+  <div class="row tests-search" [@listStagger]>
     <mat-form-field style="width: 100%">
       <input matInput [(ngModel)]="searchText" placeholder="Search">
     </mat-form-field>
   </div>
-  <div class="row">
-    <div class="col-lg-6 col-xl-4 single-test" *ngFor="let my_test of testList | searchTest: searchText">
+
+  <div class="row" [@listStagger]='testList.length'>
+    <div class="col-lg-6 col-xl-4 single-test"
+         *ngFor="let my_test of testList | searchTest: searchText">
 
       <mat-card>
 
@@ -31,7 +33,7 @@
           <div class="my-card-footer">
             <span class="footer-item">
               <mat-icon aria-label="Date icon">date_range</mat-icon>
-              <span>{{my_test.createDate.seconds * 1000 | date: 'dd.MM.yyyy'}}</span>
+              <span>{{my_test.createDate | date: 'dd.MM.yyyy'}}</span>
             </span>
             <a class="footer-item test-author" routerLink=".">
               <mat-icon aria-label="Account icon">account_circle</mat-icon>

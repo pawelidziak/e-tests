@@ -3,8 +3,7 @@ export interface Exercise {
   question: string;
   answers: Array<string>;
   correctAnswer: number;
-  number: number;
-  testId?: string;
+  createDate: number;
 }
 
 export interface ExerciseWithOccurrences {

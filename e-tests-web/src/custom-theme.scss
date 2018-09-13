@@ -23,15 +23,15 @@ $custom-typography: mat-typography-config(
 @include angular-material-typography($custom-typography);
 
 // Light theme
-$light-primary: mat-palette($mat-teal);
-$light-accent: mat-palette($mat-orange, 800);
+$light-primary: mat-palette($mat-grey, 50);
+$light-accent: mat-palette($mat-green, 600);
 $light-warn: mat-palette($mat-red);
 
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
 // Dark theme$mat-blue-grey, 400
 $dark-primary: mat-palette($mat-grey, 700, 300, 900);
-$dark-accent:  mat-palette($mat-blue-grey, 400);
+$dark-accent:  mat-palette($mat-green, 600);
 $dark-warn: mat-palette($mat-red);
 
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
@@ -55,7 +55,7 @@ $indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
 // ADD THEMES
 
 // default
-@include angular-material-theme($indigo-theme);
+@include angular-material-theme($light-theme);
 
 .light-theme {
   @include angular-material-theme($light-theme);

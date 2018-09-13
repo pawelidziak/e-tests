@@ -1,4 +1,4 @@
-import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, query, stagger, state, style, transition, trigger} from '@angular/animations';
 
 
 export function sliderAnimation() {
@@ -24,13 +24,29 @@ export function fadeInAnimation() {
   return trigger('fadeInAnimation', [
     transition(':enter', [
       style({opacity: 0}),
-      animate('2s', style({opacity: 1}))
+      animate('.3s', style({opacity: 1}))
     ]),
 
     transition(':leave', [
       style({opacity: 1}),
-      animate('.2s', style({opacity: 0}))
+      animate('.3s', style({opacity: 0}))
     ]),
+  ]);
+}
+
+export function listAnimation() {
+  return trigger('listStagger', [
+    transition('* <=> *', [
+      query(':enter', style({ opacity: 0 }), {optional: true}),
+      query(':enter',
+        stagger(100, [
+          style({ transform: 'translateY(15%)', opacity: 0 }),
+          animate('0.5s ease-in-out',
+            style({ transform: 'translateY(0%)', opacity: 1 })
+          )
+        ]), { optional: true }
+      )
+    ])
   ]);
 }
 

@@ -4,8 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JwtInterceptor} from './jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {throwIfAlreadyLoaded} from './module-import-guard';
-import {TestService} from './services/test.service';
-import {TestListService} from './services/test-list.service';
 import {Overlay} from '@angular/cdk/overlay';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {GestureConfig} from '@angular/material';
@@ -15,9 +13,11 @@ import {CacheService} from './services/cache.service';
 import {FirebaseModule} from './firebase.module';
 import {AuthService} from './services/auth.service';
 import {CanDeactivateGuard} from './can-deactivate-guard';
-import {NewTestService} from './services/NewTest.service';
+import {TestService} from './services/test.service';
 import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
+import {TestExercisesService} from './services/test-exercises.service';
+import {ScrollService} from './services/scroll.service';
 
 @NgModule({
   declarations: [],
@@ -39,14 +39,14 @@ import {AuthGuard} from './auth.guard';
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
     LoaderService,
+    ScrollService,
     Overlay, // needed for angular ckd
     RWDService,
     CanDeactivateGuard,
     CacheService,
     HeaderService,
-    TestListService,
     TestService,
-    NewTestService
+    TestExercisesService
   ]
 })
 export class CoreModule {

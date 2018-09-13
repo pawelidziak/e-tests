@@ -3,28 +3,26 @@ import {SharedModule} from '../../shared/shared.module';
 import {TestInfoComponent} from './test-info.component';
 import {testInfoRouting} from './test-info.routing';
 import {
-  MatBottomSheetModule, MatButtonModule,
-  MatCardModule, MatChipsModule,
-  MatExpansionModule, MatFormFieldModule,
-  MatIconModule, MatInputModule,
-  MatSelectModule, MatTooltipModule
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatIconModule,
+  MatTooltipModule
 } from '@angular/material';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
-import {ExerciseListModule} from '../test-detail/exercise-list/exercise-list.module';
-import {DisplayExercisesComponent} from './display-exercises/display-exercises.component';
-import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
+import {DisplayExercisesModule} from '../display-exercises/display-exercises.module';
 
 @NgModule({
   declarations: [
     TestInfoComponent,
     TestSettingsBottomSheetComponent,
-    DisplayExercisesComponent,
   ],
   imports: [
     SharedModule,
     testInfoRouting,
-    ExerciseListModule,
-    MyPipesModule,
+
+    DisplayExercisesModule,
 
     MatButtonModule,
     MatIconModule,
@@ -32,11 +30,6 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatChipsModule,
     MatTooltipModule,
     MatBottomSheetModule,
-
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatExpansionModule
   ],
   exports: [],
   providers: [],

@@ -1,0 +1,10 @@
+@import '../../shared/mixins';
+
+.test-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    outline: none;
+    @include upper-text;
+  }
+}

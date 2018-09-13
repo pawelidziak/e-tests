@@ -13,71 +13,37 @@
             <span class="message">Let's create a new test! </span>
           </div>
 
-          <form class="new-test-form" [formGroup]="createTestForm" (ngSubmit)="saveTest()">
+          <form class="new-test-form" (ngSubmit)="saveTest()">
 
-            <!-- TEST NAME -->
-            <mat-form-field style="width: 100%" color="accent" appearance="outline">
-              <mat-label>Test name</mat-label>
-              <input matInput
-                     placeholder="Test name..."
-                     type="text"
-                     formControlName="name">
-              <mat-hint>Recognizable names are the best!</mat-hint>
-              <mat-error *ngIf="createTestForm.invalid">Test name is <strong>required</strong></mat-error>
-            </mat-form-field>
+            <app-test-name [(testName)]="newTest.name"
+                           [appearance]="'outline'"
+                           [width100]="true"></app-test-name>
 
-            <!-- TEST TAGS -->
-            <mat-form-field style="width: 100%" color="accent" appearance="outline">
-              <mat-label>Tags</mat-label>
-              <mat-chip-list #chipList>
-                <mat-chip *ngFor="let tag of testTags"
-                          [selectable]="selectable"
-                          [removable]="removable"
-                          (removed)="removeTag(tag)">
-                  {{tag}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input placeholder="New tag..."
-                       #chipInput
-                       [matChipInputFor]="chipList"
-                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                       [matChipInputAddOnBlur]="addOnBlur"
-                       (matChipInputTokenEnd)="addTag(chipInput)"
-                       (focusout)="addTag(chipInput)"/>
-              </mat-chip-list>
-              <mat-hint>Separate by <strong>ENTER</strong> or <strong>COMMA</strong></mat-hint>
-              <mat-hint align="end">Don't use special characters</mat-hint>
-              <mat-error *ngIf="chipList.errorState">Choose at least <strong>1</strong> tag</mat-error>
-            </mat-form-field>
+            <app-test-tags [(testTags)]="newTest.tags"
+                           [checkError]="checkTags"
+                           [appearance]="'outline'"
+                           [width100]="true">
+            </app-test-tags>
 
-            <!-- TEST DESCRIPTION -->
-            <mat-form-field style="width: 100%" color="accent" appearance="outline">
-              <mat-label>Description</mat-label>
-              <textarea matInput
-                        placeholder="Description..."
-                        rows="5"
-                        type="text"
-                        formControlName="desc"></textarea>
-            </mat-form-field>
+            <app-test-desc [(testDesc)]="newTest.desc"
+                           [appearance]="'outline'"
+                           [width100]="true"></app-test-desc>
 
             <div class="details">
-              <!-- TEST CREATE DATE-->
-              <mat-form-field color="accent" appearance="outline" class="detail">
-                <mat-label>Create date</mat-label>
-                <input matInput
-                       placeholder="Create date"
-                       formControlName="createDate"
-                       [value]="createTestForm.get('createDate').value | date: 'dd.MM.yyyy'">
-              </mat-form-field>
+              <app-test-create-date [testCreateDate]="newTest.createDate"
+                                    [appearance]="'outline'"
+                                    [disabled]="true">
+              </app-test-create-date>
 
-              <!-- TEST VISIBLE -->
-              <mat-checkbox formControlName="isPublic"
-                            matTooltip="Private option is unavailable at this moment">Public
-              </mat-checkbox>
+              <app-test-visibility [(testVisibility)]="newTest.isPublic"
+                                   [tooltip]="'Private option is unavailable at this moment'"
+                                   [disabled]="true">
+              </app-test-visibility>
             </div>
 
             <button mat-button color="accent" type="submit">save</button>
           </form>
+
         </mat-card>
 
       </div> <!-- /col-md-auto -->

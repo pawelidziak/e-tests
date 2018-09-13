@@ -1,0 +1,76 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+@import '~@angular/material/theming';
+
+.section-display-exercises {
+  margin: $margin 0 5*$margin;
+}
+
+.exercises-header {
+  display: flex;
+  align-items: center;
+  font-size: $font-small;
+  flex-direction: column;
+  @media #{$gt-md_size} {
+    flex-direction: row;
+    font-size: $font-normal;
+  }
+
+  .header-form {
+    @media #{$gt-md_size} {
+      margin-right: 5px;
+    }
+  }
+}
+
+.change-button {
+  display: flex;
+  justify-content: center;
+  padding: $margin;
+  button {
+    @include upper-text();
+  }
+}
+
+.exercises-header-button {
+  margin-top: .2*$margin;
+  @media #{$gt-md_size} {
+    margin-top: .5*$margin;
+  }
+  button {
+    outline: none;
+  }
+}
+
+#addExerciseButton {
+  outline: none;
+  position: fixed;
+  bottom: .5*$margin;
+  right: .5*$margin;
+  @media #{$gt-md_size} {
+    bottom: $margin;
+    right: $margin;
+  }
+}
+
+.exercise-footer {
+  font-size: $font-small;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid $hover_color;
+  button {
+    outline: none;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.exercise-footer_element {
+  margin-right: .5*$margin;
+  &:last-child {
+    margin-right: 0;
+  }
+}

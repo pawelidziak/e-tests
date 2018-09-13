@@ -4,10 +4,10 @@ import {BehaviorSubject} from 'rxjs/index';
 @Injectable()
 export class LoaderService {
 
+  private _status: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor() {
   }
-
-  private _status: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get status(): BehaviorSubject<boolean> {
     return this._status;

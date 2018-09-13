@@ -14,6 +14,7 @@ import {AppSettingsModule} from '../app-settings/app-settings.module';
 import {HeaderModule} from './header/header.module';
 import {AuthComponent} from '../auth/auth.component';
 import {AuthModule} from '../auth/auth.module';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import {AuthModule} from '../auth/auth.module';
     HeaderModule,
     AppSettingsModule,
     AuthModule,
+
+    ScrollDispatchModule,
 
     MatDialogModule,
     MatSidenavModule,

@@ -1,12 +1,12 @@
-<section *ngIf="test && exercises">
+<section *ngIf="test && exercises" id="testInfoSection">
 
-  <mat-card>
+  <mat-card [@fadeInAnimation]>
     <div class="container test-info-container">
 
       <div class="left-side">
 
         <div class="author-date">
-          <span style="margin-right: 24px">{{test.createDate.seconds * 1000 | date: 'dd.MM.yyyy'}}</span>
+          <span style="margin-right: 24px">{{test.createDate | date: 'dd.MM.yyyy'}}</span>
           <span>TODO autor</span>
         </div>
 
@@ -23,14 +23,19 @@
       </div>
 
       <div class="right-side">
-        <button mat-raised-button color="accent" [disabled]="exercises.length === 0">
+        <button mat-raised-button #learn color="accent" [disabled]="originalExercisesLength === 0">
           <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
-        <button mat-icon-button matTooltip="Edit">
+        <button mat-icon-button matTooltip="Edit"
+                *ngIf="auth.currentUserId === test.authorId"
+                (click)="navigateToEdit()">
           <mat-icon aria-label="Edit icon">edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="More" (click)="openBottomSheet()">
+        <button mat-icon-button matTooltip="Share">
+          <mat-icon aria-label="Share icon">share</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="More" (click)="openMoreBottomSheet()">
           <mat-icon aria-label="More icon">more_horiz</mat-icon>
         </button>
       </div>
@@ -39,7 +44,11 @@
   </mat-card>
 
   <div class="container">
-    <app-exercises-no-editable [exerciseList]="exercises"></app-exercises-no-editable>
+    <app-display-exercises [exerciseList]="exercises"
+                           [testId]="testId"
+                           [learnButton]="learn"
+                           [authorId]="test.authorId">
+    </app-display-exercises>
   </div>
 
 </section>
