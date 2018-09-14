@@ -23,7 +23,7 @@ $custom-typography: mat-typography-config(
 @include angular-material-typography($custom-typography);
 
 // Light theme
-$light-primary: mat-palette($mat-grey, 50);
+$light-primary: mat-palette($mat-grey, 100);
 $light-accent: mat-palette($mat-green, 600);
 $light-warn: mat-palette($mat-red);
 

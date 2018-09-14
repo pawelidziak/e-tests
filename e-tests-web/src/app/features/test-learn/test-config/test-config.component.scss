@@ -6,16 +6,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100% - 52px); // - header
-  margin: 0 $margin;
+  margin: 3*$margin 0;
   .one-setting {
     width: 100%;
+    @media #{$gt-sm_size} {
+      width: 60%;
+    }
     @media #{$gt-md_size} {
       width: 50%;
+    }
+    @media #{$gt-lg_size} {
+      width: 60%;
     }
     text-align: center;
     display: flex;
     flex-direction: column;
-    padding: .5*$margin 0;
   }
+}
+
+button {
+  margin-top: $margin;
+  outline: none;
+  @include upper-text();
 }

@@ -1,26 +1,37 @@
-<section class="test-config">
-  <div class="one-setting">
-    <span>The number of task occurrence: <strong>{{occurrencesExerciseNumber}}</strong></span>
-    <mat-slider
-      [min]="1"
-      [max]="10"
-      [step]="1"
-      thumbLabel
-      [(ngModel)]="occurrencesExerciseNumber">
-    </mat-slider>
+<section class="container">
+  <div class="back-to">
+    <button mat-button (click)="backToTest()">
+      <mat-icon aria-label="Back to test">arrow_back</mat-icon>
+      <span>back to the test</span>
+    </button>
   </div>
+  <div class="test-config">
+    <div class="one-setting">
+      <span>The number of task occurrence: <strong>{{occurrencesExerciseNumber}}</strong></span>
+      <mat-slider
+        [min]="1"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="occurrencesExerciseNumber">
+      </mat-slider>
+    </div>
 
-  <div class="one-setting">
-    <span>The number of repetitions in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
-    <mat-slider
-      [min]="0"
-      [max]="10"
-      [step]="1"
-      thumbLabel
-      [(ngModel)]="repetitionExerciseNumber">
-    </mat-slider>
+    <div class="one-setting">
+      <span>The number of repetitions in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
+      <mat-slider
+        [min]="0"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="repetitionExerciseNumber">
+      </mat-slider>
+    </div>
+
+    <button mat-raised-button
+            color="accent"
+            (click)="startTest()">
+      start learn
+    </button>
   </div>
-
-  <button mat-raised-button color="accent" (click)="startTest()">START TEST</button>
-
 </section> <!-- end SETTINGS-->

@@ -3,6 +3,8 @@ import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
 import {listAnimation} from '../../shared/animations';
 import {ScrollService} from '../../core/services/scroll.service';
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {Router} from "@angular/router";
 
 interface SortOption {
   value: string;
@@ -27,7 +29,6 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   @Input() readonly authorId: string;
   @Input() readonly editExercisesMode = false;
   @Input() readonly testId: string;
-  @Input() readonly learnButton: any;
   @ViewChild('startList') startList: ElementRef;
 
   public readonly lastExerciseId = 'lastExercise';
@@ -38,8 +39,9 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   public expandAllExercises = false;
   public fixedAddButton = false;
 
-  constructor(public auth: AuthService,
-              private scrollService: ScrollService) {
+  constructor(private scrollService: ScrollService,
+              public auth: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -126,4 +128,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
    */
   public identifier = (index: number, item: Exercise) => item.createDate;
 
+  public navigateToLearn(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
+  }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TestCreate} from '../models/Test';
+import {TestCreate, TestProgress, TestSettings} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
@@ -73,6 +73,18 @@ export class TestService {
     return this.afs.collection(this.TEST_PATH)
       .doc(testId)
       .update(test);
+  }
+
+  public updateTestSettings(testId: string, testSettings: TestSettings): Promise<void> {
+    return this.afs.collection(this.TEST_PATH)
+      .doc(testId)
+      .update({settings: testSettings});
+  }
+
+  public updateTestProgress(testId: string, progress: TestProgress): Promise<void> {
+    return this.afs.collection(this.TEST_PATH)
+      .doc(testId)
+      .update({progress: progress});
   }
 
   /**

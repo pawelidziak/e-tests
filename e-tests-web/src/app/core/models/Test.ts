@@ -10,16 +10,6 @@ export interface Test {
   author: string;
 }
 
-export interface NEWTest {
-  testId?: string;
-  testName: string;
-  tags: Array<String>;
-  desc: string;
-  author: string;
-  createDate: Date;
-  updateDate?: Date;
-}
-
 export interface TestCreate {
   id?: string;
   name: string;
@@ -28,9 +18,22 @@ export interface TestCreate {
   createDate: number;
   authorId: string;
   isPublic: boolean;
+  settings?: TestSettings;
+  progress?: TestProgress;
 }
 
-export interface FirebaseTimestamp {
-  nanoseconds: number;
-  seconds: number;
+export interface TestProgress {
+  masteredExercisesIds: Array<string>;
+  reviewedExercisesIds: Array<Wut>;
+}
+
+export interface TestSettings {
+  occurrencesNumber: number;
+  repetitionNumber: number;
+}
+
+interface Wut {
+
+  id: string;
+  occurrences: number;
 }

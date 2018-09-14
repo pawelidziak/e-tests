@@ -76,5 +76,9 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.EDIT_TEST}`]);
   }
 
+  public navigateToLearn(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
+  }
+
 }
 

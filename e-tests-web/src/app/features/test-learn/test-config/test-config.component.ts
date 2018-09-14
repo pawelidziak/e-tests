@@ -1,9 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
-export interface StartTestEvent {
-  occurrencesNumber: number;
-  repetitionNumber: number;
-}
+import {Location} from '@angular/common';
+import {TestSettings} from '../../../core/models/Test';
 
 @Component({
   selector: 'app-test-config',
@@ -16,18 +13,21 @@ export class TestConfigComponent implements OnInit {
   public occurrencesExerciseNumber = 2;
   public repetitionExerciseNumber = 2;
 
-  constructor() {
+  constructor(private location: Location) {
   }
 
   ngOnInit() {
   }
 
-  startTest(): void {
-    const event: StartTestEvent = {
+  public startTest(): void {
+    const event: TestSettings = {
       occurrencesNumber: this.occurrencesExerciseNumber,
       repetitionNumber: this.repetitionExerciseNumber
     };
     this.startTestEvent.emit(event);
   }
 
+  public backToTest(): void {
+    this.location.back();
+  }
 }

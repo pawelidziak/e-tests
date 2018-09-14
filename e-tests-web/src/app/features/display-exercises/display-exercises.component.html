@@ -75,6 +75,7 @@
   <mat-toolbar color="primary" class="exercise-footer" [hidden]="!fixedAddButton">
 
     <button mat-mini-fab *ngIf="!editExercisesMode"
+            (click)="navigateToLearn()"
             class="exercise-footer_element">
       <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
     </button>

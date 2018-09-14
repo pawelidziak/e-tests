@@ -23,7 +23,10 @@
       </div>
 
       <div class="right-side">
-        <button mat-raised-button #learn color="accent" [disabled]="originalExercisesLength === 0">
+        <button mat-raised-button
+                (click)="navigateToLearn()"
+                color="accent"
+                [disabled]="originalExercisesLength === 0">
           <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
@@ -46,7 +49,6 @@
   <div class="container">
     <app-display-exercises [exerciseList]="exercises"
                            [testId]="testId"
-                           [learnButton]="learn"
                            [authorId]="test.authorId">
     </app-display-exercises>
   </div>
