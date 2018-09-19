@@ -19,28 +19,33 @@
 .one-answer {
   display: flex;
   align-items: center;
-  margin: 5px;
+  margin: 5px 1px;
+  font-size: $font-small;
+  padding: .5*$margin;
   @media #{$gt-md_size} {
+    font-size: $font-normal;
     margin: .5*$margin;
     flex-basis: calc(50% - 24px);
     -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
   }
-  padding: 20px;
   line-height: normal;
   text-align: left;
   min-height: 72px;
-  font-size: $font-normal;
+  white-space: normal;
+  //word-wrap: break-word;
+  text-justify: inter-word;
 }
 
 // angular material class
-.mat-button-wrapper {
-  text-justify: inter-word;
-  white-space: normal;
-  width: 100%;
-}
+//.mat-button-wrapper {
+//  text-justify: inter-word;
+//  white-space: normal;
+//  width: 100%;
+//}
 
 .answer-text {
-  margin: .5*$margin 0 .5*$margin $margin;
+  //margin: .5*$margin 0 .5*$margin $margin;
+  margin-left: $margin;
 }
 
 .answer-number {

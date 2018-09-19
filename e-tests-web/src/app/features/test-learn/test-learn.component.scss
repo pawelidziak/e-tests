@@ -1,17 +1,22 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
+.test-learn-container {
+  padding: 0 0 $margin;
+}
+
 .exercise-header {
   display: flex;
   justify-content: flex-end;
-  padding: 5px .5*$margin;
 }
 
 .exercise-content {
   display: flex;
   flex-direction: column;
-  margin: .5*$margin;
+  font-size: $font-small;
+  margin: 0 .5*$margin;
   @media #{$gt-md_size} {
+    font-size: $font-normal;
     width: 70%;
     padding-top: 2*$margin;
     margin: auto;
@@ -24,27 +29,28 @@
   justify-content: flex-end;
 }
 
-.auto-play {
-  display: flex;
-  align-items: center;
-  div {
-    margin-left: $margin;
-  }
-}
-
 .third-row {
-  margin: $margin 0;
+  margin: .5*$margin 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.progress {
+.my-progress {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  .progress-bar {
-    padding: .5*$margin 0;
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+  }
+  .my-progress-bar {
+    &:first-child {
+      margin-right: 12px;
+    }
+    width: 100%;
+    @media #{$gt-xs_size} {
+      width: 50%;
+    }
+    padding-bottom: .5*$margin;
     text-align: center;
   }
 }

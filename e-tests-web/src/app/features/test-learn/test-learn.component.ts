@@ -1,11 +1,11 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
 import {ActivatedRoute} from '@angular/router';
-import {HeaderButtonType, HeaderService} from '../../core/services/header.service';
 import {ROUTE_PARAMS} from '../../shared/ROUTES';
 import {TestService} from '../../core/services/test.service';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
-import {TestCreate, TestProgress, TestSettings} from '../../core/models/Test';
+import {TestCreate, TestSettings} from '../../core/models/Test';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -14,36 +14,21 @@ import {TestCreate, TestProgress, TestSettings} from '../../core/models/Test';
 })
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
+  private testId: string;
 
-  // bedzie id testu i bedzie laczenie do serwera / LUB BEDZIE TO W KOMPONENCIE WYZEJ
-  // public test: Test;
   public preparedTestExercises: Array<ExerciseWithOccurrences> = [];
   public origTestExercises: Array<Exercise> = [];
   public test: TestCreate;
   public currentExercise: ExerciseWithOccurrences;
 
-  // public occurrencesExerciseNumber: number;
-  // public repetitionExerciseNumber: number;
-
-  public isAutoPlay = false;
-  public autoPlayDuration = 1;
-
-  // public masteredExercisesCount: number;
-  // public reviewedExercisesCounter;
-  // public reviewedExercisesIds: any[];
-
-  // HELPERS
   public answerClickedOutput: boolean;
   public isTestEnd: boolean;
-  public isTestPrepared: boolean;
-  private testId: string;
-  public areSettingsEstablished: boolean;
-  public testIsLoaded: boolean;
+  public areSettingsSet: boolean;
 
   constructor(private route: ActivatedRoute,
+              private auth: AuthService,
               private testService: TestService,
-              private exerciseService: TestExercisesService,
-              private headerService: HeaderService) {
+              private exerciseService: TestExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params[ROUTE_PARAMS.TEST_ID];
@@ -53,12 +38,30 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoggedIn();
   }
 
   ngOnDestroy() {
     this.saveProgress();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
+
+  /**
+   * If is not logged in - open auth dialog
+   */
+  private isLoggedIn() {
+    this.subscriptions.push(this.auth.currentUserObservable.subscribe(
+      res => {
+        if (!res) {
+          this.auth.openAuthDialog(true);
+        }
+      })
+    );
+  }
+
+  /**
+   * INITIAL
+   */
 
   private getTestExercises() {
     this.subscriptions.push(
@@ -77,64 +80,102 @@ export class TestLearnComponent implements OnInit, OnDestroy {
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-
-          if (!this.test.progress) {
-            this.initProgress();
-          } else {
-            this.checkIfTestIsEnd();
-          }
-          if (this.test.settings) {
-            this.prepareTestToLearn();
-            this.areSettingsEstablished = true;
-          }
-
-          // this.testIsLoaded = true;
+          this.checkTestStartConditions();
         },
         error => console.log(error)
       )
     );
   }
 
-  public initProgress() {
-    this.test.progress = {
-      masteredExercisesIds: [],
-      reviewedExercisesIds: [],
-    };
+  /**
+   * CHECKS CONDITIONS
+   */
+  private checkTestStartConditions() {
+    this.sprawdzCzyJestZakonczony();
+    this.przypiszProgress();
+    this.sprawdzUstawienia();
+    this.przygotujZadania();
+    this.wylosujZadanie();
   }
 
-  public saveSettingsAndStartTest(settings: TestSettings): void {
-    this.testService.updateTestSettings(this.testId, settings)
-      .then(() => {
-        this.areSettingsEstablished = true;
-      })
-      .catch(error => console.log(error));
+  public sprawdzCzyJestZakonczony(): void {
+    if (this.test.progress) {
+      this.isTestEnd = this.test.progress.masteredExercisesIds.length === this.origTestExercises.length;
+    } else {
+      this.isTestEnd = false;
+    }
   }
 
-  private prepareTestToLearn(): void {
+  public przypiszProgress(): void {
+    if (!this.test.progress) {
+      this.test.progress = {
+        masteredExercisesIds: [],
+        reviewedExercisesIds: [],
+      };
+    }
+  }
+
+  public sprawdzUstawienia(): void {
+    this.areSettingsSet = !!this.test.settings;
+  }
+
+  public przygotujZadania(): void {
     this.preparedTestExercises = [];
     for (const exercise of this.origTestExercises) {
-      if (this.test.progress.masteredExercisesIds.findIndex(x => x === exercise.id) === -1) {
-
-        const index = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id);
-        if (index === -1) {
-          this.preparedTestExercises.push({
-            exercise: exercise,
-            occurrences: this.test.settings.occurrencesNumber
-          });
+      if (!this.czyZadanieJestOpanowane(exercise.id)) {
+        if (this.czyZadanieJestObejrzane(exercise.id)) {
+          this.addToExerciseListWithExerciseOccurrence(exercise);
         } else {
-          this.preparedTestExercises.push({
-            exercise: exercise,
-            occurrences: this.test.progress.reviewedExercisesIds[index].occurrences
-          });
+          this.addToExerciseListWithSettingsOccurrence(exercise);
         }
       }
     }
-    // this.testService.shuffleArray(this.preparedTestExercises);
-    this.currentExercise = this.getRandomExercise();
-    this.isTestPrepared = true;
   }
 
-  saveProgress(): void {
+  private addToExerciseListWithSettingsOccurrence(exercise: Exercise): void {
+    if (this.test.settings) {
+      this.preparedTestExercises.push({
+        exercise: exercise,
+        occurrences: this.test.settings.occurrencesNumber
+      });
+    }
+  }
+
+  private addToExerciseListWithExerciseOccurrence(exercise: Exercise): void {
+    this.preparedTestExercises.push({
+      exercise: exercise,
+      occurrences: this.test.progress.reviewedExercisesIds[
+        this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id)
+        ].occurrences
+    });
+  }
+
+  private wylosujZadanie(): void {
+    if (this.preparedTestExercises.length === 1) {
+      this.currentExercise = {
+        exercise: this.preparedTestExercises[0].exercise,
+        occurrences: this.preparedTestExercises[0].occurrences
+      };
+    }
+    if (this.preparedTestExercises.length > 1) {
+      const exercise = this.preparedTestExercises[Math.floor(Math.random() * this.preparedTestExercises.length)];
+      this.currentExercise = {
+        exercise: exercise.exercise,
+        occurrences: exercise.occurrences
+      };
+    }
+  }
+
+  /**
+   * FUNCTIONAL
+   */
+
+  public saveSettingsAndStartTest(settings: TestSettings): void {
+    this.testService.updateTestSettings(this.testId, settings)
+      .catch(error => console.log(error));
+  }
+
+  public saveProgress(): void {
     if (this.test.progress.masteredExercisesIds.length > 0 || this.test.progress.reviewedExercisesIds.length > 0) {
       this.testService.updateTestProgress(this.testId, this.test.progress)
         .catch(error => console.log(error));
@@ -142,25 +183,92 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   public nextExercise(): void {
-    this.currentExercise = this.getRandomExercise();
+    this.wylosujZadanie();
     this.answerClickedOutput = false;
   }
+
+
 
   /**
    *    HANDLERS
    */
-  public handleSelectedAnswer(event: ExerciseWithOccurrences) {
+  public handleSelectedAnswer(exercise: ExerciseWithOccurrences) {
     this.answerClickedOutput = true;
-console.log(event)
-    const index = this.preparedTestExercises.findIndex(x => x.exercise.id === event.exercise.id);
-    this.preparedTestExercises[index] = event;
+    const index = this.preparedTestExercises.findIndex(x => x.exercise.id === exercise.exercise.id);
+    this.preparedTestExercises[index] = exercise;
 
-    this.checkIfExerciseIsReviewedOrMastered(event);
-    this.checkIfTestIsEnd();
-    // if () {
-    //   return;
-    // }
+    this.sprawdzCzyJestObejrzane(exercise);
+    this.sprawdzCzyJestOpanowane(exercise);
+
+    this.sprawdzCzyJestZakonczony();
   }
+
+  /**
+   * REVIEWED EXERCISE
+   */
+
+  private sprawdzCzyJestObejrzane(exercise: ExerciseWithOccurrences) {
+    if (exercise.occurrences > 0) {
+      if (this.czyZadanieJestObejrzane(exercise.exercise.id)) {
+        this.zmienPowtorzeniaZadania(exercise);
+      } else {
+        this.dodajDoPostepuNoweZadanie(exercise);
+      }
+    }
+  }
+
+  private zmienPowtorzeniaZadania(exercise: ExerciseWithOccurrences) {
+    const index = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
+    this.test.progress.reviewedExercisesIds[index].occurrences = exercise.occurrences;
+  }
+
+  private dodajDoPostepuNoweZadanie(exercise: ExerciseWithOccurrences) {
+    this.test.progress.reviewedExercisesIds.push({
+      id: exercise.exercise.id,
+      occurrences: exercise.occurrences
+    });
+  }
+
+  /**
+   * MASTERED EXERCISE
+   */
+
+  private sprawdzCzyJestOpanowane(exercise: ExerciseWithOccurrences) {
+    if (exercise.occurrences === 0) {
+      this.dodajDoOpanowanych(exercise);
+      this.usunZObejrzanych(exercise);
+      this.usunZListyCwiczen(exercise);
+    }
+  }
+
+  private dodajDoOpanowanych(exercise: ExerciseWithOccurrences) {
+    this.test.progress.masteredExercisesIds.push(exercise.exercise.id);
+  }
+
+  private usunZObejrzanych(exercise: ExerciseWithOccurrences) {
+    const reviewedIndex = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
+    this.test.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
+  }
+
+  private usunZListyCwiczen(exercise: ExerciseWithOccurrences) {
+    const index = this.preparedTestExercises.findIndex(x => x.exercise.id === exercise.exercise.id);
+    if (index !== -1) {
+      this.preparedTestExercises.splice(index, 1);
+    }
+  }
+
+  /**
+   * CKECKS
+   */
+
+  private czyZadanieJestObejrzane(id: string): boolean {
+    return this.test.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
+  }
+
+  private czyZadanieJestOpanowane(id: string): boolean {
+    return this.test.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
+  }
+
 
   /**
    *    COUNTERS
@@ -185,80 +293,10 @@ console.log(event)
    */
   public resetTest() {
     this.isTestEnd = false;
-    this.isTestPrepared = false;
+    // this.isTestPrepared = false;
     this.answerClickedOutput = false;
     this.resetStats();
   }
-
-  /**
-   *    CHECKS
-   */
-  private getRandomExercise(): ExerciseWithOccurrences {
-    if (this.preparedTestExercises.length === 1) {
-      return {
-        exercise: this.preparedTestExercises[0].exercise,
-        occurrences: this.preparedTestExercises[0].occurrences
-      };
-    }
-    const exercise = this.preparedTestExercises[Math.floor(Math.random() * this.preparedTestExercises.length)];
-    return {
-      exercise: exercise.exercise,
-      occurrences: exercise.occurrences
-    };
-  }
-
-  // private getRandomExercise(): ExerciseWithOccurrences {
-  //   // let i = 0;
-  //   while (true) {
-  //     const item = this.preparedTestExercises[Math.floor(Math.random() * this.preparedTestExercises.length)];
-  //     if (item.occurrences > 0) {
-  //       // return {
-  //       //   exercise: item.exercise,
-  //       //   occurrences: item.occurrences
-  //       // };
-  //       return item;
-  //     }
-  //   }
-  // }
-
-  private checkIfExerciseIsReviewedOrMastered(exercise: ExerciseWithOccurrences): void {
-    const index = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
-    if (exercise.occurrences > 0) {
-      if (index === -1) { // tzn ze go jeszcze nie ma
-        this.test.progress.reviewedExercisesIds.push({
-          id: exercise.exercise.id,
-          occurrences: exercise.occurrences
-        });
-      } else { // tzn ze juz jest
-        this.test.progress.reviewedExercisesIds[index].occurrences = exercise.occurrences;
-      }
-    }
-    if (exercise.occurrences === 0) {
-      this.test.progress.masteredExercisesIds.push(exercise.exercise.id);
-      this.test.progress.reviewedExercisesIds.splice(index, 1);
-
-
-      const index2 = this.preparedTestExercises.findIndex(x => x.exercise.id === exercise.exercise.id);
-      if (index2 !== -1) {
-        this.preparedTestExercises.splice(index2, 1);
-      }
-    }
-
-    // console.log(this.origTestExercises);
-    console.log(this.preparedTestExercises);
-  }
-
-  private checkIfExerciseIsMastered(exerciseNumber: number): void {
-    // === 1 (not 0) because we delete this exerciseWithOccurrences in the next step
-    // if (this.testService.countOccurrencesInArray(this.preparedTestExercises, exerciseNumber) === 1) {
-    //   this.masteredExercisesCount++;
-    // }
-  }
-
-  private checkIfTestIsEnd(): void {
-    this.isTestEnd = this.test.progress.masteredExercisesIds.length === this.origTestExercises.length;
-  }
-
 
   private resetStats(): void {
     // this.reviewedExercisesCounter = 0;
@@ -270,5 +308,4 @@ console.log(event)
   beforeunloadHandler(event) {
     this.saveProgress();
   }
-
 }

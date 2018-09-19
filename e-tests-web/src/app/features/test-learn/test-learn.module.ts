@@ -5,7 +5,7 @@ import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
 import {testLearnRouting} from './test-learn.routing';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatIconModule,
   MatMenuModule,
   MatProgressBarModule,
@@ -24,6 +24,7 @@ import {
     ExerciseModule,
 
     MatTabsModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
