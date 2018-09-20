@@ -88,6 +88,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
       classList.remove(...toRemove);
     }
     classList.add(effectiveTheme);
+
   }
 
 }

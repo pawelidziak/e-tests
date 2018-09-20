@@ -37,14 +37,14 @@ export function fadeInAnimation() {
 export function listAnimation() {
   return trigger('listStagger', [
     transition('* <=> *', [
-      query(':enter', style({ opacity: 0 }), {optional: true}),
+      query(':enter', style({opacity: 0}), {optional: true}),
       query(':enter',
         stagger(100, [
-          style({ transform: 'translateY(15%)', opacity: 0 }),
+          style({transform: 'translateY(15%)', opacity: 0}),
           animate('0.5s ease-in-out',
-            style({ transform: 'translateY(0%)', opacity: 1 })
+            style({transform: 'translateY(0%)', opacity: 1})
           )
-        ]), { optional: true }
+        ]), {optional: true}
       )
     ])
   ]);
@@ -53,7 +53,13 @@ export function listAnimation() {
 export const routerTransition = trigger('routerTransition', [
   transition('* <=> *', [
     /* order */
-    /* 1 */ query(':enter, :leave', style({opacity: 0, position: 'fixed', width: '100%'})
+    /* 1 */ query(':enter, :leave', style({
+        opacity: 0,
+        position: 'absolute',
+        overflow: 'hidden',
+        width: '100%',
+        height: '100%'
+      })
       , {optional: true}),
     /* 2 */ group([  // block executes in parallel
       query(':enter', [

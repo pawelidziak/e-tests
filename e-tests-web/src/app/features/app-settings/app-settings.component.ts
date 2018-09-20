@@ -28,7 +28,6 @@ export class AppSettingsComponent implements OnInit {
   }
 
   public setTheme(event: any): void {
-    console.log(event);
     this.dialogRef.close({theme: event.value});
   }
 

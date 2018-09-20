@@ -6,6 +6,7 @@ import {TestService} from '../../core/services/test.service';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {TestCreate, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
+import {RWDService} from '../../core/services/RWD.service';
 
 @Component({
   selector: 'app-test',
@@ -15,6 +16,8 @@ import {AuthService} from '../../core/services/auth.service';
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
   private testId: string;
+
+  public isSmallScreen: boolean;
 
   public preparedTestExercises: Array<ExerciseWithOccurrences> = [];
   public origTestExercises: Array<Exercise> = [];
@@ -27,6 +30,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
+              private rwdService: RWDService,
               private testService: TestService,
               private exerciseService: TestExercisesService) {
     this.subscriptions.push(
@@ -39,6 +43,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoggedIn();
+    this.getRWDValue();
   }
 
   ngOnDestroy() {
@@ -62,6 +67,13 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * INITIAL
    */
+  private getRWDValue(): void {
+    this.subscriptions.push(
+      this.rwdService.isSmallScreen.subscribe(res => {
+        this.isSmallScreen = res;
+      })
+    );
+  }
 
   private getTestExercises() {
     this.subscriptions.push(
@@ -100,6 +112,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public sprawdzCzyJestZakonczony(): void {
     if (this.test.progress) {
+      console.log(this.test.progress)
       this.isTestEnd = this.test.progress.masteredExercisesIds.length === this.origTestExercises.length;
     } else {
       this.isTestEnd = false;
@@ -185,9 +198,13 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public nextExercise(): void {
     this.wylosujZadanie();
     this.answerClickedOutput = false;
+    this.scrollTop();
   }
 
-
+  public scrollTop(): void {
+    const element = document.querySelector('#testLearnSection') || document.querySelector('#testEditSection');
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
 
   /**
    *    HANDLERS

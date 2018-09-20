@@ -8,9 +8,9 @@ import {
   MatButtonModule, MatCardModule,
   MatIconModule,
   MatMenuModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatSidenavModule,
   MatSlideToggleModule,
-  MatTabsModule,
+  MatTabsModule, MatToolbarModule, MatTooltipModule,
 } from '@angular/material';
 
 @NgModule({
@@ -24,12 +24,16 @@ import {
     ExerciseModule,
 
     MatTabsModule,
+    MatTooltipModule,
     MatCardModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
     MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ],
   exports: [
 

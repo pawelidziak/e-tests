@@ -1,57 +1,40 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.test-learn-container {
-  padding: 0 0 $margin;
+.test-learn-exercise {
+  padding-bottom: 4*$margin;
 }
 
-.exercise-header {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.exercise-content {
-  display: flex;
-  flex-direction: column;
+.test-learn-footer {
+  border-top: 1px solid $hover_color;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
   font-size: $font-small;
-  margin: 0 .5*$margin;
   @media #{$gt-md_size} {
     font-size: $font-normal;
-    width: 70%;
-    padding-top: 2*$margin;
-    margin: auto;
   }
+  height: auto;
+  padding: 0;
 }
 
-.next-exercise {
-  margin: $margin .5*$margin 0;
+.test-learn-footer_inner {
   display: flex;
-  justify-content: flex-end;
-}
-
-.third-row {
-  margin: .5*$margin 0;
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+  @include upper-text($font-small);
+  @media #{$gt-md_size} {
+    padding: .5*$margin $margin;
+  }
 }
 
-.my-progress {
+.footer-flex-item {
   display: flex;
-  flex-direction: column;
-  @media #{$gt-xs_size} {
-    flex-direction: row;
-  }
-  .my-progress-bar {
-    &:first-child {
-      margin-right: 12px;
-    }
-    width: 100%;
-    @media #{$gt-xs_size} {
-      width: 50%;
-    }
-    padding-bottom: .5*$margin;
-    text-align: center;
+  align-items: center;
+  margin: 12px 0;
+  @media #{$gt-md_size} {
+    margin: 0;
   }
 }
 
@@ -76,3 +59,21 @@
 //  max-width: 48px !important;
 //}
 
+.next-exercise {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  right: 0;
+}
+
+.gym {
+  display: flex;
+  flex-direction: column;
+  button {
+    height: 100%;
+    @include upper-text();
+  }
+}
+.mat-progress-bar {
+  height: 10px;
+}
