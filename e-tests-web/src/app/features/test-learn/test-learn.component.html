@@ -1,6 +1,5 @@
 <section *ngIf="test" id="testLearnSection">
 
-
   <div class="test-learn-exercise container">
     <app-test-config *ngIf="!areSettingsSet"
                      (startTestEvent)="saveSettingsAndStartTest($event)">
@@ -11,6 +10,7 @@
       <app-exercise *ngIf="!isTestEnd"
                     [exerciseWithOccurrences]="currentExercise"
                     [repetitionExerciseNumber]="test.settings.repetitionNumber"
+                    [checkClicked]="isCheckClicked"
                     (answerClicked)="handleSelectedAnswer($event)"
                     style="overflow-x: hidden">
       </app-exercise>
@@ -64,8 +64,19 @@
       </button>
 
       <div class="gym flex-1">
-        <button mat-stroked-button>
-          <span>check</span>
+        <!--<button mat-stroked-button (click)="checkAnswers()">-->
+          <!--<span *ngIf="!isCheckClicked">check</span>-->
+          <!--<span *ngIf="isCheckClicked">next</span>-->
+        <!--</button>-->
+        <button mat-stroked-button
+                *ngIf="!isCheckClicked"
+                (click)="isCheckClicked = true">
+          check
+        </button>
+        <button mat-stroked-button
+                *ngIf="isCheckClicked"
+                (click)="nextExercise()">
+          next
         </button>
       </div>
 

@@ -8,6 +8,7 @@ import {map, shareReplay} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
+import {Exercise} from "../models/Exercise";
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
@@ -99,4 +100,39 @@ export class TestService {
         }
       });
   }
+
+  /**
+   * EXTENDED (by exclusion first element) modern version of the Fisher–Yates shuffle algorithm
+   * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+   *
+   * @param array
+   */
+  public shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      if (j !== 0 && j !== 0) {
+        [array[i], array[j]] = [array[j], array[i]];
+      } else {
+        i++;
+      }
+    }
+  }
+
+  public shuffleAnswers(exercise: Exercise) {
+    for (let i = exercise.answers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [exercise.answers[i], exercise.answers[j]] = [exercise.answers[j], exercise.answers[i]];
+      const indexI = exercise.correctAnswers.findIndex(x => x === i);
+      const indexJ = exercise.correctAnswers.findIndex(x => x === j);
+      if (indexI !== -1) {
+        exercise.correctAnswers[indexI] = j;
+      }
+      if (indexJ !== -1) {
+        exercise.correctAnswers[indexJ] = i;
+      }
+    }
+    exercise.correctAnswers.sort((a, b) => a - b);
+  }
+
+
 }

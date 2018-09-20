@@ -1,95 +1,113 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
-import {sliderAnimation} from '../../../shared/animations';
+import {slideFromRightAnimation, slideFromBottomAnimation,} from '../../../shared/animations';
+import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
-  animations: [sliderAnimation()]
+  animations: [slideFromBottomAnimation(), slideFromRightAnimation()]
 })
 export class ExerciseComponent implements OnInit, OnChanges {
 
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;
+  @Input() checkClicked: boolean;
   @Output() answerClicked: EventEmitter<ExerciseWithOccurrences> = new EventEmitter();
 
-  public isAnswerClicked: boolean;
+  public MY_COLORS = MY_COLORS;
+  public accentColor: string;
+
+  public clickedAnswersIndexes: Array<number> = [];
   public answerLetters = [];
+  public isAnswerCorrect: boolean;
+
   public thingState: string;
 
-  private defaultButtonStyle: any;
-
-  constructor() {
+  constructor(private themeService: ThemeService) {
     this.thingState = 'moveFromRight';
   }
 
   ngOnInit() {
+    this.accentColor = this.themeService.currentTheme.accent;
     this.fillAnswerLetterArray();
-    this.defaultButtonStyle = (<HTMLInputElement>document.getElementById('answer-button-0'));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.resetViewStyle();
-    if (changes.exerciseWithOccurrences.previousValue) {
-      this.animateThing();
+    if (changes) {
+      if (changes.checkClicked && changes.checkClicked.currentValue) {
+        this.checkAnswers();
+      } else {
+        this.fillAnswerLetterArray();
+        this.clickedAnswersIndexes = [];
+      }
+      this.answerClicked.emit(this.exerciseWithOccurrences);
+      // if (changes.exerciseWithOccurrences && changes.exerciseWithOccurrences.previousValue) {
+      //   this.animateExercise();
+      // }
     }
   }
 
   /**
    *      ANIMATION METHODS
    */
-  public animateThing(): void {
-    this.thingState = (this.thingState === 'stay') ? 'moveToLeft' : 'moveFromRight';
-  }
+  // public animateExercise(): void {
+  //   this.thingState = (this.thingState === 'stay') ? 'moveToLeft' : 'moveFromRight';
+  // }
 
-  public handleDone(event: any): void {
-    if (this.thingState === 'moveToLeft') {
-      this.thingState = 'moveFromRight';
-    }
-    if ((this.thingState !== 'stay') && (this.thingState === event.toState)) {
-      this.thingState = 'stay';
-    }
-  }
+  // public handleDone(event: any): void {
+  //   if (this.thingState === 'moveToLeft') {
+  //     this.thingState = 'moveFromRight';
+  //   }
+  //   if ((this.thingState !== 'stay') && (this.thingState === event.toState)) {
+  //     this.thingState = 'stay';
+  //   }
+  // }
 
   /**
    *      LOGIC
    */
 
-  public checkAnswer(answerIndex: number): void {
+  public addAnswer(answerIndex: number): void {
+    const indexInArray = this.clickedAnswersIndexes.findIndex(x => x === answerIndex);
     const selectedButton = (<HTMLInputElement>document.getElementById('answer-button-' + answerIndex));
-    const correctButton = (<HTMLInputElement>document.getElementById('answer-button-' + this.exerciseWithOccurrences.exercise.correctAnswer));
 
-    if (this.isAnswerCorrect(answerIndex)) {
-      this.setCorrectStyle(selectedButton);
+    if (indexInArray === -1) {
+      this.clickedAnswersIndexes.push(answerIndex);
+      this.setSelectedStyle(selectedButton);
+    } else {
+      this.clickedAnswersIndexes.splice(indexInArray, 1);
+      this.setDefaultStyle(selectedButton);
+    }
+  }
+
+  private checkAnswers() {
+    this.isAnswerCorrect = this.checkCorrectness();
+    if (this.isAnswerCorrect) {
       if (this.exerciseWithOccurrences.occurrences > 0) {
         this.decreaseExerciseOccurrences();
       }
     } else {
-      this.setIncorrectStyle(selectedButton);
-      this.setCorrectStyle(correctButton);
       this.increaseExerciseOccurrences();
     }
-    this.answerClicked.emit(this.exerciseWithOccurrences);
-    this.isAnswerClicked = true;
-  }
-
-  private resetViewStyle() {
-    for (let i = 0; i < this.exerciseWithOccurrences.exercise.answers.length; i++) {
-      const button = (<HTMLInputElement>document.getElementById('answer-button-' + i));
-      if (button) {
-        this.setDefaultStyle(button);
-      }
-    }
-    this.isAnswerClicked = false;
   }
 
   /**
    *      AUXILIARY METHODS
    */
 
-  private isAnswerCorrect(answerIndex: number): boolean {
-    return answerIndex === this.exerciseWithOccurrences.exercise.correctAnswer;
+  private checkCorrectness(): boolean {
+    if (this.clickedAnswersIndexes.length !== this.exerciseWithOccurrences.exercise.correctAnswers.length) {
+      return false;
+    }
+    for (const answer of this.clickedAnswersIndexes) {
+      const index = this.exerciseWithOccurrences.exercise.correctAnswers.findIndex(x => x === answer);
+      if (index === -1) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private increaseExerciseOccurrences(): void {
@@ -101,6 +119,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   private fillAnswerLetterArray(): void {
+    this.answerLetters = [];
     for (let i = 65; i <= 65 + this.exerciseWithOccurrences.exercise.answers.length; i++) {
       this.answerLetters.push(String.fromCharCode(i));
     }
@@ -109,16 +128,13 @@ export class ExerciseComponent implements OnInit, OnChanges {
   /**
    *      SET STYLES
    */
-  private setCorrectStyle(button: any): void {
-    button.style.backgroundColor = '#4CAF50';
+  private setSelectedStyle(button: any): void {
+    button.style.backgroundColor = this.accentColor;
     button.style.color = '#FAFAFA';
   }
 
-  private setIncorrectStyle(button: any): void {
-    button.style.backgroundColor = '#F44336';
+  private setDefaultStyle(button: any): void {
+    button.style = (<HTMLInputElement>document.getElementById('answer-button-0'));
   }
 
-  private setDefaultStyle(button: any): void {
-    button.style = this.defaultButtonStyle;
-  }
 }

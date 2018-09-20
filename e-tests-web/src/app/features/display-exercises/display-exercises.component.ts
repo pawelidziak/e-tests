@@ -79,7 +79,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
 
   public changeSortOption(): void {
     // TODO
-    // switch (this.selectedOption.value) {
+    // switch (this.selectedOption.name) {
     //   case sortOptionValue.ORIGINAL :
     //     this.exerciseList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
     //     break;
@@ -99,7 +99,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
       const newExercise: Exercise = {
         question: '',
         answers: ['', ''],
-        correctAnswer: 0,
+        correctAnswers: [],
         createDate: new Date().getTime()
       };
       this.exerciseList.push(newExercise);

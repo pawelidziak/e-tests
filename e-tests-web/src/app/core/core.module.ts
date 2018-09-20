@@ -18,6 +18,7 @@ import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
 import {TestExercisesService} from './services/test-exercises.service';
 import {ScrollService} from './services/scroll.service';
+import {ThemeService} from './services/theme.service';
 
 @NgModule({
   declarations: [],
@@ -40,6 +41,7 @@ import {ScrollService} from './services/scroll.service';
 
     LoaderService,
     ScrollService,
+    ThemeService,
     Overlay, // needed for angular ckd
     RWDService,
     CanDeactivateGuard,

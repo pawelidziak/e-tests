@@ -24,9 +24,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public test: TestCreate;
   public currentExercise: ExerciseWithOccurrences;
 
-  public answerClickedOutput: boolean;
   public isTestEnd: boolean;
   public areSettingsSet: boolean;
+  isCheckClicked: boolean;
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
@@ -112,7 +112,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public sprawdzCzyJestZakonczony(): void {
     if (this.test.progress) {
-      console.log(this.test.progress)
       this.isTestEnd = this.test.progress.masteredExercisesIds.length === this.origTestExercises.length;
     } else {
       this.isTestEnd = false;
@@ -177,6 +176,8 @@ export class TestLearnComponent implements OnInit, OnDestroy {
         occurrences: exercise.occurrences
       };
     }
+    this.testService.shuffleAnswers(this.currentExercise.exercise);
+
   }
 
   /**
@@ -196,8 +197,8 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   public nextExercise(): void {
+    this.isCheckClicked = false;
     this.wylosujZadanie();
-    this.answerClickedOutput = false;
     this.scrollTop();
   }
 
@@ -210,7 +211,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    *    HANDLERS
    */
   public handleSelectedAnswer(exercise: ExerciseWithOccurrences) {
-    this.answerClickedOutput = true;
     const index = this.preparedTestExercises.findIndex(x => x.exercise.id === exercise.exercise.id);
     this.preparedTestExercises[index] = exercise;
 
@@ -311,7 +311,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public resetTest() {
     this.isTestEnd = false;
     // this.isTestPrepared = false;
-    this.answerClickedOutput = false;
     this.resetStats();
   }
 

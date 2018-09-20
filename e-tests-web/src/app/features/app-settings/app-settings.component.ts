@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MY_THEMES} from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-app-settings',
@@ -8,12 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class AppSettingsComponent implements OnInit {
 
-  public themes = [
-    { value: 'indigo-theme', label: 'Indigo' },
-    { value: 'teal-theme', label: 'Teal' },
-    { value: 'light-theme', label: 'Light' },
-    { value: 'dark-theme', label: 'Dark' }
-  ];
+  public themes = MY_THEMES;
 
   constructor(public dialogRef: MatDialogRef<AppSettingsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -28,6 +24,7 @@ export class AppSettingsComponent implements OnInit {
   }
 
   public setTheme(event: any): void {
+    console.log(event);
     this.dialogRef.close({theme: event.value});
   }
 

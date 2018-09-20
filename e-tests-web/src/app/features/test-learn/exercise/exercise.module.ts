@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared/shared.module';
 import {ExerciseComponent} from './exercise.component';
-import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
+import {MatButtonModule, MatButtonToggleModule, MatCardModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -12,8 +12,8 @@ import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
 
     MatCardModule,
     MatButtonModule,
-    MatIconModule
-
+    MatIconModule,
+    MatButtonToggleModule
   ],
   exports: [
     ExerciseComponent

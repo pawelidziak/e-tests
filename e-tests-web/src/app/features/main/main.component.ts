@@ -7,6 +7,7 @@ import {routerTransition} from '../../shared/animations';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {ScrollService} from '../../core/services/scroll.service';
 import {map} from 'rxjs/operators';
+import {MyTheme, ThemeService} from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-main',
@@ -31,6 +32,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private rwdService: RWDService,
               private scrollService: ScrollService,
+              private themeService: ThemeService,
               private zone: NgZone,
               private scroll: ScrollDispatcher,
               public dialog: MatDialog,
@@ -77,8 +79,9 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  private onSetTheme(theme: string): void {
-    const effectiveTheme = theme;
+  private onSetTheme(theme: MyTheme): void {
+    this.themeService.currentTheme = theme;
+    const effectiveTheme = theme.name;
     this.componentCssClass = effectiveTheme;
     const classList = this.overlayContainer.getContainerElement().classList;
     const toRemove = Array.from(classList).filter((item: string) =>
