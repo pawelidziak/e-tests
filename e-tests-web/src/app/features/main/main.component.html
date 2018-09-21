@@ -1,16 +1,17 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer
                class="sidenav"
-               mode="over">
+               [opened]="!isSmallScreen"
+               [mode]="isSmallScreen ? 'over' : 'side'">
 
     <nav class="my-nav">
       <!-- NAV HEADER -->
       <mat-toolbar color="primary" class="nav-header">
         <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
-        <button mat-icon-button routerLink="dashboard" (click)="drawer.close()">
+        <button mat-icon-button routerLink="dashboard" (click)="closeDrawer(drawer)">
           <mat-icon aria-label="Home icon">dashboard</mat-icon>
         </button>
-        <h1 (click)="drawer.close()"><a routerLink="dashboard" class="app-name">E-Testo</a></h1>
+        <h1 (click)="closeDrawer(drawer)"><a routerLink="dashboard" class="app-name">E-Testo</a></h1>
       </mat-toolbar>
 
       <!-- NAV LIST -->
@@ -18,7 +19,7 @@
         <h3 mat-subheader>General</h3>
         <mat-list-item *ngFor="let link of generalLinks"
                        [routerLink]="link.path"
-                       class="list-item" (click)="drawer.close()">
+                       class="list-item" (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>{{link.icon}}</mat-icon>
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
@@ -28,7 +29,7 @@
         <h3 mat-subheader>Yours</h3>
         <mat-list-item *ngFor="let link of privateLinks"
                        [routerLink]="link.path"
-                       class="list-item" (click)="drawer.close()">
+                       class="list-item" (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>{{link.icon}}</mat-icon>
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
@@ -37,11 +38,11 @@
         <mat-divider class=""></mat-divider>
 
         <h3 mat-subheader>Others</h3>
-        <mat-list-item class="list-item" (click)="drawer.close();">
+        <mat-list-item class="list-item" (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>contact_support</mat-icon>
           <h3 matLine>Contact</h3>
         </mat-list-item>
-        <mat-list-item class="list-item" (click)="drawer.close(); openSettingsDialog()">
+        <mat-list-item class="list-item" (click)="closeDrawer(drawer); openSettingsDialog()">
           <mat-icon matListIcon>settings</mat-icon>
           <h3 matLine>Settings</h3>
         </mat-list-item>
@@ -52,7 +53,7 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content style="">
 
     <app-header [drawer]="drawer" [isSmallScreen]="isSmallScreen"></app-header>
 

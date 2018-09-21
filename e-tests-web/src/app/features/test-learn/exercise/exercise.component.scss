@@ -23,10 +23,9 @@
   display: flex;
   align-items: center;
   margin: 5px 1px;
-  font-size: $font-small;
   padding: .5*$margin;
+  @include fs-small-X-normal();
   @media #{$gt-md_size} {
-    font-size: $font-normal;
     margin: .5*$margin;
     flex-basis: calc(50% - 24px);
     -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
@@ -45,11 +44,14 @@
   top: 3px;
 }
 
+.answer-selected {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .answer-notification {
-  font-size: $font-small;
-  @media #{$gt-md_size} {
-    font-size: $font-normal;
-  }
+  @include fs-small-X-normal();
 }
 
 .answer-feedback {
@@ -66,6 +68,9 @@
 .answers-container {
   padding: $margin 0;
   border-bottom: 1px solid $hover_color;
+  &:last-child {
+    border-bottom: none;
+  }
   .answer-title {
     @include upper-text();
   }

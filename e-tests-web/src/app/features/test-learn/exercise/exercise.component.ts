@@ -93,6 +93,10 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
+  public checkIfAnswerIsSelected(answerIndex: number) {
+    return this.clickedAnswersIndexes.findIndex(x => x === answerIndex) !== -1;
+  }
+
   /**
    *      AUXILIARY METHODS
    */
@@ -129,8 +133,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
    *      SET STYLES
    */
   private setSelectedStyle(button: any): void {
-    button.style.backgroundColor = this.accentColor;
-    button.style.color = '#FAFAFA';
+    button.style.borderBottom = `3px solid ${this.accentColor}`;
   }
 
   private setDefaultStyle(button: any): void {

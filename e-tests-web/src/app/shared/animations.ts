@@ -54,8 +54,8 @@ export function listAnimation() {
 export function slideFromRightAnimation() {
   return trigger('slideFromRight', [
     transition(':enter', [
-      style({transform: 'translateX(15%)', opacity: 0}),
-      animate('.2s ease-in',
+      style({transform: 'translateX(30%)', opacity: 0}),
+      animate('.25s ease-in',
         style({transform: 'translateX(0%)', opacity: 1})
       )]),
 
@@ -64,9 +64,9 @@ export function slideFromRightAnimation() {
 export function slideFromBottomAnimation() {
   return trigger('slideFromBottom', [
     transition(':enter', [
-      style({transform: 'translateY(15%)', opacity: 0, position: ''}),
-      animate('.2s ease-in',
-        style({transform: 'translateY(0%)', opacity: 1, position: ''})
+      style({transform: 'translateY(30%)', opacity: 0}),
+      animate('.25s ease-in',
+        style({transform: 'translateY(0%)', opacity: 1})
       )]),
   ]);
 }

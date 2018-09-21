@@ -26,7 +26,6 @@
   align-items: center;
 }
 
-
 /*
       BUTTONS
  */
@@ -34,4 +33,14 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: $size;
+}
+
+/*
+      SIZES
+ */
+@mixin fs-small-X-normal($breakpoint: $gt-md_size) {
+  font-size: $font-small;
+  @media #{$breakpoint} {
+    font-size: $font-normal;
+  }
 }

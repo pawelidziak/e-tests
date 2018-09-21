@@ -9,8 +9,9 @@ export enum HeaderButtonType {
 
 @Injectable()
 export class HeaderService {
-  private _headerText: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private _headerButton: BehaviorSubject<HeaderButtonType> = new BehaviorSubject<HeaderButtonType>(null);
+  private _headerText: BehaviorSubject<string> = new BehaviorSubject('');
+  private _headerButton: BehaviorSubject<HeaderButtonType> = new BehaviorSubject(null);
+  private _headerVisibility: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor() {
   }
@@ -30,5 +31,20 @@ export class HeaderService {
 
   public setHeaderText(text: string): void {
     this._headerText.next(text);
+  }
+
+  /**
+   HEADER VISIBILITY
+   */
+  public getHeaderVisibilityValue(): BehaviorSubject<boolean> {
+    return this._headerVisibility;
+  }
+
+  public hideHeader(): void {
+    this._headerVisibility.next(false);
+  }
+
+  public showHeader(): void {
+    this._headerVisibility.next(true);
   }
 }

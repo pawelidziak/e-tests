@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() drawer: MatSidenav;
   @Input() isSmallScreen: boolean;
 
+  public headerVisibility: boolean;
   public headerButton: HeaderButtonType;
   public headerText: string;
   public HeaderButtonType = HeaderButtonType;
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getHeaderVisibility();
     this.getUser();
     this.getHeaderButton();
     this.getHeaderText();
@@ -58,7 +60,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private getHeaderButton(): void {
     this.subscriptions.push(
       this.headerService.getHeaderButtonValue().subscribe(
-      res => this.headerButton = res)
+        res => this.headerButton = res)
+    );
+  }
+
+  private getHeaderVisibility(): void {
+    this.subscriptions.push(
+      this.headerService.getHeaderVisibilityValue().subscribe(
+      res => this.headerVisibility = res)
     );
   }
 

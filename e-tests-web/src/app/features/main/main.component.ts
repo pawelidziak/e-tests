@@ -2,7 +2,7 @@ import {AfterViewInit, Component, HostBinding, NgZone, OnDestroy, OnInit, ViewCh
 import {RWDService} from '../../core/services/RWD.service';
 import {CdkScrollable, OverlayContainer, ScrollDispatcher} from '@angular/cdk/overlay';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSidenav} from '@angular/material';
 import {routerTransition} from '../../shared/animations';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {ScrollService} from '../../core/services/scroll.service';
@@ -91,7 +91,12 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
       classList.remove(...toRemove);
     }
     classList.add(effectiveTheme);
+  }
 
+  closeDrawer(drawer: MatSidenav): void {
+    if (this.isSmallScreen) {
+      drawer.close();
+    }
   }
 
 }

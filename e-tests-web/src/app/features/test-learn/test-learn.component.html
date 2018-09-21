@@ -1,4 +1,72 @@
-<section *ngIf="test" id="testLearnSection">
+<section *ngIf="test" id="testLearnSection" class="section-test-learn ">
+
+  <!--<mat-card class="settings">-->
+    <!--settings-->
+  <!--</mat-card>-->
+
+  <!--<div class="exercise">-->
+    <!--<app-test-config *ngIf="!areSettingsSet"-->
+                     <!--(startTestEvent)="saveSettingsAndStartTest($event)">-->
+    <!--</app-test-config>-->
+
+
+    <!--<div *ngIf="areSettingsSet">-->
+      <!--<app-exercise *ngIf="!isTestEnd"-->
+                    <!--[exerciseWithOccurrences]="currentExercise"-->
+                    <!--[repetitionExerciseNumber]="test.settings.repetitionNumber"-->
+                    <!--[checkClicked]="isCheckClicked"-->
+                    <!--(answerClicked)="handleSelectedAnswer($event)">-->
+      <!--</app-exercise>-->
+
+      <!--<div *ngIf="isTestEnd" class="test-end">-->
+        <!--<mat-icon id="done" aria-label="Done icon">done</mat-icon>-->
+        <!--<span>Congratulations, you've mastered all the exercises!</span>-->
+        <!--<button mat-raised-button color="accent" (click)="resetTest()">RESET TEST</button>-->
+      <!--</div>-->
+
+    <!--</div>-->
+  <!--</div>-->
+
+
+  <div class="test-learn-header">
+
+    <div class="test-learn-header_inner container">
+
+      <!-- BACK -->
+      <button mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+      </button>
+
+      <!-- REMAINED -->
+      <div class="one-info" matTooltip="Remained">
+        <span>{{origTestExercises.length - test.progress.masteredExercisesIds.length}}</span>
+        <mat-icon aria-label="Done" class="info-icon">subject</mat-icon>
+      </div>
+
+      <!-- DONE -->
+      <div class="one-info" matTooltip="Mastered">
+        <span>{{test.progress.masteredExercisesIds.length}}</span>
+        <mat-icon aria-label="Done" class="info-icon" style="color:#43a047">done_all</mat-icon>
+      </div>
+
+      <!-- REPEATS-->
+      <div class="one-info" matTooltip="Repetitions">
+        <span>{{currentExercise.occurrences}}</span>
+        <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
+      </div>
+
+      <!-- SETTINGS -->
+      <button mat-icon-button>
+        <mat-icon aria-label="Settings">settings</mat-icon>
+      </button>
+    </div>
+
+    <mat-progress-bar color="accent"
+                      mode="determinate"
+                      [value]="countMasteredRatio()">
+    </mat-progress-bar>
+
+  </div>
 
   <div class="test-learn-exercise container">
     <app-test-config *ngIf="!areSettingsSet"
@@ -11,8 +79,7 @@
                     [exerciseWithOccurrences]="currentExercise"
                     [repetitionExerciseNumber]="test.settings.repetitionNumber"
                     [checkClicked]="isCheckClicked"
-                    (answerClicked)="handleSelectedAnswer($event)"
-                    style="overflow-x: hidden">
+                    (answerClicked)="handleSelectedAnswer($event)">
       </app-exercise>
 
       <div *ngIf="isTestEnd" class="test-end">
@@ -26,64 +93,80 @@
   </div>
 
 
-  <mat-toolbar class="test-learn-footer" *ngIf="areSettingsSet">
-
-    <div class="test-learn-footer_inner container">
-      <div class="flex-2">
-
-        <div class="footer-flex-item ">
-          <span class="flex-1" *ngIf="!isSmallScreen">Viewed:</span>
-          <mat-progress-bar
-            class="flex-4"
-            color="accent"
-            mode="determinate"
-            [value]="countReviewedRatio()">
-          </mat-progress-bar>
-        </div>
-
-        <div class="footer-flex-item">
-        <span class="flex-1" *ngIf="!isSmallScreen">Mastered: </span>
-          <mat-progress-bar
-            class="flex-4"
-            color="accent"
-            mode="determinate"
-            [value]="countMasteredRatio()">
-          </mat-progress-bar>
-        </div>
-
-        <div style="display: flex; justify-content: space-between">
-          <span>All: {{origTestExercises.length}}</span>
-          <span>Repeats: {{currentExercise.occurrences}}</span>
-        </div>
-
-      </div>
+  <!--<div class="testyy">-->
+    <!--<button mat-raised-button-->
+            <!--color="accent"-->
+            <!--*ngIf="!isCheckClicked"-->
+            <!--(click)="checkAnswer()">-->
+      <!--check-->
+    <!--</button>-->
+    <!--<button mat-raised-button-->
+            <!--*ngIf="isCheckClicked"-->
+            <!--(click)="nextExercise()">-->
+      <!--next-->
+    <!--</button>-->
+  <!--</div>-->
 
 
-      <button mat-icon-button class="flex-1">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-
-      <div class="gym flex-1">
-        <!--<button mat-stroked-button (click)="checkAnswers()">-->
-          <!--<span *ngIf="!isCheckClicked">check</span>-->
-          <!--<span *ngIf="isCheckClicked">next</span>-->
-        <!--</button>-->
-        <button mat-stroked-button
-                *ngIf="!isCheckClicked"
-                (click)="isCheckClicked = true">
-          check
-        </button>
-        <button mat-stroked-button
-                *ngIf="isCheckClicked"
-                (click)="nextExercise()">
-          next
-        </button>
-      </div>
-
-    </div>
+  <!--/////////////////////////////////////////////////-->
 
 
-  </mat-toolbar>
+
+
+
+
+
+
+
+  <!--<mat-toolbar class="test-learn-footer" *ngIf="areSettingsSet" [@fadeInAnimation]>-->
+  <!--<div class="test-learn-footer_inner container">-->
+  <!--<button mat-raised-button-->
+  <!--color="accent"-->
+  <!--*ngIf="!isCheckClicked"-->
+  <!--(click)="checkAnswer()">-->
+  <!--check-->
+  <!--</button>-->
+  <!--<button mat-stroked-button-->
+  <!--*ngIf="isCheckClicked"-->
+  <!--(click)="nextExercise()">-->
+  <!--next-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--<div class="test-learn-footer_inner container">-->
+  <!--<div class="flex-2">-->
+
+  <!--<div class="footer-flex-item ">-->
+  <!--<span class="flex-1" *ngIf="!isSmallScreen">Viewed:</span>-->
+  <!--<mat-progress-bar-->
+  <!--class="flex-4"-->
+  <!--color="accent"-->
+  <!--mode="determinate"-->
+  <!--[value]="countReviewedRatio()">-->
+  <!--</mat-progress-bar>-->
+  <!--</div>-->
+
+  <!--<div class="footer-flex-item">-->
+  <!--<span class="flex-1" *ngIf="!isSmallScreen">Mastered: </span>-->
+  <!--<mat-progress-bar-->
+  <!--class="flex-4"-->
+  <!--color="accent"-->
+  <!--mode="determinate"-->
+  <!--[value]="countMasteredRatio()">-->
+  <!--</mat-progress-bar>-->
+  <!--</div>-->
+
+  <!--<div style="display: flex; justify-content: space-between">-->
+  <!--<span>All: {{origTestExercises.length}}</span>-->
+  <!--<span>Repeats: {{currentExercise.occurrences}}</span>-->
+  <!--</div>-->
+
+  <!--</div>-->
+
+
+  <!--</div>-->
+
+
+  <!--</mat-toolbar>-->
 
 
 </section>

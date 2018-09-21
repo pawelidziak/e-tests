@@ -5,6 +5,7 @@ import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
 import {testLearnRouting} from './test-learn.routing';
 import {
+  MatBadgeModule,
   MatButtonModule, MatCardModule,
   MatIconModule,
   MatMenuModule,
@@ -33,7 +34,8 @@ import {
     MatProgressBarModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatBadgeModule
   ],
   exports: [
 

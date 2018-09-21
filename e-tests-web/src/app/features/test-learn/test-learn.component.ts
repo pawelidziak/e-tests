@@ -7,11 +7,15 @@ import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {TestCreate, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
+import {fadeInAnimation} from '../../shared/animations';
+import {ThemeService} from '../../core/services/theme.service';
+import {HeaderService} from "../../core/services/header.service";
 
 @Component({
   selector: 'app-test',
   templateUrl: './test-learn.component.html',
-  styleUrls: ['./test-learn.component.scss']
+  styleUrls: ['./test-learn.component.scss'],
+  animations: [fadeInAnimation()]
 })
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -26,9 +30,13 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public isTestEnd: boolean;
   public areSettingsSet: boolean;
-  isCheckClicked: boolean;
+  public isCheckClicked: boolean;
+
+  public accentColor: string;
 
   constructor(private route: ActivatedRoute,
+              private themeService: ThemeService,
+              private headerService: HeaderService,
               private auth: AuthService,
               private rwdService: RWDService,
               private testService: TestService,
@@ -42,11 +50,14 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerService.hideHeader();
+    this.accentColor = this.themeService.currentTheme.accent;
     this.isLoggedIn();
     this.getRWDValue();
   }
 
   ngOnDestroy() {
+    this.headerService.showHeader();
     this.saveProgress();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
@@ -92,7 +103,10 @@ export class TestLearnComponent implements OnInit, OnDestroy {
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-          this.checkTestStartConditions();
+          // aby zapobiec sprawdzaniu przy przeladowaniu
+          if (!this.areSettingsSet) {
+            this.checkTestStartConditions();
+          }
         },
         error => console.log(error)
       )
@@ -107,7 +121,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.przypiszProgress();
     this.sprawdzUstawienia();
     this.przygotujZadania();
-    this.wylosujZadanie();
+    this.drawExercise();
   }
 
   public sprawdzCzyJestZakonczony(): void {
@@ -162,7 +176,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     });
   }
 
-  private wylosujZadanie(): void {
+  private drawExercise(): void {
     if (this.preparedTestExercises.length === 1) {
       this.currentExercise = {
         exercise: this.preparedTestExercises[0].exercise,
@@ -177,7 +191,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
       };
     }
     this.testService.shuffleAnswers(this.currentExercise.exercise);
-
   }
 
   /**
@@ -198,13 +211,18 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public nextExercise(): void {
     this.isCheckClicked = false;
-    this.wylosujZadanie();
+    this.drawExercise();
+    this.scrollTop();
+  }
+
+  public checkAnswer() {
+    this.isCheckClicked = true;
     this.scrollTop();
   }
 
   public scrollTop(): void {
     const element = document.querySelector('#testLearnSection') || document.querySelector('#testEditSection');
-    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+    element.scrollIntoView({behavior: 'instant', block: 'start'});
   }
 
   /**

@@ -15,12 +15,16 @@
         <span *ngFor="let letter of answerLetters; let j=index;"
               class="answer-letter-button"
               [style.color]="accentColor">
-          <span *ngIf="i===j">
-            {{letter}}
-          </span>
+          <span *ngIf="i===j">{{letter}}</span>
         </span>
 
         <span>{{answer}}</span>
+
+        <mat-icon *ngIf="checkIfAnswerIsSelected(i)"
+                  [style.color]="accentColor"
+                  class="answer-selected">
+          check
+        </mat-icon>
       </button>
 
     </div>
@@ -28,48 +32,48 @@
 
   <div *ngIf="checkClicked" class="answer-notification" [@slideFromBottom]>
 
-      <div class="answer-feedback">
-        <div *ngIf="isAnswerCorrect">
-          <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
-          <span>DOBRZE!</span>
-        </div>
-        <div *ngIf="!isAnswerCorrect">
-          <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_dissatisfied</mat-icon>
-          <span>ŻLE</span>
-        </div>
-      </div>
+    <div class="answer-feedback" *ngIf="isAnswerCorrect">
+      <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
+      <span>DOBRZE!</span>
+    </div>
+    <div class="answer-feedback" *ngIf="!isAnswerCorrect">
+      <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_dissatisfied</mat-icon>
+      <span>ŻLE</span>
+    </div>
 
-      <div class="question">
-        <span>{{exerciseWithOccurrences.exercise.question}}</span>
-      </div>
+    <div class="question">
+      <span>{{exerciseWithOccurrences.exercise.question}}</span>
+    </div>
 
-      <div class="answers-container">
-        <p class="answer-title"
-           [style.color]="MY_COLORS.MATERIAL_GREEN">correct answer/s:</p>
+    <div class="answers-container">
+      <p class="answer-title"
+         [style.color]="MY_COLORS.MATERIAL_GREEN">correct answer/s:</p>
 
-        <div class="one-answer"
-             *ngFor="let answerIndex of exerciseWithOccurrences.exercise.correctAnswers">
+      <div class="one-answer"
+           *ngFor="let answerIndex of exerciseWithOccurrences.exercise.correctAnswers">
             <span class="answer-letter"
                   [style.color]="accentColor">
             {{answerLetters[answerIndex]}}
             </span>
-          <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
-        </div>
-      </div>
-
-      <div class="answers-container" *ngIf="!isAnswerCorrect">
-        <p class="answer-title"
-           [style.color]="MY_COLORS.MATERIAL_RED">selected answer/s:</p>
-
-        <div class="one-answer"
-             *ngFor="let answerIndex of clickedAnswersIndexes">
-            <span class="answer-letter"
-                  [style.color]="accentColor">
-            {{answerLetters[answerIndex]}}
-            </span>
-          <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
-        </div>
+        <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
       </div>
     </div>
+
+    <div class="answers-container" *ngIf="!isAnswerCorrect">
+      <p class="answer-title"
+         [style.color]="MY_COLORS.MATERIAL_RED">selected answer/s:</p>
+
+      <span *ngIf="clickedAnswersIndexes.length === 0">none..</span>
+
+      <div class="one-answer"
+           *ngFor="let answerIndex of clickedAnswersIndexes">
+            <span class="answer-letter"
+                  [style.color]="accentColor">
+                  {{answerLetters[answerIndex]}}
+            </span>
+        <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
+      </div>
+    </div>
+  </div>
 
 </div>
