@@ -4,15 +4,8 @@ import {TestLearnComponent} from './test-learn.component';
 import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
 import {testLearnRouting} from './test-learn.routing';
-import {
-  MatBadgeModule,
-  MatButtonModule, MatCardModule,
-  MatIconModule,
-  MatMenuModule,
-  MatProgressBarModule, MatProgressSpinnerModule, MatSidenavModule,
-  MatSlideToggleModule,
-  MatTabsModule, MatToolbarModule, MatTooltipModule,
-} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule,} from '@angular/material';
+import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-hide-toolbar.module';
 
 @NgModule({
   declarations: [
@@ -24,18 +17,12 @@ import {
     TestConfigModule,
     ExerciseModule,
 
-    MatTabsModule,
+    StickyHideToolbarModule,
+
     MatTooltipModule,
-    MatCardModule,
-    MatSidenavModule,
-    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressBarModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    MatBadgeModule
+    MatProgressBarModule
   ],
   exports: [
 

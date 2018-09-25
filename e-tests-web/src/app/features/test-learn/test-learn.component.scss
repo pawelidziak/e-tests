@@ -2,91 +2,37 @@
 @import '../../shared/mixins';
 
 .test-learn-header {
-  @include fs-small-X-normal();
   color: $text_secondary;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
   button {
     outline: none;
   }
 }
 
 .test-learn-header_inner {
-  padding: 12px 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
-.remained {
-  @include size(32px, 32px);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  border: 1px solid $text_secondary;
+.mat-progress-bar {
+  height: 3px;
 }
 
 .one-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: -5px;
   .info-icon {
     @include mat-icon-size(20px);
+    margin-top: -10px;
   }
 }
 
 .test-learn-exercise {
-  padding-bottom: 4*$margin;
-}
-
-.testyy{
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  button {
-    height: 48px;
-    width: 100%;
-    @include upper-text($font-small);
-  }
-}
-
-.test-learn-footer {
-  z-index: 9;
-  border-top: 1px solid $hover_color;
-  position: fixed;
-  bottom: 0;
-  @include fs-small-X-normal();
-  height: auto;
-  padding: 0;
-
-}
-
-.test-learn-footer_inner {
-  display: flex;
-  justify-content: center;
-  button {
-    width: 100%;
-    @include upper-text($font-small);
-  }
-}
-
-//.test-learn-footer_inner {
-//  display: flex;
-//  align-items: center;
-//  justify-content: space-between;
-//  @include upper-text($font-small);
-//  @media #{$gt-md_size} {
-//    padding: .5*$margin $margin;
-//  }
-//}
-
-.footer-flex-item {
-  display: flex;
-  align-items: center;
-  margin: 12px 0;
-  @media #{$gt-md_size} {
-    margin: 0;
-  }
+  padding-bottom: 3*$margin;
 }
 
 .test-end {
@@ -103,29 +49,4 @@
     @include mat-icon-size(96px);
     color: $material-green;
   }
-}
-
-///deep/ .mat-tab-label {
-//  min-width: 48px !important;
-//  max-width: 48px !important;
-//}
-
-.next-exercise {
-  position: fixed;
-  z-index: 999;
-  bottom: 0;
-  right: 0;
-}
-
-.gym {
-  display: flex;
-  flex-direction: column;
-  button {
-    height: 100%;
-    @include upper-text();
-  }
-}
-
-.mat-progress-bar {
-  height: 2px;
 }

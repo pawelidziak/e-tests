@@ -1,6 +1,10 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
+.section-tests-list {
+  padding-bottom: 3*$margin;
+}
+
 .tests-search {
   padding: .5*$margin;
 }

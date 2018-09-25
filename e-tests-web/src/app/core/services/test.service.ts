@@ -46,6 +46,7 @@ export class TestService {
       this.cache.set(USER_TESTS_KEY, this.requestTestsByCurrentUser().pipe(shareReplay(CACHE_SIZE)));
     }
     return this.cache.get(USER_TESTS_KEY);
+    // return this.requestTestsByCurrentUser();
   }
 
   private requestTestsByCurrentUser(): Observable<TestCreate[]> {
@@ -132,6 +133,7 @@ export class TestService {
       }
     }
     exercise.correctAnswers.sort((a, b) => a - b);
+    console.log(exercise);
   }
 
 

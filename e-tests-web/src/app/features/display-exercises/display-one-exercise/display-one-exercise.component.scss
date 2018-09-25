@@ -7,7 +7,7 @@
 .expansion-header {
   padding: .5*$margin;
   color: currentColor !important;
-  @media #{$gt-xs_size}{
+  @media #{$gt-lg_size}{
     padding: $margin;
   }
 }

@@ -1,10 +1,10 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
-import {listAnimation} from '../../shared/animations';
+import {listAnimation, slideFromTopAnimation} from '../../shared/animations';
 import {ScrollService} from '../../core/services/scroll.service';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 interface SortOption {
   value: string;
@@ -20,7 +20,7 @@ enum sortOptionValue {
   selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
   styleUrls: ['./display-exercises.component.scss'],
-  animations: [listAnimation()]
+  animations: [listAnimation(), slideFromTopAnimation()]
 })
 export class DisplayExercisesComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -68,7 +68,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   private checkScrollPos(): void {
     this.subscriptions.push(
       this.scrollService.scrollPosition.subscribe(
-        res => this.fixedAddButton = this.startList && res >= this.startList.nativeElement.offsetTop - 40
+        res => this.fixedAddButton = this.startList && res.offsetTop >= this.startList.nativeElement.offsetTop - 40
       )
     );
   }

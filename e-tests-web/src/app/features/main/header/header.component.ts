@@ -1,27 +1,24 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {HeaderButtonType, HeaderService} from '../../../core/services/header.service';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {HeaderService} from '../../../core/services/header.service';
 import {Location} from '@angular/common';
-import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../core/services/auth.service';
 import {ALL_ROUTES} from '../../../shared/ROUTES';
+import {slideFromTopAnimation} from '../../../shared/animations';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [slideFromTopAnimation()]
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   private subscriptions: any = [];
   public readonly ALL_ROUTES = ALL_ROUTES;
 
-  @Input() drawer: MatSidenav;
-  @Input() isSmallScreen: boolean;
+  @Input() user: any;
+  public isUserAuthenticated = false;
 
   public headerVisibility: boolean;
-  public headerButton: HeaderButtonType;
-  public headerText: string;
-  public HeaderButtonType = HeaderButtonType;
-  public user: any;
 
   constructor(private headerService: HeaderService,
               private location: Location,
@@ -30,55 +27,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getHeaderVisibility();
-    this.getUser();
-    this.getHeaderButton();
-    this.getHeaderText();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private getUser() {
-    this.subscriptions.push(
-      this.auth.currentUserObservable.subscribe(
-        res => {
-          this.user = res;
-        },
-        error => console.log(error)
-      ));
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isUserAuthenticated = this.user && this.user.emailVerified;
   }
 
   public openAuthDialog(): void {
     this.auth.openAuthDialog(false);
   }
 
-  public backClicked(): void {
-    this.location.back();
-  }
-
-  private getHeaderButton(): void {
-    this.subscriptions.push(
-      this.headerService.getHeaderButtonValue().subscribe(
-        res => this.headerButton = res)
-    );
-  }
-
   private getHeaderVisibility(): void {
     this.subscriptions.push(
       this.headerService.getHeaderVisibilityValue().subscribe(
-      res => this.headerVisibility = res)
-    );
-  }
-
-  private getHeaderText(): void {
-    this.subscriptions.push(
-      this.headerService.getHeaderTextValue().subscribe(
-      res => this.headerText = res)
+        res => this.headerVisibility = res)
     );
   }
 
   public logout(): void {
     this.auth.signOut();
   }
+
 }

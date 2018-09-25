@@ -1,7 +1,6 @@
 <div class="section-exercise">
 
-
-  <div *ngIf="!checkClicked" [@slideFromRight]>
+  <div *ngIf="!isCheckClicked" [@slideFromRight]>
     <span class="question">{{exerciseWithOccurrences.exercise.question}}</span>
 
     <div class="answers-grid">
@@ -30,7 +29,7 @@
     </div>
   </div>
 
-  <div *ngIf="checkClicked" class="answer-notification" [@slideFromBottom]>
+  <div *ngIf="isCheckClicked" class="answer-notification" [@slideFromBottom]>
 
     <div class="answer-feedback" *ngIf="isAnswerCorrect">
       <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
@@ -74,6 +73,24 @@
         <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
       </div>
     </div>
+  </div>
+
+  <!-- CHECK / NEXT BUTTONS -->
+  <div class="container exercise-check-next" [@slideFromBottom]>
+    <button mat-raised-button
+            color="accent"
+            (click)="checkAnswers()"
+            *ngIf="!isCheckClicked">
+      <span>check</span>
+      <mat-icon aria-label="Check">check</mat-icon>
+    </button>
+    <button mat-raised-button
+            color="accent"
+            (click)="showNextExercise()"
+            *ngIf="isCheckClicked">
+      <span>next</span>
+      <mat-icon aria-label="Next">skip_next</mat-icon>
+    </button>
   </div>
 
 </div>

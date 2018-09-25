@@ -3,7 +3,8 @@
 @import '~@angular/material/theming';
 
 .section-display-exercises {
-  margin: $margin 0 5*$margin;
+  overflow: hidden;
+  padding: $margin .5*$margin 3*$margin .5*$margin;
 }
 
 .exercises-header {

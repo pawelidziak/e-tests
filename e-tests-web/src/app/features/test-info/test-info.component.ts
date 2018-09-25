@@ -8,13 +8,13 @@ import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
-import {fadeInAnimation} from '../../shared/animations';
+import {slideFromBottomAnimation, slideFromRightAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
   styleUrls: ['./test-info.component.scss'],
-  animations: [fadeInAnimation()]
+  animations: [slideFromBottomAnimation(), slideFromRightAnimation()]
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];

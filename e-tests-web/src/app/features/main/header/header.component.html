@@ -1,71 +1,79 @@
-<mat-toolbar color="primary" class="my-header" *ngIf="headerVisibility">
+<div *ngIf="headerVisibility">
 
-  <div class="left">
-    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
-    <button mat-icon-button (click)="drawer.close()" [routerLink]="ALL_ROUTES.DASHBOARD">
-      <mat-icon aria-label="Home icon">home</mat-icon>
-    </button>
-    <button mat-icon-button (click)="drawer.toggle()">
-      <mat-icon aria-label="Menu icon">menu</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="headerButton === HeaderButtonType.BACK" (click)="backClicked()">
-      <mat-icon aria-label="Home icon">arrow_back</mat-icon>
-    </button>
-    <div class="header-text">
-      <span *ngIf="isSmallScreen && headerText.length < 20">{{headerText}}</span>
-      <span *ngIf="!isSmallScreen">{{headerText}}</span> <!-- TODO pipe-->
-    </div>
-  </div>
+  <app-sticky-hide-toolbar [height]="56"
+                           [stickyTop]="true"
+                           [boxShadow]="true"
+                           [color]="'accent'">
 
-  <div class="right">
+    <div class="my-header">
+      <div class="header-logo" [routerLink]="ALL_ROUTES.DASHBOARD" cdkScrollable>
+        LOGO
+      </div>
 
-    <!-- SMALL DEVICES -->
-    <div *ngIf="isSmallScreen">
-      <button *ngIf="!user" mat-icon-button (click)="openAuthDialog()">
-        <mat-icon aria-label="Account icon">account_circle</mat-icon>
-      </button>
-      <button *ngIf="user" mat-icon-button [matMenuTriggerFor]="account">
-        <mat-icon aria-label="Account icon">account_circle</mat-icon>
-      </button>
-    </div>
+      <div class="header-actions">
 
-    <!-- GRATER DEVICES -->
-    <div *ngIf="!isSmallScreen">
-      <button mat-button [routerLink]="ALL_ROUTES.SEARCH">
-        <mat-icon aria-label="Search icon">search</mat-icon>
-        <span>Search</span>
-      </button>
-      <button mat-button [routerLink]="ALL_ROUTES.CREATE_TEST">
-        <mat-icon aria-label="Create icon">add</mat-icon>
-        <span>Create</span>
-      </button>
-
-      <button *ngIf="user?.emailVerified" mat-raised-button [matMenuTriggerFor]="account">
-        <mat-icon aria-label="Account icon" style="margin-right: 5px;">account_circle</mat-icon>
-        <span>nazwa</span>
-      </button>
-
-      <button *ngIf="!user?.emailVerified"
-              mat-stroked-button color="accent"
-              class="login-button"
-              (click)="openAuthDialog()">
-        <span>login</span>
-      </button>
-    </div>
-
-    <!-- User menu -->
-    <mat-menu #account="matMenu">
-      <ng-template matMenuContent>
-        <button mat-menu-item>
-          <mat-icon aria-label="Profile icon">person</mat-icon>
-          <span>TODO</span>
+        <!-- DASHBOARD -->
+        <button mat-icon-button [matMenuTriggerFor]="dashboard">
+          <mat-icon aria-label="Dashboard">dashboard</mat-icon>
         </button>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon aria-label="User type icon">accessibility</mat-icon>
-          <span>LOGOUT</span>
-        </button>
-      </ng-template>
-    </mat-menu>
-  </div>
+        <mat-menu #dashboard="matMenu" xPosition="before">
+          <button mat-menu-item [routerLink]="ALL_ROUTES.CREATE_TEST">
+            <mat-icon aria-label="Add">add</mat-icon>
+            <span>Create</span>
+          </button>
+          <button mat-menu-item [routerLink]="ALL_ROUTES.SEARCH">
+            <mat-icon aria-label="Search">search</mat-icon>
+            <span>Search</span>
+          </button>
+          <button mat-menu-item [routerLink]="ALL_ROUTES.USER_TESTS_LIST" *ngIf="isUserAuthenticated">
+            <mat-icon aria-label="Yours">view_list</mat-icon>
+            <span>Yours</span>
+          </button>
 
-</mat-toolbar>
+        </mat-menu>
+
+        <!-- ACCOUNT AUTH -->
+        <button mat-icon-button [matMenuTriggerFor]="account" *ngIf="isUserAuthenticated">
+          <mat-icon aria-label="Account">account_circle</mat-icon>
+        </button>
+        <mat-menu #account="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <mat-icon aria-label="Profile">account_circle</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon aria-label="Logout">exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+
+        <!-- MORE -->
+        <button mat-icon-button [matMenuTriggerFor]="more">
+          <mat-icon aria-label="More">more_vert</mat-icon>
+        </button>
+        <mat-menu #more="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <mat-icon aria-label="About">info</mat-icon>
+            <span>About</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon aria-label="Settings">settings</mat-icon>
+            <span>Settings</span>
+          </button>
+        </mat-menu>
+
+        <!-- ACCOUNT NO AUTH -->
+        <button mat-stroked-button
+                id="noAuthButton"
+                (click)="openAuthDialog()"
+                *ngIf="!isUserAuthenticated">
+          login
+        </button>
+
+      </div>
+
+    </div> <!-- /my-header -->
+  </app-sticky-hide-toolbar>
+
+
+</div>

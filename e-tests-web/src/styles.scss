@@ -10,26 +10,40 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .width-100 {
   width: 100%;
+}
+
+.width-50 {
+  width: 50%;
 }
 
 .flex-1 {
   flex: 1;
 }
+
 .flex-2 {
   flex: 2;
 }
+
 .flex-3 {
   flex: 3;
 }
+
 .flex-4 {
   flex: 4;
 }
+
 .flex-5 {
   flex: 5;
 }
-
 
 .d-flex {
   display: flex;
@@ -63,7 +77,10 @@ html, body {
  */
 .my-msg {
   text-align: center;
-  margin: $margin;
+  margin: .5*$margin .5*$margin 0;
+  @media #{$gt-md_size} {
+    margin: $margin $margin 0;
+  }
   padding: .5*$margin;
   color: $text-white;
   border-radius: $border-radius;

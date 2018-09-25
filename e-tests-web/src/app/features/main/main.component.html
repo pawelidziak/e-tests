@@ -1,31 +1,62 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer
-               class="sidenav"
-               [opened]="!isSmallScreen"
-               [mode]="isSmallScreen ? 'over' : 'side'">
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer
+              class="drawer"
+              [opened]="!isSmallScreen"
+              [mode]="!isSmallScreen ? 'side' : 'over'">
 
     <nav class="my-nav">
+
       <!-- NAV HEADER -->
       <mat-toolbar color="primary" class="nav-header">
-        <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
-        <button mat-icon-button routerLink="dashboard" (click)="closeDrawer(drawer)">
-          <mat-icon aria-label="Home icon">dashboard</mat-icon>
-        </button>
-        <h1 (click)="closeDrawer(drawer)"><a routerLink="dashboard" class="app-name">E-Testo</a></h1>
+        <div class="header-logo">
+          <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+          <button mat-icon-button routerLink="dashboard" (click)="closeDrawer(drawer)">
+            <mat-icon aria-label="Home icon">dashboard</mat-icon>
+          </button>
+          <h1 (click)="closeDrawer(drawer)">
+            <a routerLink="dashboard"
+               class="app-name">
+              eTesto
+            </a>
+          </h1>
+        </div>
       </mat-toolbar>
 
+      <div class="loading" *ngIf="!isUserLoaded">Loading...</div>
+
+      <!-- LOGIN -->
+      <div class="nav-login" *ngIf="isUserLoaded">
+        <div class="user-logged" *ngIf="user?.emailVerified">
+          <span>profile</span>
+          <span (click)="logout()">logout</span>
+        </div>
+
+        <div *ngIf="!user?.emailVerified">
+          <button mat-stroked-button
+                  color="accent"
+                  id="loginButton"
+                  (click)="openAuthDialog()">
+            <span>login</span>
+          </button>
+        </div>
+      </div>
+
       <!-- NAV LIST -->
-      <mat-list class="my-list">
+      <mat-list role="list" class="my-list" *ngIf="isUserLoaded">
+        <mat-divider></mat-divider>
         <h3 mat-subheader>General</h3>
         <mat-list-item *ngFor="let link of generalLinks"
+                       role="listitem"
                        [routerLink]="link.path"
-                       class="list-item" (click)="closeDrawer(drawer)">
+                       class="list-item"
+                       (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>{{link.icon}}</mat-icon>
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
         <mat-divider></mat-divider>
 
+        <!-- YOURS -->
         <h3 mat-subheader>Yours</h3>
         <mat-list-item *ngFor="let link of privateLinks"
                        [routerLink]="link.path"
@@ -34,33 +65,28 @@
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
-        <div class="my-divider-stretch"></div>
-        <mat-divider class=""></mat-divider>
-
-        <h3 mat-subheader>Others</h3>
-        <mat-list-item class="list-item" (click)="closeDrawer(drawer)">
-          <mat-icon matListIcon>contact_support</mat-icon>
-          <h3 matLine>Contact</h3>
-        </mat-list-item>
-        <mat-list-item class="list-item" (click)="closeDrawer(drawer); openSettingsDialog()">
-          <mat-icon matListIcon>settings</mat-icon>
-          <h3 matLine>Settings</h3>
-        </mat-list-item>
+        <div style="flex: 1"></div>
+        <div class="contact-settings">
+          <div class="list-item other-element" matTooltip="About">
+            <mat-icon aria-label="About">info</mat-icon>
+          </div>
+          <div class="list-item other-element" matTooltip="Download">
+            <mat-icon aria-label="Download">cloud_download</mat-icon>
+          </div>
+          <div class="list-item other-element" matTooltip="Settings" (click)="openSettingsDialog()">
+            <mat-icon aria-label="Settings">settings</mat-icon>
+          </div>
+        </div>
 
       </mat-list>
-
     </nav> <!-- /my-nav -->
+  </mat-drawer>
 
-  </mat-sidenav>
+  <main class="main-container" cdkScrollable>
+    <app-header *ngIf="isSmallScreen" [user]="user"></app-header>
+    <!--<div [@routerTransition]="o.isActivated ? o.activatedRoute : ''">-->
+    <router-outlet #o="outlet"></router-outlet>
+    <!--</div>-->
+  </main>
 
-  <mat-sidenav-content style="">
-
-    <app-header [drawer]="drawer" [isSmallScreen]="isSmallScreen"></app-header>
-
-    <main class="main-content" [@routerTransition]="o.isActivated ? o.activatedRoute : ''" cdkScrollable>
-      <router-outlet #o="outlet"></router-outlet>
-    </main>
-
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+</mat-drawer-container>

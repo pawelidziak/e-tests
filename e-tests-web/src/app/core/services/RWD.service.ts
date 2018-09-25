@@ -21,7 +21,7 @@ export class RWDService {
     ).subscribe(res => this._isSmallScreen.next(res.matches));
 
     breakpointObserver.observe(
-      [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]
+      [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Handset]
     ).subscribe(res => this._isMediumScreen.next(res.matches));
 
     breakpointObserver.observe(

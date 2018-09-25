@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {routerTransition} from '../../shared/animations';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
 import {RWDService} from '../../core/services/RWD.service';
 
@@ -7,10 +6,9 @@ import {RWDService} from '../../core/services/RWD.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-
-  animations: [routerTransition]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  private subscriptions: any[] = [];
 
   public isSmallScreen: boolean;
 
@@ -29,9 +27,16 @@ export class DashboardComponent implements OnInit {
     this.getRWDValue();
     this.headerService.setHeaderText('Dashboard');
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   private getRWDValue(): void {
-    const RWDsub$ = this.rwdService.isSmallScreen.subscribe(res => {
-      this.isSmallScreen = res;
-    });
+    this.subscriptions.push(
+      this.rwdService.isSmallScreen.subscribe(res => {
+        this.isSmallScreen = res;
+      })
+    );
   }
 }

@@ -1,7 +1,13 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
-import {slideFromRightAnimation, slideFromBottomAnimation,} from '../../../shared/animations';
+import {slideFromRightAnimation, slideFromBottomAnimation} from '../../../shared/animations';
 import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
+
+export enum KEY_CODE {
+  FIRST_ANSWER_KEY = 48,
+  LAST_ANSWER_KEY = 56,
+  CHECK_KEY = 32,
+}
 
 @Component({
   selector: 'app-exercise',
@@ -13,8 +19,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;
-  @Input() checkClicked: boolean;
-  @Output() answerClicked: EventEmitter<ExerciseWithOccurrences> = new EventEmitter();
+  @Output() answerClicked: EventEmitter<void> = new EventEmitter();
 
   public MY_COLORS = MY_COLORS;
   public accentColor: string;
@@ -23,47 +28,19 @@ export class ExerciseComponent implements OnInit, OnChanges {
   public answerLetters = [];
   public isAnswerCorrect: boolean;
 
-  public thingState: string;
+  public isCheckClicked: boolean;
 
   constructor(private themeService: ThemeService) {
-    this.thingState = 'moveFromRight';
   }
 
   ngOnInit() {
     this.accentColor = this.themeService.currentTheme.accent;
-    this.fillAnswerLetterArray();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (changes.checkClicked && changes.checkClicked.currentValue) {
-        this.checkAnswers();
-      } else {
-        this.fillAnswerLetterArray();
-        this.clickedAnswersIndexes = [];
-      }
-      this.answerClicked.emit(this.exerciseWithOccurrences);
-      // if (changes.exerciseWithOccurrences && changes.exerciseWithOccurrences.previousValue) {
-      //   this.animateExercise();
-      // }
-    }
+    this.clickedAnswersIndexes = [];
+    this.fillAnswerLetterArray();
   }
-
-  /**
-   *      ANIMATION METHODS
-   */
-  // public animateExercise(): void {
-  //   this.thingState = (this.thingState === 'stay') ? 'moveToLeft' : 'moveFromRight';
-  // }
-
-  // public handleDone(event: any): void {
-  //   if (this.thingState === 'moveToLeft') {
-  //     this.thingState = 'moveFromRight';
-  //   }
-  //   if ((this.thingState !== 'stay') && (this.thingState === event.toState)) {
-  //     this.thingState = 'stay';
-  //   }
-  // }
 
   /**
    *      LOGIC
@@ -82,7 +59,8 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
-  private checkAnswers() {
+  public checkAnswers() {
+    this.isCheckClicked = true;
     this.isAnswerCorrect = this.checkCorrectness();
     if (this.isAnswerCorrect) {
       if (this.exerciseWithOccurrences.occurrences > 0) {
@@ -91,10 +69,13 @@ export class ExerciseComponent implements OnInit, OnChanges {
     } else {
       this.increaseExerciseOccurrences();
     }
+    this.scrollTop();
   }
 
-  public checkIfAnswerIsSelected(answerIndex: number) {
-    return this.clickedAnswersIndexes.findIndex(x => x === answerIndex) !== -1;
+  public showNextExercise(): void {
+    this.isCheckClicked = false;
+    this.answerClicked.emit();
+    this.scrollTop();
   }
 
   /**
@@ -129,6 +110,15 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
+  public checkIfAnswerIsSelected(answerIndex: number) {
+    return this.clickedAnswersIndexes.findIndex(x => x === answerIndex) !== -1;
+  }
+
+  public scrollTop(): void {
+    const element = document.querySelector('#testLearnSection') || document.querySelector('#testEditSection');
+    element.scrollIntoView({behavior: 'instant', block: 'start'});
+  }
+
   /**
    *      SET STYLES
    */
@@ -138,6 +128,23 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   private setDefaultStyle(button: any): void {
     button.style = (<HTMLInputElement>document.getElementById('answer-button-0'));
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (!this.isCheckClicked && event.keyCode >= KEY_CODE.FIRST_ANSWER_KEY &&
+      event.keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
+      event.keyCode - 49 <= this.exerciseWithOccurrences.exercise.answers.length - 1) {
+      this.addAnswer(event.keyCode - 49);
+    }
+
+    if (event.keyCode === KEY_CODE.CHECK_KEY) {
+      if (this.isCheckClicked) {
+        this.showNextExercise();
+      } else {
+        this.checkAnswers();
+      }
+    }
   }
 
 }

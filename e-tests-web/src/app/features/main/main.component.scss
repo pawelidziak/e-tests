@@ -1,50 +1,75 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.sidenav-container {
+.drawer-container {
   height: 100vh;
 }
 
-.sidenav {
+.drawer {
   overflow-x: hidden;
-  min-width: 200px;
-  @media #{$gt-sm_size} {
-    min-width: 250px;
-  }
+  width: 250px;
   @include box_shadow();
 }
 
 .app-name {
   text-decoration: none;
-  color: $text-white;
 }
 
-.main-content {
-  height: 100%;
+.nav-login {
+  padding: 2*$margin .5*$margin;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#loginButton {
+  @include size(100px, 100px);
+  border-radius: 50%;
+  @include upper-text();
+  outline: none;
+}
+
+.user-logged {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $text_secondary;
+}
+
+.main-container {
   width: 100%;
-  //position: absolute;
-  //left: 0;
-  //right: 0;
-  //bottom: 0;
-  //overflow-y: hidden;
-  //overflow-x: hidden;
-  //@media #{$gt-xs_size} {
-  //  top: 64px;
-  //}
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main-content_marginTop {
+  margin-top: 56px;
 }
 
 .my-nav {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-header {
-  @include box_shadow;
+  padding: 0;
+  height: 67px;
+  border-bottom: 1px solid $hover_color;
+  .header-logo {
+    display: flex;
+    align-items: center;
+  }
+  button {
+    outline: none;
+  }
 }
 
 .my-list {
   display: flex;
+  height: 100%;
   flex-direction: column;
-  height: calc(100% - 72px);
 }
 
 .list-item {
@@ -57,4 +82,17 @@
 
 .my-divider-stretch {
   flex-grow: 1;
+}
+
+.contact-settings {
+  display: flex;
+  color: $text_secondary;
+}
+
+.other-element {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
 }

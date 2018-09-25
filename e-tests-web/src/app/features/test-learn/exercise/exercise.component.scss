@@ -22,13 +22,18 @@
 .one-answer-button {
   display: flex;
   align-items: center;
-  margin: 5px 1px;
+  //margin: 5px 1px;
   padding: .5*$margin;
+  margin-bottom: .5*$margin;
   @include fs-small-X-normal();
   @media #{$gt-md_size} {
-    margin: .5*$margin;
-    flex-basis: calc(50% - 24px);
-    -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
+    &:nth-child(odd) {
+      margin-right: .5*$margin;
+      flex-basis: calc(50% - 12px);
+      -webkit-flex-basis: calc(50% - 12px); /* Safari 6.1+ */
+    }
+    flex-basis: calc(50%);
+    -webkit-flex-basis: calc(50%); /* Safari 6.1+ */
   }
   line-height: normal;
   text-align: left;
@@ -84,6 +89,40 @@
     margin-right: .5*$margin;
     @media #{$gt-md_size} {
       margin-right: $margin;
+    }
+  }
+}
+
+.exercise-check-next {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  @media #{$gt-xs_size} {
+    padding: 0 15px;
+  }
+  @media #{$gt-md_size} {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    bottom: $margin;
+  }
+  @media #{$gt-lg_size} {
+    left: 250px;
+    bottom: 2*$margin;
+  }
+  button {
+    height: 48px;
+    width: 100%;
+    @media #{$gt-md_size} {
+      width: 25%;
+    }
+    @include upper-text($font-small);
+    /deep/ .mat-button-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 }

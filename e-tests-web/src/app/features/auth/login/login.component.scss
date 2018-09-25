@@ -1,42 +1,44 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
 
-.login-container {
+.login-section {
   display: flex;
   flex-direction: column;
   button {
     outline: none;
+    @include upper-text();
+    @include fs-small-X-normal();
   }
+  @include fs-small-X-normal();
 }
 
-mat-icon {
-  color: $text_secondary;
+.social-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $hover_color;
+  padding: $margin .5*$margin;
 }
 
-button {
-  @include upper-text();
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-login, .login-form {
+  padding: $margin .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
 }
 
 #google {
-  margin: .5*$margin .5*$margin 0;
-  @media #{$gt-xs_size} {
-    margin: $margin $margin 0;
-  }
-  @include upper-text();
   padding: .5*$margin 0 .5*$margin .5*$margin;
   background: url('../../../../assets/icons/google.svg') no-repeat 15px;
   background-size: 36px;
   /deep/ .mat-button-wrapper {
     padding-left: 30px;
   }
-}
-
-.or-divider {
-  padding: $margin $margin 0;
-  text-align: center;
-  font-size: 1.2rem;
-  color: $text_secondary;
-  @include upper-text();
 }
 
 .login-actions {
@@ -50,25 +52,17 @@ button {
   }
 }
 
-.login-form {
-  padding: .5*$margin .5*$margin 0;
-  @media #{$gt-xs_size} {
-    padding: $margin $margin 0;
-  }
-  display: flex;
-  flex-direction: column;
+.login-icon, a {
+  color: $text_secondary;
 }
 
-.forgot-actions {
-  margin-top: $margin;
-  .forgot-password {
+.forgot-password {
+  .forgot-form{
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    @media #{$gt-xs_size} {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
+    align-items: center;
+    justify-content: space-between;
+    padding: $margin;
   }
 }
