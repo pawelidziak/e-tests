@@ -3,8 +3,9 @@
 <mat-toolbar [color]="color"
              [style.height]="height + 'px'"
              *ngIf="showToolbar"
-             [ngClass]="{'sticky-top': stickyTop, 'sticky-bottom': stickyBottom, 'box-shadow': boxShadow}"
-             class="sticky-hide-toolbar" [@slideFromTop]>
+             [ngClass]="{'sticky-top': showToolbar && stickyTop, 'box-shadow': boxShadow}"
+             class="sticky-hide-toolbar"
+             [@slideFromTop]>
 
   <ng-content></ng-content>
 

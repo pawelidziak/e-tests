@@ -45,10 +45,11 @@ export class AuthService {
 
   // Logout
   public signOut() {
-    this.afAuth.auth.signOut()
-      .then(() => this.router.navigate([ALL_ROUTES.DASHBOARD]))
-      .catch(error => console.log(error));
-
+    this.router.navigate([ALL_ROUTES.DASHBOARD])
+      .then(() => {
+        this.afAuth.auth.signOut()
+          .catch(error => console.log(error));
+      });
   }
 
   // Email password register / login

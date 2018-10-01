@@ -6,7 +6,8 @@ import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
 export enum KEY_CODE {
   FIRST_ANSWER_KEY = 48,
   LAST_ANSWER_KEY = 56,
-  CHECK_KEY = 32,
+  SPACE_BAR_KEY = 32,
+  ENTER_KEY = 13
 }
 
 @Component({
@@ -19,7 +20,9 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;
-  @Output() answerClicked: EventEmitter<void> = new EventEmitter();
+  @Input() userIsAuthenticated: boolean;
+  @Output() checkClicked: EventEmitter<void> = new EventEmitter();
+  @Output() nextClicked: EventEmitter<void> = new EventEmitter();
 
   public MY_COLORS = MY_COLORS;
   public accentColor: string;
@@ -27,7 +30,6 @@ export class ExerciseComponent implements OnInit, OnChanges {
   public clickedAnswersIndexes: Array<number> = [];
   public answerLetters = [];
   public isAnswerCorrect: boolean;
-
   public isCheckClicked: boolean;
 
   constructor(private themeService: ThemeService) {
@@ -45,7 +47,6 @@ export class ExerciseComponent implements OnInit, OnChanges {
   /**
    *      LOGIC
    */
-
   public addAnswer(answerIndex: number): void {
     const indexInArray = this.clickedAnswersIndexes.findIndex(x => x === answerIndex);
     const selectedButton = (<HTMLInputElement>document.getElementById('answer-button-' + answerIndex));
@@ -59,7 +60,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
-  public checkAnswers() {
+  public checkAnswers() : void{
     this.isCheckClicked = true;
     this.isAnswerCorrect = this.checkCorrectness();
     if (this.isAnswerCorrect) {
@@ -70,18 +71,18 @@ export class ExerciseComponent implements OnInit, OnChanges {
       this.increaseExerciseOccurrences();
     }
     this.scrollTop();
+    this.checkClicked.emit();
   }
 
   public showNextExercise(): void {
     this.isCheckClicked = false;
-    this.answerClicked.emit();
+    this.nextClicked.emit();
     this.scrollTop();
   }
 
   /**
    *      AUXILIARY METHODS
    */
-
   private checkCorrectness(): boolean {
     if (this.clickedAnswersIndexes.length !== this.exerciseWithOccurrences.exercise.correctAnswers.length) {
       return false;
@@ -110,7 +111,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
-  public checkIfAnswerIsSelected(answerIndex: number) {
+  public checkIfAnswerIsSelected(answerIndex: number): boolean {
     return this.clickedAnswersIndexes.findIndex(x => x === answerIndex) !== -1;
   }
 
@@ -131,18 +132,20 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (!this.isCheckClicked && event.keyCode >= KEY_CODE.FIRST_ANSWER_KEY &&
-      event.keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
-      event.keyCode - 49 <= this.exerciseWithOccurrences.exercise.answers.length - 1) {
-      this.addAnswer(event.keyCode - 49);
-    }
+  keyEvent(event: KeyboardEvent): void {
+    if (this.userIsAuthenticated) {
+      if (!this.isCheckClicked && event.keyCode >= KEY_CODE.FIRST_ANSWER_KEY &&
+        event.keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
+        event.keyCode - 49 <= this.exerciseWithOccurrences.exercise.answers.length - 1) {
+        this.addAnswer(event.keyCode - 49);
+      }
 
-    if (event.keyCode === KEY_CODE.CHECK_KEY) {
-      if (this.isCheckClicked) {
-        this.showNextExercise();
-      } else {
-        this.checkAnswers();
+      if (event.keyCode === KEY_CODE.SPACE_BAR_KEY || event.keyCode === KEY_CODE.ENTER_KEY) {
+        if (this.isCheckClicked) {
+          this.showNextExercise();
+        } else {
+          this.checkAnswers();
+        }
       }
     }
   }

@@ -33,6 +33,7 @@ export class ScrollService {
     this._scrollPositionType = value > this._scrollPosition.value.offsetTop ?
       SCROLL_POS_TYPE.IS_SCROLLING_DOWN :
       SCROLL_POS_TYPE.IS_SCROLLING_UP;
+
     const scrollPos: ScrollPosition = {
       offsetTop: value,
       position: this._scrollPositionType

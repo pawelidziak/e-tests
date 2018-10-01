@@ -1,37 +1,83 @@
-<section>
-  <div class="back-to">
-    <button mat-button (click)="backToTest()">
-      <mat-icon aria-label="Back to test">arrow_back</mat-icon>
-      <span>back to the test</span>
-    </button>
+<section class="test-config">
+  <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+  <button mat-icon-button id="closeButton" (click)="dialogRef.close()">
+    <mat-icon aria-label="Close">close</mat-icon>
+  </button>
+
+  <div class="one-setting">
+    <span>Repetition of the exercise: <strong>{{occurrencesExerciseNumber}}</strong></span>
+    <mat-slider
+      [min]="1"
+      [max]="10"
+      [step]="1"
+      thumbLabel
+      [(ngModel)]="occurrencesExerciseNumber">
+    </mat-slider>
   </div>
-  <div class="test-config">
-    <div class="one-setting">
-      <span>The number of task occurrence: <strong>{{occurrencesExerciseNumber}}</strong></span>
-      <mat-slider
-        [min]="1"
-        [max]="10"
-        [step]="1"
-        thumbLabel
-        [(ngModel)]="occurrencesExerciseNumber">
-      </mat-slider>
+
+  <div class="one-setting">
+    <span>Repetition of the exercise in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
+    <mat-slider
+      [min]="0"
+      [max]="10"
+      [step]="1"
+      thumbLabel
+      [(ngModel)]="repetitionExerciseNumber">
+    </mat-slider>
+  </div>
+
+  <div class="my-divider"></div>
+
+  <div class="test-config-buttons">
+
+    <!-- RESET -->
+    <div class="config_one-button">
+      <span class="action-info" *ngIf="!toReset">All exercises will be loaded with new settings. <strong>Progress will NOT be saved</strong></span>
+      <button mat-raised-button
+              [color]="toReset ? 'accent' : 'warn'"
+              [matMenuTriggerFor]="resetConfirm">
+        <span >reset</span>
+      </button>
+
+      <mat-menu #resetConfirm="matMenu" xPosition="before" yPosition="above">
+        <ng-template matMenuContent>
+          <button mat-menu-item (click)="closeDialog(true)">
+            <mat-icon aria-label="Confirm">done</mat-icon>
+            <span>Yes</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            <span>No</span>
+          </button>
+        </ng-template>
+      </mat-menu>
     </div>
 
-    <div class="one-setting">
-      <span>The number of repetitions in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
-      <mat-slider
-        [min]="0"
-        [max]="10"
-        [step]="1"
-        thumbLabel
-        [(ngModel)]="repetitionExerciseNumber">
-      </mat-slider>
-    </div>
+    <!-- SAVE -->
+    <div class="config_one-button" *ngIf="!toReset">
+      <span class="action-info">
+        New exercises will be loaded with new settings. <strong>Progress will be saved</strong>
+      </span>
+      <button mat-raised-button
+              color="accent"
+              [matMenuTriggerFor]="saveConfirm">
+        save
+      </button>
 
-    <button mat-raised-button
-            color="accent"
-            (click)="startTest()">
-      start learn
-    </button>
+      <mat-menu #saveConfirm="matMenu">
+        <ng-template matMenuContent>
+          <button mat-menu-item (click)="closeDialog(false)">
+            <mat-icon aria-label="Confirm">done</mat-icon>
+            <span>Yes</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            <span>No</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+    </div>
   </div>
+
 </section> <!-- end SETTINGS-->

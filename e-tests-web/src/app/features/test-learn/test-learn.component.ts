@@ -1,15 +1,16 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Exercise, ExerciseWithOccurrences} from '../../core/models/Exercise';
-import {ActivatedRoute} from '@angular/router';
-import {ROUTE_PARAMS} from '../../shared/ROUTES';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {TestService} from '../../core/services/test.service';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
-import {TestCreate, TestSettings} from '../../core/models/Test';
+import {TestCreate, TestStarted} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
 import {HeaderService} from '../../core/services/header.service';
-import {Location} from '@angular/common';
 import {slideFromTopAnimation} from '../../shared/animations';
+import {MatDialog} from '@angular/material';
+import {TestConfig, TestConfigComponent} from './test-config/test-config.component';
 
 @Component({
   selector: 'app-test',
@@ -21,8 +22,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
   private testId: string;
 
-  public isSmallScreen: boolean;
-
   public preparedTestExercises: Array<ExerciseWithOccurrences> = [];
   public origTestExercises: Array<Exercise> = [];
   public test: TestCreate;
@@ -30,27 +29,28 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public isTestEnd: boolean;
   public areSettingsSet = false;
-
+  public userIsAuthenticated: boolean;
+  public testInProgress: boolean;
+  public loadingStop = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private headerService: HeaderService,
               private auth: AuthService,
-              private location: Location,
               private rwdService: RWDService,
               private testService: TestService,
-              private exerciseService: TestExercisesService) {
+              private exerciseService: TestExercisesService,
+              public dialog: MatDialog) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.headerService.hideHeader();
         this.testId = params[ROUTE_PARAMS.TEST_ID];
-        this.getTestExercises();
+        this.isLoggedIn();
       })
     );
   }
 
   ngOnInit() {
-    this.isLoggedIn();
-    this.getRWDValue();
   }
 
   ngOnDestroy() {
@@ -65,8 +65,13 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   private isLoggedIn() {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
       res => {
-        if (!res) {
+        if (res) {
+          this.userIsAuthenticated = true;
+          this.getTestExercises();
+        } else {
+          this.userIsAuthenticated = false;
           this.auth.openAuthDialog(true);
+          this.loadingStop = true;
         }
       })
     );
@@ -75,13 +80,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * INITIAL
    */
-  private getRWDValue(): void {
-    this.subscriptions.push(
-      this.rwdService.isSmallScreen.subscribe(res => {
-        this.isSmallScreen = res;
-      })
-    );
-  }
 
   private getTestExercises() {
     this.subscriptions.push(
@@ -100,7 +98,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-          this.checkTestStartConditions();
+          this.checkIfTetIsStarted();
         },
         error => console.log(error)
       )
@@ -110,42 +108,57 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * CHECKS CONDITIONS
    */
-  private checkTestStartConditions() {
-    this.sprawdzCzyJestZakonczony();
-    this.przypiszProgress();
-    this.sprawdzUstawienia();
-    if (this.areSettingsSet) {
-      this.przygotujZadania();
-      this.drawExercise();
+  public checkIfTetIsStarted(): void {
+    this.subscriptions.push(
+      this.testService.getTestSettings(this.testId).subscribe(
+        (res: TestStarted) => {
+          this.assignStartedTest(res);
+
+          if (!this.areSettingsSet) {
+            this.openTestConfigDialog(true);
+            this.loadingStop = true;
+          } else {
+            this.startTest();
+          }
+        },
+        error => console.log(error)
+      )
+    );
+  }
+
+  private assignStartedTest(startedTestSettings): void {
+    if (startedTestSettings) {
+      this.test.testStarted = {
+        settings: startedTestSettings.settings,
+        progress: startedTestSettings.progress
+      };
+      this.areSettingsSet = !!startedTestSettings.settings;
+      this.testInProgress = !!startedTestSettings.progress;
     }
   }
 
-  public sprawdzCzyJestZakonczony(): void {
-    if (this.test.progress) {
-      this.isTestEnd = this.test.progress.masteredExercisesIds.length === this.origTestExercises.length;
+  private startTest(): void {
+    this.checkIfTestIsFinish();
+    this.prepareExercises();
+    this.drawExercise();
+  }
+
+  public checkIfTestIsFinish(): void {
+    if (this.testInProgress) {
+      this.isTestEnd = this.test.testStarted.progress.masteredExercisesIds.length === this.origTestExercises.length;
     } else {
       this.isTestEnd = false;
     }
   }
 
-  public przypiszProgress(): void {
-    if (!this.test.progress) {
-      this.test.progress = {
-        masteredExercisesIds: [],
-        reviewedExercisesIds: [],
-      };
-    }
-  }
-
-  public sprawdzUstawienia(): void {
-    this.areSettingsSet = !!this.test.settings;
-  }
-
-  public przygotujZadania(): void {
+  /**
+   * PREPARE EXERCISES TO TEST
+   */
+  public prepareExercises(): void {
     this.preparedTestExercises = [];
     for (const exercise of this.origTestExercises) {
-      if (!this.czyZadanieJestOpanowane(exercise.id)) {
-        if (this.czyZadanieJestObejrzane(exercise.id)) {
+      if (!this.isExerciseMastered(exercise.id)) {
+        if (this.isExerciseReviewed(exercise.id)) {
           this.addToExerciseListWithExerciseOccurrence(exercise);
         } else {
           this.addToExerciseListWithSettingsOccurrence(exercise);
@@ -154,22 +167,22 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     }
   }
 
-  private addToExerciseListWithSettingsOccurrence(exercise: Exercise): void {
-    if (this.test.settings) {
-      this.preparedTestExercises.push({
-        exercise: exercise,
-        occurrences: this.test.settings.occurrencesNumber
-      });
-    }
-  }
-
   private addToExerciseListWithExerciseOccurrence(exercise: Exercise): void {
     this.preparedTestExercises.push({
       exercise: exercise,
-      occurrences: this.test.progress.reviewedExercisesIds[
-        this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id)
+      occurrences: this.test.testStarted.progress.reviewedExercisesIds[
+        this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id)
         ].occurrences
     });
+  }
+
+  private addToExerciseListWithSettingsOccurrence(exercise: Exercise): void {
+    if (this.test.testStarted.settings) {
+      this.preparedTestExercises.push({
+        exercise: exercise,
+        occurrences: this.test.testStarted.settings.occurrencesNumber
+      });
+    }
   }
 
   private drawExercise(): void {
@@ -186,46 +199,48 @@ export class TestLearnComponent implements OnInit, OnDestroy {
         occurrences: exercise.occurrences
       };
     }
-    this.testService.shuffleAnswers(this.currentExercise.exercise);
+
+    if (this.currentExercise) {
+      this.testService.shuffleAnswers(this.currentExercise.exercise);
+      this.loadingStop = true;
+    }
   }
 
   /**
    * FUNCTIONAL
    */
-
-  public saveSettingsAndStartTest(settings: TestSettings): void {
-    this.testService.updateTestSettings(this.testId, settings)
-      .catch(error => console.log(error));
-  }
-
   public saveProgress(): void {
-    if (this.test.progress.masteredExercisesIds.length > 0 || this.test.progress.reviewedExercisesIds.length > 0) {
-      this.testService.updateTestProgress(this.testId, this.test.progress)
+    if (this.userIsAuthenticated && this.loadingStop && this.test.testStarted &&
+      (this.test.testStarted.progress.masteredExercisesIds.length > 0 ||
+        this.test.testStarted.progress.reviewedExercisesIds.length > 0)) {
+      this.testService.updateTestProgress(this.testId, this.test.testStarted.progress)
         .catch(error => console.log(error));
     }
   }
 
-
   public backToTest(): void {
-    this.location.back();
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}`]);
   }
 
   /**
    *    HANDLERS
    */
-  public handleNextAnswer() {
+  public handleCheckAnswer(): void {
     const index = this.preparedTestExercises.findIndex(x => x.exercise.id === this.currentExercise.exercise.id);
     this.preparedTestExercises[index] = this.currentExercise;
 
     if (this.currentExercise.occurrences > 0) {
-      this.dodajDoObejrzanych();
+      this.addToReviewed();
     } else if (this.currentExercise.occurrences === 0) {
-      this.dodajDoOpanowanych(this.currentExercise);
-      this.usunZObejrzanych(this.currentExercise);
-      this.usunZListyCwiczen(this.currentExercise);
+      this.addToMastered(this.currentExercise);
+      this.deleteFromReviewed(this.currentExercise);
+      this.deleteFromPreparedExercises(this.currentExercise);
     }
 
-    this.sprawdzCzyJestZakonczony();
+  }
+
+  public handleNextAnswer(): void {
+    this.checkIfTestIsFinish();
     this.drawExercise();
   }
 
@@ -233,29 +248,40 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * REVIEWED EXERCISE
    */
 
-  private dodajDoObejrzanych() {
-    const index = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.id);
+  private addToReviewed() {
+    const index = this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.id);
     if (index !== -1) {
-      this.test.progress.reviewedExercisesIds[index].occurrences = this.currentExercise.occurrences;
+      this.test.testStarted.progress.reviewedExercisesIds[index].occurrences = this.currentExercise.occurrences;
     } else {
-      this.test.progress.reviewedExercisesIds.push({
+      this.test.testStarted.progress.reviewedExercisesIds.push({
         id: this.currentExercise.exercise.id,
         occurrences: this.currentExercise.occurrences
       });
     }
   }
 
-
-  private dodajDoOpanowanych(exercise: ExerciseWithOccurrences) {
-    this.test.progress.masteredExercisesIds.push(exercise.exercise.id);
+  private deleteFromReviewed(exercise: ExerciseWithOccurrences) {
+    const reviewedIndex = this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
+    this.test.testStarted.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
   }
 
-  private usunZObejrzanych(exercise: ExerciseWithOccurrences) {
-    const reviewedIndex = this.test.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
-    this.test.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
+  private isExerciseReviewed(id: string): boolean {
+    return this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
   }
 
-  private usunZListyCwiczen(exercise: ExerciseWithOccurrences) {
+
+  /**
+   * MASTERED EXERCISE
+   */
+  private addToMastered(exercise: ExerciseWithOccurrences) {
+    this.test.testStarted.progress.masteredExercisesIds.push(exercise.exercise.id);
+  }
+
+  private isExerciseMastered(id: string): boolean {
+    return this.test.testStarted.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
+  }
+
+  private deleteFromPreparedExercises(exercise: ExerciseWithOccurrences) {
     const index = this.preparedTestExercises.findIndex(x => x.exercise.id === exercise.exercise.id);
     if (index !== -1) {
       this.preparedTestExercises.splice(index, 1);
@@ -263,41 +289,53 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * CKECKS
-   */
-
-  private czyZadanieJestObejrzane(id: string): boolean {
-    return this.test.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
-  }
-
-  private czyZadanieJestOpanowane(id: string): boolean {
-    return this.test.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
-  }
-
-
-  /**
    *    COUNTERS
    */
   public countMasteredRatio(): number {
-    if (this.test.progress.masteredExercisesIds.length === 0) {
-      return 0;
+    if (this.loadingStop) {
+      if (this.test.testStarted.progress && this.test.testStarted.progress.masteredExercisesIds.length === 0) {
+        return 0;
+      }
+      return this.test.testStarted.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
     }
-    return this.test.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
   }
 
   /**
-   *    RESETS
+   * CONFIG DIALOG
    */
-  public resetTest() {
-    this.isTestEnd = false;
-    // this.isTestPrepared = false;
-    this.resetStats();
+
+  public openTestConfigDialog(reset: boolean): void {
+    const dialogRef = this.dialog.open(TestConfigComponent, {
+      disableClose: !this.areSettingsSet,
+      data: {
+        toReset: reset
+      }
+    });
+
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((result: TestConfig) => {
+        if (result) {
+          this.loadingStop = false;
+          this.saveSettingsAndStartTest(this.createTestStartedSettings(result));
+        }
+      })
+    );
   }
 
-  private resetStats(): void {
-    // this.reviewedExercisesCounter = 0;
-    // this.reviewedExercisesIds = [];
-    // this.masteredExercisesCount = 0;
+  private createTestStartedSettings(config: TestConfig): TestStarted {
+    return {
+      settings: config.settings,
+      progress: !config.reset ? this.test.testStarted.progress : {
+        masteredExercisesIds: [],
+        reviewedExercisesIds: [],
+      },
+    };
+  }
+
+  public saveSettingsAndStartTest(settings: TestStarted): void {
+    this.testService.setTestStarted(this.testId, settings)
+      .then(() => this.startTest())
+      .catch(error => console.log(error));
   }
 
   @HostListener('window:beforeunload', ['$event'])

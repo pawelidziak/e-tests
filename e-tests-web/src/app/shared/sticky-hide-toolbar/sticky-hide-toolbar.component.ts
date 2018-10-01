@@ -1,30 +1,27 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SCROLL_POS_TYPE, ScrollPosition, ScrollService} from '../../core/services/scroll.service';
-import {slideFromTopAnimation} from '../animations';
+import {slideFromBottomAnimation, slideFromTopAnimation} from '../animations';
 
 @Component({
   selector: 'app-sticky-hide-toolbar',
   templateUrl: './sticky-hide-toolbar.component.html',
   styleUrls: ['./sticky-hide-toolbar.component.scss'],
-  animations: [slideFromTopAnimation()]
+  animations: [slideFromTopAnimation(), slideFromBottomAnimation()]
 })
 export class StickyHideToolbarComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
   @Input() height = 56;
   @Input() color = 'primary';
-  @Input() stickyTop: boolean;
-  @Input() stickyBottom: boolean;
+  @Input() stickyTop = false;
   @Input() boxShadow = false;
+  @Input() scrollHide = false;
 
-  private HEADER_HEIGHT = this.height + 50; // + offset
-
+  private HEADER_HEIGHT = this.height; // + offset
   public showToolbar = true;
-
 
   constructor(private scrollService: ScrollService) {
   }
-
 
   ngOnInit() {
     this.checkScrollPos();
@@ -38,7 +35,7 @@ export class StickyHideToolbarComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.scrollService.scrollPosition.subscribe(
         (res: ScrollPosition) => {
-          if (res.offsetTop > this.HEADER_HEIGHT) {
+          if (this.scrollHide && res.offsetTop > this.HEADER_HEIGHT) {
             if (res.position === SCROLL_POS_TYPE.IS_SCROLLING_UP) {
               this.showToolbar = true;
             }

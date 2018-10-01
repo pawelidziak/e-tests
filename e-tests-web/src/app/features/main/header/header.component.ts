@@ -1,9 +1,8 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {HeaderService} from '../../../core/services/header.service';
-import {Location} from '@angular/common';
-import {AuthService} from '../../../core/services/auth.service';
 import {ALL_ROUTES} from '../../../shared/ROUTES';
 import {slideFromTopAnimation} from '../../../shared/animations';
+import {MatDrawer} from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +15,12 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   public readonly ALL_ROUTES = ALL_ROUTES;
 
   @Input() user: any;
-  public isUserAuthenticated = false;
+  @Input() drawer: MatDrawer;
 
+  public isUserAuthenticated = false;
   public headerVisibility: boolean;
 
-  constructor(private headerService: HeaderService,
-              private location: Location,
-              private auth: AuthService) {
+  constructor(private headerService: HeaderService) {
   }
 
   ngOnInit() {
@@ -37,19 +35,10 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     this.isUserAuthenticated = this.user && this.user.emailVerified;
   }
 
-  public openAuthDialog(): void {
-    this.auth.openAuthDialog(false);
-  }
-
   private getHeaderVisibility(): void {
     this.subscriptions.push(
       this.headerService.getHeaderVisibilityValue().subscribe(
         res => this.headerVisibility = res)
     );
   }
-
-  public logout(): void {
-    this.auth.signOut();
-  }
-
 }

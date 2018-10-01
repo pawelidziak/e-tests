@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TestCreate, TestProgress, TestSettings} from '../models/Test';
+import {TestCreate, TestProgress, TestSettings, TestStarted} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
@@ -8,10 +8,11 @@ import {map, shareReplay} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
-import {Exercise} from "../models/Exercise";
+import {Exercise} from '../models/Exercise';
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
+const TEST_SETTINGS_KEY = 'current_test_settings';
 const USER_TESTS_KEY = 'user_test';
 
 @Injectable()
@@ -77,16 +78,56 @@ export class TestService {
       .update(test);
   }
 
-  public updateTestSettings(testId: string, testSettings: TestSettings): Promise<void> {
-    return this.afs.collection(this.TEST_PATH)
+  /**
+   *  TEST SETTINGS
+   */
+
+  public ifTestIsStarted(testId: string): any {
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
+      .doc<TestSettings>(testId)
+      .ref.get();
+
+  }
+
+  public getTestSettings(testId: string): Observable<TestStarted> {
+    if (!this.cache.get(TEST_SETTINGS_KEY)) {
+      this.cache.set(TEST_SETTINGS_KEY, this.requestTestSettings(testId).pipe(shareReplay(CACHE_SIZE)));
+    }
+    return this.cache.get(TEST_SETTINGS_KEY);
+  }
+
+  private requestTestSettings(testId: string): Observable<TestStarted> {
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
+      .doc<TestStarted>(testId)
+      .valueChanges();
+  }
+
+  public setTestStarted(testId: string, testStarted: TestStarted): Promise<void> {
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
       .doc(testId)
-      .update({settings: testSettings});
+      .set(Object.assign({}, testStarted));
   }
 
   public updateTestProgress(testId: string, progress: TestProgress): Promise<void> {
-    return this.afs.collection(this.TEST_PATH)
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
       .doc(testId)
       .update({progress: progress});
+  }
+
+  public resetTest(testId: string): Promise<void> {
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
+      .doc(testId)
+      .delete();
   }
 
   /**
@@ -119,7 +160,7 @@ export class TestService {
     }
   }
 
-  public shuffleAnswers(exercise: Exercise) {
+  public shuffleAnswers(exercise: Exercise): boolean {
     for (let i = exercise.answers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [exercise.answers[i], exercise.answers[j]] = [exercise.answers[j], exercise.answers[i]];
@@ -133,7 +174,8 @@ export class TestService {
       }
     }
     exercise.correctAnswers.sort((a, b) => a - b);
-    console.log(exercise);
+
+    return true;
   }
 
 

@@ -7,6 +7,10 @@
   padding: 2*$margin $margin;
 }
 
+.question-big_padding {
+  padding: 4*$margin $margin;
+}
+
 .answers-grid {
   display: flex;
   flex-wrap: wrap;
@@ -22,7 +26,6 @@
 .one-answer-button {
   display: flex;
   align-items: center;
-  //margin: 5px 1px;
   padding: .5*$margin;
   margin-bottom: .5*$margin;
   @include fs-small-X-normal();

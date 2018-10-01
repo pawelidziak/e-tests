@@ -63,32 +63,40 @@ export class DisplayOneExerciseComponent implements OnInit {
     }
   }
 
+  public changeCorrectAnswer(index: number, correct: boolean): void {
+    const tmp = this.exercise.correctAnswers.findIndex(x => x === index);
+    if (correct) {
+      this.exercise.correctAnswers.push(index);
+    } else {
+      this.exercise.correctAnswers.splice(tmp, 1);
+    }
+  }
+
   private addNewExercise(): void {
     this.isNew = false;
     this.addedExercise.emit(true);
+    this.openSnackBar('Exercise added', 3000);
     this.exercisesService.addOneExercise(this.testId, this.exercise)
-      .then(() => this.openSnackBar('Exercise added', 3000))
       .catch(error => this.openSnackBar(error, 10000));
   }
 
   private updateExercise(): void {
     if (this.isExerciseChanged()) {
+      this.openSnackBar('Exercise updated', 3000);
       this.exercisesService.updateOneExercise(this.testId, this.exercise)
-        .then(() => this.openSnackBar('Exercise updated', 3000))
         .catch(error => this.openSnackBar(error, 10000));
     }
   }
 
   public deleteExercise(): void {
+    this.openSnackBar('Exercise deleted', 3000);
     this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-      .then(() => this.openSnackBar('Exercise deleted', 3000))
       .catch(error => this.openSnackBar(error, 10000));
   }
 
   /**
    * HELPERS
    */
-
   public getLetterFromAscii(i: number): string {
     return String.fromCharCode(65 + i);
   }
@@ -99,6 +107,10 @@ export class DisplayOneExerciseComponent implements OnInit {
 
   public customTrackBy(index: number, obj: any): any {
     return index;
+  }
+
+  public checkIfIsCorrect(index: number): boolean {
+    return this.exercise.correctAnswers.findIndex(x => x === index) !== -1;
   }
 
   private isExerciseChanged(): boolean {
@@ -129,7 +141,7 @@ export class DisplayOneExerciseComponent implements OnInit {
     });
   }
 
-  public handleSpacebar(ev) {
+  public handleSpacebar(ev): void {
     if (ev.keyCode === 32) {
       ev.stopPropagation();
     }

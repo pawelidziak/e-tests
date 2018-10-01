@@ -6,16 +6,8 @@
   button {
     outline: none;
   }
-  position: fixed;
   z-index: 9;
   @include fs-small-X-normal();
-  @media #{$gt-lg_size} {
-    width: calc(100% - 250px);
-  }
-}
-
-.sticky-top {
-  top: 0;
 }
 
 .sticky-bottom {
@@ -24,4 +16,9 @@
 
 .box-shadow {
   @include box_shadow;
+}
+
+.sticky-top {
+  position: absolute;
+  top: 0;
 }

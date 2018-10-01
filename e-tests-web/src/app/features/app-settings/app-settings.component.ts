@@ -18,7 +18,6 @@ export class AppSettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   public closeDialog(): void {
     this.dialogRef.close();
   }

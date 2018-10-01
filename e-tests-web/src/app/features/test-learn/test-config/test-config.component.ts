@@ -1,6 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Location} from '@angular/common';
+import {Component, Inject, OnInit} from '@angular/core';
 import {TestSettings} from '../../../core/models/Test';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+
+export interface TestConfig {
+  settings: TestSettings;
+  reset: boolean;
+}
 
 @Component({
   selector: 'app-test-config',
@@ -9,25 +14,27 @@ import {TestSettings} from '../../../core/models/Test';
 })
 export class TestConfigComponent implements OnInit {
 
-  @Output() startTestEvent: EventEmitter<any> = new EventEmitter();
+  public toReset: boolean;
   public occurrencesExerciseNumber = 2;
   public repetitionExerciseNumber = 2;
 
-  constructor(private location: Location) {
+  constructor(public dialogRef: MatDialogRef<TestConfigComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
+    this.toReset = this.data.toReset;
   }
 
-  public startTest(): void {
-    const event: TestSettings = {
-      occurrencesNumber: this.occurrencesExerciseNumber,
-      repetitionNumber: this.repetitionExerciseNumber
+  public closeDialog(resetTest: boolean): void {
+    const config: TestConfig = {
+      settings: {
+        occurrencesNumber: this.occurrencesExerciseNumber,
+        repetitionNumber: this.repetitionExerciseNumber,
+      },
+      reset: resetTest
     };
-    this.startTestEvent.emit(event);
+    this.dialogRef.close(config);
   }
 
-  public backToTest(): void {
-    this.location.back();
-  }
 }

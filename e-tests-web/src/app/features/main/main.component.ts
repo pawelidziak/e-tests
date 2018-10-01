@@ -32,7 +32,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
   public isSmallScreen = false;
   public user: any;
   public isUserLoaded: boolean;
-  private hideDrawer: boolean;
 
   constructor(private rwdService: RWDService,
               private auth: AuthService,
@@ -111,7 +110,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public closeDrawer(drawer: MatSidenav): void {
-    if (this.hideDrawer) {
+    if (this.isSmallScreen) {
       drawer.close();
     }
   }

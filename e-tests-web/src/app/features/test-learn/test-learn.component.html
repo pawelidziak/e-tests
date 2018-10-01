@@ -1,70 +1,82 @@
-<section *ngIf="test" id="testLearnSection">
-  <app-sticky-hide-toolbar [height]="56"
-                           *ngIf="areSettingsSet"
-                           [stickyTop]="true">
+<section id="testLearnSection">
 
-    <div class="container test-learn-header">
-
-      <!-- BACK -->
-      <button mat-icon-button (click)="backToTest()">
-        <mat-icon aria-label="Back">arrow_back</mat-icon>
-      </button>
-
-      <div class="test-learn-header_inner flex-2">
-
-        <!-- REMAINED -->
-        <div class="one-info" matTooltip="Remained">
-          <span>{{origTestExercises.length - test.progress.masteredExercisesIds.length}}</span>
-          <mat-icon aria-label="Done" class="info-icon">subject</mat-icon>
-        </div>
-
-        <!-- DONE -->
-        <div class="one-info" matTooltip="Mastered">
-          <span>{{test.progress.masteredExercisesIds.length}}</span>
-          <mat-icon aria-label="Done" class="info-icon" style="color:#43a047">done_all</mat-icon>
-        </div>
-
-        <!-- REPEATS-->
-        <div class="one-info" matTooltip="Repetitions">
-          <span>{{currentExercise.occurrences}}</span>
-          <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
-        </div>
-      </div>
-
-      <!-- SETTINGS -->
-      <button mat-icon-button>
-        <mat-icon aria-label="Settings">settings</mat-icon>
-      </button>
-    </div>
-    <mat-progress-bar color="accent"
-                      style="position: absolute; bottom: 0;"
-                      mode="determinate"
-                      [value]="countMasteredRatio()">
-    </mat-progress-bar>
-
-  </app-sticky-hide-toolbar>
-
-  <!-- EXERCISE CONTENT -->
-  <div class="test-learn-exercise container">
-    <app-test-config *ngIf="!areSettingsSet"
-                     (startTestEvent)="saveSettingsAndStartTest($event)">
-    </app-test-config>
-
-
-    <div *ngIf="areSettingsSet">
-      <app-exercise *ngIf="!isTestEnd"
-                    [exerciseWithOccurrences]="currentExercise"
-                    [repetitionExerciseNumber]="test.settings.repetitionNumber"
-                    (answerClicked)="handleNextAnswer()">
-      </app-exercise>
-
-      <div *ngIf="isTestEnd" class="test-end">
-        <mat-icon id="done" aria-label="Done icon">done</mat-icon>
-        <span>Congratulations, you've mastered all the exercises!</span>
-        <button mat-raised-button color="accent" (click)="resetTest()">RESET TEST</button>
-      </div>
-
-    </div>
+  <div *ngIf="!loadingStop">
+    loading.....
   </div>
+
+  <!-- TEST LEARN CONTENT -->
+  <div *ngIf="loadingStop">
+
+    <div *ngIf="!userIsAuthenticated || !areSettingsSet">
+      TODO Fajny obrazek
+    </div>
+
+    <div *ngIf="userIsAuthenticated">
+      <app-sticky-hide-toolbar [height]="48"
+                               *ngIf="areSettingsSet"
+                               [stickyTop]="true">
+
+        <div class="container test-learn-header">
+
+          <!-- BACK -->
+          <button mat-icon-button (click)="backToTest()">
+            <mat-icon aria-label="Back">arrow_back</mat-icon>
+          </button>
+
+          <div class="test-learn-header_inner flex-2">
+
+            <!-- REMAINED -->
+            <div class="one-info" matTooltip="Remained">
+              <span>{{origTestExercises.length - test.testStarted?.progress?.masteredExercisesIds.length}}</span>
+              <mat-icon aria-label="Done" class="info-icon">subject</mat-icon>
+            </div>
+
+            <!-- DONE -->
+            <div class="one-info" matTooltip="Mastered">
+              <span>{{test.testStarted.progress?.masteredExercisesIds.length}}</span>
+              <mat-icon aria-label="Done" class="info-icon" style="color:#43a047">done_all</mat-icon>
+            </div>
+
+            <!-- REPEATS-->
+            <div class="one-info" matTooltip="Repetitions">
+              <span>{{currentExercise?.occurrences || 0}}</span>
+              <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
+            </div>
+          </div>
+
+          <!-- SETTINGS -->
+          <button mat-icon-button (click)="openTestConfigDialog(isTestEnd)" [disabled]="isTestEnd">
+            <mat-icon aria-label="Settings">settings</mat-icon>
+          </button>
+        </div>
+        <mat-progress-bar color="accent"
+                          style="position: absolute; bottom: 0;"
+                          mode="determinate"
+                          [value]="countMasteredRatio()">
+        </mat-progress-bar>
+
+      </app-sticky-hide-toolbar>
+
+      <!-- EXERCISE CONTENT -->
+      <div class="test-learn-exercise container" *ngIf="areSettingsSet">
+        <app-exercise *ngIf="!isTestEnd"
+                      [exerciseWithOccurrences]="currentExercise"
+                      [userIsAuthenticated]="userIsAuthenticated"
+                      [repetitionExerciseNumber]="test.testStarted?.settings.repetitionNumber"
+                      (checkClicked)="handleCheckAnswer()"
+                      (nextClicked)="handleNextAnswer()">
+        </app-exercise>
+
+        <div *ngIf="isTestEnd" class="test-end">
+          <mat-icon id="done" aria-label="Done icon">done</mat-icon>
+          <span>Congratulations, you've mastered all the exercises!</span>
+          <button mat-raised-button color="accent" (click)="openTestConfigDialog(true)">RESET TEST</button>
+          <button mat-raised-button>GO TO TEST`</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div> <!-- /TEST LEARN CONTENT -->
 
 </section>

@@ -1,31 +1,54 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
 
+#closeButton {
+  position: absolute;
+  top: -2*$margin;
+  right: 0;
+}
+
 .test-config {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 3*$margin 0;
+  margin: 2*$margin 0 $margin;
+  @include fs-small-X-normal();
   .one-setting {
     width: 100%;
-    @media #{$gt-sm_size} {
-      width: 60%;
-    }
-    @media #{$gt-md_size} {
-      width: 50%;
-    }
-    @media #{$gt-lg_size} {
-      width: 60%;
-    }
     text-align: center;
     display: flex;
     flex-direction: column;
   }
 }
 
+.test-config-buttons {
+  .config_one-button {
+    margin-top: .5*$margin;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .action-info {
+    color: $text_secondary;
+    margin-right: .5*$margin;
+  }
+}
+
 button {
-  margin-top: $margin;
   outline: none;
   @include upper-text();
+  @include fs-small-X-normal();
+}
+
+.mat-dialog-content {
+  max-height: 90vh;
+}
+
+/deep/ .mat-dialog-container {
+  //padding: 0;
+  margin: 0;
+  height: auto;
 }

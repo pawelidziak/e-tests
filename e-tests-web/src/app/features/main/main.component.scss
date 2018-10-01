@@ -43,10 +43,6 @@
   overflow-x: hidden;
 }
 
-.main-content_marginTop {
-  margin-top: 56px;
-}
-
 .my-nav {
   height: 100%;
   display: flex;
@@ -55,7 +51,8 @@
 
 .nav-header {
   padding: 0;
-  height: 67px;
+  max-height: 48px;
+  min-height: 48px;
   border-bottom: 1px solid $hover_color;
   .header-logo {
     display: flex;

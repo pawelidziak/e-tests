@@ -1,15 +1,3 @@
-import {Exercise} from './Exercise';
-import {Category} from './Category';
-
-export interface Test {
-  testId?: string;
-  testName: string;
-  exercises: Array<Exercise>;
-  section: string;
-  categories?: Array<Category>;
-  author: string;
-}
-
 export interface TestCreate {
   id?: string;
   name: string;
@@ -18,7 +6,11 @@ export interface TestCreate {
   createDate: number;
   authorId: string;
   isPublic: boolean;
-  settings?: TestSettings;
+  testStarted?: TestStarted;
+}
+
+export interface TestStarted {
+  settings: TestSettings;
   progress?: TestProgress;
 }
 

@@ -106,7 +106,7 @@ export const routeAnimations = trigger('routeAnimations', [
       ], {optional: true}
     ),
     query(':enter > *', [
-        style({transform: 'translateY(-3%)', opacity: 0, position: 'static', width: '100%'}),
+        style({transform: 'translateY(-3%)', opacity: 0, position: 'showToolbar', width: '100%'}),
         animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
       ], {optional: true}
     )

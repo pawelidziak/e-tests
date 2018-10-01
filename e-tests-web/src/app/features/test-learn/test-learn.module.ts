@@ -4,8 +4,9 @@ import {TestLearnComponent} from './test-learn.component';
 import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
 import {testLearnRouting} from './test-learn.routing';
-import {MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule,} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule} from '@angular/material';
 import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-hide-toolbar.module';
+import {TestConfigComponent} from './test-config/test-config.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,9 @@ import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-h
     MatIconModule,
     MatProgressBarModule
   ],
-  exports: [
-
-  ],
-  providers: []
+  exports: [],
+  providers: [],
+  entryComponents: [TestConfigComponent]
 })
 export class TestLearnModule {
 }
