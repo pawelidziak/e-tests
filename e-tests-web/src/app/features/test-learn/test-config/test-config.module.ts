@@ -1,5 +1,12 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatDialogModule, MatIconModule, MatMenuModule, MatSliderModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule, MatFormFieldModule,
+  MatIconModule,
+  MatMenuModule,
+  MatSelectModule,
+  MatSliderModule
+} from '@angular/material';
 import {SharedModule} from '../../../shared/shared.module';
 import {TestConfigComponent} from './test-config.component';
 
@@ -14,7 +21,8 @@ import {TestConfigComponent} from './test-config.component';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MatDialogModule
+    MatSelectModule,
+    MatFormFieldModule
   ],
   exports: [
     TestConfigComponent

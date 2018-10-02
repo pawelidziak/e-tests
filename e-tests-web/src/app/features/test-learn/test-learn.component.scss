@@ -1,6 +1,13 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
+.config-drawer-container{
+  height: 100%;
+}
+
+.config-drawer{
+  width: 305px;
+}
 .test-learn-header {
   color: $text_secondary;
   display: flex;
@@ -33,6 +40,7 @@
 
 .test-learn-exercise {
   padding-bottom: 3*$margin;
+  overflow: hidden;
 }
 
 .test-end {

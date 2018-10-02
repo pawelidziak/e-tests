@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TestSettings} from '../../../core/models/Test';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MatDrawer} from '@angular/material';
 
 export interface TestConfig {
   settings: TestSettings;
-  reset: boolean;
+  isNewTest: boolean;
 }
 
 @Component({
@@ -13,28 +13,40 @@ export interface TestConfig {
   styleUrls: ['./test-config.component.scss']
 })
 export class TestConfigComponent implements OnInit {
+  @Input() configDrawer: MatDrawer;
 
-  public toReset: boolean;
-  public occurrencesExerciseNumber = 2;
-  public repetitionExerciseNumber = 2;
 
-  constructor(public dialogRef: MatDialogRef<TestConfigComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  @Input() occurrencesExerciseNumber = 2;
+  @Output() occurrencesExerciseNumberChange = new EventEmitter();
+
+  @Input() repetitionExerciseNumber = 2;
+  @Output() repetitionExerciseNumberChange = new EventEmitter();
+
+  @Input() testIsNew: boolean;
+
+
+  @Output() saveSettings: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  public confirmReset: boolean;
+
+  constructor() {
   }
 
   ngOnInit() {
-    this.toReset = this.data.toReset;
   }
 
-  public closeDialog(resetTest: boolean): void {
-    const config: TestConfig = {
-      settings: {
-        occurrencesNumber: this.occurrencesExerciseNumber,
-        repetitionNumber: this.repetitionExerciseNumber,
-      },
-      reset: resetTest
-    };
-    this.dialogRef.close(config);
+  public closeDrawer(reset: boolean = this.testIsNew): void {
+    // const config: TestConfig = {
+    //   settings: {
+    //     occurrencesNumber: this.occurrencesExerciseNumber,
+    //     repetitionNumber: this.repetitionExerciseNumber,
+    //   },
+    //   isNewTest: reset
+    // };
+
+    this.repetitionExerciseNumberChange.emit(this.repetitionExerciseNumber);
+    this.occurrencesExerciseNumberChange.emit(this.occurrencesExerciseNumber);
+    this.saveSettings.emit(reset);
   }
 
 }

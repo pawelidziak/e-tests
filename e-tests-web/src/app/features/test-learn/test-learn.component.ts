@@ -11,6 +11,7 @@ import {HeaderService} from '../../core/services/header.service';
 import {slideFromTopAnimation} from '../../shared/animations';
 import {MatDialog} from '@angular/material';
 import {TestConfig, TestConfigComponent} from './test-config/test-config.component';
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-test',
@@ -32,6 +33,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public userIsAuthenticated: boolean;
   public testInProgress: boolean;
   public loadingStop = false;
+
+  openConfigDrawer: boolean;
+  public disableConfigDrawerClose: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -110,12 +114,15 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    */
   public checkIfTetIsStarted(): void {
     this.subscriptions.push(
-      this.testService.getTestSettings(this.testId).subscribe(
+      this.testService.getTestSettings(this.testId).pipe(take(1)).subscribe(
         (res: TestStarted) => {
           this.assignStartedTest(res);
 
+          // TODO TO SIE NIE POTRZEBNIE WYKONUJE PO ZAPISANIU CONFIGU
+          console.log('getTestSettings');
           if (!this.areSettingsSet) {
-            this.openTestConfigDialog(true);
+            this.disableConfigDrawerClose = true;
+            // this.openTestConfigDialog(true);
             this.loadingStop = true;
           } else {
             this.startTest();
@@ -155,6 +162,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * PREPARE EXERCISES TO TEST
    */
   public prepareExercises(): void {
+    console.log('prepare exercises');
     this.preparedTestExercises = [];
     for (const exercise of this.origTestExercises) {
       if (!this.isExerciseMastered(exercise.id)) {
@@ -186,6 +194,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   private drawExercise(): void {
+    console.log('drawExercise');
     if (this.preparedTestExercises.length === 1) {
       this.currentExercise = {
         exercise: this.preparedTestExercises[0].exercise,
@@ -210,6 +219,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * FUNCTIONAL
    */
   public saveProgress(): void {
+    console.log('save')
     if (this.userIsAuthenticated && this.loadingStop && this.test.testStarted &&
       (this.test.testStarted.progress.masteredExercisesIds.length > 0 ||
         this.test.testStarted.progress.reviewedExercisesIds.length > 0)) {
@@ -236,12 +246,42 @@ export class TestLearnComponent implements OnInit, OnDestroy {
       this.deleteFromReviewed(this.currentExercise);
       this.deleteFromPreparedExercises(this.currentExercise);
     }
-
   }
 
   public handleNextAnswer(): void {
     this.checkIfTestIsFinish();
     this.drawExercise();
+  }
+
+  public handleCloseConfigDrawer(reset: boolean): void {
+    // this.saveSettingsAndStartTest({
+    //   settings: {
+    //     occurrencesNumber: this.test.testStarted.settings.occurrencesNumber,
+    //     repetitionNumber: this.test.testStarted.settings.repetitionNumber,
+    //   },
+    //   progress: result.isNewTest ? {reviewedExercisesIds: [], masteredExercisesIds: []}
+    //   : this.test.testStarted.progress
+    // });
+
+    const settings: TestStarted = {
+      settings: {
+        occurrencesNumber: this.test.testStarted.settings.occurrencesNumber,
+        repetitionNumber: this.test.testStarted.settings.repetitionNumber
+      },
+      progress: reset ? {masteredExercisesIds: [], reviewedExercisesIds: []}
+        : this.test.testStarted.progress
+    };
+
+    this.test.testStarted = settings;
+
+    this.saveSettingsAndStartTest(settings);
+
+    console.log(this.test.testStarted.settings.occurrencesNumber)
+    console.log(this.test.testStarted.settings.repetitionNumber)
+    console.log(reset)
+
+    this.loadingStop = false;
+    this.openConfigDrawer = false;
   }
 
   /**
@@ -304,37 +344,37 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * CONFIG DIALOG
    */
 
-  public openTestConfigDialog(reset: boolean): void {
-    const dialogRef = this.dialog.open(TestConfigComponent, {
-      disableClose: !this.areSettingsSet,
-      data: {
-        toReset: reset
-      }
-    });
-
-    this.subscriptions.push(
-      dialogRef.afterClosed().subscribe((result: TestConfig) => {
-        if (result) {
-          this.loadingStop = false;
-          this.saveSettingsAndStartTest(this.createTestStartedSettings(result));
-        }
-      })
-    );
-  }
+  // public openTestConfigDialog(reset: boolean): void {
+  //   const dialogRef = this.dialog.open(TestConfigComponent, {
+  //     disableClose: !this.areSettingsSet,
+  //     data: {
+  //       toReset: reset
+  //     }
+  //   });
+  //
+  //   this.subscriptions.push(
+  //     dialogRef.afterClosed().subscribe((result: TestConfig) => {
+  //       if (result) {
+  //         this.loadingStop = false;
+  //         this.saveSettingsAndStartTest(this.createTestStartedSettings(result));
+  //       }
+  //     })
+  //   );
+  // }
 
   private createTestStartedSettings(config: TestConfig): TestStarted {
     return {
       settings: config.settings,
-      progress: !config.reset ? this.test.testStarted.progress : {
-        masteredExercisesIds: [],
-        reviewedExercisesIds: [],
-      },
+      progress: this.test.testStarted.progress
     };
   }
 
   public saveSettingsAndStartTest(settings: TestStarted): void {
     this.testService.setTestStarted(this.testId, settings)
-      .then(() => this.startTest())
+      .then(() => {
+        this.startTest();
+        console.log('updated')
+      })
       .catch(error => console.log(error));
   }
 
