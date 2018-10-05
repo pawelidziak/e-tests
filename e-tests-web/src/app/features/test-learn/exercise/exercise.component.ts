@@ -4,8 +4,10 @@ import {slideFromRightAnimation, slideFromBottomAnimation} from '../../../shared
 import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
 
 export enum KEY_CODE {
-  FIRST_ANSWER_KEY = 48,
-  LAST_ANSWER_KEY = 56,
+  FIRST_ANSWER_KEY = 49,
+  LAST_ANSWER_KEY = 57,
+  FIRST_ANSWER_NUMERIC_KEY = 97,
+  LAST_ANSWER_NUMERIC_KEY = 105,
   SPACE_BAR_KEY = 32,
   ENTER_KEY = 13
 }
@@ -17,7 +19,18 @@ export enum KEY_CODE {
   animations: [slideFromBottomAnimation(), slideFromRightAnimation()]
 })
 export class ExerciseComponent implements OnInit, OnChanges {
-
+  private RANDOM_CORRECT_FEEDBACK = [
+    'nice!',
+    'keep it up!',
+    'good!',
+    'you are getting better!'
+  ];
+  private RANDOM_INCORRECT_FEEDBACK = [
+    'wrong...',
+    'try harder...',
+    'repeat this...',
+    'learn it...'
+  ];
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;
   @Input() userIsAuthenticated: boolean;
@@ -31,6 +44,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   public answerLetters = [];
   public isAnswerCorrect: boolean;
   public isCheckClicked: boolean;
+  public feedbackMsg: string;
 
   constructor(private themeService: ThemeService) {
   }
@@ -60,7 +74,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     }
   }
 
-  public checkAnswers() : void{
+  public checkAnswers(): void {
     this.isCheckClicked = true;
     this.isAnswerCorrect = this.checkCorrectness();
     if (this.isAnswerCorrect) {
@@ -71,6 +85,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
       this.increaseExerciseOccurrences();
     }
     this.scrollTop();
+    this.feedbackMsg = this.drawFeedBackMessage();
     this.checkClicked.emit();
   }
 
@@ -120,6 +135,14 @@ export class ExerciseComponent implements OnInit, OnChanges {
     element.scrollIntoView({behavior: 'instant', block: 'start'});
   }
 
+  private drawFeedBackMessage(): string {
+    if (this.isAnswerCorrect) {
+      return this.RANDOM_CORRECT_FEEDBACK[Math.floor(Math.random() * this.RANDOM_CORRECT_FEEDBACK.length)];
+    } else {
+      return this.RANDOM_INCORRECT_FEEDBACK[Math.floor(Math.random() * this.RANDOM_INCORRECT_FEEDBACK.length)];
+    }
+  }
+
   /**
    *      SET STYLES
    */
@@ -133,14 +156,25 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent): void {
+    this.handleKeyboardShortcuts(event.keyCode);
+  }
+
+  private handleKeyboardShortcuts(keyCode: number) {
     if (this.userIsAuthenticated) {
-      if (!this.isCheckClicked && event.keyCode >= KEY_CODE.FIRST_ANSWER_KEY &&
-        event.keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
-        event.keyCode - 49 <= this.exerciseWithOccurrences.exercise.answers.length - 1) {
-        this.addAnswer(event.keyCode - 49);
+      if (!this.isCheckClicked) {
+        // 1, 2, ... 9
+        if (keyCode >= KEY_CODE.FIRST_ANSWER_KEY && keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
+          keyCode - KEY_CODE.FIRST_ANSWER_KEY < this.exerciseWithOccurrences.exercise.answers.length) {
+          this.addAnswer(keyCode - KEY_CODE.FIRST_ANSWER_KEY);
+        }
+        // 1, 2, ... 9 ON NUMERIC PAD
+        if (keyCode >= KEY_CODE.FIRST_ANSWER_NUMERIC_KEY && keyCode <= KEY_CODE.LAST_ANSWER_NUMERIC_KEY &&
+          keyCode - KEY_CODE.FIRST_ANSWER_NUMERIC_KEY < this.exerciseWithOccurrences.exercise.answers.length) {
+          this.addAnswer(keyCode - KEY_CODE.FIRST_ANSWER_NUMERIC_KEY);
+        }
       }
 
-      if (event.keyCode === KEY_CODE.SPACE_BAR_KEY || event.keyCode === KEY_CODE.ENTER_KEY) {
+      if (keyCode === KEY_CODE.SPACE_BAR_KEY || keyCode === KEY_CODE.ENTER_KEY) {
         if (this.isCheckClicked) {
           this.showNextExercise();
         } else {
@@ -149,5 +183,4 @@ export class ExerciseComponent implements OnInit, OnChanges {
       }
     }
   }
-
 }

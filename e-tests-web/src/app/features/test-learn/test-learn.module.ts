@@ -22,7 +22,6 @@ import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-h
     testLearnRouting,
     TestConfigModule,
     ExerciseModule,
-
     StickyHideToolbarModule,
 
     MatTooltipModule,

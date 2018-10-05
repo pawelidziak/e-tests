@@ -1,4 +1,4 @@
-export interface TestCreate {
+export interface TestModel {
   id?: string;
   name: string;
   tags: string[];
@@ -6,26 +6,25 @@ export interface TestCreate {
   createDate: number;
   authorId: string;
   isPublic: boolean;
-  testStarted?: TestStarted;
-}
-
-export interface TestStarted {
-  settings: TestSettings;
-  progress?: TestProgress;
-}
-
-export interface TestProgress {
-  masteredExercisesIds: Array<string>;
-  reviewedExercisesIds: Array<Wut>;
+  settings?: TestSettings;
 }
 
 export interface TestSettings {
+  config: TestConfig;
+  progress?: TestProgress;
+}
+
+export interface TestConfig {
   occurrencesNumber: number;
   repetitionNumber: number;
 }
 
-interface Wut {
+export interface TestProgress {
+  masteredExercisesIds: Array<string>;
+  reviewedExercisesIds: Array<ExerciseOccurrences>;
+}
 
+interface ExerciseOccurrences {
   id: string;
   occurrences: number;
 }

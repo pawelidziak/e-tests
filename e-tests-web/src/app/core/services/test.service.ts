@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TestCreate, TestProgress, TestSettings, TestStarted} from '../models/Test';
+import {TestModel, TestSettings} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
@@ -19,8 +19,10 @@ const USER_TESTS_KEY = 'user_test';
 export class TestService {
 
   private readonly TEST_PATH = 'tests';
+  private readonly USERS_PATH = 'users';
   private readonly USER_ID_FIELD = 'authorId';
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
+  private readonly STARTED_TEST_FIELD = 'startedTest';
   private currentTestId: string;
 
   constructor(private readonly afs: AngularFirestore,
@@ -29,30 +31,29 @@ export class TestService {
               private readonly router: Router) {
   }
 
-  public getTestById(testId: string): Observable<TestCreate> {
+  public getTestById(testId: string): Observable<TestModel> {
     if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
       this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
     }
     return this.cache.get(TEST_KEY);
   }
 
-  private requestTestById(testId: string): Observable<TestCreate> {
+  private requestTestById(testId: string): Observable<TestModel> {
     this.currentTestId = testId;
     this.checkIfTestExists(testId);
-    return this.afs.doc<TestCreate>(`${this.TEST_PATH}/${testId}`).valueChanges();
+    return this.afs.doc<TestModel>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
-  public getTestsByCurrentUser(): Observable<TestCreate[]> {
+  public getTestsByCurrentUser(): Observable<TestModel[]> {
     if (!this.cache.get(USER_TESTS_KEY)) {
       this.cache.set(USER_TESTS_KEY, this.requestTestsByCurrentUser().pipe(shareReplay(CACHE_SIZE)));
     }
     return this.cache.get(USER_TESTS_KEY);
-    // return this.requestTestsByCurrentUser();
   }
 
-  private requestTestsByCurrentUser(): Observable<TestCreate[]> {
+  private requestTestsByCurrentUser(): Observable<TestModel[]> {
     // first get the user tests
-    const userTest = this.afs.collection<TestCreate>(this.TEST_PATH,
+    const userTest = this.afs.collection<TestModel>(this.TEST_PATH,
       ref => ref
         .where(this.USER_ID_FIELD, '==', this.auth.currentUserId)
         .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
@@ -62,17 +63,17 @@ export class TestService {
     return userTest.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const id = a.payload.doc.id;
-        const data = a.payload.doc.data() as TestCreate;
+        const data = a.payload.doc.data() as TestModel;
         return {id, ...data};
       });
     }));
   }
 
-  public addTest(newTest: TestCreate): Promise<DocumentReference> {
+  public addTest(newTest: TestModel): Promise<DocumentReference> {
     return this.afs.collection(this.TEST_PATH).add(newTest);
   }
 
-  public updateTest(testId: string, test: TestCreate): Promise<void> {
+  public updateTest(testId: string, test: TestModel): Promise<void> {
     return this.afs.collection(this.TEST_PATH)
       .doc(testId)
       .update(test);
@@ -82,52 +83,27 @@ export class TestService {
    *  TEST SETTINGS
    */
 
-  public ifTestIsStarted(testId: string): any {
-    return this.afs.collection('users')
-      .doc(this.auth.currentUserId)
-      .collection('startedTest')
-      .doc<TestSettings>(testId)
-      .ref.get();
-
-  }
-
-  public getTestSettings(testId: string): Observable<TestStarted> {
+  public getTestSettings(testId: string): Observable<TestSettings> {
     if (!this.cache.get(TEST_SETTINGS_KEY)) {
       this.cache.set(TEST_SETTINGS_KEY, this.requestTestSettings(testId).pipe(shareReplay(CACHE_SIZE)));
     }
     return this.cache.get(TEST_SETTINGS_KEY);
   }
 
-  private requestTestSettings(testId: string): Observable<TestStarted> {
-    return this.afs.collection('users')
+  private requestTestSettings(testId: string): Observable<TestSettings> {
+    return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
-      .collection('startedTest')
-      .doc<TestStarted>(testId)
+      .collection(this.STARTED_TEST_FIELD)
+      .doc<TestSettings>(testId)
       .valueChanges();
   }
 
-  public setTestStarted(testId: string, testStarted: TestStarted): Promise<void> {
-    return this.afs.collection('users')
+  public setTestStarted(testId: string, testStarted: TestSettings): Promise<void> {
+    return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
-      .collection('startedTest')
+      .collection(this.STARTED_TEST_FIELD)
       .doc(testId)
       .set(Object.assign({}, testStarted));
-  }
-
-  public updateTestProgress(testId: string, progress: TestProgress): Promise<void> {
-    return this.afs.collection('users')
-      .doc(this.auth.currentUserId)
-      .collection('startedTest')
-      .doc(testId)
-      .update({progress: progress});
-  }
-
-  public resetTest(testId: string): Promise<void> {
-    return this.afs.collection('users')
-      .doc(this.auth.currentUserId)
-      .collection('startedTest')
-      .doc(testId)
-      .delete();
   }
 
   /**
@@ -147,19 +123,8 @@ export class TestService {
    * EXTENDED (by exclusion first element) modern version of the Fisher–Yates shuffle algorithm
    * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
    *
-   * @param array
+   * @param exercise
    */
-  public shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      if (j !== 0 && j !== 0) {
-        [array[i], array[j]] = [array[j], array[i]];
-      } else {
-        i++;
-      }
-    }
-  }
-
   public shuffleAnswers(exercise: Exercise): boolean {
     for (let i = exercise.answers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

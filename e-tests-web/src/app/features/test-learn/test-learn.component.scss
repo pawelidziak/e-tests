@@ -1,21 +1,24 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.config-drawer-container{
+button {
+  outline: none;
+  @include upper-text();
+}
+
+.config-drawer-container {
   height: 100%;
 }
 
-.config-drawer{
-  width: 305px;
+.config-drawer {
+  width: 315px;
 }
+
 .test-learn-header {
   color: $text_secondary;
   display: flex;
   justify-content: space-between;
   padding: 0;
-  button {
-    outline: none;
-  }
 }
 
 .test-learn-header_inner {
@@ -43,18 +46,27 @@
   overflow: hidden;
 }
 
-.test-end {
+// TEST END
+#done {
+  @include mat-icon-size(96px);
+  color: $material-green;
+}
+
+.test-end-header {
+  text-align: center;
+  margin: 2*$margin 0;
+
+}
+
+.test-end-action {
+  margin-top: $margin;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2*$margin;
-  span {
-    font-size: 1.5rem;
-    text-align: center;
-    margin: $margin 0;
-  }
-  #done {
-    @include mat-icon-size(96px);
-    color: $material-green;
+  .end-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

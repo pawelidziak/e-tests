@@ -6,13 +6,13 @@
                          [color]="'accent'">
 
   <div class="my-header">
-    <div class="header-logo" [routerLink]="ALL_ROUTES.DASHBOARD" cdkScrollable>
-      LOGO
-    </div>
-
     <button mat-icon-button (click)="drawer.toggle()">
       <mat-icon aria-label="Dashboard">menu</mat-icon>
     </button>
+
+    <div class="header-logo" [routerLink]="ALL_ROUTES.DASHBOARD" cdkScrollable>
+      LOGO
+    </div>
 
   </div>
 </app-sticky-hide-toolbar>

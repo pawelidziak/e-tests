@@ -4,14 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {TestService} from '../../core/services/test.service';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
-import {TestCreate, TestStarted} from '../../core/models/Test';
+import {TestModel, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
 import {HeaderService} from '../../core/services/header.service';
 import {slideFromTopAnimation} from '../../shared/animations';
-import {MatDialog} from '@angular/material';
-import {TestConfig, TestConfigComponent} from './test-config/test-config.component';
-import {take} from "rxjs/operators";
+import {TestConfigWithRestart} from './test-config/test-config.component';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-test',
@@ -21,20 +20,20 @@ import {take} from "rxjs/operators";
 })
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
-  private testId: string;
+  public testId: string;
 
   public preparedTestExercises: Array<ExerciseWithOccurrences> = [];
   public origTestExercises: Array<Exercise> = [];
-  public test: TestCreate;
+  public test: TestModel;
   public currentExercise: ExerciseWithOccurrences;
 
   public isTestEnd: boolean;
-  public areSettingsSet = false;
+  public isConfigSet = false;
   public userIsAuthenticated: boolean;
   public testInProgress: boolean;
   public loadingStop = false;
 
-  openConfigDrawer: boolean;
+  public openConfigDrawer: boolean;
   public disableConfigDrawerClose: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -43,8 +42,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
               private auth: AuthService,
               private rwdService: RWDService,
               private testService: TestService,
-              private exerciseService: TestExercisesService,
-              public dialog: MatDialog) {
+              private exerciseService: TestExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.headerService.hideHeader();
@@ -84,7 +82,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * INITIAL
    */
-
   private getTestExercises() {
     this.subscriptions.push(
       this.exerciseService.getTestExercises(this.testId).subscribe(
@@ -115,54 +112,51 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public checkIfTetIsStarted(): void {
     this.subscriptions.push(
       this.testService.getTestSettings(this.testId).pipe(take(1)).subscribe(
-        (res: TestStarted) => {
-          this.assignStartedTest(res);
-
-          // TODO TO SIE NIE POTRZEBNIE WYKONUJE PO ZAPISANIU CONFIGU
-          console.log('getTestSettings');
-          if (!this.areSettingsSet) {
-            this.disableConfigDrawerClose = true;
-            // this.openTestConfigDialog(true);
-            this.loadingStop = true;
-          } else {
-            this.startTest();
-          }
-        },
+        (res: TestSettings) => this.startTest(res),
         error => console.log(error)
       )
     );
   }
 
-  private assignStartedTest(startedTestSettings): void {
-    if (startedTestSettings) {
-      this.test.testStarted = {
-        settings: startedTestSettings.settings,
-        progress: startedTestSettings.progress
-      };
-      this.areSettingsSet = !!startedTestSettings.settings;
-      this.testInProgress = !!startedTestSettings.progress;
-    }
-  }
-
-  private startTest(): void {
-    this.checkIfTestIsFinish();
-    this.prepareExercises();
-    this.drawExercise();
-  }
-
   public checkIfTestIsFinish(): void {
     if (this.testInProgress) {
-      this.isTestEnd = this.test.testStarted.progress.masteredExercisesIds.length === this.origTestExercises.length;
+      this.isTestEnd = this.test.settings.progress.masteredExercisesIds.length === this.origTestExercises.length;
+      this.loadingStop = true;
     } else {
       this.isTestEnd = false;
     }
   }
 
+  private startTest(settings: TestSettings): void {
+    this.setTestSettings(settings);
+    if (!this.isConfigSet) {
+      this.disableConfigDrawerClose = true;
+      this.loadingStop = true;
+    } else {
+      this.checkIfTestIsFinish();
+      if (!this.isTestEnd) {
+        this.prepareExercises();
+        this.drawExercise();
+      }
+    }
+  }
+
+  private setTestSettings(startedTestSettings: TestSettings): void {
+    if (startedTestSettings) {
+      this.test.settings = {
+        config: startedTestSettings.config,
+        progress: startedTestSettings.progress
+      };
+      this.isConfigSet = !!startedTestSettings.config;
+      this.testInProgress = !!startedTestSettings.progress;
+    }
+  }
+
+
   /**
    * PREPARE EXERCISES TO TEST
    */
   public prepareExercises(): void {
-    console.log('prepare exercises');
     this.preparedTestExercises = [];
     for (const exercise of this.origTestExercises) {
       if (!this.isExerciseMastered(exercise.id)) {
@@ -178,23 +172,22 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   private addToExerciseListWithExerciseOccurrence(exercise: Exercise): void {
     this.preparedTestExercises.push({
       exercise: exercise,
-      occurrences: this.test.testStarted.progress.reviewedExercisesIds[
-        this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id)
+      occurrences: this.test.settings.progress.reviewedExercisesIds[
+        this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.id)
         ].occurrences
     });
   }
 
   private addToExerciseListWithSettingsOccurrence(exercise: Exercise): void {
-    if (this.test.testStarted.settings) {
+    if (this.test.settings.config) {
       this.preparedTestExercises.push({
         exercise: exercise,
-        occurrences: this.test.testStarted.settings.occurrencesNumber
+        occurrences: this.test.settings.config.occurrencesNumber
       });
     }
   }
 
   private drawExercise(): void {
-    console.log('drawExercise');
     if (this.preparedTestExercises.length === 1) {
       this.currentExercise = {
         exercise: this.preparedTestExercises[0].exercise,
@@ -211,7 +204,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
     if (this.currentExercise) {
       this.testService.shuffleAnswers(this.currentExercise.exercise);
-      this.loadingStop = true;
     }
   }
 
@@ -219,11 +211,8 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * FUNCTIONAL
    */
   public saveProgress(): void {
-    console.log('save')
-    if (this.userIsAuthenticated && this.loadingStop && this.test.testStarted &&
-      (this.test.testStarted.progress.masteredExercisesIds.length > 0 ||
-        this.test.testStarted.progress.reviewedExercisesIds.length > 0)) {
-      this.testService.updateTestProgress(this.testId, this.test.testStarted.progress)
+    if (this.userIsAuthenticated && this.loadingStop && this.test.settings) {
+      this.testService.setTestStarted(this.testId, this.test.settings)
         .catch(error => console.log(error));
     }
   }
@@ -253,34 +242,21 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.drawExercise();
   }
 
-  public handleCloseConfigDrawer(reset: boolean): void {
-    // this.saveSettingsAndStartTest({
-    //   settings: {
-    //     occurrencesNumber: this.test.testStarted.settings.occurrencesNumber,
-    //     repetitionNumber: this.test.testStarted.settings.repetitionNumber,
-    //   },
-    //   progress: result.isNewTest ? {reviewedExercisesIds: [], masteredExercisesIds: []}
-    //   : this.test.testStarted.progress
-    // });
-
-    const settings: TestStarted = {
-      settings: {
-        occurrencesNumber: this.test.testStarted.settings.occurrencesNumber,
-        repetitionNumber: this.test.testStarted.settings.repetitionNumber
-      },
-      progress: reset ? {masteredExercisesIds: [], reviewedExercisesIds: []}
-        : this.test.testStarted.progress
+  public handleCloseConfigDrawer(result: TestConfigWithRestart): void {
+    const settings: TestSettings = {
+      config: result.config,
+      progress: result.restartTestProgress ? {masteredExercisesIds: [], reviewedExercisesIds: []}
+        : this.test.settings.progress
     };
+    this.test.settings = settings;
 
-    this.test.testStarted = settings;
+    // reload with new config
+    this.prepareExercises();
 
-    this.saveSettingsAndStartTest(settings);
-
-    console.log(this.test.testStarted.settings.occurrencesNumber)
-    console.log(this.test.testStarted.settings.repetitionNumber)
-    console.log(reset)
-
-    this.loadingStop = false;
+    // when it's first start
+    if (!this.isConfigSet || result.restartTestProgress) {
+      this.startTest(settings);
+    }
     this.openConfigDrawer = false;
   }
 
@@ -289,11 +265,11 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    */
 
   private addToReviewed() {
-    const index = this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.id);
+    const index = this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.id);
     if (index !== -1) {
-      this.test.testStarted.progress.reviewedExercisesIds[index].occurrences = this.currentExercise.occurrences;
+      this.test.settings.progress.reviewedExercisesIds[index].occurrences = this.currentExercise.occurrences;
     } else {
-      this.test.testStarted.progress.reviewedExercisesIds.push({
+      this.test.settings.progress.reviewedExercisesIds.push({
         id: this.currentExercise.exercise.id,
         occurrences: this.currentExercise.occurrences
       });
@@ -301,12 +277,12 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   private deleteFromReviewed(exercise: ExerciseWithOccurrences) {
-    const reviewedIndex = this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
-    this.test.testStarted.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
+    const reviewedIndex = this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.id);
+    this.test.settings.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
   }
 
   private isExerciseReviewed(id: string): boolean {
-    return this.test.testStarted.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
+    return this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
   }
 
 
@@ -314,11 +290,11 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * MASTERED EXERCISE
    */
   private addToMastered(exercise: ExerciseWithOccurrences) {
-    this.test.testStarted.progress.masteredExercisesIds.push(exercise.exercise.id);
+    this.test.settings.progress.masteredExercisesIds.push(exercise.exercise.id);
   }
 
   private isExerciseMastered(id: string): boolean {
-    return this.test.testStarted.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
+    return this.test.settings.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
   }
 
   private deleteFromPreparedExercises(exercise: ExerciseWithOccurrences) {
@@ -333,49 +309,11 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    */
   public countMasteredRatio(): number {
     if (this.loadingStop) {
-      if (this.test.testStarted.progress && this.test.testStarted.progress.masteredExercisesIds.length === 0) {
+      if (this.test.settings.progress && this.test.settings.progress.masteredExercisesIds.length === 0) {
         return 0;
       }
-      return this.test.testStarted.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
+      return this.test.settings.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
     }
-  }
-
-  /**
-   * CONFIG DIALOG
-   */
-
-  // public openTestConfigDialog(reset: boolean): void {
-  //   const dialogRef = this.dialog.open(TestConfigComponent, {
-  //     disableClose: !this.areSettingsSet,
-  //     data: {
-  //       toReset: reset
-  //     }
-  //   });
-  //
-  //   this.subscriptions.push(
-  //     dialogRef.afterClosed().subscribe((result: TestConfig) => {
-  //       if (result) {
-  //         this.loadingStop = false;
-  //         this.saveSettingsAndStartTest(this.createTestStartedSettings(result));
-  //       }
-  //     })
-  //   );
-  // }
-
-  private createTestStartedSettings(config: TestConfig): TestStarted {
-    return {
-      settings: config.settings,
-      progress: this.test.testStarted.progress
-    };
-  }
-
-  public saveSettingsAndStartTest(settings: TestStarted): void {
-    this.testService.setTestStarted(this.testId, settings)
-      .then(() => {
-        this.startTest();
-        console.log('updated')
-      })
-      .catch(error => console.log(error));
   }
 
   @HostListener('window:beforeunload', ['$event'])

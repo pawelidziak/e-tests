@@ -53,7 +53,6 @@ export class ThemeService {
   }
 
   set currentTheme(value: MyTheme) {
-    console.log(value);
     this._currentTheme = value;
   }
 }

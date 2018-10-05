@@ -1,91 +1,15 @@
 <section class="section-test-config">
-  <!--<button mat-button style="height: 0; position: absolute;"></button> &lt;!&ndash; 'absorbs' the behavior &ndash;&gt;-->
 
-  <!--<button mat-icon-button id="closeButton">-->
-  <!--<mat-icon aria-label="Close">close</mat-icon>-->
-  <!--</button>-->
-
-  <!--<div class="one-setting">-->
-  <!--<span>Repetition of the exercise: <strong>{{occurrencesExerciseNumber}}</strong></span>-->
-  <!--<mat-slider-->
-  <!--[min]="1"-->
-  <!--[max]="10"-->
-  <!--[step]="1"-->
-  <!--thumbLabel-->
-  <!--[(ngModel)]="occurrencesExerciseNumber">-->
-  <!--</mat-slider>-->
-  <!--</div>-->
-
-  <!--<div class="one-setting">-->
-  <!--<span>Repetition of the exercise in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>-->
-  <!--<mat-slider-->
-  <!--[min]="0"-->
-  <!--[max]="10"-->
-  <!--[step]="1"-->
-  <!--thumbLabel-->
-  <!--[(ngModel)]="repetitionExerciseNumber">-->
-  <!--</mat-slider>-->
-  <!--</div>-->
-
-  <!--<div class="my-divider"></div>-->
-
-  <!--<div class="test-config-buttons">-->
-
-  <!--&lt;!&ndash; RESET &ndash;&gt;-->
-  <!--<div class="config_one-button">-->
-  <!--<span class="action-info" *ngIf="!testIsNew">All exercises will be loaded with new settings. <strong>Progress will NOT be saved</strong></span>-->
-  <!--<button mat-raised-button-->
-  <!--[color]="testIsNew ? 'accent' : 'warn'"-->
-  <!--[matMenuTriggerFor]="resetConfirm">-->
-  <!--<span>toReset</span>-->
-  <!--</button>-->
-
-  <!--<mat-menu #resetConfirm="matMenu" xPosition="before" yPosition="above">-->
-  <!--<ng-template matMenuContent>-->
-  <!--<button mat-menu-item (click)="closeDrawer(true)">-->
-  <!--<mat-icon aria-label="Confirm">done</mat-icon>-->
-  <!--<span>Yes</span>-->
-  <!--</button>-->
-  <!--<button mat-menu-item>-->
-  <!--<mat-icon aria-label="Cancel">cancel</mat-icon>-->
-  <!--<span>No</span>-->
-  <!--</button>-->
-  <!--</ng-template>-->
-  <!--</mat-menu>-->
-  <!--</div>-->
-
-  <!--&lt;!&ndash; SAVE &ndash;&gt;-->
-  <!--<div class="config_one-button" *ngIf="!testIsNew">-->
-  <!--<span class="action-info">-->
-  <!--New exercises will be loaded with new settings. <strong>Progress will be saved</strong>-->
-  <!--</span>-->
-  <!--<button mat-raised-button-->
-  <!--color="accent"-->
-  <!--[matMenuTriggerFor]="saveConfirm">-->
-  <!--save-->
-  <!--</button>-->
-
-  <!--<mat-menu #saveConfirm="matMenu">-->
-  <!--<ng-template matMenuContent>-->
-  <!--<button mat-menu-item (click)="closeDrawer(false)">-->
-  <!--<mat-icon aria-label="Confirm">done</mat-icon>-->
-  <!--<span>Yes</span>-->
-  <!--</button>-->
-  <!--<button mat-menu-item>-->
-  <!--<mat-icon aria-label="Cancel">cancel</mat-icon>-->
-  <!--<span>No</span>-->
-  <!--</button>-->
-  <!--</ng-template>-->
-  <!--</mat-menu>-->
-  <!--</div>-->
-  <!--</div>-->
   <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
 
-  <div class="config-header" [ngClass]="{'flex-space-end': testIsNew, 'flex-space-between': !testIsNew}">
-    <button mat-icon-button (click)="configDrawer.close()" *ngIf="!testIsNew">
+  <div class="config-header">
+    <button mat-icon-button (click)="configDrawer.close()" *ngIf="!testIsNewOrInProgress">
       <mat-icon aria-label="Close">close</mat-icon>
     </button>
-    <h3>Config</h3>
+    <button mat-icon-button (click)="backToTest()" *ngIf="testIsNewOrInProgress">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
+    <h3>Configuration</h3>
   </div>
 
   <div class="config-row">
@@ -93,7 +17,6 @@
     <div class="config-row-title">
       <h5 class="paragraph-font">Occurrences ({{occurrencesExerciseNumber}})</h5>
       <mat-slider
-        class="config-slider"
         [min]="1"
         [max]="10"
         [step]="1"
@@ -120,10 +43,37 @@
     <p class="sub-paragraph-font">Repetition of the exercise in the case of an incorrect answer.</p>
   </div>
 
+  <div style="flex: 1;" *ngIf="!isSmallScreen"></div>
+
+  <div class="config-row" *ngIf="!isSmallScreen">
+
+    <h5 class="paragraph-font">Keyboard shortcuts</h5>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>enter</code>
+        or
+        <code>space</code>
+      </span>
+      <span class="sub-paragraph-font">check/next</span>
+    </div>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>1</code>,
+        <code>2</code>,
+        <code>3</code>,
+        <code>4</code> ...
+      </span>
+      <span class="sub-paragraph-font">a/b/c/d...</span>
+    </div>
+
+  </div>
+
   <div style="flex: 1;"></div>
 
   <!-- SAVE -->
-  <div class="config-row">
+  <div class="config-row" *ngIf="!testIsEnd">
 
     <div class="config-row-title">
       <h5 class="paragraph-font">Save</h5>
@@ -134,25 +84,25 @@
       </button>
     </div>
 
-    <p class="sub-paragraph-font padding-top-12" *ngIf="!testIsNew">
-      New exercises will be loaded with new settings. <strong>Progress will be saved</strong>
+    <p class="sub-paragraph-font padding-top-12" *ngIf="!testIsNewOrInProgress">
+      New exercises will be loaded with new configuration. <strong>Progress will be saved</strong>.
     </p>
   </div>
 
-  <!-- RESET -->
-  <div class="config-row" *ngIf="!testIsNew">
+  <!-- RESTART -->
+  <div class="config-row" *ngIf="!testIsNewOrInProgress">
 
     <div class="config-row-title">
-      <h5 class="paragraph-font" *ngIf="!confirmReset">Reset</h5>
-      <h5 class="paragraph-font" *ngIf="confirmReset">Confirm reset</h5>
+      <h5 class="paragraph-font" *ngIf="!confirmRestart">Restart</h5>
+      <h5 class="paragraph-font" *ngIf="confirmRestart">Confirm restart</h5>
       <button mat-icon-button
-              *ngIf="!confirmReset"
-              [color]="testIsNew ? 'accent' : 'warn'"
-              (click)="confirmReset = true">
-        <mat-icon aria-label="Reset">refresh</mat-icon>
+              *ngIf="!confirmRestart"
+              [color]="testIsNewOrInProgress ? 'accent' : 'warn'"
+              (click)="confirmRestart = true">
+        <mat-icon aria-label="Restart">refresh</mat-icon>
       </button>
 
-      <div *ngIf="confirmReset">
+      <div *ngIf="confirmRestart">
         <button mat-icon-button
                 color="accent"
                 (click)="closeDrawer(true)">
@@ -160,43 +110,15 @@
         </button>
         <button mat-icon-button
                 color="warn"
-                (click)="confirmReset = false">
+                (click)="confirmRestart = false">
           <mat-icon aria-label="Cancel">cancel</mat-icon>
         </button>
       </div>
     </div>
 
     <p class="sub-paragraph-font padding-top-12">
-      All exercises will be loaded with new settings. <strong>Progress will NOT be saved</strong>.
+      All exercises will be loaded with new configuration. <strong>Progress will NOT be saved</strong>.
     </p>
   </div>
 
 </section> <!-- end section-test-config-->
-
-<!-- SAVE MENU -->
-<mat-menu #saveConfirm="matMenu">
-  <ng-template matMenuContent>
-    <button mat-menu-item (click)="closeDrawer()">
-      <mat-icon aria-label="Confirm">done</mat-icon>
-      <span>Yes</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon aria-label="Cancel">cancel</mat-icon>
-      <span>No</span>
-    </button>
-  </ng-template>
-</mat-menu>
-
-<!-- RESET MENU -->
-<mat-menu #resetConfirm="matMenu">
-  <ng-template matMenuContent>
-    <button mat-menu-item (click)="closeDrawer(true);  $event.stopPropagation()">
-      <mat-icon aria-label="Confirm">done</mat-icon>
-      <span>Yes</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon aria-label="Cancel">cancel</mat-icon>
-      <span>No</span>
-    </button>
-  </ng-template>
-</mat-menu>

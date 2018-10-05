@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TestCreate} from '../../core/models/Test';
+import {TestModel} from '../../core/models/Test';
 import {TestService} from '../../core/services/test.service';
 import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
@@ -20,7 +20,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   private copyTest: Exercise;
 
   public testId: string;
-  public testInfo: TestCreate;
+  public testInfo: TestModel;
   public exercises: Exercise[];
 
   constructor(private route: ActivatedRoute,

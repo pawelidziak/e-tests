@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
-import {TestCreate} from '../../core/models/Test';
+import {TestModel} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {Router} from '@angular/router';
@@ -19,7 +19,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   private testCreatedFlag = false;
 
   public checkTags = false;
-  public newTest: TestCreate;
+  public newTest: TestModel;
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,

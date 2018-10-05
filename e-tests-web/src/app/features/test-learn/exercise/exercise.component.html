@@ -32,12 +32,12 @@
   <div *ngIf="isCheckClicked" class="answer-notification" [@slideFromBottom]>
 
     <div class="answer-feedback" *ngIf="isAnswerCorrect">
-      <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
-      <span>DOBRZE!</span>
+      <mat-icon aria-label="Happy face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
+      <span [style.color]="MY_COLORS.MATERIAL_GREEN">{{feedbackMsg}}</span>
     </div>
     <div class="answer-feedback" *ngIf="!isAnswerCorrect">
       <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_dissatisfied</mat-icon>
-      <span>ŻLE</span>
+      <span [style.color]="MY_COLORS.MATERIAL_RED">{{feedbackMsg}}</span>
     </div>
 
     <div class="question">

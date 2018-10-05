@@ -1,57 +1,11 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
-//
-//#closeButton {
-//  position: absolute;
-//  top: -3*$margin;
-//  right: -$margin;
-//}
-//
-//.test-config {
-//  position: relative;
-//  display: flex;
-//  flex-direction: column;
-//  align-items: center;
-//  justify-content: center;
-//  margin: 2*$margin 0 $margin;
-//  @include fs-small-X-normal();
-//  .one-setting {
-//    width: 100%;
-//    text-align: center;
-//    display: flex;
-//    flex-direction: column;
-//  }
-//}
-//
-//.test-config-buttons {
-//  .config_one-button {
-//    margin-top: .5*$margin;
-//    display: flex;
-//    align-items: center;
-//    justify-content: flex-end;
-//  }
-//
-//  .action-info {
-//    color: $text_secondary;
-//    margin-right: .5*$margin;
-//  }
-//}
-//
+
 button {
   outline: none;
   @include upper-text();
   @include fs-small-X-normal();
 }
-
-//
-//.mat-dialog-content {
-//  max-height: 90vh;
-//}
-//
-///deep/ .mat-dialog-container {
-//  margin: 0;
-//  height: auto;
-//}
 
 .section-test-config {
   padding: 0 $margin;
@@ -62,7 +16,7 @@ button {
 
 .config-header {
   margin: 0 -24px $margin -24px;
-  padding: .5*$margin $margin .5*$margin 0;
+  padding-right: $margin;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,12 +30,14 @@ button {
   align-items: center;
 }
 
-
-// FLEX
-.flex-space-end {
-  justify-content: flex-end;
-}
-
-.flex-space-between {
+.keyboard-shortcut {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-top: .5*$margin;
+
+  .shortcut code {
+    background-color: $hover_color;
+    padding: 5px;
+  }
 }

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatBottomSheet} from '@angular/material';
 import {TestService} from '../../core/services/test.service';
-import {TestCreate} from '../../core/models/Test';
+import {TestModel} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
@@ -20,7 +20,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
   public testId: string;
-  public test: TestCreate;
+  public test: TestModel;
   public exercises: Exercise[];
   public originalExercisesLength: number;
 
