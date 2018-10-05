@@ -2,7 +2,7 @@ export interface Exercise {
   id?: string;
   question: string;
   answers: Array<string>;
-  correctAnswer: number;
+  correctAnswers: Array<number>;
   createDate: number;
 }
 

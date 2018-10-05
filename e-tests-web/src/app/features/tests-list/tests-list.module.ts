@@ -7,8 +7,7 @@ import {
   MatCardModule, MatChipsModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatProgressBarModule,
-  MatTooltipModule
+  MatInputModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 
@@ -27,9 +26,7 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatTooltipModule
+    MatCardModule
   ],
   exports: [],
   providers: []

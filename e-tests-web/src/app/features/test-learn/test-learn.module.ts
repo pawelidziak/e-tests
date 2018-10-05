@@ -7,11 +7,11 @@ import {testLearnRouting} from './test-learn.routing';
 import {
   MatButtonModule,
   MatIconModule,
-  MatMenuModule,
   MatProgressBarModule,
-  MatSlideToggleModule,
-  MatTabsModule,
+  MatSidenavModule,
+  MatTooltipModule
 } from '@angular/material';
+import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-hide-toolbar.module';
 
 @NgModule({
   declarations: [
@@ -22,17 +22,15 @@ import {
     testLearnRouting,
     TestConfigModule,
     ExerciseModule,
+    StickyHideToolbarModule,
 
-    MatTabsModule,
+    MatTooltipModule,
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
-    MatMenuModule,
-    MatSlideToggleModule
+    MatSidenavModule
   ],
-  exports: [
-
-  ],
+  exports: [],
   providers: []
 })
 export class TestLearnModule {

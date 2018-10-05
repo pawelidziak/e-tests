@@ -1,72 +1,72 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.exercise-header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 5px .5*$margin;
+button {
+  outline: none;
+  @include upper-text();
 }
 
-.exercise-content {
-  display: flex;
-  flex-direction: column;
-  margin: .5*$margin;
-  @media #{$gt-md_size} {
-    width: 70%;
-    padding-top: 2*$margin;
-    margin: auto;
-  }
+.config-drawer-container {
+  height: 100%;
 }
 
-.next-exercise {
-  margin: $margin .5*$margin 0;
-  display: flex;
-  justify-content: flex-end;
+.config-drawer {
+  width: 315px;
 }
 
-.auto-play {
-  display: flex;
-  align-items: center;
-  div {
-    margin-left: $margin;
-  }
-}
-
-.third-row {
-  margin: $margin 0;
+.test-learn-header {
+  color: $text_secondary;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 0;
 }
 
-.progress {
+.test-learn-header_inner {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.mat-progress-bar {
+  height: 3px;
+}
+
+.one-info {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  .progress-bar {
-    padding: .5*$margin 0;
-    text-align: center;
+  align-items: center;
+  margin-top: -5px;
+  .info-icon {
+    @include mat-icon-size(20px);
+    margin-top: -10px;
   }
 }
 
-.test-end {
+.test-learn-exercise {
+  padding-bottom: 3*$margin;
+  overflow: hidden;
+}
+
+// TEST END
+#done {
+  @include mat-icon-size(96px);
+  color: $material-green;
+}
+
+.test-end-header {
+  text-align: center;
+  margin: 2*$margin 0;
+
+}
+
+.test-end-action {
+  margin-top: $margin;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2*$margin;
-  span {
-    font-size: 1.5rem;
-    text-align: center;
-    margin: $margin 0;
-  }
-  #done {
-    @include mat-icon-size(96px);
-    color: $material-green;
+  .end-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
-
-///deep/ .mat-tab-label {
-//  min-width: 48px !important;
-//  max-width: 48px !important;
-//}
-

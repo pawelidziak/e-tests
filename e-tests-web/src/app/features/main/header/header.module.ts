@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared/shared.module';
-import {MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatDividerModule, MatIconModule, MatMenuModule} from '@angular/material';
 import {HeaderComponent} from './header.component';
+import {StickyHideToolbarModule} from '../../../shared/sticky-hide-toolbar/sticky-hide-toolbar.module';
 
 @NgModule({
   declarations: [
@@ -10,10 +11,12 @@ import {HeaderComponent} from './header.component';
   imports: [
     SharedModule,
 
-    MatToolbarModule,
+    StickyHideToolbarModule,
+
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   exports: [
     HeaderComponent

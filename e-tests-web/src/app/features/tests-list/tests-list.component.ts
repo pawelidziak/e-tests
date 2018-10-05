@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService} from '../../core/services/header.service';
 import {Router} from '@angular/router';
 import {TestService} from '../../core/services/test.service';
-import {TestCreate} from '../../core/models/Test';
+import {TestModel} from '../../core/models/Test';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {listAnimation} from '../../shared/animations';
 
@@ -16,7 +16,7 @@ export class TestsListComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
   public searchText: string;
-  public testList: Array<TestCreate>;
+  public testList: Array<TestModel>;
 
   constructor(private headerService: HeaderService,
               private router: Router,

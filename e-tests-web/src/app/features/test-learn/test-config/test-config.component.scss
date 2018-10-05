@@ -1,21 +1,43 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
 
-.test-config {
+button {
+  outline: none;
+  @include upper-text();
+  @include fs-small-X-normal();
+}
+
+.section-test-config {
+  padding: 0 $margin;
+  height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.config-header {
+  margin: 0 -24px $margin -24px;
+  padding-right: $margin;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  height: calc(100% - 52px); // - header
-  margin: 0 $margin;
-  .one-setting {
-    width: 100%;
-    @media #{$gt-md_size} {
-      width: 50%;
-    }
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: .5*$margin 0;
+  border-bottom: 1px solid $hover_color;
+  color: $text_secondary;
+}
+
+.config-row-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.keyboard-shortcut {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: .5*$margin;
+
+  .shortcut code {
+    background-color: $hover_color;
+    padding: 5px;
   }
 }

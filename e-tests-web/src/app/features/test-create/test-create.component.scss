@@ -22,9 +22,6 @@ button {
   justify-content: center;
   align-items: center;
 
-  .icon {
-    @include mat-icon-size(120px);
-  }
   .message {
     margin: $margin .5*$margin;
     color: $text_secondary;

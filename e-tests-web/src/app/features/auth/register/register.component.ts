@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatTabGroup} from '@angular/material';
+import {slideFromRightAnimation, slideFromTopAnimation} from '../../../shared/animations';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  animations: [slideFromRightAnimation(), slideFromTopAnimation()]
 })
 export class RegisterComponent implements OnInit {
 
@@ -45,18 +47,24 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // show some loader
+    // TODO show some loader
     this.auth.emailPasswordRegister(this.displayName.value, this.email.value, this.password.value)
-      .then(res => {
+      .then(() => {
         this.matTabGrp.realignInkBar();
         this.responseMsg = 'Verification email has been sent';
         this.errorMsg = '';
+        this.scrollTop();
       })
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;
         this.responseMsg = '';
+        this.scrollTop();
       });
+  }
 
+  public scrollTop(): void {
+    const element = document.querySelector('#registerContainer');
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }

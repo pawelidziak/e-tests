@@ -1,6 +1,6 @@
 <section *ngIf="test && exercises" id="testInfoSection">
 
-  <mat-card [@fadeInAnimation]>
+  <mat-card [@slideFromTop]>
     <div class="container test-info-container">
 
       <div class="left-side">
@@ -23,7 +23,10 @@
       </div>
 
       <div class="right-side">
-        <button mat-raised-button #learn color="accent" [disabled]="originalExercisesLength === 0">
+        <button mat-raised-button
+                (click)="navigateToLearn()"
+                color="accent"
+                [disabled]="originalExercisesLength === 0">
           <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
@@ -43,10 +46,9 @@
     </div>
   </mat-card>
 
-  <div class="container">
+  <div class="container" style="padding: 0">
     <app-display-exercises [exerciseList]="exercises"
                            [testId]="testId"
-                           [learnButton]="learn"
                            [authorId]="test.authorId">
     </app-display-exercises>
   </div>

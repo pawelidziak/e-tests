@@ -1,0 +1,24 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.sticky-hide-toolbar {
+  padding: 0;
+  button {
+    outline: none;
+  }
+  z-index: 9;
+  @include fs-small-X-normal();
+}
+
+.sticky-bottom {
+  bottom: 0;
+}
+
+.box-shadow {
+  @include box_shadow;
+}
+
+.sticky-top {
+  position: absolute;
+  top: 0;
+}

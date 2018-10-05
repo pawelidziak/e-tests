@@ -3,11 +3,13 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatDialogRef, MatTabGroup} from '@angular/material';
 import {AuthComponent} from '../auth.component';
+import {slideFromRightAnimation, slideFromTopAnimation} from '../../../shared/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [slideFromRightAnimation(), slideFromTopAnimation()]
 })
 export class LoginComponent implements OnInit {
 
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
   public rememberMe = new FormControl(true);
 
   public forgotEmail = new FormControl('', [Validators.required, Validators.email]);
+  public showForgotPassword: boolean;
 
   constructor(private auth: AuthService) {
   }
@@ -52,6 +55,7 @@ export class LoginComponent implements OnInit {
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;
+        this.scrollTop();
       });
   }
 
@@ -65,11 +69,18 @@ export class LoginComponent implements OnInit {
         this.matTabGrp.realignInkBar();
         this.responseMsg = 'Instructions have been sent to the email.';
         this.errorMsg = '';
+        this.scrollTop();
       })
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;
         this.responseMsg = '';
+        this.scrollTop();
       });
+  }
+
+  public scrollTop(): void {
+    const element = document.querySelector('#loginContainer');
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }

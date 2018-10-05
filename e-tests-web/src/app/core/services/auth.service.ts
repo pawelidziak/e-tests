@@ -45,10 +45,11 @@ export class AuthService {
 
   // Logout
   public signOut() {
-    this.afAuth.auth.signOut()
-      .then(() => this.router.navigate([ALL_ROUTES.DASHBOARD]))
-      .catch(error => console.log(error));
-
+    this.router.navigate([ALL_ROUTES.DASHBOARD])
+      .then(() => {
+        this.afAuth.auth.signOut()
+          .catch(error => console.log(error));
+      });
   }
 
   // Email password register / login
@@ -92,7 +93,7 @@ export class AuthService {
     });
   }
 
-  // Sends email allowing user to reset password
+  // Sends email allowing user to toReset password
   public resetPassword(email: string) {
     const auth = this.afAuth.auth;
     return auth.sendPasswordResetEmail(email)

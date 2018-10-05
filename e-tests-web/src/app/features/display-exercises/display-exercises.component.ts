@@ -1,8 +1,10 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
-import {listAnimation} from '../../shared/animations';
+import {listAnimation, slideFromTopAnimation} from '../../shared/animations';
 import {ScrollService} from '../../core/services/scroll.service';
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {Router} from '@angular/router';
 
 interface SortOption {
   value: string;
@@ -18,7 +20,7 @@ enum sortOptionValue {
   selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
   styleUrls: ['./display-exercises.component.scss'],
-  animations: [listAnimation()]
+  animations: [listAnimation(), slideFromTopAnimation()]
 })
 export class DisplayExercisesComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -27,7 +29,6 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   @Input() readonly authorId: string;
   @Input() readonly editExercisesMode = false;
   @Input() readonly testId: string;
-  @Input() readonly learnButton: any;
   @ViewChild('startList') startList: ElementRef;
 
   public readonly lastExerciseId = 'lastExercise';
@@ -38,8 +39,9 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   public expandAllExercises = false;
   public fixedAddButton = false;
 
-  constructor(public auth: AuthService,
-              private scrollService: ScrollService) {
+  constructor(private scrollService: ScrollService,
+              public auth: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -66,7 +68,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   private checkScrollPos(): void {
     this.subscriptions.push(
       this.scrollService.scrollPosition.subscribe(
-        res => this.fixedAddButton = this.startList && res >= this.startList.nativeElement.offsetTop - 40
+        res => this.fixedAddButton = this.startList && res.offsetTop >= this.startList.nativeElement.offsetTop - 40
       )
     );
   }
@@ -77,7 +79,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
 
   public changeSortOption(): void {
     // TODO
-    // switch (this.selectedOption.value) {
+    // switch (this.selectedOption.name) {
     //   case sortOptionValue.ORIGINAL :
     //     this.exerciseList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
     //     break;
@@ -97,7 +99,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
       const newExercise: Exercise = {
         question: '',
         answers: ['', ''],
-        correctAnswer: 0,
+        correctAnswers: [],
         createDate: new Date().getTime()
       };
       this.exerciseList.push(newExercise);
@@ -126,4 +128,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
    */
   public identifier = (index: number, item: Exercise) => item.createDate;
 
+  public navigateToLearn(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
+  }
 }

@@ -1,26 +1,124 @@
-<section class="test-config">
-  <div class="one-setting">
-    <span>The number of task occurrence: <strong>{{occurrencesExerciseNumber}}</strong></span>
-    <mat-slider
-      [min]="1"
-      [max]="10"
-      [step]="1"
-      thumbLabel
-      [(ngModel)]="occurrencesExerciseNumber">
-    </mat-slider>
+<section class="section-test-config">
+
+  <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+  <div class="config-header">
+    <button mat-icon-button (click)="configDrawer.close()" *ngIf="!testIsNewOrInProgress">
+      <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+    <button mat-icon-button (click)="backToTest()" *ngIf="testIsNewOrInProgress">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
+    <h3>Configuration</h3>
   </div>
 
-  <div class="one-setting">
-    <span>The number of repetitions in the case of an incorrect answer: <strong>{{repetitionExerciseNumber}}</strong></span>
-    <mat-slider
-      [min]="0"
-      [max]="10"
-      [step]="1"
-      thumbLabel
-      [(ngModel)]="repetitionExerciseNumber">
-    </mat-slider>
+  <div class="config-row">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font">Occurrences ({{occurrencesExerciseNumber}})</h5>
+      <mat-slider
+        [min]="1"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="occurrencesExerciseNumber">
+      </mat-slider>
+    </div>
+
+    <p class="sub-paragraph-font">Occurrences number of a single exercise.</p>
+  </div>
+  <div class="config-row">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font">Repetitions ({{repetitionExerciseNumber}})</h5>
+      <mat-slider
+        [min]="0"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="repetitionExerciseNumber">
+      </mat-slider>
+    </div>
+
+    <p class="sub-paragraph-font">Repetition of the exercise in the case of an incorrect answer.</p>
   </div>
 
-  <button mat-raised-button color="accent" (click)="startTest()">START TEST</button>
+  <div style="flex: 1;" *ngIf="!isSmallScreen"></div>
 
-</section> <!-- end SETTINGS-->
+  <div class="config-row" *ngIf="!isSmallScreen">
+
+    <h5 class="paragraph-font">Keyboard shortcuts</h5>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>enter</code>
+        or
+        <code>space</code>
+      </span>
+      <span class="sub-paragraph-font">check/next</span>
+    </div>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>1</code>,
+        <code>2</code>,
+        <code>3</code>,
+        <code>4</code> ...
+      </span>
+      <span class="sub-paragraph-font">a/b/c/d...</span>
+    </div>
+
+  </div>
+
+  <div style="flex: 1;"></div>
+
+  <!-- SAVE -->
+  <div class="config-row" *ngIf="!testIsEnd">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font">Save</h5>
+      <button mat-icon-button
+              color="accent"
+              (click)="closeDrawer()">
+        <mat-icon aria-label="Save">save</mat-icon>
+      </button>
+    </div>
+
+    <p class="sub-paragraph-font padding-top-12" *ngIf="!testIsNewOrInProgress">
+      New exercises will be loaded with new configuration. <strong>Progress will be saved</strong>.
+    </p>
+  </div>
+
+  <!-- RESTART -->
+  <div class="config-row" *ngIf="!testIsNewOrInProgress">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font" *ngIf="!confirmRestart">Restart</h5>
+      <h5 class="paragraph-font" *ngIf="confirmRestart">Confirm restart</h5>
+      <button mat-icon-button
+              *ngIf="!confirmRestart"
+              [color]="testIsNewOrInProgress ? 'accent' : 'warn'"
+              (click)="confirmRestart = true">
+        <mat-icon aria-label="Restart">refresh</mat-icon>
+      </button>
+
+      <div *ngIf="confirmRestart">
+        <button mat-icon-button
+                color="accent"
+                (click)="closeDrawer(true)">
+          <mat-icon aria-label="Confirm">done</mat-icon>
+        </button>
+        <button mat-icon-button
+                color="warn"
+                (click)="confirmRestart = false">
+          <mat-icon aria-label="Cancel">cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <p class="sub-paragraph-font padding-top-12">
+      All exercises will be loaded with new configuration. <strong>Progress will NOT be saved</strong>.
+    </p>
+  </div>
+
+</section> <!-- end section-test-config-->

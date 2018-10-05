@@ -42,7 +42,7 @@ export class TestTagsComponent implements OnInit, OnChanges {
       this.testTags.push(tag.trim());
       this.testTagsChange.emit(this.testTags);
     }
-    // Reset the input value
+    // Reset the input name
     if (input) {
       input.value = '';
     }

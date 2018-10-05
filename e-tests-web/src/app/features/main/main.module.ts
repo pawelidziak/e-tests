@@ -3,11 +3,10 @@ import {MainComponent} from './main.component';
 import {SharedModule} from '../../shared/shared.module';
 import {
   MatButtonModule,
-  MatDialogModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {AppSettingsComponent} from '../app-settings/app-settings.component';
 import {AppSettingsModule} from '../app-settings/app-settings.module';
@@ -28,12 +27,12 @@ import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
     ScrollDispatchModule,
 
-    MatDialogModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   exports: [
     MainComponent

@@ -2,34 +2,27 @@
 @import '../../../shared/mixins';
 
 .my-header {
+  padding: 0 .5*$margin;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  padding: 0;
-  overflow: hidden;
-  //@include box_shadow;
-  border-bottom: 1px solid $hover_color;
-  @media #{$gt-xs_size} {
-    padding: 16px;
-  }
-  button {
-    outline: none;
-  }
-}
-
-.header-text {
-  margin-left: .5*$margin;
-}
-
-.left, .right {
-  display: flex;
   align-items: center;
+  width: 100%;
 }
 
-.login-button {
+#noAuthButton {
   @include upper-text();
+  outline: none;
+}
+
+.header-logo {
+
+}
+
+.header-actions {
+  opacity: 0.7;
+
+}
+
+.mat-menu-item, button {
+  outline: none;
 }

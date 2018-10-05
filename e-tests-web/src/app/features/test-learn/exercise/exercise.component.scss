@@ -7,6 +7,10 @@
   padding: 2*$margin $margin;
 }
 
+.question-big_padding {
+  padding: 4*$margin $margin;
+}
+
 .answers-grid {
   display: flex;
   flex-wrap: wrap;
@@ -14,51 +18,116 @@
   @media #{$gt-md_size} {
     flex-direction: row;
   }
+  /deep/ .mat-button-wrapper {
+    padding-left: .5*$margin;
+  }
 }
 
-.one-answer {
+.one-answer-button {
   display: flex;
   align-items: center;
-  margin: 5px;
+  padding: .5*$margin;
+  margin-bottom: .5*$margin;
+  @include fs-small-X-normal();
   @media #{$gt-md_size} {
-    margin: .5*$margin;
-    flex-basis: calc(50% - 24px);
-    -webkit-flex-basis: calc(50% - 24px); /* Safari 6.1+ */
+    &:nth-child(odd) {
+      margin-right: .5*$margin;
+      flex-basis: calc(50% - 12px);
+      -webkit-flex-basis: calc(50% - 12px); /* Safari 6.1+ */
+    }
+    flex-basis: calc(50%);
+    -webkit-flex-basis: calc(50%); /* Safari 6.1+ */
   }
-  padding: 20px;
   line-height: normal;
   text-align: left;
-  min-height: 72px;
-  font-size: $font-normal;
-}
-
-// angular material class
-.mat-button-wrapper {
-  text-justify: inter-word;
+  min-height: 3*$margin;
   white-space: normal;
-  width: 100%;
+  text-justify: inter-word;
+  outline: none;
 }
 
-.answer-text {
-  margin: .5*$margin 0 .5*$margin $margin;
-}
-
-.answer-number {
-  color: $accent;
+.answer-letter-button {
   position: absolute;
   left: 3px;
   top: 3px;
 }
 
-.answer-number_clicked {
-  color: white;
+.answer-selected {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
+.answer-notification {
+  @include fs-small-X-normal();
+}
 
+.answer-feedback {
+  padding: $margin 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $hover_color;
+  @include upper-text();
+  .feedback-icon {
+    color: $text_secondary;
+    @include mat-icon-size(72px);
+    margin-right: $margin;
+  }
+}
 
+.answers-container {
+  padding: $margin 0;
+  border-bottom: 1px solid $hover_color;
+  &:last-child {
+    border-bottom: none;
+  }
+  .answer-title {
+    @include upper-text();
+  }
+}
 
+.one-answer {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5*$margin;
+  .answer-letter {
+    margin-right: .5*$margin;
+    @media #{$gt-md_size} {
+      margin-right: $margin;
+    }
+  }
+}
 
-
-
-
-
+.exercise-check-next {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  @media #{$gt-xs_size} {
+    padding: 0 15px;
+  }
+  @media #{$gt-md_size} {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    bottom: $margin;
+  }
+  @media #{$gt-lg_size} {
+    left: 250px;
+    bottom: 2*$margin;
+  }
+  button {
+    height: 48px;
+    width: 100%;
+    @media #{$gt-md_size} {
+      width: 25%;
+    }
+    @include upper-text($font-small);
+    /deep/ .mat-button-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

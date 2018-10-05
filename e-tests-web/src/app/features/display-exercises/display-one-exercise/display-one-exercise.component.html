@@ -37,13 +37,16 @@
 
       <!-- NO EDITABLE ANSWER -->
       <div *ngIf="!editMode" class="no-editable-answer">
-        <span [ngClass]="{'correct-answer': exercise.correctAnswer === j}">{{getLetterFromAscii(j)}}</span>
+        <span [ngClass]="{'correct-answer': checkIfIsCorrect(j)}">{{getLetterFromAscii(j)}}</span>
         <span class="answer-text">{{answer}}</span>
       </div>
 
       <!-- EDITABLE ANSWER -->
       <div *ngIf="editMode" class="editable-answer">
-        <mat-checkbox [ngModel]="exercise.correctAnswer === j"
+        <mat-checkbox #matCheck
+                      matTooltip="Correct"
+                      [checked]="checkIfIsCorrect(j)"
+                      (change)="changeCorrectAnswer(j, matCheck.checked)"
                       class="answer-checkbox"></mat-checkbox>
 
         <mat-form-field color="accent"

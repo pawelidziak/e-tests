@@ -1,95 +1,114 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
-import {sliderAnimation} from '../../../shared/animations';
+import {slideFromRightAnimation, slideFromBottomAnimation} from '../../../shared/animations';
+import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
+
+export enum KEY_CODE {
+  FIRST_ANSWER_KEY = 49,
+  LAST_ANSWER_KEY = 57,
+  FIRST_ANSWER_NUMERIC_KEY = 97,
+  LAST_ANSWER_NUMERIC_KEY = 105,
+  SPACE_BAR_KEY = 32,
+  ENTER_KEY = 13
+}
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
-  animations: [sliderAnimation()]
+  animations: [slideFromBottomAnimation(), slideFromRightAnimation()]
 })
 export class ExerciseComponent implements OnInit, OnChanges {
-
+  private RANDOM_CORRECT_FEEDBACK = [
+    'nice!',
+    'keep it up!',
+    'good!',
+    'you are getting better!'
+  ];
+  private RANDOM_INCORRECT_FEEDBACK = [
+    'wrong...',
+    'try harder...',
+    'repeat this...',
+    'learn it...'
+  ];
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;
-  @Output() answerClicked: EventEmitter<ExerciseWithOccurrences> = new EventEmitter();
+  @Input() userIsAuthenticated: boolean;
+  @Output() checkClicked: EventEmitter<void> = new EventEmitter();
+  @Output() nextClicked: EventEmitter<void> = new EventEmitter();
 
-  public isAnswerClicked: boolean;
+  public MY_COLORS = MY_COLORS;
+  public accentColor: string;
+
+  public clickedAnswersIndexes: Array<number> = [];
   public answerLetters = [];
-  public thingState: string;
+  public isAnswerCorrect: boolean;
+  public isCheckClicked: boolean;
+  public feedbackMsg: string;
 
-  private defaultButtonStyle: any;
-
-  constructor() {
-    this.thingState = 'moveFromRight';
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
-    this.fillAnswerLetterArray();
-    this.defaultButtonStyle = (<HTMLInputElement>document.getElementById('answer-button-0'));
+    this.accentColor = this.themeService.currentTheme.accent;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.resetViewStyle();
-    if (changes.exerciseWithOccurrences.previousValue) {
-      this.animateThing();
-    }
-  }
-
-  /**
-   *      ANIMATION METHODS
-   */
-  public animateThing(): void {
-    this.thingState = (this.thingState === 'stay') ? 'moveToLeft' : 'moveFromRight';
-  }
-
-  public handleDone(event: any): void {
-    if (this.thingState === 'moveToLeft') {
-      this.thingState = 'moveFromRight';
-    }
-    if ((this.thingState !== 'stay') && (this.thingState === event.toState)) {
-      this.thingState = 'stay';
-    }
+    this.clickedAnswersIndexes = [];
+    this.fillAnswerLetterArray();
   }
 
   /**
    *      LOGIC
    */
-
-  public checkAnswer(answerIndex: number): void {
+  public addAnswer(answerIndex: number): void {
+    const indexInArray = this.clickedAnswersIndexes.findIndex(x => x === answerIndex);
     const selectedButton = (<HTMLInputElement>document.getElementById('answer-button-' + answerIndex));
-    const correctButton = (<HTMLInputElement>document.getElementById('answer-button-' + this.exerciseWithOccurrences.exercise.correctAnswer));
 
-    if (this.isAnswerCorrect(answerIndex)) {
-      this.setCorrectStyle(selectedButton);
+    if (indexInArray === -1) {
+      this.clickedAnswersIndexes.push(answerIndex);
+      this.setSelectedStyle(selectedButton);
+    } else {
+      this.clickedAnswersIndexes.splice(indexInArray, 1);
+      this.setDefaultStyle(selectedButton);
+    }
+  }
+
+  public checkAnswers(): void {
+    this.isCheckClicked = true;
+    this.isAnswerCorrect = this.checkCorrectness();
+    if (this.isAnswerCorrect) {
       if (this.exerciseWithOccurrences.occurrences > 0) {
         this.decreaseExerciseOccurrences();
       }
     } else {
-      this.setIncorrectStyle(selectedButton);
-      this.setCorrectStyle(correctButton);
       this.increaseExerciseOccurrences();
     }
-    this.answerClicked.emit(this.exerciseWithOccurrences);
-    this.isAnswerClicked = true;
+    this.scrollTop();
+    this.feedbackMsg = this.drawFeedBackMessage();
+    this.checkClicked.emit();
   }
 
-  private resetViewStyle() {
-    for (let i = 0; i < this.exerciseWithOccurrences.exercise.answers.length; i++) {
-      const button = (<HTMLInputElement>document.getElementById('answer-button-' + i));
-      if (button) {
-        this.setDefaultStyle(button);
-      }
-    }
-    this.isAnswerClicked = false;
+  public showNextExercise(): void {
+    this.isCheckClicked = false;
+    this.nextClicked.emit();
+    this.scrollTop();
   }
 
   /**
    *      AUXILIARY METHODS
    */
-
-  private isAnswerCorrect(answerIndex: number): boolean {
-    return answerIndex === this.exerciseWithOccurrences.exercise.correctAnswer;
+  private checkCorrectness(): boolean {
+    if (this.clickedAnswersIndexes.length !== this.exerciseWithOccurrences.exercise.correctAnswers.length) {
+      return false;
+    }
+    for (const answer of this.clickedAnswersIndexes) {
+      const index = this.exerciseWithOccurrences.exercise.correctAnswers.findIndex(x => x === answer);
+      if (index === -1) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private increaseExerciseOccurrences(): void {
@@ -101,24 +120,67 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   private fillAnswerLetterArray(): void {
+    this.answerLetters = [];
     for (let i = 65; i <= 65 + this.exerciseWithOccurrences.exercise.answers.length; i++) {
       this.answerLetters.push(String.fromCharCode(i));
+    }
+  }
+
+  public checkIfAnswerIsSelected(answerIndex: number): boolean {
+    return this.clickedAnswersIndexes.findIndex(x => x === answerIndex) !== -1;
+  }
+
+  public scrollTop(): void {
+    const element = document.querySelector('#testLearnSection') || document.querySelector('#testEditSection');
+    element.scrollIntoView({behavior: 'instant', block: 'start'});
+  }
+
+  private drawFeedBackMessage(): string {
+    if (this.isAnswerCorrect) {
+      return this.RANDOM_CORRECT_FEEDBACK[Math.floor(Math.random() * this.RANDOM_CORRECT_FEEDBACK.length)];
+    } else {
+      return this.RANDOM_INCORRECT_FEEDBACK[Math.floor(Math.random() * this.RANDOM_INCORRECT_FEEDBACK.length)];
     }
   }
 
   /**
    *      SET STYLES
    */
-  private setCorrectStyle(button: any): void {
-    button.style.backgroundColor = '#4CAF50';
-    button.style.color = '#FAFAFA';
-  }
-
-  private setIncorrectStyle(button: any): void {
-    button.style.backgroundColor = '#F44336';
+  private setSelectedStyle(button: any): void {
+    button.style.borderBottom = `3px solid ${this.accentColor}`;
   }
 
   private setDefaultStyle(button: any): void {
-    button.style = this.defaultButtonStyle;
+    button.style = (<HTMLInputElement>document.getElementById('answer-button-0'));
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent): void {
+    this.handleKeyboardShortcuts(event.keyCode);
+  }
+
+  private handleKeyboardShortcuts(keyCode: number) {
+    if (this.userIsAuthenticated) {
+      if (!this.isCheckClicked) {
+        // 1, 2, ... 9
+        if (keyCode >= KEY_CODE.FIRST_ANSWER_KEY && keyCode <= KEY_CODE.LAST_ANSWER_KEY &&
+          keyCode - KEY_CODE.FIRST_ANSWER_KEY < this.exerciseWithOccurrences.exercise.answers.length) {
+          this.addAnswer(keyCode - KEY_CODE.FIRST_ANSWER_KEY);
+        }
+        // 1, 2, ... 9 ON NUMERIC PAD
+        if (keyCode >= KEY_CODE.FIRST_ANSWER_NUMERIC_KEY && keyCode <= KEY_CODE.LAST_ANSWER_NUMERIC_KEY &&
+          keyCode - KEY_CODE.FIRST_ANSWER_NUMERIC_KEY < this.exerciseWithOccurrences.exercise.answers.length) {
+          this.addAnswer(keyCode - KEY_CODE.FIRST_ANSWER_NUMERIC_KEY);
+        }
+      }
+
+      if (keyCode === KEY_CODE.SPACE_BAR_KEY || keyCode === KEY_CODE.ENTER_KEY) {
+        if (this.isCheckClicked) {
+          this.showNextExercise();
+        } else {
+          this.checkAnswers();
+        }
+      }
+    }
   }
 }

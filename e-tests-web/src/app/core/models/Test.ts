@@ -1,26 +1,4 @@
-import {Exercise} from './Exercise';
-import {Category} from './Category';
-
-export interface Test {
-  testId?: string;
-  testName: string;
-  exercises: Array<Exercise>;
-  section: string;
-  categories?: Array<Category>;
-  author: string;
-}
-
-export interface NEWTest {
-  testId?: string;
-  testName: string;
-  tags: Array<String>;
-  desc: string;
-  author: string;
-  createDate: Date;
-  updateDate?: Date;
-}
-
-export interface TestCreate {
+export interface TestModel {
   id?: string;
   name: string;
   tags: string[];
@@ -28,9 +6,25 @@ export interface TestCreate {
   createDate: number;
   authorId: string;
   isPublic: boolean;
+  settings?: TestSettings;
 }
 
-export interface FirebaseTimestamp {
-  nanoseconds: number;
-  seconds: number;
+export interface TestSettings {
+  config: TestConfig;
+  progress?: TestProgress;
+}
+
+export interface TestConfig {
+  occurrencesNumber: number;
+  repetitionNumber: number;
+}
+
+export interface TestProgress {
+  masteredExercisesIds: Array<string>;
+  reviewedExercisesIds: Array<ExerciseOccurrences>;
+}
+
+interface ExerciseOccurrences {
+  id: string;
+  occurrences: number;
 }
