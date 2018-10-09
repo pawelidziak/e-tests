@@ -9,6 +9,7 @@ import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {slideFromTopAnimation} from '../../shared/animations';
+import {HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-test-info',
@@ -29,6 +30,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
               private testService: TestService,
               private exercisesService: TestExercisesService,
               private bottomSheet: MatBottomSheet,
+              private headerService: HeaderService,
               public auth: AuthService) {
 
     this.subscriptions.push(
@@ -50,7 +52,10 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   private getTest() {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
-        res => this.test = res,
+        res => {
+          this.test = res;
+          this.headerService.setCurrentRoute(['home', 'tests']);
+        },
         error => console.log(error)
       )
     );

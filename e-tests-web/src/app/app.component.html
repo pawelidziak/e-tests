@@ -1,1 +1,68 @@
-<app-main></app-main>
+<app-header [height]="headerHeight"
+            [drawer]="drawer">
+</app-header>
+
+<mat-sidenav-container [hasBackdrop]="false">
+  <mat-sidenav #drawer
+               class="app-sidenav"
+               [opened]="!isSmallScreen"
+               [mode]="!isSmallScreen ? 'side' : 'over'"
+               [fixedInViewport]="true"
+               [fixedTopGap]="headerHeight">
+
+    <nav class="my-nav">
+
+      <div class="logo" style="height: 96px">
+        LOGO
+      </div>
+
+      <div class="loading" *ngIf="!isUserLoaded">Loading...</div>
+
+
+      <!-- NAV LIST -->
+      <mat-list role="list" class="my-sidenav-list" *ngIf="isUserLoaded">
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>General</h3>
+        <mat-list-item *ngFor="let link of generalLinks"
+                       role="listitem"
+                       [routerLink]="link.path"
+                       class="list-item"
+                       (click)="closeDrawer(drawer)">
+          <mat-icon matListIcon>{{link.icon}}</mat-icon>
+          <h3 matLine>{{link.label}}</h3>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <!-- YOURS -->
+        <h3 mat-subheader>Yours</h3>
+        <mat-list-item *ngFor="let link of privateLinks"
+                       [routerLink]="link.path"
+                       class="list-item" (click)="closeDrawer(drawer)">
+          <mat-icon matListIcon>{{link.icon}}</mat-icon>
+          <h3 matLine>{{link.label}}</h3>
+        </mat-list-item>
+
+        <div style="flex: 1"></div>
+
+        <div class="contact-settings">
+          <div class="list-item other-element" matTooltip="About">
+            <mat-icon aria-label="About">info</mat-icon>
+          </div>
+          <div class="list-item other-element" matTooltip="Download">
+            <mat-icon aria-label="Download">cloud_download</mat-icon>
+          </div>
+        </div>
+
+      </mat-list>
+    </nav> <!-- /my-nav -->
+  </mat-sidenav>
+
+  <main class="main-container">
+    <app-page-header [height]="headerHeight"></app-page-header>
+
+    <!--<div [@routerTransition]="o.isActivated ? o.activatedRoute : ''">-->
+    <router-outlet #o="outlet"></router-outlet>
+    <!--</div>-->
+  </main>
+</mat-sidenav-container>

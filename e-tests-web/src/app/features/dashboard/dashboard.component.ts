@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HeaderService} from '../../core/services/header.service';
 import {RWDService} from '../../core/services/RWD.service';
 
 @Component({
@@ -19,13 +18,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {path: '/d', label: 'About', icon: 'contact_support'}
   ];
 
-  constructor(private headerService: HeaderService,
-              private rwdService: RWDService) {
+  constructor(private rwdService: RWDService) {
   }
 
   ngOnInit() {
     this.getRWDValue();
-    this.headerService.setHeaderText('Dashboard');
   }
 
   ngOnDestroy() {

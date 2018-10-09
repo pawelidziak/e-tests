@@ -5,9 +5,12 @@ import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
 
 import {SpinnerModule} from './shared/spinner/spinner.module';
-import {MainModule} from './features/main/main.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
+import {MatIconModule, MatListModule, MatSidenavModule} from '@angular/material';
+import {AppHeaderModule} from './features/app-header/app-header.module';
+import {PageHeaderModule} from './shared/page-header/page-header.module';
+import {AuthModule} from './features/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,15 @@ import {appRouting} from './app.routing';
     CoreModule,
     appRouting,
     SpinnerModule,
-    MainModule
+
+    // przeniesc do MAIN COMPONENT
+    AuthModule,
+    AppHeaderModule,
+    PageHeaderModule,
+
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

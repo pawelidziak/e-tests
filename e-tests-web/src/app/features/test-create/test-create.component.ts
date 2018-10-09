@@ -29,7 +29,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createEmptyTest();
-    this.headerService.setHeaderText(this.HEADER_TEXT);
+    this.headerService.setCurrentRoute(['home', 'create']);
     this.isLoggedIn();
   }
 

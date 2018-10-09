@@ -1,0 +1,40 @@
+@import 'shared/variables';
+@import 'shared/mixins';
+
+.app-sidenav {
+  overflow-x: hidden;
+  width: 200px;
+  @include box_shadow();
+}
+
+.my-nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-sidenav-list {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  .list-item {
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background-color: $hover_color;
+    }
+  }
+}
+
+.contact-settings {
+  display: flex;
+  color: $text_secondary;
+
+  .other-element {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+  }
+}

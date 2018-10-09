@@ -1,11 +1,17 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
+.section-test-learn {
+}
+
 button {
   outline: none;
   @include upper-text();
 }
 
+/*
+    CONFIG DRAWER
+ */
 .config-drawer-container {
   height: 100%;
 }
@@ -14,39 +20,73 @@ button {
   width: 315px;
 }
 
+/*
+    TEST LEARN HEADER
+ */
 .test-learn-header {
+  height: 48px;
+  width: 100%;
   color: $text_secondary;
   display: flex;
-  justify-content: space-between;
-  padding: 0;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .test-learn-header_inner {
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
-}
-
-.mat-progress-bar {
-  height: 3px;
-}
-
-.one-info {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  font-size: $font-small;
   align-items: center;
-  margin-top: -5px;
+}
+
+.progress-bar {
+  height: 4px;
+}
+
+.progress-bar_big {
+  width: 100%;
+  display: flex;
+
+}
+
+.one-info_small {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
   .info-icon {
     @include mat-icon-size(20px);
-    margin-top: -10px;
+    margin-top: -5px;
+  }
+
+  padding: 0 .5*$margin;
+  &:last-child {
+    padding: 0;
   }
 }
 
-.test-learn-exercise {
-  padding-bottom: 3*$margin;
-  overflow: hidden;
+.one-info_big {
+  display: flex;
+  align-items: center
 }
 
-// TEST END
+.info-value {
+  font-weight: 700;
+  margin-left: 5px;
+  font-size: $font-normal;
+}
+
+/*
+    EXERCISE CONTENT
+ */
+.test-learn-exercise {
+  padding-bottom: 3*$margin;
+  //overflow: hidden;
+}
+
+/*
+    TEST END
+ */
 #done {
   @include mat-icon-size(96px);
   color: $material-green;

@@ -11,6 +11,7 @@ import {HeaderService} from '../../core/services/header.service';
 import {slideFromTopAnimation} from '../../shared/animations';
 import {TestConfigWithRestart} from './test-config/test-config.component';
 import {take} from 'rxjs/operators';
+import {ThemeService} from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-test',
@@ -36,16 +37,18 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public openConfigDrawer: boolean;
   public disableConfigDrawerClose: boolean;
 
+  public isMediumScreen: boolean;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private headerService: HeaderService,
               private auth: AuthService,
               private rwdService: RWDService,
               private testService: TestService,
-              private exerciseService: TestExercisesService) {
+              private exerciseService: TestExercisesService,
+              public themeService: ThemeService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
-        this.headerService.hideHeader();
         this.testId = params[ROUTE_PARAMS.TEST_ID];
         this.isLoggedIn();
       })
@@ -53,12 +56,29 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getRwdValue();
   }
 
   ngOnDestroy() {
-    this.headerService.showHeader();
+    this.headerService.showAppAndPageHeader();
     this.saveProgress();
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  private getRwdValue(): void {
+    this.subscriptions.push(
+      this.rwdService.isMediumScreen.subscribe(
+        res => {
+          if (res) {
+            this.headerService.hideAppAndPageHeader();
+            this.isMediumScreen = true;
+          } else {
+            this.headerService.hidePageHeader();
+            this.isMediumScreen = false;
+          }
+        }
+      )
+    );
   }
 
   /**

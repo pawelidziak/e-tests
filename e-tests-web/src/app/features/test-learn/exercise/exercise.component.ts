@@ -131,8 +131,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   public scrollTop(): void {
-    const element = document.querySelector('#testLearnSection') || document.querySelector('#testEditSection');
-    element.scrollIntoView({behavior: 'instant', block: 'start'});
+    window.scrollTo(0, 0 );
   }
 
   private drawFeedBackMessage(): string {
@@ -152,6 +151,14 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   private setDefaultStyle(button: any): void {
     button.style = (<HTMLInputElement>document.getElementById('answer-button-0'));
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  preventSpacebarScroll(event: KeyboardEvent): void {
+    if (event.keyCode === KEY_CODE.SPACE_BAR_KEY ) {
+      event.preventDefault();
+    }
+
   }
 
   @HostListener('window:keyup', ['$event'])

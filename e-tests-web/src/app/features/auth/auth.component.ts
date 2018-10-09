@@ -13,7 +13,6 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.dialogRef.disableClose = this.data.disableClose;
   }
 }

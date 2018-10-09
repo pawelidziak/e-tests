@@ -8,10 +8,9 @@ import {
   MatButtonModule,
   MatIconModule,
   MatProgressBarModule,
-  MatSidenavModule,
+  MatSidenavModule, MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
-import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-hide-toolbar.module';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,8 @@ import {StickyHideToolbarModule} from '../../shared/sticky-hide-toolbar/sticky-h
     testLearnRouting,
     TestConfigModule,
     ExerciseModule,
-    StickyHideToolbarModule,
 
+    MatToolbarModule,
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
