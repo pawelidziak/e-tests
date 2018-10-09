@@ -1,0 +1,16 @@
+@import '../../shared/mixins';
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include box_shadow;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+
+.mat-menu-item, button {
+  outline: none;
+}

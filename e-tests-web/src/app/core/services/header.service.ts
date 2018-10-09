@@ -1,50 +1,93 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/index';
 
-export enum HeaderButtonType {
-  HOME,
-  MENU,
-  BACK
+export interface HeaderValues {
+  breadcrumb: string[];
+  appHeaderVisibility: boolean;
+  pageHeaderVisibility: boolean;
 }
 
 @Injectable()
 export class HeaderService {
-  private _headerText: BehaviorSubject<string> = new BehaviorSubject('');
-  private _headerButton: BehaviorSubject<HeaderButtonType> = new BehaviorSubject(null);
-  private _headerVisibility: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  private _breadcrumb: string[] = [];
+  private _appHeaderVisibility = true;
+  private _pageHeaderVisibility = true;
+
+  private _headerValues: BehaviorSubject<HeaderValues> = new BehaviorSubject({
+    breadcrumb: this._breadcrumb,
+    appHeaderVisibility: this._appHeaderVisibility,
+    pageHeaderVisibility: this._pageHeaderVisibility
+  });
 
   constructor() {
   }
 
-  public getHeaderTextValue(): BehaviorSubject<string> {
-    return this._headerText;
+  public setCurrentRoute(breadcrumb: string[]): void {
+    this._headerValues.next({
+      breadcrumb: breadcrumb,
+      appHeaderVisibility: this._appHeaderVisibility,
+      pageHeaderVisibility: this._pageHeaderVisibility,
+    });
   }
 
-  public getHeaderButtonValue(): BehaviorSubject<HeaderButtonType> {
-    return this._headerButton;
-  }
-
-  public setHeaderButtonAndText(button: HeaderButtonType, text: string): void {
-    this._headerButton.next(button);
-    this._headerText.next(text);
-  }
-
-  public setHeaderText(text: string): void {
-    this._headerText.next(text);
+  public getHeaderValues(): BehaviorSubject<HeaderValues> {
+    return this._headerValues;
   }
 
   /**
-   HEADER VISIBILITY
+      PAGE HEADER VISIBILITY
    */
-  public getHeaderVisibilityValue(): BehaviorSubject<boolean> {
-    return this._headerVisibility;
+  public hidePageHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: this._appHeaderVisibility,
+      pageHeaderVisibility: false
+    });
   }
 
-  public hideHeader(): void {
-    this._headerVisibility.next(false);
+  public showPageHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: this._appHeaderVisibility,
+      pageHeaderVisibility: true
+    });
   }
 
-  public showHeader(): void {
-    this._headerVisibility.next(true);
+  /**
+      APP HEADER VISIBILITY
+   */
+  public hideAppHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: false,
+      pageHeaderVisibility: this._pageHeaderVisibility
+    });
+  }
+
+  public showAppeHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: true,
+      pageHeaderVisibility: this._pageHeaderVisibility
+    });
+  }
+
+  /**
+      APP AND PAGE HEADER VISIBILITY
+   */
+  public hideAppAndPageHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: false,
+      pageHeaderVisibility: false
+    });
+  }
+
+  public showAppAndPageHeader(): void {
+    this._headerValues.next({
+      breadcrumb: this._breadcrumb,
+      appHeaderVisibility: true,
+      pageHeaderVisibility: true
+    });
   }
 }

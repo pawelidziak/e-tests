@@ -24,6 +24,7 @@ export class TestsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerService.setCurrentRoute(['home', 'tests']);
     this.getTestsList();
   }
 

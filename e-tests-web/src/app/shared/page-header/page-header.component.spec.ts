@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StickyHideToolbarComponent } from './sticky-hide-toolbar.component';
+import { PageHeaderComponent } from './page-header.component';
 
-describe('StickyHideToolbarComponent', () => {
-  let component: StickyHideToolbarComponent;
-  let fixture: ComponentFixture<StickyHideToolbarComponent>;
+describe('PageHeaderComponent', () => {
+  let component: PageHeaderComponent;
+  let fixture: ComponentFixture<PageHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StickyHideToolbarComponent ]
+      declarations: [ PageHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StickyHideToolbarComponent);
+    fixture = TestBed.createComponent(PageHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
