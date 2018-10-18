@@ -34,6 +34,7 @@
 
         <div *ngIf="userIsAuthenticated">
           <mat-toolbar class="test-learn-header"
+                       [ngClass]="{'test-learn-header_fixed': isMediumScreen}"
                        *ngIf="isConfigSet"
                        [@slideFromTop]>
 

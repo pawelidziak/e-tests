@@ -69,6 +69,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isMediumScreen.subscribe(
         res => {
+          // this.headerService.hidePageHeader();
           if (res) {
             this.headerService.hideAppAndPageHeader();
             this.isMediumScreen = true;
