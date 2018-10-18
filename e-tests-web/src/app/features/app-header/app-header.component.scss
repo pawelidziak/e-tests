@@ -6,9 +6,10 @@
   justify-content: space-between;
   align-items: center;
   @include box_shadow;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 9;
+  padding: 0;
 }
 
 .mat-menu-item, button {

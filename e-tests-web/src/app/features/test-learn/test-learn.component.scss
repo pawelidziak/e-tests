@@ -2,6 +2,7 @@
 @import '../../shared/mixins';
 
 .section-test-learn {
+
 }
 
 button {
@@ -13,7 +14,7 @@ button {
     CONFIG DRAWER
  */
 .config-drawer-container {
-  height: 100%;
+  min-height: calc(100vh - 48px);
 }
 
 .config-drawer {
@@ -24,12 +25,17 @@ button {
     TEST LEARN HEADER
  */
 .test-learn-header {
+  position: fixed;
+  top: 0;
   height: 48px;
   width: 100%;
+  z-index: 9;
+  padding: 0;
+  background-color: revert;
   color: $text_secondary;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .test-learn-header_inner {
@@ -44,21 +50,14 @@ button {
   height: 4px;
 }
 
-.progress-bar_big {
-  width: 100%;
-  display: flex;
-
-}
-
 .one-info_small {
   display: flex;
-  flex-direction: column-reverse;
   align-items: center;
+
   .info-icon {
     @include mat-icon-size(20px);
-    margin-top: -5px;
+    margin-right: 5px;
   }
-
   padding: 0 .5*$margin;
   &:last-child {
     padding: 0;
@@ -81,7 +80,6 @@ button {
  */
 .test-learn-exercise {
   padding-bottom: 3*$margin;
-  //overflow: hidden;
 }
 
 /*

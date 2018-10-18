@@ -7,7 +7,14 @@ import {environment} from '../environments/environment';
 import {SpinnerModule} from './shared/spinner/spinner.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
-import {MatIconModule, MatListModule, MatSidenavModule} from '@angular/material';
+import {
+  MatCheckboxModule, MatFormFieldModule,
+  MatIconModule, MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatToolbarModule
+} from '@angular/material';
 import {AppHeaderModule} from './features/app-header/app-header.module';
 import {PageHeaderModule} from './shared/page-header/page-header.module';
 import {AuthModule} from './features/auth/auth.module';
@@ -28,9 +35,18 @@ import {AuthModule} from './features/auth/auth.module';
     AppHeaderModule,
     PageHeaderModule,
 
+    MatSelectModule,
+
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+
+
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

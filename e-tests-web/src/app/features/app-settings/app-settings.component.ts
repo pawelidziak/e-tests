@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {MY_THEMES} from '../../core/services/theme.service';
+import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
+import {MY_THEMES, MyTheme, AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-app-settings',
@@ -8,23 +8,22 @@ import {MY_THEMES} from '../../core/services/theme.service';
   styleUrls: ['./app-settings.component.scss']
 })
 export class AppSettingsComponent implements OnInit {
-
   public themes = MY_THEMES;
+  public languages = ['ENG', 'PL', 'GER'];
 
-  constructor(public dialogRef: MatDialogRef<AppSettingsComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public themeService: AppSettingsService,
+              private headerService: HeaderService,
+              @Inject(LOCALE_ID) public locale: string
+  ) {
   }
 
   ngOnInit(): void {
+    this.headerService.setCurrentRoute(['home', 'settings']);
   }
 
-  public closeDialog(): void {
-    this.dialogRef.close();
-  }
+  public changeTheme(theme: MyTheme): void {
+    this.themeService.currentTheme = theme;
 
-  public setTheme(event: any): void {
-    console.log(event);
-    this.dialogRef.close({theme: event.value});
-  }
 
+  }
 }

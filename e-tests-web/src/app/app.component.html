@@ -2,11 +2,12 @@
             [drawer]="drawer">
 </app-header>
 
-<mat-sidenav-container [hasBackdrop]="false">
+<mat-sidenav-container class="app-sidenav-container">
   <mat-sidenav #drawer
                class="app-sidenav"
-               [opened]="!isSmallScreen"
-               [mode]="!isSmallScreen ? 'side' : 'over'"
+               (openedChange)="isAppSidenavOpened = $event"
+               [opened]="!isMediumScreen"
+               [mode]="!isMediumScreen ? 'side' : 'over'"
                [fixedInViewport]="true"
                [fixedTopGap]="headerHeight">
 
@@ -17,7 +18,6 @@
       </div>
 
       <div class="loading" *ngIf="!isUserLoaded">Loading...</div>
-
 
       <!-- NAV LIST -->
       <mat-list role="list" class="my-sidenav-list" *ngIf="isUserLoaded">
@@ -58,11 +58,11 @@
     </nav> <!-- /my-nav -->
   </mat-sidenav>
 
-  <main class="main-container">
-    <app-page-header [height]="headerHeight"></app-page-header>
+  <mat-sidenav-content class="main-container" [style.padding-top]="headerHeight + 'px'">
+    <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
 
     <!--<div [@routerTransition]="o.isActivated ? o.activatedRoute : ''">-->
     <router-outlet #o="outlet"></router-outlet>
     <!--</div>-->
-  </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>

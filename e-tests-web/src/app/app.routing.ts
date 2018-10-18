@@ -13,6 +13,10 @@ const appRoutes: Routes = [
     loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
   },
   {
+    path: ALL_ROUTES.APP_SETTINGS,
+    loadChildren: 'app/features/app-settings/app-settings.module#AppSettingsModule'
+  },
+  {
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}/${ALL_ROUTES.TEST_LEARN}`,
     loadChildren: 'app/features/test-learn/test-learn.module#TestLearnModule'
   },
