@@ -20,6 +20,9 @@
       <mat-icon aria-label="Account">account_circle</mat-icon>
       <span style="padding-left: 12px;">{{user.displayName}}</span>
     </button>
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+      <mat-icon aria-label="Settings">more_vert</mat-icon>
+    </button>
   </div>
 
 </mat-toolbar>
@@ -31,16 +34,27 @@
       <mat-icon aria-label="Profile">person</mat-icon>
       <span>Profile</span>
     </button>
-    <button mat-menu-item>
-      <mat-icon aria-label="Settings">settings</mat-icon>
-      <span>Settings</span>
-    </button>
 
     <mat-divider></mat-divider>
 
     <button mat-menu-item (click)="logout()">
       <mat-icon aria-label="Logout">power_settings_new</mat-icon>
       <span>Logout</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+<!-- MORE MENU -->
+<mat-menu #moreMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item>
+      <mat-icon aria-label="Profile">info</mat-icon>
+      <span>About</span>
+    </button>
+
+    <button mat-menu-item [routerLink]="ALL_ROUTES.APP_SETTINGS">
+      <mat-icon aria-label="Logout">settings</mat-icon>
+      <span>Settings</span>
     </button>
   </ng-template>
 </mat-menu>

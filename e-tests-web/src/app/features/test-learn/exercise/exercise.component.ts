@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
 import {slideFromRightAnimation, slideFromBottomAnimation} from '../../../shared/animations';
-import {MY_COLORS, ThemeService} from '../../../core/services/theme.service';
+import {MY_COLORS, AppSettingsService} from '../../../core/services/app-settings.service';
 
 export enum KEY_CODE {
   FIRST_ANSWER_KEY = 49,
@@ -46,7 +46,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   public isCheckClicked: boolean;
   public feedbackMsg: string;
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: AppSettingsService) {
   }
 
   ngOnInit() {

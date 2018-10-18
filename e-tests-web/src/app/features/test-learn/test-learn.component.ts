@@ -11,7 +11,7 @@ import {HeaderService} from '../../core/services/header.service';
 import {slideFromTopAnimation} from '../../shared/animations';
 import {TestConfigWithRestart} from './test-config/test-config.component';
 import {take} from 'rxjs/operators';
-import {ThemeService} from '../../core/services/theme.service';
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-test',
@@ -42,11 +42,11 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private headerService: HeaderService,
-              private auth: AuthService,
               private rwdService: RWDService,
               private testService: TestService,
               private exerciseService: TestExercisesService,
-              public themeService: ThemeService) {
+              public auth: AuthService,
+              public themeService: AppSettingsService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params[ROUTE_PARAMS.TEST_ID];

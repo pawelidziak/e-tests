@@ -5,7 +5,8 @@ export const ALL_ROUTES = {
   CREATED_TEST: 'test',
   EDIT_TEST: 'edit',
   USER_TESTS_LIST: 'tests-list',
-  TEST_LEARN: 'learn'
+  TEST_LEARN: 'learn',
+  APP_SETTINGS: 'settings'
 };
 
 export const ROUTE_PARAMS = {

@@ -1,19 +1,46 @@
-<section class="section-app-settings">
-  <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+<section class="section-app-settings container">
 
-  <div class="app-theme">
-    <p class="header-line-right">App theme</p>
-    <mat-form-field floatLabel="never">
-      <mat-select placeholder="Color theme"
-                  (selectionChange)="setTheme($event)">
-        <mat-option *ngFor="let t of themes" [value]="t">
-          {{t.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!--<div class="app-theme-options">-->
-      <!--<button mat-raised-button (click)="setTheme('dark-theme')" id="dark-button">Dark</button>-->
-      <!--<button mat-raised-button (click)="setTheme('light-theme')" id="light-button">Light</button>-->
-    <!--</div>-->
+  <div class="app-setting">
+    <div class="app-setting-header">
+      <h5 class="paragraph-font">Language</h5>
+      <button mat-icon-button [matMenuTriggerFor]="languageMenu" color="accent">
+        <mat-icon aria-label="Language">language</mat-icon>
+      </button>
+    </div>
+    <p class="sub-paragraph-font">
+      Change the application language.
+    </p>
   </div>
+
+  <div class="app-setting">
+    <div class="app-setting-header">
+      <h5 class="paragraph-font">App theme</h5>
+      <button mat-icon-button [matMenuTriggerFor]="themeMenu" color="accent">
+        <mat-icon aria-label="Brush">brush</mat-icon>
+      </button>
+    </div>
+    <p class="sub-paragraph-font">
+      Change the application theme.
+    </p>
+  </div>
+
 </section>
+
+<!-- THEME MENU-->
+<mat-menu #themeMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item *ngFor="let theme of themes" (click)="changeTheme(theme)">
+      <mat-icon [style.color]="theme.primary">brightness_1</mat-icon>
+      <span>{{theme.label}}</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+<!-- LANGUAGE MENU-->
+<mat-menu #languageMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item *ngFor="let lang of languages">
+      <span>{{lang}}</span>
+    </button>
+  </ng-template>
+</mat-menu>

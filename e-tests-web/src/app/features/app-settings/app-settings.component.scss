@@ -1,23 +1,35 @@
 @import '../../shared/variables';
+@import '../../shared/mixins';
 
 .section-app-settings {
-}
-
-.app-theme {
   display: flex;
   flex-direction: column;
-  .app-theme-options {
+  align-items: center;
+}
+
+button {
+  outline: none;
+}
+
+.app-setting {
+  width: 300px;
+  margin-top: $margin;
+  display: flex;
+  flex-direction: column;
+
+  .app-setting-header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .selected{
+    padding: 5px;
+    border-radius: 5px;
   }
 }
 
-#dark-button {
-  background-color: $bg-dark;
-  color: $text-white;
-}
-
-#light-button {
-  background-color: $text-white;
-  color: $text-dark;
+.color-box {
+  @include size(24px, 24px);
+  background-color: red;
 }

@@ -1,22 +1,21 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../core/services/header.service';
-import {ThemeService} from '../../core/services/theme.service';
-import {slideFromTopAnimation} from '../animations';
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
-  styleUrls: ['./page-header.component.scss'],
-  animations: [slideFromTopAnimation()]
+  styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
   @Input() height: number;
+  @Input() user: any;
 
   public headerValues: HeaderValues;
 
   constructor(private headerService: HeaderService,
-              public themeService: ThemeService) {
+              public themeService: AppSettingsService) {
   }
 
   ngOnInit() {

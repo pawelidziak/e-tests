@@ -1,5 +1,5 @@
 <section class="section-test-learn">
-  <mat-sidenav-container *ngIf="test" [ngClass]="{'config-drawer-container': openConfigDrawer}" [hasBackdrop]="false">
+  <mat-sidenav-container *ngIf="test" class="config-drawer-container">
     <mat-sidenav #configDrawer
                  *ngIf="userIsAuthenticated && test"
                  [fixedInViewport]="true"
@@ -33,24 +33,16 @@
         </div>
 
         <div *ngIf="userIsAuthenticated">
-          <div class="test-learn-header"
+          <mat-toolbar class="test-learn-header"
                        *ngIf="isConfigSet"
                        [@slideFromTop]>
 
             <!-- first row -->
-            <div class="test-learn-header_inner">
-
+            <div class="test-learn-header_inner flex-1">
               <!-- BACK -->
               <button mat-icon-button (click)="backToTest()">
                 <mat-icon aria-label="Back">arrow_back</mat-icon>
               </button>
-
-              <!--<mat-progress-bar color="accent"-->
-                                <!--class="progress-bar"-->
-                                <!--*ngIf="!isMediumScreen"-->
-                                <!--mode="determinate"-->
-                                <!--[value]="countMasteredRatio()">-->
-              <!--</mat-progress-bar>-->
 
               <!-- Remained -->
               <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
@@ -98,7 +90,7 @@
                               mode="determinate"
                               [value]="countMasteredRatio()">
             </mat-progress-bar>
-          </div>
+          </mat-toolbar>
 
           <!-- EXERCISE CONTENT -->
           <div class="test-learn-exercise container" *ngIf="isConfigSet">
@@ -111,7 +103,7 @@
             </app-exercise>
 
             <!-- TEST END -->
-            <div *ngIf="isTestEnd" class="test-end">
+            <div *ngIf="isTestEnd">
               <div class="test-end-header">
                 <mat-icon id="done" aria-label="Done icon">done</mat-icon>
                 <h5 class="paragraph-font">Congratulations, you've mastered all the exercises!</h5>

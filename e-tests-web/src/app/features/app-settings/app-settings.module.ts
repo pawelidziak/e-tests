@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
 import {AppSettingsComponent} from './app-settings.component';
+import {appSettingsRouting} from './app-settings.routing';
 
 @NgModule({
   declarations: [
@@ -9,13 +10,11 @@ import {AppSettingsComponent} from './app-settings.component';
   ],
   imports: [
     SharedModule,
-    MatSelectModule,
-    MatFormFieldModule,
+    appSettingsRouting,
+
     MatButtonModule,
-    MatIconModule
-  ],
-  exports: [
-    AppSettingsComponent
+    MatIconModule,
+    MatMenuModule
   ],
   providers: []
 })
