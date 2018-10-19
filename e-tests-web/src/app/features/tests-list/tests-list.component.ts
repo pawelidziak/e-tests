@@ -4,13 +4,13 @@ import {Router} from '@angular/router';
 import {TestService} from '../../core/services/test.service';
 import {TestModel} from '../../core/models/Test';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {listAnimation} from '../../shared/animations';
+import {listSliderTopAnim} from '../../shared/animations';
 
 @Component({
   selector: 'app-tests-list',
   templateUrl: './tests-list.component.html',
   styleUrls: ['./tests-list.component.scss'],
-  animations: [listAnimation()]
+  animations: [listSliderTopAnim()]
 })
 export class TestsListComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];

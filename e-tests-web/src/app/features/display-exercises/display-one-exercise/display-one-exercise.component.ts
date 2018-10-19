@@ -2,11 +2,15 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
+import {AppSettingsService} from '../../../core/services/app-settings.service';
+import {fadeInAnimation} from '../../../shared/animations';
+
 
 @Component({
   selector: 'app-display-one-exercise',
   templateUrl: './display-one-exercise.component.html',
-  styleUrls: ['./display-one-exercise.component.scss']
+  styleUrls: ['./display-one-exercise.component.scss'],
+  animations: [fadeInAnimation()]
 })
 export class DisplayOneExerciseComponent implements OnInit {
 
@@ -16,12 +20,14 @@ export class DisplayOneExerciseComponent implements OnInit {
   @Input() expanded: boolean;
   @Input() readonly testId: string;
   @Input() readonly isAuthor: boolean;
-  @Input() readonly number: string;
-  @Output() addedExercise: EventEmitter<boolean> = new EventEmitter();
+  @Input() readonly number: number;
+  @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
+  @Output() exerciseCanceled: EventEmitter<number> = new EventEmitter();
 
   private copyExercise: Exercise;
 
   constructor(private exercisesService: TestExercisesService,
+              public appSettings: AppSettingsService,
               public snackBar: MatSnackBar) {
   }
 
@@ -40,27 +46,37 @@ export class DisplayOneExerciseComponent implements OnInit {
   public stopEditExercise(): void {
     this.editMode = false;
     this.expanded = true;
-    this.checkExerciseThenFix();
     if (this.copyExercise) {
       this.exercise = JSON.parse(JSON.stringify(this.copyExercise));
       delete this.copyExercise;
-    } else {
-      this.addedExercise.emit(false);
     }
-    if (this.isNew) {
-      this.addedExercise.emit(false);
-    }
+    this.exerciseCanceled.emit(this.number);
   }
 
   public saveExercise(): void {
     this.editMode = false;
     this.expanded = true;
     this.checkExerciseThenFix();
-    if (this.isNew) {
-      this.addNewExercise();
+
+    if (this.exercise.id) {
+      this.exercisesService.updateOneExercise(this.testId, this.exercise)
+        .catch(error => this.openSnackBar(error, 10000));
     } else {
-      this.updateExercise();
+      this.exercisesService.addOneExercise(this.testId, this.exercise)
+        .then(res => {
+          if (res.id) {
+            this.exercise.id = res.id;
+          }
+        })
+        .catch(error => this.openSnackBar(error, 10000));
     }
+  }
+
+  public deleteExercise(): void {
+    this.exerciseDeleted.emit(this.exercise);
+    this.openSnackBar('Exercise deleted', 3000);
+    this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
+      .catch(error => this.openSnackBar(error, 10000));
   }
 
   public changeCorrectAnswer(index: number, correct: boolean): void {
@@ -72,27 +88,6 @@ export class DisplayOneExerciseComponent implements OnInit {
     }
   }
 
-  private addNewExercise(): void {
-    this.isNew = false;
-    this.addedExercise.emit(true);
-    this.openSnackBar('Exercise added', 3000);
-    this.exercisesService.addOneExercise(this.testId, this.exercise)
-      .catch(error => this.openSnackBar(error, 10000));
-  }
-
-  private updateExercise(): void {
-    if (this.isExerciseChanged()) {
-      this.openSnackBar('Exercise updated', 3000);
-      this.exercisesService.updateOneExercise(this.testId, this.exercise)
-        .catch(error => this.openSnackBar(error, 10000));
-    }
-  }
-
-  public deleteExercise(): void {
-    this.openSnackBar('Exercise deleted', 3000);
-    this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-      .catch(error => this.openSnackBar(error, 10000));
-  }
 
   /**
    * HELPERS
@@ -113,9 +108,6 @@ export class DisplayOneExerciseComponent implements OnInit {
     return this.exercise.correctAnswers.findIndex(x => x === index) !== -1;
   }
 
-  private isExerciseChanged(): boolean {
-    return JSON.stringify(this.exercise) !== JSON.stringify(this.copyExercise);
-  }
 
   private checkExerciseThenFix(): void {
     if (this.exercise.question === '') {

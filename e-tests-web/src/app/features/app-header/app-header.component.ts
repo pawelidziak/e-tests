@@ -23,7 +23,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,
-              public themeService: AppSettingsService) {
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {

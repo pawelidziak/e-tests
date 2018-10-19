@@ -1,12 +1,12 @@
 <section class="section-tests-list container" *ngIf="testList">
 
-  <div class="row tests-search" [@listStagger]>
+  <div class="row tests-search" >
     <mat-form-field style="width: 100%">
       <input matInput [(ngModel)]="searchText" placeholder="Search">
     </mat-form-field>
   </div>
 
-  <div class="row" [@listStagger]='testList.length ? testList.length : 0'>
+  <div class="row" >
     <div class="col-lg-6 col-xl-4 single-test"
          *ngFor="let my_test of testList | searchTest: searchText">
 

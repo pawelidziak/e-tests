@@ -50,7 +50,7 @@
                    [matTooltip]="isMediumScreen ? 'Remained' : ''">
                 <mat-icon aria-label="Remained" class="info-icon">subject</mat-icon>
                 <span *ngIf="!isMediumScreen">Remained: </span>
-                <span [style.color]="themeService.currentTheme.accent"
+                <span [style.color]="appSettings.currentTheme.accent"
                       [ngClass]="{'info-value': !isMediumScreen}">
                   {{origTestExercises.length - test.settings?.progress?.masteredExercisesIds.length}}
                 </span>
@@ -61,7 +61,7 @@
                    [matTooltip]="isMediumScreen ? 'Mastered' : ''">
                 <mat-icon aria-label="Done" class="info-icon">done_all</mat-icon>
                 <span *ngIf="!isMediumScreen">Mastered: </span>
-                <span [style.color]="themeService.currentTheme.accent"
+                <span [style.color]="appSettings.currentTheme.accent"
                       [ngClass]="{'info-value': !isMediumScreen}">
                    {{test.settings.progress?.masteredExercisesIds.length}}
                 </span>
@@ -72,7 +72,7 @@
                    [matTooltip]="isMediumScreen ? 'Occurrences' : ''">
                 <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
                 <span *ngIf="!isMediumScreen">Occurrences: </span>
-                <span [style.color]="themeService.currentTheme.accent"
+                <span [style.color]="appSettings.currentTheme.accent"
                       [ngClass]="{'info-value': !isMediumScreen}">
                   {{currentExercise?.occurrences || 0}}
                 </span>

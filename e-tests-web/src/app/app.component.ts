@@ -3,11 +3,13 @@ import {AuthService} from './core/services/auth.service';
 import {RWDService} from './core/services/RWD.service';
 import {ALL_ROUTES} from './shared/ROUTES';
 import {MatSidenav} from '@angular/material';
+import {routeAnimations} from './shared/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [routeAnimations]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];

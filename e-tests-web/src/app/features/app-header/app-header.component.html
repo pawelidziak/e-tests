@@ -1,7 +1,10 @@
 <mat-toolbar class="app-header"
              *ngIf="headerValues.appHeaderVisibility"
              [style.height]="height + 'px'"
-             [color]="'primary'">
+             [color]="'primary'"
+             [style.background-image]="'linear-gradient(to right, '+
+                appSettings?.currentTheme?.accent+', '+
+                appSettings?.currentTheme?.primary +')'">
 
   <button mat-icon-button (click)="drawer.toggle()">
     <mat-icon aria-label="Dashboard">menu</mat-icon>

@@ -7,7 +7,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
-  MatIconModule,
+  MatIconModule, MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
@@ -30,6 +30,7 @@ import {DisplayExercisesModule} from '../display-exercises/display-exercises.mod
     MatChipsModule,
     MatTooltipModule,
     MatBottomSheetModule,
+    MatTabsModule
   ],
   exports: [],
   providers: [],

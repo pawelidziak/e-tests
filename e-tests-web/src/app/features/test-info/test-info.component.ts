@@ -8,14 +8,16 @@ import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
-import {slideFromTopAnimation} from '../../shared/animations';
 import {HeaderService} from '../../core/services/header.service';
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {take} from 'rxjs/operators';
+import {slideFromBottomAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
   styleUrls: ['./test-info.component.scss'],
-  animations: [slideFromTopAnimation()]
+  animations: [slideFromBottomAnimation()]
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -31,6 +33,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
               private exercisesService: TestExercisesService,
               private bottomSheet: MatBottomSheet,
               private headerService: HeaderService,
+              public appSettings: AppSettingsService,
               public auth: AuthService) {
 
     this.subscriptions.push(
@@ -63,7 +66,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   private getExercises() {
     this.subscriptions.push(
-      this.exercisesService.getTestExercises(this.testId).subscribe(
+      this.exercisesService.getTestExercises(this.testId).pipe(take(1)).subscribe(
         res => {
           this.exercises = res;
           this.originalExercisesLength = this.exercises.length;

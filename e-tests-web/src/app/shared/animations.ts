@@ -1,4 +1,4 @@
-import {animate, group, query, stagger, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, query, sequence, stagger, state, style, transition, trigger} from '@angular/animations';
 
 
 export function sliderAnimation() {
@@ -25,27 +25,48 @@ export function fadeInAnimation() {
     transition(':enter', [
       style({opacity: 0}),
       animate('.3s', style({opacity: 1}))
-    ]),
-
+    ])
+  ]);
+}
+export function fadeOutAnimation() {
+  return trigger('fadeOutAnimation', [
     transition(':leave', [
       style({opacity: 1}),
       animate('.3s', style({opacity: 0}))
     ]),
   ]);
 }
+export function listSliderRightToFadeOutAnim() {
+  return trigger('listSliderRightToFadeOut', [
+    transition('* => *', [
+      query(':enter', style({opacity: 0}), {optional: true}),
+      query(':enter',
+        stagger(100, [
+          style({transform: 'translateX(15%)', opacity: 0}),
+          animate('0.35s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
+        ]), {optional: true}
+      ),
+      query(':leave',
+        stagger(0, [
+          style({transform: 'translateX(0%)', opacity: 1, position: 'fixed'}),
+          animate('0.35s ease-out', style({transform: 'translateX(-15%)', opacity: 0}))
+        ]), {optional: true}
+      )
+    ]),
+  ]);
+}
 
-export function listAnimation() {
-  return trigger('listStagger', [
+export function listSliderTopAnim() {
+  return trigger('listSliderTop', [
     transition('* => *', [
       query(':enter', style({opacity: 0}), {optional: true}),
       query(':enter',
         stagger(100, [
           style({transform: 'translateY(15%)', opacity: 0}),
-          animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
+          animate('0.35s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
         ]), {optional: true}
       )
     ]),
-
   ]);
 }
 
@@ -55,7 +76,9 @@ export function slideFromRightAnimation() {
     transition(':enter', [
       style({transform: 'translateX(3%)', opacity: 0}),
       animate('.25s ease-in', style({transform: 'translateX(0%)', opacity: 1}))]),
-
+    transition(':leave', [
+      style({transform: 'translateX(0)', opacity: 1}),
+      animate('.25s ease-in', style({transform: 'translateX(-3%)', opacity: 0}))])
   ]);
 }
 
@@ -64,6 +87,9 @@ export function slideFromBottomAnimation() {
     transition(':enter', [
       style({transform: 'translateY(15%)', opacity: 0}),
       animate('.25s ease-in', style({transform: 'translateY(0%)', opacity: 1}))]),
+    transition(':leave', [
+      style({transform: 'translateY(0%)', opacity: 0}),
+      animate('.25s ease-in', style({transform: 'translateY(-15%)', opacity: 1}))]),
   ]);
 }
 
@@ -98,17 +124,37 @@ export function slideFromTopAnimation2() {
 
 export const routeAnimations = trigger('routeAnimations', [
   transition('* => *', [
-    query(':enter > *', style({opacity: 0, position: 'fixed', width: '100%'}), {optional: true}),
-    query(':leave > *', [
-        style({transform: 'translateY(0%)', opacity: 1}),
-        animate('0.2s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0})),
-        style({position: 'fixed'})
-      ], {optional: true}
-    ),
-    query(':enter > *', [
-        style({transform: 'translateY(-3%)', opacity: 0, position: 'fixed', width: '100%'}),
-        animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
-      ], {optional: true}
-    )
+    query(':enter > *', style({opacity: 0, position: 'fixed'}), {
+      optional: true
+    }),
+    sequence([
+      query(
+        ':leave > *',
+        [
+          style({transform: 'translateY(0%)', opacity: 1}),
+          animate(
+            '0.2s ease-in-out',
+            style({transform: 'translateY(-3%)', opacity: 0})
+          ),
+          style({position: 'fixed'})
+        ],
+        {optional: true}
+      ),
+      query(
+        ':enter > *',
+        [
+          style({
+            transform: 'translateY(-3%)',
+            opacity: 0,
+            position: 'static'
+          }),
+          animate(
+            '0.5s ease-in-out',
+            style({transform: 'translateY(0%)', opacity: 1})
+          )
+        ],
+        {optional: true}
+      )
+    ]),
   ]),
 ]);

@@ -1,43 +1,126 @@
 @import '../../shared/variables';
+@import '../../shared/mixins';
+
+.section-test-info {
+  padding: .5*$margin;
+  @media #{$gt-sm_size} {
+    padding: 2*$margin;
+  }
+}
 
 .test-info-container {
   display: flex;
   flex-direction: column;
-  @media #{$gt-md_size} {
+  @media #{$gt-sm_size} {
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
   }
 }
 
-.right-side {
-  display: flex;
-  justify-content: center;
-  button {
-    outline: none;
-    margin-right: 5px;
-    &:last-child {
-      margin-right: 0;
-    }
-
-  }
-}
-
-.author-date {
-  font-size: $font-small;
-}
-
-.test-name {
-  font-size: 2*$font-normal;
-  font-weight: 600;
-  margin-bottom: .5*$margin;
-}
-
-.tag-chip-list {
+button {
   outline: none;
 }
 
-.test-desc {
-  margin-top: .5*$margin;
-  margin-bottom: $margin;
+.one-box {
+  border-radius: 20px 0 20px 0;
+  font-size: $font-small;
+  &:nth-child(2) {
+    margin-left: 0;
+    margin-top: .5*$margin;
+  }
+  @media #{$gt-sm_size} {
+    &:nth-child(2) {
+      margin-top: 0;
+      margin-left: $margin;
+    }
+  }
+}
+
+.box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    opacity: .6;
+    transition: opacity .3s ease-in-out;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// GENERAL BOX
+.test-name {
+  font-size: 1.5*$font-normal;
+  font-weight: 600;
+}
+
+.tag-list {
+  outline: none;
+  margin: .5*$margin 0;
+}
+
+// OTHER BOX
+.box-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .one-info {
+    display: flex;
+    align-items: center;
+    button {
+      opacity: 0.6;
+      transition: opacity .3s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.button-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /deep/ .mat-button-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.box-button {
+  border-radius: 20px;
+  margin-top: $margin;
+}
+
+.my-tabs {
+  margin-top: $margin;
+  border-radius: 20px 0 20px 0;
+  padding: 0;
+  //@include box_shadow;
+  //@include top-to-bottom-border(2px);
+  //background-image: linear-gradient(to bottom, $hover_color, #FAFAFA);
+}
+
+/deep/ .mat-tab-header {
+  //border-radius: 20px 0 20px 0;
+  //border: 1px solid $hover_color;
+  border-top-left-radius: 20px;
+}
+
+.test-info-exercises {
+  padding: 0;
+  border-radius: 20px;
+}
+
+.testy {
+}
+
+/deep/ .mat-tab-label {
+  //background-image: linear-gradient(to bottom, $hover_color, #FAFAFA);
+}
+/deep/ .mat-tab-group {
+  //background-image: linear-gradient(to bottom, $hover_color, red);
 }

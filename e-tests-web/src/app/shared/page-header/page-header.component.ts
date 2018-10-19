@@ -15,7 +15,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   public headerValues: HeaderValues;
 
   constructor(private headerService: HeaderService,
-              public themeService: AppSettingsService) {
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
