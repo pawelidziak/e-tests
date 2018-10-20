@@ -47,6 +47,21 @@ button {
       opacity: 1;
     }
   }
+
+  .box-header-left {
+    @media #{$lt_xs_size} {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .rate-box {
+    display: flex;
+    align-items: center;
+    @media #{$btw_sm_md} {
+      flex-direction: column;
+    }
+  }
 }
 
 // GENERAL BOX
@@ -83,7 +98,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /deep/ .mat-button-wrapper{
+  /deep/ .mat-button-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,6 +136,7 @@ button {
 /deep/ .mat-tab-label {
   //background-image: linear-gradient(to bottom, $hover_color, #FAFAFA);
 }
+
 /deep/ .mat-tab-group {
   //background-image: linear-gradient(to bottom, $hover_color, red);
 }

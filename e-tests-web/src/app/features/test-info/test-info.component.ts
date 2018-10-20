@@ -26,6 +26,9 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public exercises: Exercise[];
   public originalExercisesLength: number;
 
+  public editTestMode: boolean;
+  private copyTest: TestModel;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private testService: TestService,
@@ -84,13 +87,31 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     this.bottomSheet.open(TestSettingsBottomSheetComponent);
   }
 
-  public navigateToEdit(): void {
-    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.EDIT_TEST}`]);
-  }
-
   public navigateToLearn(): void {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
   }
 
+  public startEditMode(): void {
+    this.editTestMode = true;
+    this.copyTest = JSON.parse(JSON.stringify(this.test));
+  }
+
+  public stopEditMode(save: boolean): void {
+    this.editTestMode = false;
+    if (!save && this.copyTest) {
+      this.test = JSON.parse(JSON.stringify(this.copyTest));
+    }
+    delete this.copyTest;
+
+    if (save) {
+      this.saveTest();
+    }
+  }
+
+  private saveTest(): void {
+    this.testService.updateTest(this.testId, this.test)
+      .then(() => console.log('zapisano'))
+      .catch(error => console.log(error));
+  }
 }
 
