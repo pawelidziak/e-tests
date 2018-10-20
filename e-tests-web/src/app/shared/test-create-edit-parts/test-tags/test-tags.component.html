@@ -5,6 +5,7 @@
   <mat-label>Tags</mat-label>
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let tag of testTags"
+              class="one-tag"
               [selectable]="selectable"
               [removable]="removable"
               (removed)="removeTag(tag)">

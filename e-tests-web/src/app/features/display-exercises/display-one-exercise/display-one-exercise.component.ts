@@ -20,7 +20,7 @@ export class DisplayOneExerciseComponent implements OnInit {
   @Input() readonly isAuthor: boolean;
   @Input() readonly number: number;
   @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
-  @Output() exerciseCanceled: EventEmitter<number> = new EventEmitter();
+  @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
 
   private copyExercise: Exercise;
 
@@ -48,7 +48,7 @@ export class DisplayOneExerciseComponent implements OnInit {
       this.exercise = JSON.parse(JSON.stringify(this.copyExercise));
       delete this.copyExercise;
     }
-    this.exerciseCanceled.emit(this.number);
+    this.exerciseCanceled.emit(this.exercise);
   }
 
   public saveExercise(): void {
@@ -86,7 +86,6 @@ export class DisplayOneExerciseComponent implements OnInit {
     }
   }
 
-
   /**
    * HELPERS
    */
@@ -105,7 +104,6 @@ export class DisplayOneExerciseComponent implements OnInit {
   public checkIfIsCorrect(index: number): boolean {
     return this.exercise.correctAnswers.findIndex(x => x === index) !== -1;
   }
-
 
   private checkExerciseThenFix(): void {
     if (this.exercise.question === '') {

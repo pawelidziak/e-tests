@@ -27,11 +27,7 @@
 
 .exercise-number {
   font-weight: 600;
-
-}
-
-.exercise-question{
-  margin-left: 12px;
+  margin-right: 12px;
 }
 
 /*
@@ -130,14 +126,5 @@
   transition: color .3s;
   &:hover {
     color: $material-red;
-  }
-}
-
-#saveButton {
-  color: $material-green;
-  opacity: .7;
-  transition: opacity .3s;
-  &:hover {
-    opacity: 1;
   }
 }

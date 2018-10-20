@@ -1,7 +1,6 @@
-@import '../../variables';
+@import '../../mixins';
 
-.test-tags-field {
-  width: 100%;
-  margin-bottom: $margin;
+.one-tag {
+  @include fs-small-X-normal();
 }
 

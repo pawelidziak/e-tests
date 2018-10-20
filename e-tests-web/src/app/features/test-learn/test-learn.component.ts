@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {TestService} from '../../core/services/test.service';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
-import {TestModel, TestSettings} from '../../core/models/Test';
+import {TestModel, TestProgress, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
 import {HeaderService} from '../../core/services/header.service';
@@ -163,6 +163,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   private setTestSettings(startedTestSettings: TestSettings): void {
     if (startedTestSettings) {
+      this.checkProgress(startedTestSettings.progress);
       this.test.settings = {
         config: startedTestSettings.config,
         progress: startedTestSettings.progress
@@ -172,6 +173,22 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     }
   }
 
+  private checkProgress(progress: TestProgress): void {
+    for (let i = 0; i < progress.masteredExercisesIds.length; i++) {
+      const index = this.origTestExercises.findIndex(x => x.id === progress.masteredExercisesIds[i]);
+      if (index === -1) {
+        progress.masteredExercisesIds.splice(i, 1);
+        i--;
+      }
+    }
+    for (let i = 0; i < progress.reviewedExercisesIds.length; i++) {
+      const index = this.origTestExercises.findIndex(x => x.id === progress.reviewedExercisesIds[i].id);
+      if (index === -1) {
+        progress.reviewedExercisesIds.splice(i, 1);
+        i--;
+      }
+    }
+  }
 
   /**
    * PREPARE EXERCISES TO TEST

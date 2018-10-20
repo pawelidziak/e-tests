@@ -1,20 +1,21 @@
 <section *ngIf="test && exercises" class="section-test-info">
 
-  <div class="test-info-container" >
+  <div class="test-info-container">
 
     <!-- GENERAL -->
     <mat-card class="one-box flex-3">
       <div class="box-header">
-        <div>
+        <div class="box-header-left">
           <span style="margin-right: 12px;">{{test.createDate | date: 'dd.MM.yyyy'}}</span>
           <span>TODO Author</span>
         </div>
 
-        <div>
+        <!-- GENERAL BUTTONS -->
+        <div *ngIf="!editTestMode">
           <button mat-icon-button
                   matTooltip="Edit"
                   *ngIf="auth.currentUserId === test.authorId"
-                  (click)="navigateToEdit()">
+                  (click)="startEditMode()">
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button mat-icon-button matTooltip="Share">
@@ -24,40 +25,86 @@
             <mat-icon aria-label="More icon">more_horiz</mat-icon>
           </button>
         </div>
+
+        <!-- SAVE / CLOSE BUTTONS -->
+        <div *ngIf="auth.currentUserId === test.authorId && editTestMode">
+          <button mat-icon-button
+                  color="accent"
+                  matTooltip="Save"
+                  [disabled]="testIncorrect()"
+                  (click)="stopEditMode(true)">
+            <mat-icon aria-label="Save icon">save</mat-icon>
+          </button>
+          <button mat-icon-button
+                  color="warn"
+                  matTooltip="Cancel"
+                  (click)="stopEditMode(false)">
+            <mat-icon aria-label="Cancel">close</mat-icon>
+          </button>
+        </div>
       </div>
 
-      <h3 class="test-name" [style.color]="appSettings.currentTheme.primary">{{test.name}}</h3>
+      <!-- NO EDITABLE -->
+      <div *ngIf="!editTestMode">
+        <h3 class="test-name"
+            *ngIf="!editTestMode"
+            [style.color]="appSettings.currentTheme.primary">
+          {{test.name}}
+        </h3>
+        <div class="tag-list">
+          <mat-chip-list>
+            <mat-chip *ngFor="let tag of test.tags"
+                      [disabled]="true">
+              {{tag}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
 
-      <div class="tag-list">
-        <mat-chip-list>
-          <mat-chip *ngFor="let tag of test.tags"
-                    [disabled]="true">
-            {{tag}}
-          </mat-chip>
-        </mat-chip-list>
+        <div *ngIf="test.desc?.length > 0">{{test.desc}}</div>
       </div>
 
-      <div *ngIf="test.desc?.length > 0">{{test.desc}}</div>
+      <!-- EDITABLE -->
+      <div *ngIf="editTestMode">
+        <app-test-name [(testName)]="test.name"
+                       [margins]="'24px 0 0'"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-name>
+        <app-test-tags [(testTags)]="test.tags"
+                       [width100]="true"
+                       [appearance]="'outline'"
+                       [margins]="'24px 0'">
+        </app-test-tags>
+        <app-test-desc [(testDesc)]="test.desc"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-desc>
+      </div>
+
     </mat-card>
 
     <!-- RATE / LEARN / EXAM -->
     <mat-card class="one-box flex-1">
       <div class="box-header">
-        <div matTooltip="Total" matTooltipPosition="after">
+        <div matTooltip="Total" matTooltipPosition="after" class="rate-box">
           <button mat-icon-button disabled>
             <mat-icon aria-label="Total">person</mat-icon>
           </button>
           <span>134</span>
         </div>
-        <div>
-          <button mat-icon-button color="accent">
-            <mat-icon aria-label="Thumb up">thumb_up</mat-icon>
-          </button>
-          <span>123</span>
-          <button mat-icon-button color="warn">
-            <mat-icon aria-label="Thumb down">thumb_down</mat-icon>
-          </button>
-          <span>11</span>
+        <div class="rate-box">
+          <div>
+            <button mat-icon-button color="accent">
+              <mat-icon aria-label="Thumb up">thumb_up</mat-icon>
+            </button>
+            <span>123</span>
+          </div>
+          <div>
+            <button mat-icon-button color="warn">
+              <mat-icon aria-label="Thumb down">thumb_down</mat-icon>
+            </button>
+            <span>11</span>
+          </div>
         </div>
       </div>
 
@@ -69,7 +116,7 @@
                 class="box-button"
                 color="accent"
                 (click)="navigateToLearn()"
-                [disabled]="originalExercisesLength === 0">
+                [disabled]="exercises.length === 0">
           <mat-icon aria-label="Learn">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
@@ -79,8 +126,7 @@
                 appSettings?.currentTheme?.primary +')'"
                 class="box-button"
                 color="accent"
-                (click)="navigateToLearn()"
-                [disabled]="originalExercisesLength === 0">
+        >
           <mat-icon aria-label="Exam">event_note</mat-icon>
           <span>Exam</span>
         </button>
@@ -96,7 +142,7 @@
       <!-- EXERCISES -->
       <mat-tab label="Exercises">
         <ng-template matTabContent>
-          <app-display-exercises [exerciseList]="exercises"
+          <app-display-exercises [origExerciseList]="exercises"
                                  [testId]="testId"
                                  [authorId]="test.authorId">
           </app-display-exercises>

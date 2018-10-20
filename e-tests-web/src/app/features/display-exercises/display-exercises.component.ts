@@ -12,24 +12,23 @@ import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
 })
 export class DisplayExercisesComponent implements OnInit {
 
-  @Input() exerciseList: Array<Exercise>;
+  @Input() readonly origExerciseList: Array<Exercise>;
   @Input() readonly authorId: string;
   @Input() readonly editExercisesMode = false;
   @Input() readonly testId: string;
 
+  public copyExerciseList: Array<Exercise>;
   public searchText: string;
   public expandAllExercises = false;
   public fixedAddButton = false;
   public searchInputFocused = false;
-
-  private origExerciseSize: number;
 
   constructor(public auth: AuthService,
               public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
-    this.origExerciseSize = this.exerciseList.length;
+    this.copyExerciseList =  JSON.parse(JSON.stringify(this.origExerciseList));
   }
 
   public addExercise(): void {
@@ -38,7 +37,7 @@ export class DisplayExercisesComponent implements OnInit {
       element.scrollIntoView({behavior: 'smooth', block: 'end'});
     }, 1);
 
-    this.exerciseList.push({
+    this.copyExerciseList.push({
       question: '',
       answers: ['', ''],
       correctAnswers: [0],
@@ -47,27 +46,19 @@ export class DisplayExercisesComponent implements OnInit {
   }
 
   public handleExerciseDeleted(exercise: Exercise): void {
-    const index = this.exerciseList.findIndex(x => x.id === exercise.id);
-    this.exerciseList.splice(index, 1);
-    this.origExerciseSize--;
+    const index = this.copyExerciseList.findIndex(x => x.id === exercise.id);
+    this.copyExerciseList.splice(index, 1);
   }
 
-  public handleExerciseCanceled(exerciseNumber: number): void {
-    if (exerciseNumber > this.origExerciseSize) {
-      this.exerciseList.splice(exerciseNumber - 1, 1);
+  public handleExerciseCanceled(exercise: Exercise): void {
+    if (!exercise.id) {
+      const index = this.copyExerciseList.findIndex(x => x.createDate === exercise.createDate);
+      this.copyExerciseList.splice(index, 1);
     }
-
-    window.scrollTo({
-      'behavior': 'smooth'
-    });
-    window.scrollBy({
-      'behavior': 'smooth'
-    });
   }
 
   /**
    * HELPERS
    */
   public identifier = (index: number, item: Exercise) => item.createDate;
-
 }
