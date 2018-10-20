@@ -1,11 +1,10 @@
 <section class="login-section" id="loginContainer">
 
-  <div class="error-msg" *ngIf="errorMsg" [@slideFromTop]>{{errorMsg}}</div>
-  <div class="ok-msg" *ngIf="responseMsg" [@slideFromTop]>{{responseMsg}}</div>
+  <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
+  <div class="ok-msg" *ngIf="responseMsg">{{responseMsg}}</div>
 
   <!-- LOGIN CONTAINER -->
   <div *ngIf="!showForgotPassword"
-       [@slideFromRight]
        class="login-container">
 
     <div class="social-login">
@@ -61,7 +60,7 @@
   </div>
 
   <!-- FORGOT PASSWORD -->
-  <div class="forgot-password" *ngIf="showForgotPassword" [@slideFromRight]>
+  <div class="forgot-password" *ngIf="showForgotPassword">
 
     <form class="forgot-form" (ngSubmit)="forgotPassword()">
       <mat-form-field color="accent" appearance="outline">

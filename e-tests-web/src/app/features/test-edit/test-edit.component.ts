@@ -7,13 +7,11 @@ import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
-import {fadeInAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-edit',
   templateUrl: './test-edit.component.html',
   styleUrls: ['./test-edit.component.scss'],
-  animations: [fadeInAnimation()]
 })
 export class TestEditComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];

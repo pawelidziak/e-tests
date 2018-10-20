@@ -1,20 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
-import {
-  fadeInAnimation,
-  fadeOutAnimation,
-  listSliderRightToFadeOutAnim,
-  slideFromRightAnimation,
-  slideFromTopAnimation
-} from '../../shared/animations';
 import {AppSettingsService} from '../../core/services/app-settings.service';
+import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
 
 @Component({
   selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
   styleUrls: ['./display-exercises.component.scss'],
-  animations: [listSliderRightToFadeOutAnim(), slideFromTopAnimation(), slideFromRightAnimation(), fadeOutAnimation()]
+  animations: [scaleOneZero(), slideFromRightToRight()]
 })
 export class DisplayExercisesComponent implements OnInit {
 
@@ -41,7 +35,7 @@ export class DisplayExercisesComponent implements OnInit {
   public addExercise(): void {
     setTimeout(() => {
       const element = document.querySelector(`#endExercises`);
-      element.scrollIntoView({behavior: 'smooth', block: 'center'});
+      element.scrollIntoView({behavior: 'smooth', block: 'end'});
     }, 1);
 
     this.exerciseList.push({
@@ -55,12 +49,20 @@ export class DisplayExercisesComponent implements OnInit {
   public handleExerciseDeleted(exercise: Exercise): void {
     const index = this.exerciseList.findIndex(x => x.id === exercise.id);
     this.exerciseList.splice(index, 1);
+    this.origExerciseSize--;
   }
 
   public handleExerciseCanceled(exerciseNumber: number): void {
     if (exerciseNumber > this.origExerciseSize) {
       this.exerciseList.splice(exerciseNumber - 1, 1);
     }
+
+    window.scrollTo({
+      'behavior': 'smooth'
+    });
+    window.scrollBy({
+      'behavior': 'smooth'
+    });
   }
 
   /**

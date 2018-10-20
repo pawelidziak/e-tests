@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '../../../core/models/Exercise';
-import {slideFromRightAnimation, slideFromBottomAnimation} from '../../../shared/animations';
 import {MY_COLORS, AppSettingsService} from '../../../core/services/app-settings.service';
+import {slideFromBottom, slideFromRight} from '../../../shared/animations';
 
 export enum KEY_CODE {
   FIRST_ANSWER_KEY = 49,
@@ -16,7 +16,7 @@ export enum KEY_CODE {
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
-  animations: [slideFromBottomAnimation(), slideFromRightAnimation()]
+  animations: [slideFromBottom(), slideFromRight()]
 })
 export class ExerciseComponent implements OnInit, OnChanges {
   private RANDOM_CORRECT_FEEDBACK = [

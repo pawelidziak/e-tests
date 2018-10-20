@@ -8,16 +8,15 @@ import {TestModel, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
 import {HeaderService} from '../../core/services/header.service';
-import {slideFromTopAnimation} from '../../shared/animations';
 import {TestConfigWithRestart} from './test-config/test-config.component';
 import {take} from 'rxjs/operators';
 import {AppSettingsService} from '../../core/services/app-settings.service';
+import {LoaderService} from '../../core/services/loader.service';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test-learn.component.html',
-  styleUrls: ['./test-learn.component.scss'],
-  animations: [slideFromTopAnimation()]
+  styleUrls: ['./test-learn.component.scss']
 })
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -29,10 +28,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public currentExercise: ExerciseWithOccurrences;
 
   public isTestEnd: boolean;
-  public isConfigSet = false;
+  public isConfigSet: boolean;
   public userIsAuthenticated: boolean;
   public testInProgress: boolean;
-  public loadingStop = false;
 
   public openConfigDrawer: boolean;
   public disableConfigDrawerClose: boolean;
@@ -45,8 +43,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
               private rwdService: RWDService,
               private testService: TestService,
               private exerciseService: TestExercisesService,
+              public loader: LoaderService,
               public auth: AuthService,
-              public themeService: AppSettingsService) {
+              public appSettings: AppSettingsService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params[ROUTE_PARAMS.TEST_ID];
@@ -69,7 +68,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isMediumScreen.subscribe(
         res => {
-          // this.headerService.hidePageHeader();
           if (res) {
             this.headerService.hideAppAndPageHeader();
             this.isMediumScreen = true;
@@ -88,13 +86,14 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   private isLoggedIn() {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
       res => {
+        this.loader.start();
         if (res) {
           this.userIsAuthenticated = true;
           this.getTestExercises();
         } else {
           this.userIsAuthenticated = false;
           this.auth.openAuthDialog(true);
-          this.loadingStop = true;
+          this.loader.complete();
         }
       })
     );
@@ -142,7 +141,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public checkIfTestIsFinish(): void {
     if (this.testInProgress) {
       this.isTestEnd = this.test.settings.progress.masteredExercisesIds.length === this.origTestExercises.length;
-      this.loadingStop = true;
     } else {
       this.isTestEnd = false;
     }
@@ -150,9 +148,10 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   private startTest(settings: TestSettings): void {
     this.setTestSettings(settings);
+    this.loader.complete();
     if (!this.isConfigSet) {
       this.disableConfigDrawerClose = true;
-      this.loadingStop = true;
+      this.openConfigDrawer = true;
     } else {
       this.checkIfTestIsFinish();
       if (!this.isTestEnd) {
@@ -232,7 +231,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * FUNCTIONAL
    */
   public saveProgress(): void {
-    if (this.userIsAuthenticated && this.loadingStop && this.test.settings) {
+    if (this.userIsAuthenticated && this.test.settings) {
       this.testService.setTestStarted(this.testId, this.test.settings)
         .catch(error => console.log(error));
     }
@@ -329,12 +328,10 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    *    COUNTERS
    */
   public countMasteredRatio(): number {
-    if (this.loadingStop) {
-      if (this.test.settings.progress && this.test.settings.progress.masteredExercisesIds.length === 0) {
-        return 0;
-      }
-      return this.test.settings.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
+    if (this.test.settings.progress && this.test.settings.progress.masteredExercisesIds.length === 0) {
+      return 0;
     }
+    return this.test.settings.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
   }
 
   @HostListener('window:beforeunload', ['$event'])

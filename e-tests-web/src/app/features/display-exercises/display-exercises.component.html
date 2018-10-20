@@ -1,21 +1,13 @@
-<section class="section-display-exercises" *ngIf="exerciseList">
+<section class="section-display-exercises" *ngIf="exerciseList" id="endExercises">
 
   <!-- EXERCISES HEADER -->
   <div class="exercises-header">
-    <button mat-icon-button
-            [@slideFromRight]
-            [matTooltip]="'Search'"
-            *ngIf="!searchInputFocused"
-            [disabled]="exerciseList.length === 0"
-            (click)="searchInputFocused = true">
-      <mat-icon aria-label="Search">search</mat-icon>
-    </button>
 
     <mat-form-field *ngIf="searchInputFocused"
+                    [@slideFromRightToRight]
                     appearance="legacy"
                     color="accent"
                     class="width-100"
-                    [@slideFromRight]
                     floatLabel="never">
       <mat-label>Search exercise</mat-label>
       <input matInput [(ngModel)]="searchText"
@@ -27,6 +19,14 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+
+    <button mat-icon-button
+            [matTooltip]="'Search'"
+            *ngIf="!searchInputFocused"
+            [disabled]="exerciseList.length === 0"
+            (click)="searchInputFocused = true">
+      <mat-icon aria-label="Search">search</mat-icon>
+    </button>
 
     <button mat-icon-button
             [matTooltip]="'Expand'"
@@ -50,23 +50,24 @@
 
   </div> <!-- /EXERCISES HEADER -->
 
-    <mat-accordion [multi]="true">
+  <mat-accordion [multi]="true">
+    <div [@scaleOneZero]
+         *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+      <app-display-one-exercise [exercise]="exercise"
+                                [editMode]="!exercise.id"
+                                [testId]="testId"
+                                [isAuthor]="auth.currentUserId === authorId"
+                                [number]="i + 1"
+                                [expanded]="expandAllExercises"
+                                (exerciseDeleted)="handleExerciseDeleted($event)"
+                                (exerciseCanceled)="handleExerciseCanceled($event)">
+      </app-display-one-exercise>
+    </div>
+  </mat-accordion>
 
-      <div *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
-        <app-display-one-exercise [exercise]="exercise"
-                                  [editMode]="!exercise.id"
-                                  [testId]="testId"
-                                  [isAuthor]="auth.currentUserId === authorId"
-                                  [number]="i + 1"
-                                  [expanded]="expandAllExercises"
-                                  (exerciseDeleted)="handleExerciseDeleted($event)"
-                                  (exerciseCanceled)="handleExerciseCanceled($event)">
-        </app-display-one-exercise>
-      </div>
-    </mat-accordion>
-
-  <div style="display: flex; justify-content: center">
+  <div class="exercise-actions">
     <button mat-raised-button
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
             color="accent"
             id="newExerciseButton"
             (click)="addExercise()"
@@ -86,5 +87,5 @@
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
   </div>
 
-  <div id="endExercises"></div>
+  <div></div>
 </section>

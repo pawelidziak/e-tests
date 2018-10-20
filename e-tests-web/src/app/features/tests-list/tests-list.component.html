@@ -1,59 +1,62 @@
+<!--<app-spinner *ngIf="testListOnLoad"></app-spinner>-->
+
 <section class="section-tests-list container" *ngIf="testList">
 
-  <div class="row tests-search" >
-    <mat-form-field style="width: 100%">
-      <input matInput [(ngModel)]="searchText" placeholder="Search">
-    </mat-form-field>
-  </div>
+    <div class="row tests-search" >
+      <mat-form-field style="width: 100%">
+        <input matInput [(ngModel)]="searchText" placeholder="Search">
+      </mat-form-field>
+    </div>
 
-  <div class="row" >
-    <div class="col-lg-6 col-xl-4 single-test"
-         *ngFor="let my_test of testList | searchTest: searchText">
+    <div class="row" >
+      <div class="col-lg-6 col-xl-4 single-test"
+           *ngFor="let my_test of testList | searchTest: searchText">
 
-      <mat-card>
+        <mat-card>
 
-        <mat-card-title>{{my_test.name | limitChar: 25}}</mat-card-title>
+          <mat-card-title>{{my_test.name | limitChar: 25}}</mat-card-title>
 
-        <mat-card-subtitle>
+          <mat-card-subtitle>
 
-          <mat-chip-list class="chip-list">
-            <mat-chip *ngFor="let tag of my_test.tags" [disabled]="true">
-              {{tag}}
-            </mat-chip>
-          </mat-chip-list>
+            <mat-chip-list class="chip-list">
+              <mat-chip *ngFor="let tag of my_test.tags" [disabled]="true">
+                {{tag}}
+              </mat-chip>
+            </mat-chip-list>
 
-        </mat-card-subtitle>
+          </mat-card-subtitle>
 
-        <mat-card-content class="test-desc">
-          <p *ngIf="my_test.desc?.length > 0">{{my_test.desc | limitChar: 170}}</p>
-          <p *ngIf="my_test.desc?.length === 0">No description</p>
-        </mat-card-content>
+          <mat-card-content class="test-desc">
+            <p *ngIf="my_test.desc?.length > 0">{{my_test.desc | limitChar: 170}}</p>
+            <p *ngIf="my_test.desc?.length === 0">No description</p>
+          </mat-card-content>
 
-        <mat-card-actions>
-          <div class="my-card-footer">
+          <mat-card-actions>
+            <div class="my-card-footer">
             <span class="footer-item">
               <mat-icon aria-label="Date icon">date_range</mat-icon>
               <span>{{my_test.createDate | date: 'dd.MM.yyyy'}}</span>
             </span>
-            <a class="footer-item test-author" routerLink=".">
-              <mat-icon aria-label="Account icon">account_circle</mat-icon>
-              <span>//TODO author</span>
-            </a>
-            <button mat-stroked-button color="accent"
-                    (click)="navigateToTest(my_test.id)">
-              <span>SEE</span>
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
+              <a class="footer-item test-author" routerLink=".">
+                <mat-icon aria-label="Account icon">account_circle</mat-icon>
+                <span>//TODO author</span>
+              </a>
+              <button mat-stroked-button color="accent"
+                      (click)="navigateToTest(my_test.id)">
+                <span>SEE</span>
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
 
-  <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0" class="no-matches">
-    <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
-    <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
-    <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
-  </div>
+      <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0"
+           class="no-matches ">
+        <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
+        <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
+        <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
+      </div>
+    </div>
 
 </section>
 

@@ -10,6 +10,7 @@ import {
   MatInputModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
+import {SpinnerModule} from '../../shared/spinner/spinner.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     SharedModule,
     testsListRouting,
     MyPipesModule,
+    SpinnerModule,
 
     MatChipsModule,
     MatButtonModule,

@@ -3,14 +3,12 @@ import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
-import {fadeInAnimation} from '../../../shared/animations';
 
 
 @Component({
   selector: 'app-display-one-exercise',
   templateUrl: './display-one-exercise.component.html',
-  styleUrls: ['./display-one-exercise.component.scss'],
-  animations: [fadeInAnimation()]
+  styleUrls: ['./display-one-exercise.component.scss']
 })
 export class DisplayOneExerciseComponent implements OnInit {
 

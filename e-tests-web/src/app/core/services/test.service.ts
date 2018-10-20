@@ -125,7 +125,7 @@ export class TestService {
    *
    * @param exercise
    */
-  public shuffleAnswers(exercise: Exercise): boolean {
+  public shuffleAnswers(exercise: Exercise): void {
     for (let i = exercise.answers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [exercise.answers[i], exercise.answers[j]] = [exercise.answers[j], exercise.answers[i]];
@@ -139,9 +139,6 @@ export class TestService {
       }
     }
     exercise.correctAnswers.sort((a, b) => a - b);
-
-    return true;
   }
-
 
 }
