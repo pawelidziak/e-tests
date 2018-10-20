@@ -6,7 +6,7 @@ import {
   MatButtonModule, MatCheckboxModule,
   MatExpansionModule, MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatSelectModule, MatSnackBarModule,
+  MatSnackBarModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
@@ -24,7 +24,6 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule,
     MatExpansionModule,
     MatCheckboxModule,
     MatTooltipModule,

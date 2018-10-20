@@ -3,7 +3,6 @@ export const ALL_ROUTES = {
   SEARCH: 'search',
   CREATE_TEST: 'create',
   CREATED_TEST: 'test',
-  EDIT_TEST: 'edit',
   USER_TESTS_LIST: 'tests-list',
   TEST_LEARN: 'learn',
   APP_SETTINGS: 'settings'

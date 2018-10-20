@@ -1,4 +1,4 @@
-<section class="section-display-exercises" *ngIf="exerciseList" id="endExercises">
+<section class="section-display-exercises" *ngIf="copyExerciseList" id="endExercises">
 
   <!-- EXERCISES HEADER -->
   <div class="exercises-header">
@@ -16,14 +16,14 @@
               mat-icon-button
               aria-label="Close"
               (click)="searchInputFocused = false; searchText = ''">
-        <mat-icon>close</mat-icon>
+        <mat-icon aria-label="Close">close</mat-icon>
       </button>
     </mat-form-field>
 
     <button mat-icon-button
             [matTooltip]="'Search'"
             *ngIf="!searchInputFocused"
-            [disabled]="exerciseList.length === 0"
+            [disabled]="copyExerciseList.length === 0"
             (click)="searchInputFocused = true">
       <mat-icon aria-label="Search">search</mat-icon>
     </button>
@@ -52,7 +52,7 @@
 
   <mat-accordion [multi]="true">
     <div [@scaleOneZero]
-         *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+         *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
       <app-display-one-exercise [exercise]="exercise"
                                 [editMode]="!exercise.id"
                                 [testId]="testId"
@@ -80,12 +80,10 @@
   </div>
 
   <!-- NO MATCHES -->
-  <div *ngIf="exerciseList.length > 0 && (exerciseList | searchExercise: searchText).length === 0"
+  <div *ngIf="copyExerciseList.length > 0 && (copyExerciseList | searchExercise: searchText).length === 0"
        class="no-matches">
     <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
     <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
   </div>
-
-  <div></div>
 </section>

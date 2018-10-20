@@ -128,12 +128,3 @@
     color: $material-red;
   }
 }
-
-#saveButton {
-  color: $material-green;
-  opacity: .7;
-  transition: opacity .3s;
-  &:hover {
-    opacity: 1;
-  }
-}

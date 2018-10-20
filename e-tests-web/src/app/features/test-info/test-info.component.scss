@@ -21,6 +21,7 @@ button {
   outline: none;
 }
 
+// BOXES
 .one-box {
   border-radius: 20px 0 20px 0;
   font-size: $font-small;
@@ -110,33 +111,13 @@ button {
   margin-top: $margin;
 }
 
+// TABS
 .my-tabs {
   margin-top: $margin;
   border-radius: 20px 0 20px 0;
   padding: 0;
-  //@include box_shadow;
-  //@include top-to-bottom-border(2px);
-  //background-image: linear-gradient(to bottom, $hover_color, #FAFAFA);
 }
 
 /deep/ .mat-tab-header {
-  //border-radius: 20px 0 20px 0;
-  //border: 1px solid $hover_color;
   border-top-left-radius: 20px;
-}
-
-.test-info-exercises {
-  padding: 0;
-  border-radius: 20px;
-}
-
-.testy {
-}
-
-/deep/ .mat-tab-label {
-  //background-image: linear-gradient(to bottom, $hover_color, #FAFAFA);
-}
-
-/deep/ .mat-tab-group {
-  //background-image: linear-gradient(to bottom, $hover_color, red);
 }

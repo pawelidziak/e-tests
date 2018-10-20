@@ -33,11 +33,6 @@ const appRoutes: Routes = [
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}`,
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
-  {
-    path: `${ALL_ROUTES.CREATED_TEST}/:testId/${ALL_ROUTES.EDIT_TEST}`,
-    loadChildren: 'app/features/test-edit/test-edit.module#TestEditModule',
-    canActivate: [AuthGuard]
-  },
   // otherwise redirect to dashboard
   {path: '', redirectTo: ALL_ROUTES.DASHBOARD, pathMatch: 'full'},
   {path: '**', redirectTo: ALL_ROUTES.DASHBOARD}

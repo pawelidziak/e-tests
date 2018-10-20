@@ -10,7 +10,6 @@ import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {HeaderService} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
-import {take} from 'rxjs/operators';
 import {LoaderService} from '../../core/services/loader.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public testId: string;
   public test: TestModel;
   public exercises: Exercise[];
-  public originalExercisesLength: number;
 
   public editTestMode: boolean;
   private copyTest: TestModel;
@@ -69,10 +67,9 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   private getExercises() {
     this.subscriptions.push(
-      this.exercisesService.getTestExercises(this.testId).pipe(take(1)).subscribe(
+      this.exercisesService.getTestExercises(this.testId).subscribe(
         res => {
           this.exercises = res;
-          this.originalExercisesLength = this.exercises.length;
           this.loader.complete();
         },
         error => {
@@ -81,14 +78,6 @@ export class TestInfoComponent implements OnInit, OnDestroy {
         }
       )
     );
-  }
-
-  public openMoreBottomSheet(): void {
-    this.bottomSheet.open(TestSettingsBottomSheetComponent);
-  }
-
-  public navigateToLearn(): void {
-    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
   }
 
   public startEditMode(): void {
@@ -112,6 +101,21 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     this.testService.updateTest(this.testId, this.test)
       .then(() => console.log('zapisano'))
       .catch(error => console.log(error));
+  }
+
+  /**
+   *    HELPERS
+   */
+  public testIncorrect(): boolean {
+    return !(this.test.name && this.test.tags.length);
+  }
+
+  public openMoreBottomSheet(): void {
+    this.bottomSheet.open(TestSettingsBottomSheetComponent);
+  }
+
+  public navigateToLearn(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
   }
 }
 

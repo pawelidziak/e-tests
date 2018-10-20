@@ -29,13 +29,17 @@
         <!-- SAVE / CLOSE BUTTONS -->
         <div *ngIf="auth.currentUserId === test.authorId && editTestMode">
           <button mat-icon-button
+                  color="accent"
                   matTooltip="Save"
+                  [disabled]="testIncorrect()"
                   (click)="stopEditMode(true)">
             <mat-icon aria-label="Save icon">save</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Cancel">
-            <mat-icon aria-label="Cancel"
-                      (click)="stopEditMode(false)">close</mat-icon>
+          <button mat-icon-button
+                  color="warn"
+                  matTooltip="Cancel"
+                  (click)="stopEditMode(false)">
+            <mat-icon aria-label="Cancel">close</mat-icon>
           </button>
         </div>
       </div>
@@ -61,7 +65,6 @@
 
       <!-- EDITABLE -->
       <div *ngIf="editTestMode">
-
         <app-test-name [(testName)]="test.name"
                        [margins]="'24px 0 0'"
                        [width100]="true"
@@ -113,7 +116,7 @@
                 class="box-button"
                 color="accent"
                 (click)="navigateToLearn()"
-                [disabled]="originalExercisesLength === 0">
+                [disabled]="exercises.length === 0">
           <mat-icon aria-label="Learn">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
@@ -123,8 +126,7 @@
                 appSettings?.currentTheme?.primary +')'"
                 class="box-button"
                 color="accent"
-                (click)="navigateToLearn()"
-                [disabled]="originalExercisesLength === 0">
+        >
           <mat-icon aria-label="Exam">event_note</mat-icon>
           <span>Exam</span>
         </button>
@@ -140,7 +142,7 @@
       <!-- EXERCISES -->
       <mat-tab label="Exercises">
         <ng-template matTabContent>
-          <app-display-exercises [exerciseList]="exercises"
+          <app-display-exercises [origExerciseList]="exercises"
                                  [testId]="testId"
                                  [authorId]="test.authorId">
           </app-display-exercises>
