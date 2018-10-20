@@ -3,14 +3,19 @@ import {AuthService} from './core/services/auth.service';
 import {RWDService} from './core/services/RWD.service';
 import {ALL_ROUTES} from './shared/ROUTES';
 import {MatSidenav} from '@angular/material';
+import {routeAnimations} from './shared/animations';
+import {LoaderService} from './core/services/loader.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [routeAnimations]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
+  public pageOnLoad: boolean;
 
   public generalLinks = [
     {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
@@ -23,13 +28,27 @@ export class AppComponent implements OnInit, OnDestroy {
   public isMediumScreen = false;
   public user: any;
   public isUserLoaded: boolean;
-
-  public isAppSidenavOpened: boolean;
   public headerHeight = 48;
 
   constructor(private rwdService: RWDService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private loader: LoaderService,
+              private router: Router) {
+    this.subscriptions.push(
+      this.loader.isOnLoad.subscribe(
+        res => {
+          this.pageOnLoad = res;
+        }
+      )
+    );
 
+
+    this.router.events.subscribe(event => {
+      // Scroll to top if accessing a page, not via browser history stack
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngOnInit() {

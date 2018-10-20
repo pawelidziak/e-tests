@@ -1,66 +1,82 @@
-<section class="section-display-exercises" *ngIf="exerciseList">
+<section class="section-display-exercises" *ngIf="exerciseList" id="endExercises">
 
   <!-- EXERCISES HEADER -->
-  <div class="exercises-header" [@slideFromTop]>
+  <div class="exercises-header">
 
-    <mat-form-field appearance="outline" color="accent" class="width-100 flex-3 header-form">
+    <mat-form-field *ngIf="searchInputFocused"
+                    [@slideFromRightToRight]
+                    appearance="legacy"
+                    color="accent"
+                    class="width-100"
+                    floatLabel="never">
       <mat-label>Search exercise</mat-label>
-      <mat-icon matPrefix>search</mat-icon>
       <input matInput [(ngModel)]="searchText"
-             placeholder="Search exercise"
-             [disabled]="exerciseList.length === 0">
+             placeholder="Search exercise">
+      <button mat-button matSuffix
+              mat-icon-button
+              aria-label="Close"
+              (click)="searchInputFocused = false; searchText = ''">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
 
-    <div class="d-flex flex-1 width-100">
-      <mat-form-field appearance="outline" color="accent" class="width-100 header-form">
-        <mat-label>Sort by</mat-label>
-        <mat-select placeholder="Sort by"
-                    [(ngModel)]="selectedOption"
-                    (selectionChange)="changeSortOption()"
-                    [disabled]="exerciseList.length === 0">
-          <mat-option *ngFor="let option of sortOption" [value]="option">
-            {{option.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <button mat-icon-button
+            [matTooltip]="'Search'"
+            *ngIf="!searchInputFocused"
+            [disabled]="exerciseList.length === 0"
+            (click)="searchInputFocused = true">
+      <mat-icon aria-label="Search">search</mat-icon>
+    </button>
 
-      <div *ngIf="!editExercisesMode" class="exercises-header-button">
-        <button mat-icon-button
-                *ngIf="!expandAllExercises"
-                (click)="expandAllExercises = true">
-          <mat-icon aria-label="Expand all">unfold_more</mat-icon>
-        </button>
-        <button mat-icon-button
-                *ngIf="expandAllExercises"
-                (click)="expandAllExercises = false">
-          <mat-icon aria-label="Collapse all">unfold_less</mat-icon>
-        </button>
-      </div>
-      <button mat-mini-fab class="exercises-header-button"
-              *ngIf="auth.currentUserId === authorId && !fixedAddButton"
-              (click)="addExercise()">
-        <mat-icon aria-label="Expand all">add</mat-icon>
-      </button>
-    </div>
+    <button mat-icon-button
+            [matTooltip]="'Expand'"
+            *ngIf="!expandAllExercises"
+            (click)="expandAllExercises = true">
+      <mat-icon aria-label="Expand">unfold_more</mat-icon>
+    </button>
+    <button mat-icon-button
+            [matTooltip]="'Collapse'"
+            *ngIf="expandAllExercises"
+            (click)="expandAllExercises = false">
+      <mat-icon aria-label="Collapse">unfold_less</mat-icon>
+    </button>
+    <button mat-icon-button
+            [matTooltip]="'Add exercise'"
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            (click)="addExercise()">
+      <mat-icon aria-label="Expand all">add</mat-icon>
+    </button>
+
+
   </div> <!-- /EXERCISES HEADER -->
 
-  <div [@listStagger]='exerciseList.length' #startList>
-    <mat-accordion [multi]="true">
+  <mat-accordion [multi]="true">
+    <div [@scaleOneZero]
+         *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+      <app-display-one-exercise [exercise]="exercise"
+                                [editMode]="!exercise.id"
+                                [testId]="testId"
+                                [isAuthor]="auth.currentUserId === authorId"
+                                [number]="i + 1"
+                                [expanded]="expandAllExercises"
+                                (exerciseDeleted)="handleExerciseDeleted($event)"
+                                (exerciseCanceled)="handleExerciseCanceled($event)">
+      </app-display-one-exercise>
+    </div>
+  </mat-accordion>
 
-      <div *ngFor="let exercise of exerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
-        <app-display-one-exercise
-          [exercise]="exercise"
-          [editMode]="editExercisesMode || (addNewExercise && i === exerciseList.length - 1)"
-          [isNew]="addNewExercise"
-          [testId]="testId"
-          [isAuthor]="auth.currentUserId === authorId"
-          [number]="i + 1"
-          [expanded]="expandAllExercises"
-          (addedExercise)="handleAddedExercise($event)"
-          [id]="i === exerciseList.length - 1 ? lastExerciseId : ''">
-        </app-display-one-exercise>
-      </div>
-    </mat-accordion>
+  <div class="exercise-actions">
+    <button mat-raised-button
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            color="accent"
+            id="newExerciseButton"
+            (click)="addExercise()"
+            [style.background-image]="'linear-gradient(to right, '+
+                appSettings?.currentTheme?.accent+', '+
+                appSettings?.currentTheme?.primary +')'">
+      <mat-icon aria-label="Add">add</mat-icon>
+      <span>Add exercise</span>
+    </button>
   </div>
 
   <!-- NO MATCHES -->
@@ -71,27 +87,5 @@
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
   </div>
 
-  <!-- EXERCISES FOOTER-->
-  <!--<mat-toolbar color="primary" class="exercise-footer" [hidden]="!fixedAddButton">-->
-
-    <!--<button mat-mini-fab *ngIf="!editExercisesMode"-->
-            <!--(click)="navigateToLearn()"-->
-            <!--class="exercise-footer_element">-->
-      <!--<mat-icon aria-label="Learn icon">play_arrow</mat-icon>-->
-    <!--</button>-->
-
-    <!--<button mat-icon-button-->
-            <!--*ngIf="auth.currentUserId === authorId"-->
-            <!--(click)="addExercise()"-->
-            <!--class="exercise-footer_element">-->
-      <!--<mat-icon>add</mat-icon>-->
-    <!--</button>-->
-
-    <!--<button mat-icon-button (click)="scrollTop()"-->
-            <!--class="exercise-footer_element">-->
-      <!--<mat-icon>arrow_upward</mat-icon>-->
-    <!--</button>-->
-
-  <!--</mat-toolbar>-->
-
+  <div></div>
 </section>

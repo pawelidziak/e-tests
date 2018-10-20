@@ -8,14 +8,15 @@ import {Exercise} from '../../core/models/Exercise';
 import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
-import {slideFromTopAnimation} from '../../shared/animations';
 import {HeaderService} from '../../core/services/header.service';
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {take} from 'rxjs/operators';
+import {LoaderService} from '../../core/services/loader.service';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
-  styleUrls: ['./test-info.component.scss'],
-  animations: [slideFromTopAnimation()]
+  styleUrls: ['./test-info.component.scss']
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -31,13 +32,14 @@ export class TestInfoComponent implements OnInit, OnDestroy {
               private exercisesService: TestExercisesService,
               private bottomSheet: MatBottomSheet,
               private headerService: HeaderService,
+              private loader: LoaderService,
+              public appSettings: AppSettingsService,
               public auth: AuthService) {
-
+    this.loader.start();
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params[ROUTE_PARAMS.TEST_ID];
         this.getTest();
-        this.getExercises();
       })
     );
   }
@@ -55,6 +57,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
         res => {
           this.test = res;
           this.headerService.setCurrentRoute(['home', 'tests']);
+          this.getExercises();
         },
         error => console.log(error)
       )
@@ -63,12 +66,16 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   private getExercises() {
     this.subscriptions.push(
-      this.exercisesService.getTestExercises(this.testId).subscribe(
+      this.exercisesService.getTestExercises(this.testId).pipe(take(1)).subscribe(
         res => {
           this.exercises = res;
           this.originalExercisesLength = this.exercises.length;
+          this.loader.complete();
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.loader.complete();
+        }
       )
     );
   }

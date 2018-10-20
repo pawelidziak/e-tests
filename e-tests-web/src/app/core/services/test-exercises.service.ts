@@ -40,12 +40,32 @@ export class TestExercisesService {
     }));
   }
 
+  public changeExercise(testId: string, exercise: Exercise): Promise<any> {
+    if (exercise.id) {
+      return this.updateOneExercise(testId, exercise);
+    } else {
+      return this.addOneExercise(testId, exercise);
+    }
+  }
+
   public addOneExercise(testId: string, exercise: Exercise): Promise<DocumentReference> {
+    console.log('dodaje nowe')
     return this.afs.collection(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`)
       .add(exercise);
   }
+  public teee(testId: string, exercises: Exercise[]) {
+    console.log(exercises);
+    exercises.forEach( (exercise) => {
+      if (exercise.id) {
+        return this.updateOneExercise(testId, exercise);
+      } else {
+        return this.addOneExercise(testId, exercise);
+      }
+    });
+  }
 
   public updateOneExercise(testId: string, exercise: Exercise): Promise<void> {
+    console.log('aktualizuje')
     const copyExercise = JSON.parse(JSON.stringify(exercise));
     delete copyExercise.id;
 

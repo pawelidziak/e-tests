@@ -2,13 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatTabGroup} from '@angular/material';
-import {slideFromRightAnimation, slideFromTopAnimation} from '../../../shared/animations';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  animations: [slideFromRightAnimation(), slideFromTopAnimation()]
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 

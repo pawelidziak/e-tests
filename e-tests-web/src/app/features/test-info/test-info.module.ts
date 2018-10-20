@@ -7,11 +7,12 @@ import {
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
-  MatIconModule,
+  MatIconModule, MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {DisplayExercisesModule} from '../display-exercises/display-exercises.module';
+import {SpinnerModule} from '../../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {DisplayExercisesModule} from '../display-exercises/display-exercises.mod
   imports: [
     SharedModule,
     testInfoRouting,
-
+    SpinnerModule,
     DisplayExercisesModule,
 
     MatButtonModule,
@@ -30,6 +31,7 @@ import {DisplayExercisesModule} from '../display-exercises/display-exercises.mod
     MatChipsModule,
     MatTooltipModule,
     MatBottomSheetModule,
+    MatTabsModule
   ],
   exports: [],
   providers: [],

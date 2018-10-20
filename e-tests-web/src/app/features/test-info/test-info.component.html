@@ -1,57 +1,123 @@
-<section *ngIf="test && exercises" id="testInfoSection">
+<section *ngIf="test && exercises" class="section-test-info">
 
-  <mat-card [@slideFromTop]>
-    <div class="container test-info-container">
+  <div class="test-info-container" >
 
-      <div class="left-side">
-
-        <div class="author-date">
-          <span style="margin-right: 24px">{{test.createDate | date: 'dd.MM.yyyy'}}</span>
-          <span>TODO autor</span>
+    <!-- GENERAL -->
+    <mat-card class="one-box flex-3">
+      <div class="box-header">
+        <div>
+          <span style="margin-right: 12px;">{{test.createDate | date: 'dd.MM.yyyy'}}</span>
+          <span>TODO Author</span>
         </div>
 
-        <div class="test-name">{{test.name}}</div>
+        <div>
+          <button mat-icon-button
+                  matTooltip="Edit"
+                  *ngIf="auth.currentUserId === test.authorId"
+                  (click)="navigateToEdit()">
+            <mat-icon aria-label="Edit icon">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Share">
+            <mat-icon aria-label="Share icon">share</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="More" (click)="openMoreBottomSheet()">
+            <mat-icon aria-label="More icon">more_horiz</mat-icon>
+          </button>
+        </div>
+      </div>
 
-        <mat-chip-list class="tag-chip-list">
-          <mat-chip *ngFor="let tag of test.tags" [disabled]="true">
+      <h3 class="test-name" [style.color]="appSettings.currentTheme.primary">{{test.name}}</h3>
+
+      <div class="tag-list">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of test.tags"
+                    [disabled]="true">
             {{tag}}
           </mat-chip>
         </mat-chip-list>
-
-        <div class="test-desc">{{test.desc}}</div>
-
       </div>
 
-      <div class="right-side">
+      <div *ngIf="test.desc?.length > 0">{{test.desc}}</div>
+    </mat-card>
+
+    <!-- RATE / LEARN / EXAM -->
+    <mat-card class="one-box flex-1">
+      <div class="box-header">
+        <div matTooltip="Total" matTooltipPosition="after">
+          <button mat-icon-button disabled>
+            <mat-icon aria-label="Total">person</mat-icon>
+          </button>
+          <span>134</span>
+        </div>
+        <div>
+          <button mat-icon-button color="accent">
+            <mat-icon aria-label="Thumb up">thumb_up</mat-icon>
+          </button>
+          <span>123</span>
+          <button mat-icon-button color="warn">
+            <mat-icon aria-label="Thumb down">thumb_down</mat-icon>
+          </button>
+          <span>11</span>
+        </div>
+      </div>
+
+      <div class="button-box">
         <button mat-raised-button
-                (click)="navigateToLearn()"
+                [style.background-image]="'linear-gradient(to right, '+
+                appSettings?.currentTheme?.accent+', '+
+                appSettings?.currentTheme?.primary +')'"
+                class="box-button"
                 color="accent"
+                (click)="navigateToLearn()"
                 [disabled]="originalExercisesLength === 0">
-          <mat-icon aria-label="Learn icon">play_arrow</mat-icon>
+          <mat-icon aria-label="Learn">play_arrow</mat-icon>
           <span>Learn</span>
         </button>
-        <button mat-icon-button matTooltip="Edit"
-                *ngIf="auth.currentUserId === test.authorId"
-                (click)="navigateToEdit()">
-          <mat-icon aria-label="Edit icon">edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Share">
-          <mat-icon aria-label="Share icon">share</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="More" (click)="openMoreBottomSheet()">
-          <mat-icon aria-label="More icon">more_horiz</mat-icon>
+        <button mat-raised-button
+                [style.background-image]="'linear-gradient(to right, '+
+                appSettings?.currentTheme?.accent+', '+
+                appSettings?.currentTheme?.primary +')'"
+                class="box-button"
+                color="accent"
+                (click)="navigateToLearn()"
+                [disabled]="originalExercisesLength === 0">
+          <mat-icon aria-label="Exam">event_note</mat-icon>
+          <span>Exam</span>
         </button>
       </div>
 
-    </div>
-  </mat-card>
+    </mat-card>
 
-  <div class="container" style="padding: 0">
-    <app-display-exercises [exerciseList]="exercises"
-                           [testId]="testId"
-                           [authorId]="test.authorId">
-    </app-display-exercises>
-  </div>
+  </div> <!-- /test-info-container -->
+
+  <mat-card class="my-tabs">
+    <mat-tab-group class="" color="accent" mat-stretch-tabs>
+
+      <!-- EXERCISES -->
+      <mat-tab label="Exercises">
+        <ng-template matTabContent>
+          <app-display-exercises [exerciseList]="exercises"
+                                 [testId]="testId"
+                                 [authorId]="test.authorId">
+          </app-display-exercises>
+        </ng-template>
+      </mat-tab>
+
+      <!-- COMMENTS -->
+      <mat-tab label="Comments">
+        <ng-template matTabContent>
+          The Second Content
+        </ng-template>
+      </mat-tab>
+
+      <!-- NOTES -->
+      <mat-tab label="Notes">
+        <ng-template matTabContent>
+          The Second Content
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 
 </section>
 

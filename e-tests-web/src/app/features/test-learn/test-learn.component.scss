@@ -1,8 +1,11 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-test-learn {
-
+.overlay-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
 }
 
 button {
@@ -25,8 +28,6 @@ button {
     TEST LEARN HEADER
  */
 .test-learn-header {
-  position: fixed;
-  top: 0;
   height: 48px;
   width: 100%;
   z-index: 9;
@@ -36,6 +37,11 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.test-learn-header_fixed {
+  position: fixed;
+  top: 0;
 }
 
 .test-learn-header_inner {

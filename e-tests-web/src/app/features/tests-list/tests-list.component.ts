@@ -4,13 +4,12 @@ import {Router} from '@angular/router';
 import {TestService} from '../../core/services/test.service';
 import {TestModel} from '../../core/models/Test';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {listAnimation} from '../../shared/animations';
+import {LoaderService} from '../../core/services/loader.service';
 
 @Component({
   selector: 'app-tests-list',
   templateUrl: './tests-list.component.html',
   styleUrls: ['./tests-list.component.scss'],
-  animations: [listAnimation()]
 })
 export class TestsListComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -20,12 +19,14 @@ export class TestsListComponent implements OnInit, OnDestroy {
 
   constructor(private headerService: HeaderService,
               private router: Router,
-              private testService: TestService) {
+              private testService: TestService,
+              private loader: LoaderService) {
+    this.loader.start();
   }
 
   ngOnInit() {
-    this.headerService.setCurrentRoute(['home', 'tests']);
     this.getTestsList();
+    this.headerService.setCurrentRoute(['home', 'tests']);
   }
 
   ngOnDestroy() {
@@ -39,8 +40,14 @@ export class TestsListComponent implements OnInit, OnDestroy {
   private getTestsList(): void {
     this.subscriptions.push(
       this.testService.getTestsByCurrentUser().subscribe(
-        res => this.testList = res,
-        error => console.log(error)
+        res => {
+          this.testList = res;
+          this.loader.complete();
+        },
+        error => {
+          console.log(error);
+          this.loader.complete();
+        }
       )
     );
   }

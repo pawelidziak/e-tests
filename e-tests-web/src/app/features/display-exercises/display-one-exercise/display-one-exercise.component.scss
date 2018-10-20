@@ -1,10 +1,17 @@
 @import '../../../shared/variables';
+@import '../../../shared/mixins';
 
 .single-exercise {
   margin-bottom: .5*$margin;
+  border-radius: 20px 0 20px 0;
+  position: relative;
+  border: 1px solid $hover_color;
+  //background-color: $hover_color;
+  box-shadow: none !important;
 }
 
 .expansion-header {
+  border-radius: 20px 0 20px 0;
   padding: .5*$margin;
   color: currentColor !important;
   @media #{$gt-lg_size}{
@@ -19,8 +26,12 @@
 }
 
 .exercise-number {
-  margin-right: .5*$margin;
   font-weight: 600;
+
+}
+
+.exercise-question{
+  margin-left: 12px;
 }
 
 /*

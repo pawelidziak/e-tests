@@ -3,13 +3,11 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatDialogRef, MatTabGroup} from '@angular/material';
 import {AuthComponent} from '../auth.component';
-import {slideFromRightAnimation, slideFromTopAnimation} from '../../../shared/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [slideFromRightAnimation(), slideFromTopAnimation()]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 

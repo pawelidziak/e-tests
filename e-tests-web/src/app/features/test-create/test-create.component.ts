@@ -5,13 +5,11 @@ import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {slideFromTopAnimation} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-create',
   templateUrl: './test-create.component.html',
-  styleUrls: ['./test-create.component.scss'],
-  animations: [slideFromTopAnimation()],
+  styleUrls: ['./test-create.component.scss']
 })
 export class TestCreateComponent implements OnInit, OnDestroy {
   private readonly HEADER_TEXT = 'Create';

@@ -18,6 +18,7 @@ import {
 import {AppHeaderModule} from './features/app-header/app-header.module';
 import {PageHeaderModule} from './shared/page-header/page-header.module';
 import {AuthModule} from './features/auth/auth.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {AuthModule} from './features/auth/auth.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     CoreModule,
     appRouting,
