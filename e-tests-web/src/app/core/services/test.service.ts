@@ -12,7 +12,6 @@ import {Exercise} from '../models/Exercise';
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
-const TEST_SETTINGS_KEY = 'current_test_settings';
 const USER_TESTS_KEY = 'user_test';
 
 @Injectable()
@@ -32,23 +31,26 @@ export class TestService {
   }
 
   public getTestById(testId: string): Observable<TestModel> {
-    if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
-      this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
-    }
-    return this.cache.get(TEST_KEY);
+    // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
+    //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+    // }
+    // return this.cache.get(TEST_KEY);
+
+    return this.requestTestById(testId);
   }
 
   private requestTestById(testId: string): Observable<TestModel> {
-    this.currentTestId = testId;
     this.checkIfTestExists(testId);
+    this.currentTestId = testId;
     return this.afs.doc<TestModel>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
   public getTestsByCurrentUser(): Observable<TestModel[]> {
-    if (!this.cache.get(USER_TESTS_KEY)) {
-      this.cache.set(USER_TESTS_KEY, this.requestTestsByCurrentUser().pipe(shareReplay(CACHE_SIZE)));
-    }
-    return this.cache.get(USER_TESTS_KEY);
+    // if (!this.cache.get(USER_TESTS_KEY)) {
+    //   this.cache.set(USER_TESTS_KEY, this.requestTestsByCurrentUser().pipe(shareReplay(CACHE_SIZE)));
+    // }
+    // return this.cache.get(USER_TESTS_KEY);
+    return this.requestTestsByCurrentUser();
   }
 
   private requestTestsByCurrentUser(): Observable<TestModel[]> {
@@ -84,13 +86,6 @@ export class TestService {
    */
 
   public getTestSettings(testId: string): Observable<TestSettings> {
-    if (!this.cache.get(TEST_SETTINGS_KEY)) {
-      this.cache.set(TEST_SETTINGS_KEY, this.requestTestSettings(testId).pipe(shareReplay(CACHE_SIZE)));
-    }
-    return this.cache.get(TEST_SETTINGS_KEY);
-  }
-
-  private requestTestSettings(testId: string): Observable<TestSettings> {
     return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
       .collection(this.STARTED_TEST_FIELD)

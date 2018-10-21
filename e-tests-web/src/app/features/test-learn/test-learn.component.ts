@@ -131,7 +131,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    */
   public checkIfTetIsStarted(): void {
     this.subscriptions.push(
-      this.testService.getTestSettings(this.testId).pipe(take(1)).subscribe(
+      this.testService.getTestSettings(this.testId).subscribe(
         (res: TestSettings) => this.startTest(res),
         error => console.log(error)
       )

@@ -21,13 +21,15 @@ export class TestExercisesService {
   }
 
   public getTestExercises(testId: string): Observable<Exercise[]> {
-    if (this.currentTestId !== testId || !this.cache.get(TEST_EXERCISES_KEY)) {
-      this.cache.set(TEST_EXERCISES_KEY, this.requestTestExercises(testId).pipe(shareReplay(CACHE_SIZE)));
-    }
-    return this.cache.get(TEST_EXERCISES_KEY);
+    // if (this.currentTestId !== testId || !this.cache.get(TEST_EXERCISES_KEY)) {
+    //   this.cache.set(TEST_EXERCISES_KEY, this.requestTestExercises(testId).pipe(shareReplay(CACHE_SIZE)));
+    // }
+    // return this.cache.get(TEST_EXERCISES_KEY);
+
+    return this.requestTestExercises(testId);
   }
 
-  public requestTestExercises(testId: string): Observable<Exercise[]> {
+  private requestTestExercises(testId: string): Observable<Exercise[]> {
     this.currentTestId = testId;
     const testExercises = this.afs.collection<Exercise>(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`,
       ref => ref.orderBy(this.EXERCISE_CREATE_DATE_FIELD));
@@ -40,32 +42,12 @@ export class TestExercisesService {
     }));
   }
 
-  public changeExercise(testId: string, exercise: Exercise): Promise<any> {
-    if (exercise.id) {
-      return this.updateOneExercise(testId, exercise);
-    } else {
-      return this.addOneExercise(testId, exercise);
-    }
-  }
-
   public addOneExercise(testId: string, exercise: Exercise): Promise<DocumentReference> {
-    console.log('dodaje nowe')
     return this.afs.collection(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`)
       .add(exercise);
   }
-  public teee(testId: string, exercises: Exercise[]) {
-    console.log(exercises);
-    exercises.forEach( (exercise) => {
-      if (exercise.id) {
-        return this.updateOneExercise(testId, exercise);
-      } else {
-        return this.addOneExercise(testId, exercise);
-      }
-    });
-  }
 
   public updateOneExercise(testId: string, exercise: Exercise): Promise<void> {
-    console.log('aktualizuje')
     const copyExercise = JSON.parse(JSON.stringify(exercise));
     delete copyExercise.id;
 

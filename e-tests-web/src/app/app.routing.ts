@@ -1,4 +1,4 @@
-import {RouterModule, Routes} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './core/auth.guard';
 import {ALL_ROUTES, ROUTE_PARAMS} from './shared/ROUTES';
@@ -38,4 +38,6 @@ const appRoutes: Routes = [
   {path: '**', redirectTo: ALL_ROUTES.DASHBOARD}
 ];
 
-export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {
+  preloadingStrategy: PreloadAllModules
+});
