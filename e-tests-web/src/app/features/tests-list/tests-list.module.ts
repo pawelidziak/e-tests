@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {TestsListComponent} from './tests-list.component';
 import {SharedModule} from '../../shared/shared.module';
-import {testsListRouting} from './tests-list.routing';
 import {
   MatButtonModule,
   MatCardModule, MatChipsModule,
@@ -19,18 +18,17 @@ import {SpinnerModule} from '../../shared/spinner/spinner.module';
   ],
   imports: [
     SharedModule,
-    testsListRouting,
     MyPipesModule,
     SpinnerModule,
 
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule
   ],
-  exports: [],
+  exports: [
+    TestsListComponent
+  ],
   providers: []
 })
 export class TestsListModule {

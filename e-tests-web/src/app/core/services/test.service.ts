@@ -30,6 +30,28 @@ export class TestService {
               private readonly router: Router) {
   }
 
+  public getTests(): Observable<TestModel[]> {
+    // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
+    //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+    // }
+    // return this.cache.get(TEST_KEY);
+
+    // first get the user tests
+    const tests = this.afs.collection<TestModel>(this.TEST_PATH,
+      ref => ref
+        .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
+
+    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
+    // not valueChanges())
+    return tests.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const id = a.payload.doc.id;
+        const data = a.payload.doc.data() as TestModel;
+        return {id, ...data};
+      });
+    }));
+  }
+
   public getTestById(testId: string): Observable<TestModel> {
     // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
     //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));

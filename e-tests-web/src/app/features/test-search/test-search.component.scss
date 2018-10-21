@@ -1,0 +1,11 @@
+@import '../../shared/variables';
+
+.search-header {
+  margin: 2*$margin 0;
+  display: flex;
+  flex-direction: column;
+
+  @media #{$gt-md_size} {
+    flex-direction: row;
+  }
+}

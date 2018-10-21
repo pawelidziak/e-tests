@@ -3,15 +3,11 @@
 
 .section-tests-list {
   padding-bottom: 3*$margin;
-  overflow-x: hidden;
-}
-
-.tests-search {
-  padding: .5*$margin;
 }
 
 .single-test {
-  padding: .5*$margin;
+  margin-bottom: $margin;
+  border-radius: 20px 0 20px 0;
 }
 
 .chip-list {
@@ -23,6 +19,7 @@
 }
 
 .my-card-footer {
+  border-radius: 20px 0 20px 0;
   border-top: 1px solid $hover_color;
   background-color: $hover_color;
   width: 100%;

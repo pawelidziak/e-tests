@@ -1,0 +1,22 @@
+<section class="container">
+
+  <div class="search-header">
+    <mat-form-field style="width: 100%">
+      <input matInput [(ngModel)]="searchText" placeholder="Search">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Sort by"
+                  [(value)]="selectedSortOption.value"
+                  (selectionChange)="sortTestList()">
+        <mat-option *ngFor="let option of sortOptions" [value]="option.value">
+          {{option.label}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+
+  <app-tests-list [testList]="testList" [searchText]="searchText"></app-tests-list>
+
+</section>
