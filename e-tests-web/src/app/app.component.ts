@@ -3,26 +3,33 @@ import {AuthService} from './core/services/auth.service';
 import {RWDService} from './core/services/RWD.service';
 import {ALL_ROUTES} from './shared/ROUTES';
 import {MatSidenav} from '@angular/material';
-import {routeAnimations} from './shared/animations';
+import {listAnimation, routeAnimations} from './shared/animations';
 import {LoaderService} from './core/services/loader.service';
 import {NavigationEnd, Router} from '@angular/router';
+import {AppSettingsService} from './core/services/app-settings.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [routeAnimations]
+  animations: [routeAnimations, listAnimation()]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
   public pageOnLoad: boolean;
 
   public generalLinks = [
+    {label: 'Dashboard', path: ALL_ROUTES.DASHBOARD, icon: 'dashboard'},
     {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
     {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'},
+    {label: 'Popular', path: 'TODO', icon: 'trending_up'},
+    {label: 'Study sets', path: ALL_ROUTES.USER_TESTS_LIST, icon: 'collections_bookmark'}
   ];
-  public privateLinks = [
-    {label: 'Your tests', path: ALL_ROUTES.USER_TESTS_LIST, icon: 'view_list'},
+
+  public otherLinks = [
+    {label: 'About', path: 'TODO', icon: 'help'},
+    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'},
+    {label: 'Download', path: 'TODO', icon: 'cloud_download'}
   ];
 
   public isMediumScreen = false;
@@ -33,7 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private rwdService: RWDService,
               private auth: AuthService,
               private loader: LoaderService,
-              private router: Router) {
+              private router: Router,
+              public appSettings: AppSettingsService) {
+    this.loader.start();
     this.subscriptions.push(
       this.loader.isOnLoad.subscribe(
         res => {
@@ -41,7 +50,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       )
     );
-
 
     this.router.events.subscribe(event => {
       // Scroll to top if accessing a page, not via browser history stack
@@ -66,8 +74,12 @@ export class AppComponent implements OnInit, OnDestroy {
         res => {
           this.user = res;
           this.isUserLoaded = true;
+          this.loader.complete();
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.loader.complete();
+        }
       ));
   }
 

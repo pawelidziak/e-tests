@@ -12,46 +12,43 @@
 
     <nav class="my-nav">
 
-      <div class="logo" style="height: 96px">
+      <div class="app-logo">
         LOGO
       </div>
 
       <div class="loading" *ngIf="!isUserLoaded">Loading...</div>
 
       <!-- NAV LIST -->
-      <mat-list role="list" class="my-sidenav-list" *ngIf="isUserLoaded">
-        <mat-divider></mat-divider>
-        <h3 mat-subheader>General</h3>
+      <mat-list *ngIf="isUserLoaded"
+                role="list"
+                class="my-sidenav-list"
+                [@listStagger]="generalLinks.length + otherLinks.length">
         <mat-list-item *ngFor="let link of generalLinks"
                        role="listitem"
                        [routerLink]="link.path"
+                       routerLinkActive
+                       #rla="routerLinkActive"
+                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
                        class="list-item"
                        (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>{{link.icon}}</mat-icon>
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
-        <mat-divider></mat-divider>
+        <div style="flex: 1"></div>
 
-        <!-- YOURS -->
-        <h3 mat-subheader>Yours</h3>
-        <mat-list-item *ngFor="let link of privateLinks"
+        <!-- OTHERS -->
+        <mat-list-item *ngFor="let link of otherLinks"
+                       role="listitem"
                        [routerLink]="link.path"
-                       class="list-item" (click)="closeDrawer(drawer)">
+                       routerLinkActive
+                       #rla="routerLinkActive"
+                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
+                       class="list-item"
+                       (click)="closeDrawer(drawer)">
           <mat-icon matListIcon>{{link.icon}}</mat-icon>
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
-
-        <div style="flex: 1"></div>
-
-        <div class="contact-settings">
-          <div class="list-item other-element" matTooltip="About">
-            <mat-icon aria-label="About">info</mat-icon>
-          </div>
-          <div class="list-item other-element" matTooltip="Download">
-            <mat-icon aria-label="Download">cloud_download</mat-icon>
-          </div>
-        </div>
 
       </mat-list>
     </nav> <!-- /my-nav -->
@@ -64,7 +61,7 @@
     <div [hidden]="pageOnLoad"
          style="position: relative;"
          [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
-      <router-outlet #o="outlet" ></router-outlet>
+      <router-outlet #o="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

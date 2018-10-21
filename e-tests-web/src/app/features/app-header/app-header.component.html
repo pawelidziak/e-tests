@@ -23,9 +23,9 @@
       <mat-icon aria-label="Account">account_circle</mat-icon>
       <span style="padding-left: 12px;">{{user.displayName}}</span>
     </button>
-    <button mat-icon-button [matMenuTriggerFor]="moreMenu">
-      <mat-icon aria-label="Settings">more_vert</mat-icon>
-    </button>
+    <!--<button mat-icon-button [matMenuTriggerFor]="moreMenu">-->
+      <!--<mat-icon aria-label="Settings">more_vert</mat-icon>-->
+    <!--</button>-->
   </div>
 
 </mat-toolbar>
@@ -47,17 +47,17 @@
   </ng-template>
 </mat-menu>
 
-<!-- MORE MENU -->
-<mat-menu #moreMenu="matMenu">
-  <ng-template matMenuContent>
-    <button mat-menu-item>
-      <mat-icon aria-label="Profile">info</mat-icon>
-      <span>About</span>
-    </button>
+<!--&lt;!&ndash; MORE MENU &ndash;&gt;-->
+<!--<mat-menu #moreMenu="matMenu">-->
+  <!--<ng-template matMenuContent>-->
+    <!--<button mat-menu-item>-->
+      <!--<mat-icon aria-label="Profile">info</mat-icon>-->
+      <!--<span>About</span>-->
+    <!--</button>-->
 
-    <button mat-menu-item [routerLink]="ALL_ROUTES.APP_SETTINGS">
-      <mat-icon aria-label="Logout">settings</mat-icon>
-      <span>Settings</span>
-    </button>
-  </ng-template>
-</mat-menu>
+    <!--<button mat-menu-item [routerLink]="ALL_ROUTES.APP_SETTINGS">-->
+      <!--<mat-icon aria-label="Logout">settings</mat-icon>-->
+      <!--<span>Settings</span>-->
+    <!--</button>-->
+  <!--</ng-template>-->
+<!--</mat-menu>-->

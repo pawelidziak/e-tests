@@ -3,6 +3,7 @@
 
 .section-create {
   margin: $margin 0;
+  @include fs-small-X-normal();
 }
 
 button {
