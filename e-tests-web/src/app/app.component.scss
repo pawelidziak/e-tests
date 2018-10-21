@@ -1,14 +1,21 @@
 @import 'shared/variables';
 @import 'shared/mixins';
+@import '~@angular/material/theming';
 
 .app-sidenav-container {
   min-height: 100%;
 }
 
 .app-sidenav {
-  overflow-x: hidden;
-  width: 200px;
+  overflow: hidden;
+  width: 250px;
   @include box_shadow();
+}
+
+.app-logo {
+  display: flex;
+  justify-content: center;
+  margin: 2*$margin 0;
 }
 
 .my-nav {
@@ -25,22 +32,16 @@
     @include fs-small-X-normal();
     outline: none;
     cursor: pointer;
+    position: relative;
+    transition: all .3s ease;
+    opacity: .7;
     &:hover {
+      opacity: 1;
       background-color: $hover_color;
     }
-  }
-}
-
-.contact-settings {
-  display: flex;
-  color: $text_secondary;
-
-  .other-element {
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
+    mat-icon {
+      @include mat-icon-size(20px)
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import {SpinnerModule} from './shared/spinner/spinner.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
 import {
+  MatButtonModule,
   MatCheckboxModule, MatFormFieldModule,
   MatIconModule, MatInputModule,
   MatListModule,
@@ -37,18 +38,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppHeaderModule,
     PageHeaderModule,
 
-    MatSelectModule,
 
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-
-
-    MatToolbarModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatInputModule
-
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

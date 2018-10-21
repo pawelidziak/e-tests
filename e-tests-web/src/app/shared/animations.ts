@@ -1,4 +1,4 @@
-import {animate, animateChild, query as q, sequence, style, transition, trigger} from '@angular/animations';
+import {animate, animateChild, query as q, sequence, stagger, style, transition, trigger} from '@angular/animations';
 
 const query = (s, a, o = {optional: true}) => q(s, a, o);
 
@@ -29,6 +29,18 @@ export const routeAnimations = trigger('routeAnimations', [
     ]),
   ]),
 ]);
+
+export function listAnimation() {
+  return trigger('listStagger', [
+    transition('* => *', [
+      query(':enter', style({opacity: 0})),
+      query(':enter',
+        stagger(100, TRANSFORM_FROM_TOP)
+      )
+    ]),
+
+  ]);
+}
 
 /*
       SLIDE ANIMATIONS
@@ -102,6 +114,11 @@ const TRANSFORM_TO_TOP = [
   animate('.25s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0}))
 ];
 
+const TRANSFORM_FROM_TOP = [
+  style({transform: 'translateY(15%)', opacity: 0}),
+  animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: .7}))
+];
+
 const SCALE_ONE = [
   style({opacity: 0, transform: 'scale(0)'}),
   animate('.35s ease-in-out', style({opacity: 1, transform: 'scale(1)'}))
@@ -111,3 +128,4 @@ const SCALE_ZERO = [
   style({opacity: 1, transform: 'scale(1)'}),
   animate('.35s ease-in-out', style({opacity: 0, transform: 'scale(0)'}))
 ];
+
