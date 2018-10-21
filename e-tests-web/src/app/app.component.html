@@ -62,6 +62,7 @@
 
     <app-spinner [hidden]="!pageOnLoad"></app-spinner>
     <div [hidden]="pageOnLoad"
+         style="position: relative;"
          [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
       <router-outlet #o="outlet" ></router-outlet>
     </div>

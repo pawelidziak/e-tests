@@ -5,6 +5,7 @@ import {TestService} from '../../core/services/test.service';
 import {TestModel} from '../../core/models/Test';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {LoaderService} from '../../core/services/loader.service';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-tests-list',
@@ -12,7 +13,7 @@ import {LoaderService} from '../../core/services/loader.service';
   styleUrls: ['./tests-list.component.scss'],
 })
 export class TestsListComponent implements OnInit, OnDestroy {
-  private subscriptions: any[] = [];
+  private subscription$: Subscription;
 
   public searchText: string;
   public testList: Array<TestModel>;
@@ -30,7 +31,7 @@ export class TestsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscription$.unsubscribe();
   }
 
   public navigateToTest(testId: string): void {
@@ -38,8 +39,7 @@ export class TestsListComponent implements OnInit, OnDestroy {
   }
 
   private getTestsList(): void {
-    this.subscriptions.push(
-      this.testService.getTestsByCurrentUser().subscribe(
+    this.subscription$ = this.testService.getTestsByCurrentUser().subscribe(
         res => {
           this.testList = res;
           this.loader.complete();
@@ -48,8 +48,7 @@ export class TestsListComponent implements OnInit, OnDestroy {
           console.log(error);
           this.loader.complete();
         }
-      )
-    );
+      );
   }
 
 }

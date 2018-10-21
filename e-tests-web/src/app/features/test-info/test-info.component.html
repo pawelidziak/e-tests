@@ -51,8 +51,9 @@
             [style.color]="appSettings.currentTheme.primary">
           {{test.name}}
         </h3>
+
         <div class="tag-list">
-          <mat-chip-list>
+          <mat-chip-list style="outline: none;">
             <mat-chip *ngFor="let tag of test.tags"
                       [disabled]="true">
               {{tag}}
@@ -137,7 +138,7 @@
   </div> <!-- /test-info-container -->
 
   <mat-card class="my-tabs">
-    <mat-tab-group class="" color="accent" mat-stretch-tabs>
+    <mat-tab-group color="accent">
 
       <!-- EXERCISES -->
       <mat-tab label="Exercises">
