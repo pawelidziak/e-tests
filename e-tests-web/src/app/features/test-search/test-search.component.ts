@@ -6,10 +6,6 @@ import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
 
-interface SortOption {
-  label: string;
-  value: string;
-}
 
 @Component({
   selector: 'app-test-search',
@@ -17,33 +13,11 @@ interface SortOption {
   styleUrls: ['./test-search.component.scss']
 })
 export class TestSearchComponent implements OnInit, OnDestroy {
-  private subscription$: Subscription;
+  private subscriptions: any[] = [];
 
   public testList: TestModel[];
   public searchText: string;
 
-  public sortOptions: SortOption[] = [
-    {
-      label: 'Date (DESC)',
-      value: 'date-desc'
-    },
-    {
-      label: 'Date (ASC)',
-      value: 'date-asc'
-    },
-    {
-      label: 'Rate (DESC)',
-      value: 'rate-desc'
-    },
-    {
-      label: 'Rate (ASC)',
-      value: 'rate-asc'
-    }
-  ];
-  public selectedSortOption: SortOption = {
-    label: 'Date (DESC)',
-    value: 'date-desc'
-  };
 
   constructor(private headerService: HeaderService,
               private router: Router,
@@ -58,41 +32,50 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   private getTestsList(): void {
-    this.subscription$ = this.testService.getTests().subscribe(
-      res => {
-        this.testList = res;
-        this.loader.complete();
-      },
-      error => {
-        console.log(error);
-        this.loader.complete();
-      }
+    this.subscriptions.push(
+      this.testService.getTests().subscribe(
+        res => {
+          this.testList = res;
+          this.prepareList();
+          this.prepareList();
+          this.prepareList();
+          this.prepareList();
+          this.prepareList();
+          console.log(this.testList);
+          this.getTestAuthor();
+        },
+        error => {
+          console.log(error);
+          this.loader.complete();
+        }
+      )
     );
   }
 
-  public sortTestList(): void {
-    switch (this.selectedSortOption.value) {
-      // Date (DESC)
-      case this.sortOptions[0].value:
-        this.testList.sort((a, b) => a.createDate > b.createDate ? -1 : 1);
-        break;
-      // Date (ASC)
-      case this.sortOptions[1].value:
-        this.testList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
-        break;
-      // Rate (DESC)
-      case this.sortOptions[2].value:
-        // this.testList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
-        break;
-      // Rate (ASC)
-      case this.sortOptions[3].value:
-        // this.testList.sort((a, b) => a.createDate > b.createDate ? 1 : -1);
-        break;
-    }
+  private getTestAuthor() {
+    this.testList.forEach(test => {
+      this.subscriptions.push(
+        this.testService.getAuthor(test.authorId).subscribe(
+          res => {
+            test.authorObj = res;
+            this.loader.complete();
+          }, error => {
+            console.log(error);
+            this.loader.complete();
+          }
+        ));
+    });
   }
 
+
+
+  private prepareList() {
+    this.testList.forEach(x => {
+      this.testList.push(x);
+    });
+  }
 }

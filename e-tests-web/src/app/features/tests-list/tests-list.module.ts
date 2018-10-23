@@ -3,10 +3,9 @@ import {TestsListComponent} from './tests-list.component';
 import {SharedModule} from '../../shared/shared.module';
 import {
   MatButtonModule,
-  MatCardModule, MatChipsModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule
+  MatCardModule, MatChipsModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatPaginatorModule, MatSelectModule, MatSortModule,
+  MatTableModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 import {SpinnerModule} from '../../shared/spinner/spinner.module';
@@ -24,7 +23,14 @@ import {SpinnerModule} from '../../shared/spinner/spinner.module';
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     TestsListComponent

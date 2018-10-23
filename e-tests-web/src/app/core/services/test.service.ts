@@ -4,7 +4,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
-import {map, shareReplay} from 'rxjs/operators';
+import {map, shareReplay, take} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
@@ -46,10 +46,16 @@ export class TestService {
     return tests.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const id = a.payload.doc.id;
+        // const author = this.afs.doc(a.payload.doc.data().authorId).ref.get().then(x => console.log(x));
         const data = a.payload.doc.data() as TestModel;
         return {id, ...data};
       });
     }));
+  }
+
+
+  public getAuthor(userId: string): Observable<any> {
+   return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
   }
 
   public getTestById(testId: string): Observable<TestModel> {

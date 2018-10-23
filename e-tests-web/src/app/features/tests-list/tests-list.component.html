@@ -1,54 +1,170 @@
-<section class="section-tests-list " *ngIf="testList">
+<section class="section-tests-list ">
 
-  <div class="row">
-    <div class="col-lg-6 col-xl-4"
-         *ngFor="let my_test of testList | searchTest: searchText">
-
-      <mat-card class="single-test">
-
-        <mat-card-title>{{my_test.name | limitChar: 25}}</mat-card-title>
-
-        <mat-card-subtitle>
-
-          <mat-chip-list class="chip-list">
-            <mat-chip *ngFor="let tag of my_test.tags" [disabled]="true">
-              {{tag}}
-            </mat-chip>
-          </mat-chip-list>
-
-        </mat-card-subtitle>
-
-        <mat-card-content class="test-desc">
-          <p *ngIf="my_test.desc?.length > 0">{{my_test.desc | limitChar: 170}}</p>
-          <p *ngIf="my_test.desc?.length === 0">No description</p>
-        </mat-card-content>
-
-        <mat-card-actions>
-          <div class="my-card-footer">
-            <span class="footer-item">
-              <mat-icon aria-label="Date icon">date_range</mat-icon>
-              <span>{{my_test.createDate | date: 'dd.MM.yyyy'}}</span>
-            </span>
-            <a class="footer-item test-author" routerLink=".">
-              <mat-icon aria-label="Account icon">account_circle</mat-icon>
-              <span>//TODO author</span>
-            </a>
-            <button mat-stroked-button color="accent"
-                    (click)="navigateToTest(my_test.id)">
-              <span>SEE</span>
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-    <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0"
-         class="no-matches ">
-      <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
-      <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
-      <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
-    </div>
+  <div class="search-header">
+    <mat-form-field style="width: 100%">
+      <input matInput [(ngModel)]="searchText" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
   </div>
 
-</section>
+  <!--<div class="test-container">-->
+  <!--<div *ngFor="let my_test of pagedItems"-->
+  <!--class="single-test">-->
+  <!--<mat-card class="test-card ">-->
 
+  <!--<mat-card-title>{{my_test.name }}</mat-card-title>-->
+
+  <!--<mat-card-subtitle>-->
+
+  <!--<mat-chip-list class="chip-list">-->
+  <!--<mat-chip *ngFor="let tag of my_test.tags" [disabled]="true">-->
+  <!--{{tag}}-->
+  <!--</mat-chip>-->
+  <!--</mat-chip-list>-->
+
+  <!--</mat-card-subtitle>-->
+
+  <!--<mat-card-content class="test-desc">-->
+  <!--<p *ngIf="my_test.desc?.length > 0">{{my_test.desc | limitChar: 170}}</p>-->
+  <!--<p *ngIf="my_test.desc?.length === 0">No description</p>-->
+  <!--</mat-card-content>-->
+
+  <!--<mat-card-actions>-->
+  <!--<div class="my-card-footer">-->
+  <!--<span class="footer-item">-->
+  <!--<mat-icon aria-label="Date icon">date_range</mat-icon>-->
+  <!--<span>{{my_test.createDate | date: 'dd.MM.yyyy'}}</span>-->
+  <!--</span>-->
+  <!--<a class="footer-item test-author" routerLink=".">-->
+  <!--<mat-icon aria-label="Account icon">account_circle</mat-icon>-->
+  <!--<span>{{my_test.authorObj?.displayName}}</span>-->
+  <!--</a>-->
+  <!--<button mat-stroked-button color="accent"-->
+  <!--(click)="navigateToTest(my_test.id)">-->
+  <!--<span>SEE</span>-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</mat-card-actions>-->
+
+  <!--</mat-card>-->
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--&lt;!&ndash; pager &ndash;&gt;-->
+  <!--<div *ngIf="pager.pages && pager.pages.length " class="my-pager">-->
+  <!--<div>-->
+  <!--<button mat-icon-button-->
+  <!--[disabled]="pager.currentPage === 1"-->
+  <!--(click)="setPage(1)">-->
+  <!--<mat-icon>first_page</mat-icon>-->
+  <!--</button>-->
+  <!--<button mat-icon-button-->
+  <!--[disabled]="pager.currentPage === 1"-->
+  <!--(click)="setPage(pager.currentPage - 1)">-->
+  <!--<mat-icon>navigate_before</mat-icon>-->
+  <!--</button>-->
+  <!--</div>-->
+
+
+  <!--<div style="display: flex; margin: 0 24px">-->
+  <!--<span *ngFor="let page of pager.pages"-->
+  <!--class="page" (click)="setPage(page)"-->
+  <!--[style.background-color]="pager.currentPage === page ? appSettings.currentTheme.accent : ''"-->
+  <!--[ngClass]="{active:pager.currentPage === page}">-->
+  <!--{{page}}-->
+  <!--</span>-->
+  <!--</div>-->
+
+  <!--<div>-->
+  <!--<button mat-icon-button-->
+  <!--[disabled]="pager.currentPage === pager.totalPages"-->
+  <!--(click)="setPage(pager.currentPage + 1)">-->
+  <!--<mat-icon>navigate_next</mat-icon>-->
+  <!--</button>-->
+  <!--<button mat-icon-button-->
+  <!--[disabled]="pager.currentPage === pager.totalPages"-->
+  <!--(click)="setPage(pager.totalPages)">-->
+  <!--<mat-icon>last_page</mat-icon>-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="my-table mat-elevation-z8">
+
+    <table mat-table
+           matSort
+           multiTemplateDataRows
+           [dataSource]="dataSource">
+      <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">-->
+      <!--<th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
+      <!--</ng-container>-->
+
+      <!-- Rate Column -->
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Rate</th>
+        <td mat-cell *matCellDef="let row">
+        <span class="rate-value">4.7</span></td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row"
+            [style.color]="row.expanded ? appSettings.currentTheme.accent : ''"> {{row.name}}</td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date" *ngIf="!isSmallScreen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row" class="small-row"
+            [style.color]="row.expanded ? appSettings.currentTheme.accent : ''"> {{row.createDate | date: 'dd.MM.yyyy'}}</td>
+      </ng-container>
+
+      <!-- Author Column -->
+      <ng-container matColumnDef="author" *ngIf="!isSmallScreen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+        <td mat-cell *matCellDef="let row" class="small-row author-row"
+            [style.color]="row.expanded ? appSettings.currentTheme.accent : ''"
+            (click)="$event.stopPropagation()">
+          {{row.authorObj?.displayName}}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+          <div class="element-detail"
+               [@detailExpand]="row.expanded ? 'expanded' : 'collapsed'">
+            <div>
+              <mat-chip-list class="chip-list">
+                <mat-chip *ngFor="let tag of row.tags" class="one-tag" color="accent" disabled>
+                  {{tag}}
+                </mat-chip>
+              </mat-chip-list>
+              <div class="detail-desc">
+                <p *ngIf="row.desc?.length > 0">{{row.desc}}</p>
+                <p *ngIf="row.desc?.length === 0">No description</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button mat-stroked-button color="accent">SEE</button>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="element-row"
+          [style.border-right]="element.expanded ? '12px solid ' + appSettings.currentTheme.accent : ''"
+
+          [class.expanded-row]="element.expanded"
+          (click)="element.expanded = !element.expanded">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  </div>
+</section>
