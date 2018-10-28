@@ -1,0 +1,29 @@
+<div class="search-container ">
+
+
+  <div class="search-container-row">
+    <mat-form-field floatLabel="never"
+                    color="accent"
+                    class="type-form">
+      <mat-select [(value)]="selected" placeholder="Type">
+        <mat-option value="TEST">Test</mat-option>
+        <mat-option value="USER">User</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field floatLabel="never"
+                    color="accent"
+                    class="width-100">
+      <input matInput placeholder="Search...">
+    </mat-form-field>
+
+    <button mat-raised-button color="accent">SEARCH</button>
+  </div>
+
+  <div class="box-item-container">
+    <app-box-item *ngFor="let my_test of testList"
+                  [item]="my_test">
+    </app-box-item>
+  </div>
+
+</div>

@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // show loader
-    this.loader.start();
+    // this.loader.start();
 
     // request = request.clone({
     //   url: BASE_URL + request.url
@@ -32,10 +32,10 @@ export class JwtInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
-        this.loader.complete();
+        // this.loader.complete();
       }
     }, (err: any) => {
-      this.loader.complete();
+      // this.loader.complete();
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
           // redirect to the auth route

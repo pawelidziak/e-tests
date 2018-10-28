@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   },
   // {
   //   path: ALL_ROUTES.USER_TESTS_LIST,
-  //   loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule',
+  //   loadChildren: 'app/features/tests-table.component/tests-table.component.module#TestsTableModule',
   //   canActivate: [AuthGuard]
   // },
   {

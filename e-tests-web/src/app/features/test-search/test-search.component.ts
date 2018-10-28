@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/internal/Subscription';
 import {Router} from '@angular/router';
 import {TestModel} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
-
 
 @Component({
   selector: 'app-test-search',
@@ -16,14 +14,13 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
   public testList: TestModel[];
-  public searchText: string;
 
+  public recentlyAdded: TestModel[];
 
   constructor(private headerService: HeaderService,
               private router: Router,
               private testService: TestService,
               private loader: LoaderService) {
-    this.loader.start();
   }
 
   ngOnInit() {
@@ -36,16 +33,12 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   private getTestsList(): void {
+    // this.loader.start();
     this.subscriptions.push(
       this.testService.getTests().subscribe(
         res => {
           this.testList = res;
-          this.prepareList();
-          this.prepareList();
-          this.prepareList();
-          this.prepareList();
-          this.prepareList();
-          console.log(this.testList);
+          this.testList.forEach(x => this.testList.push(x));
           this.getTestAuthor();
         },
         error => {
@@ -57,7 +50,8 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   private getTestAuthor() {
-    this.testList.forEach(test => {
+
+    for (const test of this.testList) {
       this.subscriptions.push(
         this.testService.getAuthor(test.authorId).subscribe(
           res => {
@@ -68,14 +62,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
             this.loader.complete();
           }
         ));
-    });
-  }
-
-
-
-  private prepareList() {
-    this.testList.forEach(x => {
-      this.testList.push(x);
-    });
+    }
+    // this.recentlyAdded = this.testList.splice(0, 3);
   }
 }

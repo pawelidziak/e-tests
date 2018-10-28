@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {testsSearchRouting} from './test-search.routing';
 import {TestSearchComponent} from './test-search.component';
 import {SharedModule} from '../../shared/shared.module';
-import {TestsListModule} from '../tests-list/tests-list.module';
-import {MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {TestsTableModule} from '../tests-table.component/tests-table.module';
+import {MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {BoxListModule} from './box-list/box-list.module';
 
 
 @NgModule({
@@ -14,8 +15,10 @@ import {MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/mate
     SharedModule,
     testsSearchRouting,
 
-    TestsListModule,
+    BoxListModule,
+    TestsTableModule,
 
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule

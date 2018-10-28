@@ -22,14 +22,17 @@ export class AppComponent implements OnInit, OnDestroy {
     {label: 'Dashboard', path: ALL_ROUTES.DASHBOARD, icon: 'dashboard'},
     {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
     {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'},
-    {label: 'Popular', path: 'TODO', icon: 'trending_up'},
+    {label: 'Popular', path: 'TODO', icon: 'trending_up'}
+  ];
+
+  public personalLinks = [
     {label: 'Study sets', path: ALL_ROUTES.USER_TESTS_LIST, icon: 'collections_bookmark'}
   ];
 
   public otherLinks = [
     {label: 'About', path: 'TODO', icon: 'help'},
-    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'},
-    {label: 'Download', path: 'TODO', icon: 'cloud_download'}
+    {label: 'Download', path: 'TODO', icon: 'cloud_download'},
+    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
   ];
 
   public isMediumScreen = false;
@@ -44,11 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
               public appSettings: AppSettingsService) {
     this.loader.start();
     this.subscriptions.push(
-      this.loader.isOnLoad.subscribe(
-        res => {
-          this.pageOnLoad = res;
-        }
-      )
+      this.loader.isOnLoad.subscribe(res => this.pageOnLoad = res)
     );
 
     this.router.events.subscribe(event => {
@@ -85,9 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private getRWDValue(): void {
     this.subscriptions.push(
-      this.rwdService.isMediumScreen.subscribe(res => {
-        this.isMediumScreen = res;
-      })
+      this.rwdService.isMediumScreen.subscribe(res => this.isMediumScreen = res)
     );
   }
 
