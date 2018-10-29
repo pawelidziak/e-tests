@@ -42,5 +42,7 @@ const appRoutes: Routes = [
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {
-  preloadingStrategy: PreloadAllModules
+  preloadingStrategy: PreloadAllModules,
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
 });

@@ -8,7 +8,7 @@ import {
   MatInputModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 
@@ -26,9 +26,9 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule
   ],
   exports: [
     TestsTableComponent

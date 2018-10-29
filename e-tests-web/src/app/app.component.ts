@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       // Scroll to top if accessing a page, not via browser history stack
       if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
       }
     });
   }

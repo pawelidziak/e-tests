@@ -8,7 +8,7 @@ import {RWDService} from '../../core/services/RWD.service';
 import {expandPanelAnimation} from '../../shared/animations';
 
 @Component({
-  selector: 'app-tests-list',
+  selector: 'app-tests-table',
   templateUrl: './tests-table.component.html',
   styleUrls: ['./tests-table.component.scss'],
   animations: [expandPanelAnimation()]
@@ -17,13 +17,11 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: any[] = [];
 
   @Input() testList: Array<any>;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   public dataSource: MatTableDataSource<TestModel>;
-
   public displayedColumns: string[];
-
   public isSmallScreen: boolean;
 
   constructor(private router: Router,
@@ -44,7 +42,6 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.subscribeToSort();
-    console.log(this.dataSource);
   }
 
   private subscribeToSort(): void {
@@ -67,7 +64,7 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
     if (this.isSmallScreen) {
       this.displayedColumns = ['rate', 'name'];
     } else {
-      this.displayedColumns = ['rate', 'createDate', 'name'];
+      this.displayedColumns = ['createDate', 'name', 'rate'];
     }
   }
 

@@ -4,6 +4,7 @@ import {TestModel} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
+import {PagerService} from '../../core/services/pager.service';
 
 @Component({
   selector: 'app-test-search',
@@ -15,10 +16,9 @@ export class TestSearchComponent implements OnInit, OnDestroy {
 
   public testList: TestModel[];
 
-  public recentlyAdded: TestModel[];
-
   constructor(private headerService: HeaderService,
               private router: Router,
+              private pagerService: PagerService,
               private testService: TestService,
               private loader: LoaderService) {
   }
@@ -38,7 +38,6 @@ export class TestSearchComponent implements OnInit, OnDestroy {
       this.testService.getTests().subscribe(
         res => {
           this.testList = res;
-          this.testList.forEach(x => this.testList.push(x));
           this.getTestAuthor();
         },
         error => {
@@ -50,7 +49,6 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   private getTestAuthor() {
-
     for (const test of this.testList) {
       this.subscriptions.push(
         this.testService.getAuthor(test.authorId).subscribe(
@@ -63,6 +61,5 @@ export class TestSearchComponent implements OnInit, OnDestroy {
           }
         ));
     }
-    // this.recentlyAdded = this.testList.splice(0, 3);
   }
 }
