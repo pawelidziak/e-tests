@@ -13,9 +13,9 @@ import {
 } from '@angular/material';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {DisplayExercisesModule} from '../display-exercises/display-exercises.module';
-import {TestTagsModule} from '../../shared/test-create-edit-parts/test-tags/test-tags.module';
-import {TestNameModule} from '../../shared/test-create-edit-parts/test-name/test-name.module';
-import {TestDescModule} from '../../shared/test-create-edit-parts/test-desc/test-desc.module';
+import {TestTagsModule} from '../../shared/components/test-create-edit-parts/test-tags/test-tags.module';
+import {TestNameModule} from '../../shared/components/test-create-edit-parts/test-name/test-name.module';
+import {TestDescModule} from '../../shared/components/test-create-edit-parts/test-desc/test-desc.module';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,16 @@
 <div class="container">
 
-  <app-tests-table [testList]="testList"></app-tests-table>
+  <div class="search-header">
+    <button mat-icon-button (click)="isTable = false">
+      <mat-icon aria-label="Table">view_module</mat-icon>
+    </button>
+    <button mat-icon-button (click)="isTable = true">
+      <mat-icon aria-label="Boxes">format_list_bulleted</mat-icon>
+    </button>
+  </div>
+
+  <app-test-boxes *ngIf="!isTable" [testList]="testList"></app-test-boxes>
+  <app-tests-table *ngIf="isTable" [testList]="testList"></app-tests-table>
 
 </div>
 

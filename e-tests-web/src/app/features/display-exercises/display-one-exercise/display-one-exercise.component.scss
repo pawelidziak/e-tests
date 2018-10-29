@@ -3,7 +3,7 @@
 
 .single-exercise {
   margin-bottom: .5*$margin;
-  border-radius: 20px 0 20px 0;
+  border-radius: 20px 0 20px 0 !important;
   position: relative;
   border: 1px solid $hover_color;
   //background-color: $hover_color;

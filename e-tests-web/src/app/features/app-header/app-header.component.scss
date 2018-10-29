@@ -9,7 +9,7 @@
   position: fixed;
   top: 0;
   z-index: 9;
-  padding: 0;
+  padding: 0 .5*$margin;
 }
 
 .mat-menu-item, button {

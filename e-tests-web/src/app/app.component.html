@@ -23,6 +23,7 @@
                 role="list"
                 class="my-sidenav-list"
                 [@listStagger]="generalLinks.length + personalLinks.length + otherLinks.length + 3">
+
         <!-- GENERAL -->
         <h3 mat-subheader style="margin-top: 24px">General</h3>
         <mat-list-item *ngFor="let link of generalLinks"
@@ -37,19 +38,21 @@
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
-        <!-- PERSONAL -->
-        <h3 mat-subheader style="margin-top: 24px">Personal</h3>
-        <mat-list-item *ngFor="let link of personalLinks"
-                       role="listitem"
-                       [routerLink]="link.path"
-                       routerLinkActive
-                       #rla="routerLinkActive"
-                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
-                       class="list-item"
-                       (click)="closeDrawer(drawer)">
-          <mat-icon matListIcon>{{link.icon}}</mat-icon>
-          <h3 matLine>{{link.label}}</h3>
-        </mat-list-item>
+        <div *ngIf="user">
+          <!-- PERSONAL -->
+          <h3 mat-subheader style="margin-top: 24px">Personal</h3>
+          <mat-list-item *ngFor="let link of personalLinks"
+                         role="listitem"
+                         [routerLink]="link.path"
+                         routerLinkActive
+                         #rla="routerLinkActive"
+                         [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
+                         class="list-item"
+                         (click)="closeDrawer(drawer)">
+            <mat-icon matListIcon>{{link.icon}}</mat-icon>
+            <h3 matLine>{{link.label}}</h3>
+          </mat-list-item>
+        </div>
 
         <!-- OTHERS -->
         <h3 mat-subheader style="margin-top: 24px">Others</h3>

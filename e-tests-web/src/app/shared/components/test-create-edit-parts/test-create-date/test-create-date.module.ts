@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {MatFormFieldModule, MatInputModule} from '@angular/material';
-import {SharedModule} from '../../shared.module';
+import {SharedModule} from '../../../shared.module';
 import {TestCreateDateComponent} from './test-create-date.component';
 
 @NgModule({

@@ -1,0 +1,21 @@
+<section class="section-user-tests" *ngIf="testList" [@slideFromTop]>
+
+    <div class="row">
+      <div class="col-12" style="margin-bottom: 24px;">
+        <mat-form-field color="accent" floatLabel="never" style="width: 100%;">
+          <input matInput placeholder="Search" [(ngModel)]="searchTest">
+          <mat-icon matSuffix aria-label="Search">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3"
+           *ngFor="let user_test of testList | searchTest: searchTest"
+           style="margin-bottom: 12px">
+
+        <app-one-test-box [oneBox]="user_test"></app-one-test-box>
+      </div>
+
+    </div>
+</section>

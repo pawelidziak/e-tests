@@ -55,7 +55,7 @@ export class TestService {
 
 
   public getAuthor(userId: string): Observable<any> {
-   return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
+    return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
   }
 
   public getTestById(testId: string): Observable<TestModel> {
@@ -162,6 +162,11 @@ export class TestService {
       }
     }
     exercise.correctAnswers.sort((a, b) => a - b);
+  }
+
+
+  public setTestExercisesNumber(testId: string, exercisesNumber: number) {
+    return this.afs.collection(this.TEST_PATH).doc(testId).update({exercisesNumber: exercisesNumber});
   }
 
 }

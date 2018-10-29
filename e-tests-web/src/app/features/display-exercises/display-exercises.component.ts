@@ -3,6 +3,7 @@ import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
+import {TestService} from '../../core/services/test.service';
 
 @Component({
   selector: 'app-display-exercises',
@@ -22,13 +23,16 @@ export class DisplayExercisesComponent implements OnInit {
   public expandAllExercises = false;
   public fixedAddButton = false;
   public searchInputFocused = false;
+  private exercisesNumber: number;
 
-  constructor(public auth: AuthService,
+  constructor(private testService: TestService,
+              public auth: AuthService,
               public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
-    this.copyExerciseList =  JSON.parse(JSON.stringify(this.origExerciseList));
+    this.copyExerciseList = JSON.parse(JSON.stringify(this.origExerciseList));
+    this.exercisesNumber = this.copyExerciseList.length;
   }
 
   public addExercise(): void {
@@ -45,9 +49,18 @@ export class DisplayExercisesComponent implements OnInit {
     });
   }
 
+  public handleExercisAdded(): void {
+    this.exercisesNumber++;
+    this.testService.setTestExercisesNumber(this.testId, this.exercisesNumber)
+      .catch(error => console.log(error));
+  }
+
   public handleExerciseDeleted(exercise: Exercise): void {
     const index = this.copyExerciseList.findIndex(x => x.id === exercise.id);
     this.copyExerciseList.splice(index, 1);
+    this.exercisesNumber--;
+    this.testService.setTestExercisesNumber(this.testId, this.exercisesNumber)
+      .catch(error => console.log(error));
   }
 
   public handleExerciseCanceled(exercise: Exercise): void {

@@ -19,6 +19,7 @@ export class DisplayOneExerciseComponent implements OnInit {
   @Input() readonly testId: string;
   @Input() readonly isAuthor: boolean;
   @Input() readonly number: number;
+  @Output() exerciseAdded: EventEmitter<void> = new EventEmitter();
   @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
   @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
 
@@ -64,6 +65,7 @@ export class DisplayOneExerciseComponent implements OnInit {
         .then(res => {
           if (res.id) {
             this.exercise.id = res.id;
+            this.exerciseAdded.emit();
           }
         })
         .catch(error => this.openSnackBar(error, 10000));

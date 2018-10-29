@@ -1,0 +1,66 @@
+<mat-card class="box-item" (click)="navigateToTest()">
+  <mat-progress-bar class="in-progress-bar"
+                    color="accent"
+                    mode="determinate"
+                    [value]="calculateProgress()">
+  </mat-progress-bar>
+
+  <div class="box-item-row">
+    <h3 class="paragraph-font">{{oneBox.name | limitChar: 40}}</h3>
+  </div>
+  <!--<div class="box-oneBox-header">-->
+
+  <!--<div class="box-oneBox-row" style="margin-left: 6px">-->
+  <!--<mat-icon aria-label="Rate" class="box-oneBox-icon">star_rate</mat-icon>-->
+  <!--<span class="sub-paragraph-font">5.0</span>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <div class="box-item-row">
+    <mat-icon aria-label="Tags" class="box-item-icon">local_offer</mat-icon>
+    <div class="tag-row">
+      <span *ngFor="let tag of oneBox.tags let i=index;" class="sub-paragraph-font">
+        <span *ngIf="i < maxTags">
+          <span>{{tag}}</span>
+          <span *ngIf="i < oneBox.tags.length - 1" style="padding: 0 5px; opacity: .6">|</span>
+        </span>
+        <span *ngIf="i >= maxTags && i === oneBox.tags.length - 1">...</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="box-item-row">
+    <mat-icon aria-label="Rate" class="box-item-icon">description</mat-icon>
+    <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'No description') | limitChar: 65}}</p>
+  </div>
+
+  <!--<div class="box-oneBox-row">-->
+  <!--<mat-icon aria-label="Author" class="box-oneBox-icon">person</mat-icon>-->
+  <!--<span class="sub-paragraph-font">{{oneBox.authorObj?.displayName | limitChar: 25}}</span>-->
+  <!--</div>-->
+
+  <div style="flex: 1 0; min-height: 24px;"></div>
+
+  <div class="box-item-footer">
+
+    <div class="box-item-row">
+      <mat-icon aria-label="Rate" class="box-item-icon">star_rate</mat-icon>
+      <span class="sub-paragraph-font">5.0</span>
+    </div>
+    <div class="box-item-row">
+      <mat-icon aria-label="Remained" class="box-item-icon">folder</mat-icon>
+      <span class="sub-paragraph-font">{{oneBox.exercisesNumber}}</span>
+    </div>
+    <div class="box-item-row">
+      <mat-icon aria-label="Comment" class="box-item-icon">comment</mat-icon>
+      <span class="sub-paragraph-font">3</span>
+    </div>
+    <div class="box-item-row">
+      <mat-icon aria-label="Note" class="box-item-icon">note</mat-icon>
+      <span class="sub-paragraph-font">2</span>
+    </div>
+    <!--<mat-icon aria-label="Go" style="margin-left: 12px;">arrow_forward</mat-icon>-->
+  </div>
+
+</mat-card>

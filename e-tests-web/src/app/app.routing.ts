@@ -2,6 +2,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './core/auth.guard';
 import {ALL_ROUTES, ROUTE_PARAMS} from './shared/ROUTES';
+import {TestsBoxesModule} from './shared/components/tests-boxes/tests-boxes.module';
 
 const appRoutes: Routes = [
   /**
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
   },
   // {
   //   path: ALL_ROUTES.USER_TESTS_LIST,
-  //   loadChildren: 'app/features/tests-table.component/tests-table.component.module#TestsTableModule',
+  //   loadChildren: 'app/features/tests-table/tests-table.module#TestsTableModule',
   //   canActivate: [AuthGuard]
   // },
   {
@@ -36,13 +37,17 @@ const appRoutes: Routes = [
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}`,
     loadChildren: 'app/features/test-info/test-info.module#TestInfoModule'
   },
+  {
+    path: `${ALL_ROUTES.USER_TESTS_LIST}`,
+    loadChildren: 'app/features/user-tests/user-tests.module#UserTestsModule',
+  },
   // otherwise redirect to dashboard
   {path: '', redirectTo: ALL_ROUTES.DASHBOARD, pathMatch: 'full'},
   {path: '**', redirectTo: ALL_ROUTES.DASHBOARD}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {
-  preloadingStrategy: PreloadAllModules,
   scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
+  preloadingStrategy: PreloadAllModules
 });

@@ -29,7 +29,7 @@ export class  PagerService {
       }
     }
 
-    // calculate start and end item indexes
+    // calculate start and end oneBox indexes
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
