@@ -30,9 +30,9 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-
   private isLoggedIn() {
-    this.subscriptions.push(this.auth.currentUserObservable.subscribe(
+    this.subscriptions.push(
+      this.auth.currentUserObservable.subscribe(
       res => {
         this.userLogged = !!res;
         this.getUserTests();
@@ -42,7 +42,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
 
   private getUserTests(): void {
     this.subscriptions.push(
-      this.testService.getTests().subscribe(
+      this.testService.getTestsByCurrentUser().subscribe(
         res => {
           this.userTests = res;
           if (this.userLogged) {
