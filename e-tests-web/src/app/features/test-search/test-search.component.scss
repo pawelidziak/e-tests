@@ -1,0 +1,13 @@
+@import '../../shared/variables';
+
+.search-header {
+  margin-top: $margin;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: $text_secondary;
+}
+
+button {
+  outline: none;
+}

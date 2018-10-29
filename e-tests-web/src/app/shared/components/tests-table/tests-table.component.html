@@ -1,11 +1,9 @@
-<section class="section-tests-table">
+<section class="section-tests-table" [@slideFromTop]>
 
-  <div class="search-header">
-    <mat-form-field style="width: 100%" color="accent">
-      <mat-icon matSuffix>search</mat-icon>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
-  </div>
+  <mat-form-field style="width: 100%" color="accent">
+    <mat-icon matSuffix>search</mat-icon>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
 
   <div class="my-table mat-elevation-z8">
 

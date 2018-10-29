@@ -1,12 +1,8 @@
-@import '../../shared/variables';
-@import '../../shared/mixins';
+@import '../../variables';
+@import '../../mixins';
 
 .section-tests-table {
   padding-bottom: 3*$margin;
-}
-
-.search-header {
-  padding-top: 2*$margin;
 }
 
 /**

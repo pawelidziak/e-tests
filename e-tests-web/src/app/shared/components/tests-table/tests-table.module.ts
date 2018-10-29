@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {TestsTableComponent} from './tests-table.component';
-import {SharedModule} from '../../shared/shared.module';
+import {SharedModule} from '../../shared.module';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -10,7 +10,7 @@ import {
   MatSortModule,
   MatTableModule, MatTooltipModule
 } from '@angular/material';
-import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
+import {MyPipesModule} from '../../pipes/my-pipes.module';
 
 
 @NgModule({

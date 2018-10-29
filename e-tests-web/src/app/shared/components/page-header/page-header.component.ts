@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {HeaderService, HeaderValues} from '../../core/services/header.service';
-import {AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService, HeaderValues} from '../../../core/services/header.service';
+import {AppSettingsService} from '../../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-page-header',

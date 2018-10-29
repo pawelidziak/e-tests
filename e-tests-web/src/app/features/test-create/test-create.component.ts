@@ -75,7 +75,8 @@ export class TestCreateComponent implements OnInit, OnDestroy {
       desc: '',
       createDate: new Date().getTime(),
       authorId: '',
-      isPublic: true
+      isPublic: true,
+      exercisesNumber: 0
     };
   }
 

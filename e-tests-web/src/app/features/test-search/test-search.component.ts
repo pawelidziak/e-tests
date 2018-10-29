@@ -15,6 +15,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
   public testList: TestModel[];
+  public isTable = false;
 
   constructor(private headerService: HeaderService,
               private router: Router,
@@ -24,6 +25,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loader.start();
     this.getTestsList();
     this.headerService.setCurrentRoute(['home', 'search']);
   }
@@ -33,7 +35,6 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   private getTestsList(): void {
-    // this.loader.start();
     this.subscriptions.push(
       this.testService.getTests().subscribe(
         res => {

@@ -50,15 +50,15 @@
 
   </div> <!-- /EXERCISES HEADER -->
 
-  <mat-accordion [multi]="true">
-    <div [@scaleOneZero]
-         *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+  <mat-accordion [multi]="true" *ngIf="copyExerciseList">
+    <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
       <app-display-one-exercise [exercise]="exercise"
                                 [editMode]="!exercise.id"
                                 [testId]="testId"
                                 [isAuthor]="auth.currentUserId === authorId"
                                 [number]="i + 1"
                                 [expanded]="expandAllExercises"
+                                (exerciseAdded)="handleExercisAdded()"
                                 (exerciseDeleted)="handleExerciseDeleted($event)"
                                 (exerciseCanceled)="handleExerciseCanceled($event)">
       </app-display-one-exercise>

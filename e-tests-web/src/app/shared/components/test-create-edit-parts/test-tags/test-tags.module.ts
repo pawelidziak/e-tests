@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
-import {SharedModule} from '../../shared.module';
+import {SharedModule} from '../../../shared.module';
 import {TestTagsComponent} from './test-tags.component';
 
 @NgModule({

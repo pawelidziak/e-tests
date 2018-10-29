@@ -4,12 +4,12 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
 
-import {SpinnerModule} from './shared/spinner/spinner.module';
+import {SpinnerModule} from './shared/components/spinner/spinner.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
 import {MatButtonModule, MatIconModule, MatListModule, MatSidenavModule,} from '@angular/material';
 import {AppHeaderModule} from './features/app-header/app-header.module';
-import {PageHeaderModule} from './shared/page-header/page-header.module';
+import {PageHeaderModule} from './shared/components/page-header/page-header.module';
 import {AuthModule} from './features/auth/auth.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 

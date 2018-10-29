@@ -1,17 +1,17 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {TestModel} from '../../core/models/Test';
-import {ALL_ROUTES} from '../../shared/ROUTES';
+import {TestModel} from '../../../core/models/Test';
+import {ALL_ROUTES} from '../../ROUTES';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {AppSettingsService} from '../../core/services/app-settings.service';
-import {RWDService} from '../../core/services/RWD.service';
-import {expandPanelAnimation} from '../../shared/animations';
+import {AppSettingsService} from '../../../core/services/app-settings.service';
+import {RWDService} from '../../../core/services/RWD.service';
+import {expandPanelAnimation, slideFromTop} from '../../animations';
 
 @Component({
   selector: 'app-tests-table',
   templateUrl: './tests-table.component.html',
   styleUrls: ['./tests-table.component.scss'],
-  animations: [expandPanelAnimation()]
+  animations: [expandPanelAnimation(), slideFromTop()]
 })
 export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: any[] = [];

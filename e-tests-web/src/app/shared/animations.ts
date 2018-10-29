@@ -77,6 +77,12 @@ export function slideFromBottom() {
   ]);
 }
 
+export function slideFromTop() {
+  return trigger('slideFromTop', [
+    transition(':enter', TRANSFORM_FROM_TOP)
+  ]);
+}
+
 export function slideFromRight() {
   return trigger('slideFromRight', [
     transition(':enter', TRANSFORM_FROM_RIGHT)
@@ -152,8 +158,8 @@ const TRANSFORM_TO_TOP = [
 ];
 
 const TRANSFORM_FROM_TOP = [
-  style({transform: 'translateY(15%)', opacity: 0}),
-  animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: .7}))
+  style({transform: 'translateY(-3%)', opacity: 0}),
+  animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
 ];
 
 const SCALE_ONE = [

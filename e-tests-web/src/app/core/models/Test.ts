@@ -4,6 +4,7 @@ export interface TestModel {
   tags: string[];
   desc?: string;
   createDate: number;
+  exercisesNumber: number;
   authorId: string;
   isPublic: boolean;
   settings?: TestSettings;
