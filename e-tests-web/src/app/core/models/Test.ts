@@ -7,6 +7,7 @@ export interface TestModel {
   authorId: string;
   isPublic: boolean;
   settings?: TestSettings;
+  authorObj?: any;
 }
 
 export interface TestSettings {

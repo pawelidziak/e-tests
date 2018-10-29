@@ -22,7 +22,9 @@
       <mat-list *ngIf="isUserLoaded"
                 role="list"
                 class="my-sidenav-list"
-                [@listStagger]="generalLinks.length + otherLinks.length">
+                [@listStagger]="generalLinks.length + personalLinks.length + otherLinks.length + 3">
+        <!-- GENERAL -->
+        <h3 mat-subheader style="margin-top: 24px">General</h3>
         <mat-list-item *ngFor="let link of generalLinks"
                        role="listitem"
                        [routerLink]="link.path"
@@ -35,10 +37,9 @@
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
-        <div style="flex: 1"></div>
-
-        <!-- OTHERS -->
-        <mat-list-item *ngFor="let link of otherLinks"
+        <!-- PERSONAL -->
+        <h3 mat-subheader style="margin-top: 24px">Personal</h3>
+        <mat-list-item *ngFor="let link of personalLinks"
                        role="listitem"
                        [routerLink]="link.path"
                        routerLinkActive
@@ -50,6 +51,19 @@
           <h3 matLine>{{link.label}}</h3>
         </mat-list-item>
 
+        <!-- OTHERS -->
+        <h3 mat-subheader style="margin-top: 24px">Others</h3>
+        <mat-list-item *ngFor="let link of otherLinks"
+                       role="listitem"
+                       [routerLink]="link.path"
+                       routerLinkActive
+                       #rla="routerLinkActive"
+                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
+                       class="list-item"
+                       (click)="closeDrawer(drawer)">
+          <mat-icon matListIcon>{{link.icon}}</mat-icon>
+          <h3 matLine>{{link.label}}</h3>
+        </mat-list-item>
       </mat-list>
     </nav> <!-- /my-nav -->
   </mat-sidenav>

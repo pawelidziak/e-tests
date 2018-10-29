@@ -19,6 +19,7 @@ import {AuthGuard} from './auth.guard';
 import {TestExercisesService} from './services/test-exercises.service';
 import {ScrollService} from './services/scroll.service';
 import {AppSettingsService} from './services/app-settings.service';
+import {PagerService} from './services/pager.service';
 
 @NgModule({
   declarations: [],
@@ -48,7 +49,8 @@ import {AppSettingsService} from './services/app-settings.service';
     CacheService,
     HeaderService,
     TestService,
-    TestExercisesService
+    TestExercisesService,
+    PagerService
   ]
 })
 export class CoreModule {

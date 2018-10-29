@@ -3,7 +3,6 @@ import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './core/auth.guard';
 import {ALL_ROUTES, ROUTE_PARAMS} from './shared/ROUTES';
 
-
 const appRoutes: Routes = [
   /**
    * Define lazy loading routes here
@@ -24,10 +23,14 @@ const appRoutes: Routes = [
     path: ALL_ROUTES.CREATE_TEST,
     loadChildren: 'app/features/test-create/test-create.module#TestCreateModule'
   },
+  // {
+  //   path: ALL_ROUTES.USER_TESTS_LIST,
+  //   loadChildren: 'app/features/tests-table.component/tests-table.component.module#TestsTableModule',
+  //   canActivate: [AuthGuard]
+  // },
   {
-    path: ALL_ROUTES.USER_TESTS_LIST,
-    loadChildren: 'app/features/tests-list/tests-list.module#TestsListModule',
-    canActivate: [AuthGuard]
+    path: ALL_ROUTES.SEARCH,
+    loadChildren: 'app/features/test-search/test-search.module#TestSearchModule'
   },
   {
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}`,
@@ -39,5 +42,7 @@ const appRoutes: Routes = [
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {
-  preloadingStrategy: PreloadAllModules
+  preloadingStrategy: PreloadAllModules,
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
 });

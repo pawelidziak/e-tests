@@ -1,37 +1,39 @@
 import {NgModule} from '@angular/core';
-import {TestsListComponent} from './tests-list.component';
+import {TestsTableComponent} from './tests-table.component';
 import {SharedModule} from '../../shared/shared.module';
-import {testsListRouting} from './tests-list.routing';
 import {
   MatButtonModule,
-  MatCardModule, MatChipsModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule, MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
-import {SpinnerModule} from '../../shared/spinner/spinner.module';
 
 
 @NgModule({
   declarations: [
-    TestsListComponent
+    TestsTableComponent
   ],
   imports: [
     SharedModule,
-    testsListRouting,
     MyPipesModule,
-    SpinnerModule,
 
-    MatChipsModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatTooltipModule
   ],
-  exports: [],
+  exports: [
+    TestsTableComponent
+  ],
   providers: []
 })
-export class TestsListModule {
+export class TestsTableModule {
 }

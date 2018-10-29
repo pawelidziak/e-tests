@@ -1,4 +1,14 @@
-import {animate, animateChild, query as q, sequence, stagger, style, transition, trigger} from '@angular/animations';
+import {
+  animate,
+  animateChild,
+  query as q,
+  sequence,
+  stagger,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 
 const query = (s, a, o = {optional: true}) => q(s, a, o);
 
@@ -30,6 +40,9 @@ export const routeAnimations = trigger('routeAnimations', [
   ]),
 ]);
 
+/*
+      LIST ANIMATIONS
+ */
 export function listAnimation() {
   return trigger('listStagger', [
     transition('* => *', [
@@ -39,6 +52,19 @@ export function listAnimation() {
       )
     ]),
 
+  ]);
+}
+
+/*
+      EXPANDED PANEL ANIMATIONS
+ */
+
+export function expandPanelAnimation() {
+  return trigger('expand', [
+    state('collapsed, void', style({height: '0px', minHeight: '0', display: 'none'})),
+    state('expanded', style({height: '*'})),
+    transition('expanded <=> collapsed', animate('225ms ease-in-out')),
+    transition('expanded <=> void', animate('225ms ease-in-out'))
   ]);
 }
 
@@ -54,6 +80,12 @@ export function slideFromBottom() {
 export function slideFromRight() {
   return trigger('slideFromRight', [
     transition(':enter', TRANSFORM_FROM_RIGHT)
+  ]);
+}
+
+export function slideFromLeft() {
+  return trigger('slideFromLeft', [
+    transition(':enter', TRANSFORM_FROM_LEFT)
   ]);
 }
 
@@ -97,6 +129,11 @@ const TRANSFORM_FROM_RIGHT = [
 const TRANSFORM_TO_RIGHT = [
   style({transform: 'translateX(0%)', opacity: 1}),
   animate('.25s ease-in-out', style({transform: 'translateX(3%)', opacity: 0}))
+];
+
+const TRANSFORM_FROM_LEFT = [
+  style({transform: 'translateX(-3%)', opacity: 0}),
+  animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
 ];
 
 const TRANSFORM_TO_LEFT = [

@@ -1,0 +1,147 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.section-tests-table {
+  padding-bottom: 3*$margin;
+}
+
+.search-header {
+  padding-top: 2*$margin;
+}
+
+/**
+    TABLE
+ */
+.my-table {
+  overflow-x: hidden;
+  min-height: 100%;
+  position: relative;
+  border-radius: 20px 0 20px 0;
+}
+
+table {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+/deep/ .mat-sort-header-arrow {
+  opacity: 0;
+  &:hover {
+    opacity: .54;
+  }
+}
+
+.mat-cell, .mat-header-cell {
+  //border-color: $divider_color !important;
+  border: none;
+  @media #{$lt_md_size} {
+    &:first-of-type {
+      padding-left: .5*$margin;
+    }
+    &:last-of-type {
+      padding-right: .5*$margin;
+    }
+  }
+}
+
+/**
+    MAT COLUMNS
+ */
+
+.mat-column-rate {
+  font-size: $font-small;
+}
+
+.mat-column-createDate {
+  padding-left: $margin;
+  padding-right: .5*$margin;
+}
+
+.mat-column-name {
+  width: 100%;
+  padding: .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
+}
+
+.mat-column-expandedDetail {
+  padding: 0 !important;
+}
+
+/**
+    MAT ROWS
+ */
+.element-row {
+  &:hover {
+    cursor: pointer;
+    background-color: $hover_color;
+  }
+}
+
+.expanded-row {
+  background-color: $hover_color;
+}
+
+.small-row {
+  font-size: $font-small;
+}
+
+.detail-row-collapsed {
+  height: 0;
+  background-color: $hover_color;
+}
+
+/**
+    EXPANDED DETAIL ROW
+ */
+.rate-row {
+  display: flex;
+  align-items: center;
+  .rate-icon {
+    color: $text_secondary;
+    margin-right: 5px;
+    @include mat-icon-size(15px)
+  }
+}
+
+.element-detail {
+  @include fs-small-X-normal();
+  cursor: default;
+  overflow: hidden;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-top: .5*$margin;
+  padding-left: $margin;
+  padding-right: .5*$margin;
+  color: $text_secondary;
+}
+
+.detail-icon {
+  color: $text_secondary;
+  margin-right: .5*$margin;
+  @include mat-icon-size(20px)
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.actions {
+  margin-top: .5*$margin;
+  display: flex;
+  justify-content: flex-end;
+
+  .see-button {
+    padding-right: 0;
+    outline: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+  }
+}

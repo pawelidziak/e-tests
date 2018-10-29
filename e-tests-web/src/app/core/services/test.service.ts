@@ -4,7 +4,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
-import {map, shareReplay} from 'rxjs/operators';
+import {map, shareReplay, take} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
@@ -28,6 +28,34 @@ export class TestService {
               private readonly cache: CacheService,
               private readonly auth: AuthService,
               private readonly router: Router) {
+  }
+
+  public getTests(): Observable<TestModel[]> {
+    // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
+    //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+    // }
+    // return this.cache.get(TEST_KEY);
+
+    // first get the user tests
+    const tests = this.afs.collection<TestModel>(this.TEST_PATH,
+      ref => ref
+        .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
+
+    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
+    // not valueChanges())
+    return tests.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const id = a.payload.doc.id;
+        // const author = this.afs.doc(a.payload.doc.data().authorId).ref.get().then(x => console.log(x));
+        const data = a.payload.doc.data() as TestModel;
+        return {id, ...data};
+      });
+    }));
+  }
+
+
+  public getAuthor(userId: string): Observable<any> {
+   return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
   }
 
   public getTestById(testId: string): Observable<TestModel> {

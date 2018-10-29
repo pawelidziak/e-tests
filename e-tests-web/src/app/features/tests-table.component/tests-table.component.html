@@ -1,0 +1,138 @@
+<section class="section-tests-table">
+
+  <div class="search-header">
+    <mat-form-field style="width: 100%" color="accent">
+      <mat-icon matSuffix>search</mat-icon>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+  <div class="my-table mat-elevation-z8">
+
+    <table mat-table
+           matSort
+           multiTemplateDataRows
+           matSortActive="createDate"
+           matSortDirection="desc"
+           [dataSource]="dataSource">
+      <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">-->
+      <!--<th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
+      <!--</ng-container>-->
+
+      <!-- Rate Column -->
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="rate-row">
+            <mat-icon aria-label="Rate" class="rate-icon">star_rate</mat-icon>
+            <span class="rate-value">5.1</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row"
+            [style.color]="row.expanded ? appSettings.currentTheme.accent : ''">
+          {{row.name}}
+        </td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="createDate" *ngIf="!isSmallScreen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row" class="small-row"
+            [style.color]="row.expanded ? appSettings.currentTheme.accent : ''">
+          {{row.createDate | date: 'dd.MM.yyyy'}}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+          <div class="element-detail"
+               [@expand]="row.expanded ? 'expanded' : 'collapsed'">
+
+            <!-- AUTHOR -->
+            <div class="detail-row">
+              <mat-icon aria-label="Author"
+                        class="detail-icon"
+                        [matTooltip]="'Author'"
+                        [matTooltipPosition]="'before'">
+                person
+              </mat-icon>
+              <span>{{row.authorObj?.displayName}}</span>
+            </div>
+
+            <!-- DATE -->
+            <div class="detail-row" *ngIf="isSmallScreen">
+              <mat-icon aria-label="Date"
+                        class="detail-icon"
+                        [matTooltip]="'Created'"
+                        [matTooltipPosition]="'before'">
+                calendar_today
+              </mat-icon>
+              <span>{{row.createDate | date: 'dd.MM.yyyy'}}</span>
+            </div>
+
+            <!-- TAGS -->
+            <div class="detail-row">
+              <mat-icon aria-label="Tags"
+                        class="detail-icon"
+                        [matTooltip]="'Tags'"
+                        [matTooltipPosition]="'before'">
+                local_offer
+              </mat-icon>
+              <div class="detail-tags">
+                <span *ngFor="let tag of row.tags let i=index;">
+                <span>{{tag}}</span>
+                <span *ngIf="i < row.tags.length - 1" style="padding: 0 5px; opacity: .6">|</span>
+              </span>
+              </div>
+            </div>
+
+            <!-- DESC -->
+            <div class="detail-row">
+              <mat-icon aria-label="Desc"
+                        class="detail-icon"
+                        [matTooltip]="'Description'"
+                        [matTooltipPosition]="'before'">
+                description
+              </mat-icon>
+              <span *ngIf="row.desc?.length > 0">{{row.desc}}</span>
+              <span *ngIf="row.desc?.length === 0">No description</span>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="actions">
+              <button mat-flat-button
+                      color="accent"
+                      class="see-button"
+                      (click)="navigateToTest(row.id)">
+                <span>SEE</span>
+                <mat-icon aria-label="Go" style="margin-left: 12px;">arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="element-row"
+          [style.border-right]="element.expanded ? '12px solid ' + appSettings.currentTheme.accent : ''"
+          [class.expanded-row]="element.expanded"
+          (click)="element.expanded = !element.expanded">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+          [style.border-right]="row.expanded ? '12px solid ' + appSettings.currentTheme.accent : ''"
+          class="detail-row-collapsed">
+      </tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  </div>
+</section>
