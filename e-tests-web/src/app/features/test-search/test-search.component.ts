@@ -5,6 +5,7 @@ import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
 import {PagerService} from '../../core/services/pager.service';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-test-search',
@@ -13,6 +14,7 @@ import {PagerService} from '../../core/services/pager.service';
 })
 export class TestSearchComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
+  private userLogged: boolean;
 
   public testList: TestModel[];
   public isTable = false;
@@ -21,17 +23,28 @@ export class TestSearchComponent implements OnInit, OnDestroy {
               private router: Router,
               private pagerService: PagerService,
               private testService: TestService,
-              private loader: LoaderService) {
+              private loader: LoaderService,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
     this.loader.start();
-    this.getTestsList();
+    this.isLoggedIn();
     this.headerService.setCurrentRoute(['home', 'search']);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  private isLoggedIn() {
+    this.subscriptions.push(
+      this.auth.currentUserObservable.subscribe(
+        res => {
+          this.userLogged = !!res;
+          this.getTestsList();
+        })
+    );
   }
 
   private getTestsList(): void {
@@ -40,10 +53,14 @@ export class TestSearchComponent implements OnInit, OnDestroy {
         res => {
           this.testList = res;
           this.getTestAuthor();
+          if (this.userLogged) {
+            this.getTestSettings();
+          } else {
+            this.loader.complete();
+          }
         },
         error => {
           console.log(error);
-          this.loader.complete();
         }
       )
     );
@@ -60,6 +77,18 @@ export class TestSearchComponent implements OnInit, OnDestroy {
             console.log(error);
             this.loader.complete();
           }
+        ));
+    }
+  }
+
+  private getTestSettings() {
+    for (const test of this.testList) {
+      this.subscriptions.push(
+        this.testService.getTestSettings(test.id).subscribe(
+          res => {
+            test.settings = res;
+            this.loader.complete();
+          }, error => console.log(error)
         ));
     }
   }

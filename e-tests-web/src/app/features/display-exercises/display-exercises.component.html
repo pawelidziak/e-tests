@@ -50,7 +50,6 @@
 
   </div> <!-- /EXERCISES HEADER -->
 
-  <mat-accordion [multi]="true" *ngIf="copyExerciseList">
     <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
       <app-display-one-exercise [exercise]="exercise"
                                 [editMode]="!exercise.id"
@@ -63,7 +62,6 @@
                                 (exerciseCanceled)="handleExerciseCanceled($event)">
       </app-display-one-exercise>
     </div>
-  </mat-accordion>
 
   <div class="exercise-actions">
     <button mat-raised-button

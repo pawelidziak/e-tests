@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';
@@ -10,7 +10,7 @@ import {AppSettingsService} from '../../../core/services/app-settings.service';
   templateUrl: './display-one-exercise.component.html',
   styleUrls: ['./display-one-exercise.component.scss']
 })
-export class DisplayOneExerciseComponent implements OnInit {
+export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
 
   @Input() exercise: Exercise;
   @Input() editMode = false;
@@ -24,6 +24,7 @@ export class DisplayOneExerciseComponent implements OnInit {
   @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
 
   private copyExercise: Exercise;
+  public disabledAnim = false;
 
   constructor(private exercisesService: TestExercisesService,
               public appSettings: AppSettingsService,
@@ -38,7 +39,6 @@ export class DisplayOneExerciseComponent implements OnInit {
 
   public startEditExercise(): void {
     this.editMode = true;
-    this.expanded = false;
     this.copyExercise = JSON.parse(JSON.stringify(this.exercise));
   }
 
@@ -135,5 +135,9 @@ export class DisplayOneExerciseComponent implements OnInit {
     if (ev.keyCode === 32) {
       ev.stopPropagation();
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.disabledAnim = false;
   }
 }

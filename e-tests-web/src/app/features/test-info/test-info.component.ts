@@ -11,11 +11,13 @@ import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {HeaderService} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {LoaderService} from '../../core/services/loader.service';
+import {slideFromTop} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
-  styleUrls: ['./test-info.component.scss']
+  styleUrls: ['./test-info.component.scss'],
+  animations: [slideFromTop()]
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];

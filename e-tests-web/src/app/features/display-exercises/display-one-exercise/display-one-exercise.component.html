@@ -1,36 +1,171 @@
-<mat-expansion-panel class="single-exercise"
-                     [style.border-left]="'5px solid ' + appSettings.currentTheme.accent"
-                     [disabled]="editMode"
-                     [expanded]="expanded || editMode">
-  <mat-expansion-panel-header class="expansion-header"
-                              expandedHeight="auto"
-                              collapsedHeight="auto">
-    <mat-panel-title>
+<!--<mat-expansion-panel class="single-exercise"-->
+<!--[style.border-left]="'5px solid ' + appSettings.currentTheme.accent"-->
+<!--[disabled]="editMode"-->
+<!--[@.disabled]="disabledAnim"-->
+<!--[expanded]="expanded || editMode">-->
+<!--<mat-expansion-panel-header class="expansion-header" style="overflow: hidden !important;">-->
+<!--<mat-panel-title>-->
 
-      <!-- NO EDITABLE TITLE -->
-      <div *ngIf="!editMode">
-        <span class="exercise-number">{{number}}</span>
-        <span>{{exercise.question}}</span>
+<!--&lt;!&ndash; NO EDITABLE TITLE &ndash;&gt;-->
+<!--<div *ngIf="!editMode">-->
+<!--<span class="exercise-number">{{number}}</span>-->
+<!--<span>{{exercise.question}}</span>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; EDITABLE TITLE &ndash;&gt;-->
+<!--<div *ngIf="editMode" class="editable-title"-->
+<!--(keydown)="handleSpacebar($event)">-->
+<!--<span class="exercise-number">{{number}}.</span>-->
+<!--<mat-form-field *ngIf="editMode"-->
+<!--color="accent"-->
+<!--style="width: 100%;"-->
+<!--floatLabel="never">-->
+<!--<input matInput-->
+<!--type="text"-->
+<!--placeholder="Question"-->
+<!--[(ngModel)]="exercise.question">-->
+<!--</mat-form-field>-->
+<!--</div>-->
+
+<!--</mat-panel-title>-->
+
+<!--</mat-expansion-panel-header>-->
+
+<!--<div class="exercise-answers row">-->
+<!--<div *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy"-->
+<!--class="col-md-6 single-answer">-->
+
+<!--&lt;!&ndash; NO EDITABLE ANSWER &ndash;&gt;-->
+<!--<div *ngIf="!editMode" class="no-editable-answer">-->
+<!--<span [ngClass]="{'correct-answer': checkIfIsCorrect(j)}">{{getLetterFromAscii(j)}}</span>-->
+<!--<span class="answer-text">{{answer}}</span>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; EDITABLE ANSWER &ndash;&gt;-->
+<!--<div *ngIf="editMode" class="editable-answer">-->
+<!--<mat-checkbox #matCheck-->
+<!--matTooltip="Correct"-->
+<!--[checked]="checkIfIsCorrect(j)"-->
+<!--(change)="changeCorrectAnswer(j, matCheck.checked)"-->
+<!--class="answer-checkbox"></mat-checkbox>-->
+
+<!--<mat-form-field color="accent"-->
+<!--class="answer-text width-100"-->
+<!--style="margin-top: 12px;"-->
+<!--appearance="outline">-->
+<!--<mat-label>{{'Answer ' + getLetterFromAscii(j)}}</mat-label>-->
+<!--<input matInput-->
+<!--placeholder="Type the answer..."-->
+<!--[(ngModel)]="exercise.answers[j]">-->
+<!--</mat-form-field>-->
+
+<!--<button mat-icon-button-->
+<!--style="outline: none;"-->
+<!--id="deleteAnswerButton"-->
+<!--(click)="deleteOneAnswer(j)"-->
+<!--*ngIf="j > 1">-->
+<!--<mat-icon aria-label="Delete answer">delete_outline</mat-icon>-->
+<!--</button>-->
+<!--</div>-->
+
+<!--</div>&lt;!&ndash; /single-answer &ndash;&gt;-->
+
+<!--<div *ngIf="editMode" class="col-md-6 add-answer">-->
+<!--<button mat-button color="accent" (click)="exercise.answers.push('');">-->
+<!--<mat-icon aria-label="Add answer">add</mat-icon>-->
+<!--<span>Add answer</span>-->
+<!--</button>-->
+<!--</div>-->
+
+<!--</div>&lt;!&ndash; /exercise-answers &ndash;&gt;-->
+
+<!--<mat-action-row class="action-row" *ngIf="isAuthor">-->
+<!--<div *ngIf="!editMode" class="edit-actions">-->
+<!--<button mat-icon-button id="deleteExerciseButton" (click)="deleteExercise()" matTooltip="Delete">-->
+<!--<mat-icon>delete</mat-icon>-->
+<!--</button>-->
+<!--<button mat-icon-button id="editButton" (click)="startEditExercise()" matTooltip="Edit">-->
+<!--<mat-icon aria-label="Edit exercise">edit_mode</mat-icon>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div *ngIf="editMode">-->
+<!--<button mat-icon-button id="cancelButton" (click)="stopEditExercise()" matTooltip="Cancel">-->
+<!--<mat-icon aria-label="Cancel exercise">close</mat-icon>-->
+<!--</button>-->
+<!--<button mat-icon-button id="addImageButton" matTooltip="Not available yet">-->
+<!--<mat-icon aria-label="Add image">add_photo_alternate</mat-icon>-->
+<!--</button>-->
+<!--<button mat-stroked-button (click)="saveExercise()" color="accent">-->
+<!--<span>Save</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--</mat-action-row>-->
+
+<!--</mat-expansion-panel>-->
+
+
+<div class="single-exercise">
+
+  <!--[style.border-left]="'5px solid ' + appSettings.currentTheme.accent">-->
+  <div class="expansion-header">
+
+    <!-- NO EDITABLE TITLE -->
+    <div *ngIf="!editMode">
+      <span class="exercise-number">{{number}}</span>
+      <span>{{exercise.question}}</span>
+    </div>
+
+    <!-- EDITABLE TITLE -->
+    <div *ngIf="editMode" class="editable-title"
+         (keydown)="handleSpacebar($event)">
+      <span class="exercise-number">{{number}}.</span>
+      <mat-form-field *ngIf="editMode"
+                      color="accent"
+                      style="width: 100%;"
+                      floatLabel="never">
+        <input matInput
+               type="text"
+               placeholder="Question"
+               [(ngModel)]="exercise.question">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="isAuthor">
+      <div *ngIf="!editMode" class="edit-actions">
+        <mat-icon aria-label="Delete"
+                  class="action-icon"
+                  (click)="deleteExercise()"
+                  matTooltip="Delete">
+          delete
+        </mat-icon>
+        <mat-icon aria-label="Edit"
+                  class="action-icon"
+                  (click)="startEditExercise()"
+                  matTooltip="Edit">
+          edit_mode
+        </mat-icon>
       </div>
-
-      <!-- EDITABLE TITLE -->
-      <div *ngIf="editMode" class="editable-title"
-           (keydown)="handleSpacebar($event)">
-        <span class="exercise-number">{{number}}.</span>
-        <mat-form-field *ngIf="editMode"
-                        color="accent"
-                        style="width: 100%;"
-                        floatLabel="never">
-          <input matInput
-                 type="text"
-                 placeholder="Question"
-                 [(ngModel)]="exercise.question">
-        </mat-form-field>
+      <div *ngIf="editMode">
+        <button mat-stroked-button (click)="saveExercise()" color="accent">
+          <span>Save</span>
+        </button>
+        <mat-icon aria-label="Add image"
+                  id="addImageButton"
+                  matTooltip="Not available yet">
+          add_photo_alternate
+        </mat-icon>
+        <mat-icon aria-label="Cancel"
+                  id="cancelButton"
+                  class="action-icon"
+                  (click)="stopEditExercise()"
+                  matTooltip="Cancel">
+          close
+        </mat-icon>
       </div>
+    </div>
 
-    </mat-panel-title>
 
-  </mat-expansion-panel-header>
+  </div>
 
   <div class="exercise-answers row">
     <div *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy"
@@ -80,26 +215,5 @@
 
   </div><!-- /exercise-answers -->
 
-  <mat-action-row class="action-row" *ngIf="isAuthor">
-    <div *ngIf="!editMode" class="edit-actions">
-      <button mat-icon-button id="deleteExerciseButton" (click)="deleteExercise()" matTooltip="Delete">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-icon-button id="editButton" (click)="startEditExercise()" matTooltip="Edit">
-        <mat-icon aria-label="Edit exercise">edit_mode</mat-icon>
-      </button>
-    </div>
-    <div *ngIf="editMode">
-      <button mat-icon-button id="cancelButton" (click)="stopEditExercise()" matTooltip="Cancel">
-        <mat-icon aria-label="Cancel exercise">close</mat-icon>
-      </button>
-      <button mat-icon-button id="addImageButton" matTooltip="Not available yet">
-        <mat-icon aria-label="Add image">add_photo_alternate</mat-icon>
-      </button>
-      <button mat-stroked-button (click)="saveExercise()" color="accent">
-        <span>Save</span>
-      </button>
-    </div>
-  </mat-action-row>
 
-</mat-expansion-panel>
+</div>
