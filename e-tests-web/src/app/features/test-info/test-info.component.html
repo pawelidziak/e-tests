@@ -142,7 +142,8 @@
       <!-- EXERCISES -->
       <mat-tab label="Exercises">
         <ng-template matTabContent>
-          <app-display-exercises [origExerciseList]="exercises"
+          <app-display-exercises *ngIf="exercises"
+                                 [origExerciseList]="exercises"
                                  [testId]="testId"
                                  [authorId]="test.authorId">
           </app-display-exercises>
