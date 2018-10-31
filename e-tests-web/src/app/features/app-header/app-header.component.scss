@@ -1,15 +1,52 @@
 @import '../../shared/mixins';
 
 .app-header {
-  width: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;  width: 100%;
+  z-index: 9;
+  background: transparent;
+}
+
+.app-header-fixed {
+}
+
+.app-header-container {
+  font-size: 1.1*$font-normal;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include box_shadow;
+}
+
+.my-nav {
   position: fixed;
-  top: 0;
+  background: rgba(0, 0, 0, .5);
+  left: 0;
+  width: 100%;
+  overflow: hidden;
   z-index: 9;
-  padding: 0 .5*$margin;
+  transition: opacity .35s, visibility .35s, height .35s;
+  padding: $margin 0;
+}
+
+.my-nav-list {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.my-slide-nav-list {
+  display: block;
+  column-count: 2;
+}
+
+.active-link {
+  background: $hover_color;
 }
 
 .mat-menu-item, button {

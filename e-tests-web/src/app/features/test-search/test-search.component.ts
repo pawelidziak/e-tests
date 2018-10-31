@@ -52,6 +52,8 @@ export class TestSearchComponent implements OnInit, OnDestroy {
       this.testService.getTests().subscribe(
         res => {
           this.testList = res;
+          this.testList.forEach(x => this.testList.push(x));
+          this.testList.forEach(x => this.testList.push(x));
           this.getTestAuthor();
           if (this.userLogged) {
             this.getTestSettings();

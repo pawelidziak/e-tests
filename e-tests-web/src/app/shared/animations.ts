@@ -83,6 +83,13 @@ export function slideFromTop() {
   ]);
 }
 
+export function slideFromTopToTop() {
+  return trigger('slideFromTopToTop', [
+    transition(':enter', TRANSFORM_FROM_TOP),
+    transition(':leave', TRANSFORM_TO_TOP)
+  ]);
+}
+
 export function slideFromRight() {
   return trigger('slideFromRight', [
     transition(':enter', TRANSFORM_FROM_RIGHT)

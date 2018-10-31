@@ -1,63 +1,180 @@
-<mat-toolbar class="app-header"
-             *ngIf="headerValues.appHeaderVisibility"
-             [style.height]="height + 'px'"
-             [color]="'primary'"
-             [style.background-image]="'linear-gradient(to right, '+
-                appSettings?.currentTheme?.accent+', '+
-                appSettings?.currentTheme?.primary +')'">
+<div [style.color]="appSettings?.currentTheme?.textColor">
 
-  <button mat-icon-button (click)="drawer.toggle()">
-    <mat-icon aria-label="Dashboard">menu</mat-icon>
-  </button>
+  <!-- SMALL SLIDE DEVICE NAV -->
+  <nav class="my-nav"
+       *ngIf="slideMenu"
+       [@slideFromTopToTop]
+       [style.top]="height + 'px'">
+    <ul class="my-nav-list my-slide-nav-list">
 
-  <div class="right-side" *ngIf="isUserLoaded">
+      <!-- ABOUT -->
+      <li (click)="slideMenu = false">
+        <a mat-button>
+          <mat-icon aria-label="About">info</mat-icon>
+          <span style="padding-left: 12px;">About</span>
+        </a>
+      </li>
 
-    <button mat-raised-button
-            color="accent"
-            *ngIf="!user?.emailVerified"
-            (click)="openAuthDialog()">
-      Login
-    </button>
+      <!-- DOWNLOAD -->
+      <li (click)="slideMenu = false">
+        <a mat-button>
+          <mat-icon aria-label="Download">cloud_download</mat-icon>
+          <span style="padding-left: 12px;">Download</span>
+        </a>
+      </li>
 
-    <button mat-button [matMenuTriggerFor]="accountMenu" *ngIf="user?.emailVerified">
-      <mat-icon aria-label="Account">account_circle</mat-icon>
-      <span style="padding-left: 12px;">{{user.displayName}}</span>
-    </button>
-    <!--<button mat-icon-button [matMenuTriggerFor]="moreMenu">-->
-      <!--<mat-icon aria-label="Settings">more_vert</mat-icon>-->
-    <!--</button>-->
-  </div>
+      <!-- SETTINGS -->
+      <li (click)="slideMenu = false">
+        <a mat-button [routerLink]="ALL_ROUTES.APP_SETTINGS">
+          <mat-icon aria-label="Logout">settings</mat-icon>
+          <span style="padding-left: 12px;">Settings</span>
+        </a>
+      </li>
 
-</mat-toolbar>
+      <!-- GENERAL LINKS -->
+      <li *ngFor="let link of generalLinks" (click)="slideMenu = false">
+        <a mat-button
+           [routerLink]="link.path"
+           [routerLinkActive]="['active-link']">
+          <mat-icon>{{link.icon}}</mat-icon>
+          <span style="padding-left: 12px;">{{link.label}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-<!-- ACCOUNT MENU -->
-<mat-menu #accountMenu="matMenu">
-  <ng-template matMenuContent>
-    <button mat-menu-item>
-      <mat-icon aria-label="Profile">person</mat-icon>
-      <span>Profile</span>
-    </button>
+  <!-- APP-HEADER -->
+  <div class="app-header"
+       [style.height]="height + 'px'"
+       [ngClass]="{'app-header-fixed': fixedHeader}"
+       [style.background-image]="fixedHeader ? 'linear-gradient(to left, '+
+                appSettings?.currentTheme?.accent+' 5%, '+
+                appSettings?.currentTheme?.primary +' 50%)' : ''"
+       *ngIf="headerValues.appHeaderVisibility">
 
-    <mat-divider></mat-divider>
+    <!-- APP HEADER-CONTAINER -->
+    <div class="container app-header-container">
 
-    <button mat-menu-item (click)="logout()">
-      <mat-icon aria-label="Logout">power_settings_new</mat-icon>
-      <span>Logout</span>
-    </button>
-  </ng-template>
-</mat-menu>
+      <a [routerLink]="ALL_ROUTES.DASHBOARD">LOGO</a>
 
-<!--&lt;!&ndash; MORE MENU &ndash;&gt;-->
-<!--<mat-menu #moreMenu="matMenu">-->
-  <!--<ng-template matMenuContent>-->
-    <!--<button mat-menu-oneBox>-->
-      <!--<mat-icon aria-label="Profile">info</mat-icon>-->
-      <!--<span>About</span>-->
-    <!--</button>-->
+      <!-- SMALL DEVICE NAV -->
+      <nav *ngIf="isSmallScreen">
+        <ul class="my-nav-list">
+          <!-- STUDY SETS -->
+          <li *ngIf="isUserLoaded && user?.emailVerified" (click)="slideMenu = false">
+            <a mat-icon-button
+               [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+               [routerLinkActive]="['active-link']">
+              <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+            </a>
+          </li>
+          <!-- ACCOUNT -->
+          <li *ngIf="isUserLoaded" (click)="slideMenu = false">
+            <a mat-raised-button
+               *ngIf="!user?.emailVerified"
+               (click)="openAuthDialog()">
+              Login
+            </a>
+            <a mat-icon-button
+               [matMenuTriggerFor]="accountMenu"
+               *ngIf="user?.emailVerified">
+              <mat-icon aria-label="Account">account_circle</mat-icon>
+            </a>
+          </li>
+          <li (click)="slideMenu = !slideMenu">
+            <a mat-icon-button>
+              <mat-icon>menu</mat-icon>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-    <!--<button mat-menu-oneBox [routerLink]="ALL_ROUTES.APP_SETTINGS">-->
-      <!--<mat-icon aria-label="Logout">settings</mat-icon>-->
-      <!--<span>Settings</span>-->
-    <!--</button>-->
-  <!--</ng-template>-->
-<!--</mat-menu>-->
+      <!-- LARGE DEVICE NAV -->
+      <nav *ngIf="!isSmallScreen">
+        <ul class="my-nav-list">
+          <!-- USER ICONS -->
+          <li *ngIf="isUserLoaded">
+            <a mat-raised-button
+               *ngIf="!user?.emailVerified"
+               (click)="openAuthDialog()">
+              Login
+            </a>
+            <a mat-button
+               [matMenuTriggerFor]="accountMenu"
+               *ngIf="user?.emailVerified">
+              <mat-icon aria-label="Account">account_circle</mat-icon>
+              <span style="padding-left: 12px;">{{user.displayName}}</span>
+            </a>
+          </li>
+
+          <!-- STUDY SETS -->
+          <li *ngIf="isUserLoaded">
+            <a mat-button
+               [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+               [routerLinkActive]="['active-link']">
+              <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+              <span style="padding-left: 12px;">Study sets</span>
+            </a>
+          </li>
+
+          <span style="margin: 0 24px"></span>
+
+          <!-- GENERAL LINKS -->
+          <li *ngFor="let link of generalLinks">
+            <a mat-button
+               [routerLink]="link.path"
+               [routerLinkActive]="['active-link']">
+              <mat-icon>{{link.icon}}</mat-icon>
+              <span style="padding-left: 12px;">{{link.label}}</span>
+            </a>
+          </li>
+
+          <!-- MORE ICON -->
+          <li>
+            <a mat-icon-button [matMenuTriggerFor]="moreMenu">
+              <mat-icon aria-label="Settings">more_vert</mat-icon>
+            </a>
+          </li>
+        </ul>
+
+      </nav><!-- /LARGE DEVICE NAV -->
+    </div><!-- /APP HEADER-CONTAINER -->
+  </div><!-- /APP-HEADER -->
+
+  <!-- ACCOUNT MENU -->
+  <mat-menu #accountMenu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="Profile">person</mat-icon>
+        <span>Profile</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon aria-label="Logout">power_settings_new</mat-icon>
+        <span>Logout</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- MORE MENU -->
+  <mat-menu #moreMenu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon aria-label="About">info</mat-icon>
+        <span>About</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon aria-label="Download">cloud_download</mat-icon>
+        <span>Download</span>
+      </button>
+
+      <button mat-menu-item [routerLink]="ALL_ROUTES.APP_SETTINGS">
+        <mat-icon aria-label="Settings">settings</mat-icon>
+        <span>Settings</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+</div>

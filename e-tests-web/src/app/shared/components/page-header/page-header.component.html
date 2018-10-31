@@ -1,25 +1,25 @@
-<mat-toolbar class="page-header"
-             *ngIf="headerValues.pageHeaderVisibility"
-             [style.height]="height + 'px'">
+<div class="page-header"
+     *ngIf="headerValues.pageHeaderVisibility"
+     [style.color]="appSettings.currentTheme.textColor"
+     [style.height]="height + 'px'">
 
   <div class="my-breadcrumb">
     <span *ngFor="let route of headerValues.breadcrumb; let i=index" class="breadcrumb-item">
 
-      <a [routerLink]="[route]" *ngIf="i < headerValues.breadcrumb.length - 1">
+      <a [routerLink]="route"
+         *ngIf="i < headerValues.breadcrumb.length - 1">
         {{route[0].toUpperCase() + route.substring(1)}}
       </a>
 
       <mat-icon *ngIf="i < headerValues.breadcrumb.length - 1" class="breadcrumb-icon">chevron_right</mat-icon>
 
-      <span *ngIf="i === headerValues.breadcrumb.length - 1"
-            [style.color]="appSettings.currentTheme.accent"
-            class="current-route">
+      <span *ngIf="i === headerValues.breadcrumb.length - 1" class="current-url">
         {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1][0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1].substring(1)}}
       </span>
     </span>
   </div>
 
-  <button mat-stroked-button color="accent" id="premiumButton" *ngIf="user">
-    Premium
+  <button mat-flat-button color="primary" id="premiumButton" *ngIf="user">
+    PREMIUM
   </button>
-</mat-toolbar>
+</div>
