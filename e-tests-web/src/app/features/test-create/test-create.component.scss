@@ -1,20 +1,6 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-create {
-  margin: $margin 0 $margin;
-  @media #{$gt-sm_size} {
-    margin: 3*$margin 0 $margin;
-  }
-  @include fs-small-X-normal();
-}
-
-.create-text {
-  @media #{$gt-sm_size} {
-    padding-right: 2*$margin;
-  }
-}
-
 button {
   @include upper-text();
   position: absolute;
@@ -27,6 +13,7 @@ button {
 }
 
 .create-card {
+  @include fs-small-X-normal();
   border-radius: $border-radius;
   padding-top: $margin;
 }

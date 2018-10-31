@@ -53,6 +53,19 @@ h1, h2, h3, h4, h5, h6 {
   opacity: .9;
 }
 
+.sub-title-text {
+  @media #{$gt-sm_size} {
+    padding-right: 2*$margin;
+  }
+}
+
+.section-margins {
+  margin: $margin 0 $margin;
+  @media #{$gt-sm_size} {
+    margin: 3*$margin 0 $margin;
+  }
+}
+
 .padding-top-12 {
   padding-top: 12px;
 }

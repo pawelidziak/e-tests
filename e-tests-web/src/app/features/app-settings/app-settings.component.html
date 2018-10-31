@@ -1,29 +1,47 @@
-<section class="section-app-settings container">
+<section class="section-margins">
 
-  <div class="app-setting">
-    <div class="app-setting-header">
-      <h5 class="paragraph-font">Language</h5>
-      <button mat-icon-button [matMenuTriggerFor]="languageMenu" color="accent">
-        <mat-icon aria-label="Language">language</mat-icon>
-      </button>
+  <div class="row">
+
+    <div class="col-12 col-md-6"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title">Change <strong>e-testo</strong> settings</h3>
+        <p class="my-sub-title">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </div>
     </div>
-    <p class="sub-paragraph-font">
-      Change the application language.
-    </p>
-  </div>
 
-  <div class="app-setting">
-    <div class="app-setting-header">
-      <h5 class="paragraph-font">App theme</h5>
-      <button mat-icon-button [matMenuTriggerFor]="themeMenu" color="accent">
-        <mat-icon aria-label="Brush">brush</mat-icon>
-      </button>
+    <div class="col-12 col-md-6">
+      <mat-card class="settings-card">
+        <div class="app-setting">
+          <div class="app-setting-header">
+            <h5 class="paragraph-font">Language</h5>
+            <div class="app-settings-select">
+              <span>ENG</span>
+              <button mat-icon-button [matMenuTriggerFor]="languageMenu" color="accent">
+                <mat-icon aria-label="Language">language</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-setting">
+          <div class="app-setting-header">
+            <h5 class="paragraph-font">App theme</h5>
+            <div class="app-settings-select">
+              <span>{{appSettings.currentTheme.label}}</span>
+              <button mat-icon-button [matMenuTriggerFor]="themeMenu" color="accent">
+                <mat-icon aria-label="Brush">brush</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
     </div>
-    <p class="sub-paragraph-font">
-      Change the application theme.
-    </p>
-  </div>
 
+  </div>
 </section>
 
 <!-- THEME MENU-->
