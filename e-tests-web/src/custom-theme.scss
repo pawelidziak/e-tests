@@ -38,7 +38,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 // Indigo theme
 $indigo-primary: mat-palette($mat-indigo, A700);
-$indigo-accent: mat-palette($mat-light-blue, 400);
+$indigo-accent: mat-palette($mat-light-blue, 600);
 $indigo-warn: mat-palette($mat-red);
 
 $indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);

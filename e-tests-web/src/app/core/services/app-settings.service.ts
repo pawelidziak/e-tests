@@ -25,7 +25,7 @@ export const MY_THEMES: Array<MyTheme> = [
     name: 'indigo-theme',
     label: 'Blue',
     primary: '#304ffe',
-    accent: '#29b6f6',
+    accent: '#039be5',
     accentSecond: '#a6ffcb',
     warn: '#f44336',
     textColor: '#FAFAFA'
