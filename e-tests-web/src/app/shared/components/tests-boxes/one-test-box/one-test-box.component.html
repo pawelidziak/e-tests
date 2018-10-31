@@ -1,4 +1,4 @@
-<mat-card class="box-item" (click)="navigateToTest()">
+<div class="box-item" (click)="navigateToTest()">
   <mat-progress-bar class="in-progress-bar"
                     color="accent"
                     mode="determinate"
@@ -8,14 +8,6 @@
   <div class="box-item-row">
     <h3 class="paragraph-font">{{oneBox.name | limitChar: 40}}</h3>
   </div>
-  <!--<div class="box-oneBox-header">-->
-
-  <!--<div class="box-oneBox-row" style="margin-left: 6px">-->
-  <!--<mat-icon aria-label="Rate" class="box-oneBox-icon">star_rate</mat-icon>-->
-  <!--<span class="sub-paragraph-font">5.0</span>-->
-  <!--</div>-->
-  <!--</div>-->
-
 
   <div class="box-item-row">
     <mat-icon aria-label="Tags" class="box-item-icon">local_offer</mat-icon>
@@ -34,11 +26,6 @@
     <mat-icon aria-label="Rate" class="box-item-icon">description</mat-icon>
     <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'No description') | limitChar: 65}}</p>
   </div>
-
-  <!--<div class="box-oneBox-row">-->
-  <!--<mat-icon aria-label="Author" class="box-oneBox-icon">person</mat-icon>-->
-  <!--<span class="sub-paragraph-font">{{oneBox.authorObj?.displayName | limitChar: 25}}</span>-->
-  <!--</div>-->
 
   <div style="flex: 1 0; min-height: 24px;"></div>
 
@@ -60,7 +47,6 @@
       <mat-icon aria-label="Note" class="box-item-icon">note</mat-icon>
       <span class="sub-paragraph-font">2</span>
     </div>
-    <!--<mat-icon aria-label="Go" style="margin-left: 12px;">arrow_forward</mat-icon>-->
   </div>
 
-</mat-card>
+</div>

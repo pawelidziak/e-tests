@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TestModel} from '../../../core/models/Test';
 import {slideFromTop} from '../../animations';
+import {AppSettingsService} from "../../../core/services/app-settings.service";
 
 @Component({
   selector: 'app-test-boxes',
@@ -13,7 +14,7 @@ export class TestsBoxesComponent implements OnInit {
   @Input() testList: TestModel[];
   public searchTest: string;
 
-  constructor() {
+  constructor(public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
