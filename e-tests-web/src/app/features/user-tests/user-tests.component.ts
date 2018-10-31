@@ -3,6 +3,8 @@ import {TestModel} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
+import {AppSettingsService} from "../../core/services/app-settings.service";
+import {HeaderService} from "../../core/services/header.service";
 
 @Component({
   selector: 'app-user-tests',
@@ -18,11 +20,14 @@ export class UserTestsComponent implements OnInit, OnDestroy {
 
   constructor(private testService: TestService,
               private loader: LoaderService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private headerService: HeaderService,
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
     this.loader.start();
+    this.headerService.setCurrentRoute(['home', 'study sets']);
     this.isLoggedIn();
   }
 
