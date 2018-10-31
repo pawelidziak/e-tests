@@ -5,6 +5,7 @@ import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../shared/ROUTES';
+import {AppSettingsService} from "../../core/services/app-settings.service";
 
 @Component({
   selector: 'app-test-create',
@@ -12,7 +13,6 @@ import {ALL_ROUTES} from '../../shared/ROUTES';
   styleUrls: ['./test-create.component.scss']
 })
 export class TestCreateComponent implements OnInit, OnDestroy {
-  private readonly HEADER_TEXT = 'Create';
   private subscriptions: any = [];
   private testCreatedFlag = false;
 
@@ -22,7 +22,8 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   constructor(private headerService: HeaderService,
               private auth: AuthService,
               private testService: TestService,
-              private router: Router) {
+              private router: Router,
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
@@ -30,7 +31,6 @@ export class TestCreateComponent implements OnInit, OnDestroy {
     this.headerService.setCurrentRoute(['home', 'create']);
     this.isLoggedIn();
   }
-
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());

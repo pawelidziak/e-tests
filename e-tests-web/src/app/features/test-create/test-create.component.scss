@@ -2,8 +2,17 @@
 @import '../../shared/mixins';
 
 .section-create {
-  margin: $margin 0;
+  margin: $margin 0 $margin;
+  @media #{$gt-sm_size} {
+    margin: 3*$margin 0 $margin;
+  }
   @include fs-small-X-normal();
+}
+
+.create-text {
+  @media #{$gt-sm_size} {
+    padding-right: 2*$margin;
+  }
 }
 
 button {
@@ -17,19 +26,9 @@ button {
   outline: none;
 }
 
-.create-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .message {
-    margin: $margin .5*$margin;
-    color: $text_secondary;
-    font-size: $font-small;
-    @include upper-text();
-    @include upper-text();
-  }
+.create-card {
+  border-radius: $border-radius;
+  padding-top: $margin;
 }
 
 .details {
@@ -47,9 +46,5 @@ button {
       width: auto;
     }
   }
-}
-
-.error-field {
-  margin-bottom: $margin;
 }
 

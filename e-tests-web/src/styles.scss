@@ -15,16 +15,13 @@ body {
   //height: 100vh;
 }
 
-.mat-drawer-container {
-  //background-color: transparent !important;
-}
-.fixed-top{
+.fixed-top {
   position: absolute;
   top: 0;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .paragraph-font {
@@ -37,6 +34,23 @@ h1, h2, h3, h4, h5, h6 {
   opacity: .8;
   font-size: $small-font-size;
   color: $text_secondary;
+}
+
+.my-title {
+  font-size: 1.5*$font-normal;
+  @media #{$gt-md_size} {
+    font-size: 2*$font-normal;
+  }
+  font-weight: normal;
+}
+
+.my-sub-title {
+  font-size: $font-normal;
+  @media #{$gt-md_size} {
+    font-size: 1.1*$font-normal;
+  }
+  margin: $margin 0;
+  opacity: .9;
 }
 
 .padding-top-12 {
@@ -176,7 +190,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.icon-form{
+.icon-form {
   display: flex;
   align-items: center;
 }
