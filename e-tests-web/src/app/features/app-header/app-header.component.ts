@@ -1,6 +1,5 @@
 import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../core/services/header.service';
-import {MatDrawer} from '@angular/material';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES} from '../../shared/ROUTES';
@@ -17,15 +16,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
 
   @Input() height: number;
   @Input() isSmallScreen: boolean;
-  @Input() drawer: MatDrawer;
+  @Input() user: any;
+  @Input() isUserLoaded: boolean;
 
   public ALL_ROUTES = ALL_ROUTES;
   public headerValues: HeaderValues;
-  public user: any;
-  public isUserLoaded: boolean;
-  slideMenu = false;
 
-  fixedHeader: boolean;
+  public slideMenu = false;
+  public fixedHeader: boolean;
 
   public generalLinks = [
     {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
@@ -39,22 +37,10 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getHeaderValues();
-    this.getUser();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  private getUser(): void {
-    this.subscriptions.push(
-      this.auth.currentUserObservable.subscribe(
-        res => {
-          this.user = res;
-          this.isUserLoaded = true;
-        },
-        error => console.log(error)
-      ));
   }
 
   private getHeaderValues(): void {

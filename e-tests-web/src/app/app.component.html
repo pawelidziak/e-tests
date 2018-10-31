@@ -1,10 +1,11 @@
-<app-header [height]="headerHeight"
-            [isSmallScreen]="isSmallScreen"
-            [drawer]="drawer">
+<app-header [isUserLoaded]="isUserLoaded"
+            [height]="headerHeight"
+            [user]="user"
+            [isSmallScreen]="isSmallScreen">
 </app-header>
 
 <main>
-  <header style="position: relative;">
+  <div style="position: relative;">
     <div id="stripes" aria-hidden="true"
          [style.background-image]="'linear-gradient(150deg, '+
                 appSettings?.currentTheme?.primary+' 15%, '+
@@ -27,94 +28,13 @@
       <div [style.height]="headerHeight + 'px'"></div>
 
       <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
+
       <div [hidden]="pageOnLoad"
            style="position: relative;"
            [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
         <router-outlet #o="outlet"></router-outlet>
       </div>
 
-
     </div>
-  </header>
+  </div>
 </main>
-
-<!--<mat-sidenav-container class="app-sidenav-container">-->
-<!--<mat-sidenav #drawer-->
-<!--class="app-sidenav"-->
-<!--[opened]="!isSmallScreen"-->
-<!--[mode]="!isSmallScreen ? 'side' : 'over'"-->
-<!--[fixedInViewport]="true"-->
-<!--[fixedTopGap]="headerHeight">-->
-
-<!--<nav class="my-nav">-->
-
-<!--<div class="app-logo">-->
-<!--LOGO-->
-<!--</div>-->
-
-<!--<div class="loading" *ngIf="!isUserLoaded">Loading...</div>-->
-
-<!--&lt;!&ndash; NAV LIST &ndash;&gt;-->
-<!--<mat-list *ngIf="isUserLoaded"-->
-<!--role="list"-->
-<!--class="my-sidenav-list"-->
-<!--[@listStagger]="generalLinks.length + personalLinks.length + otherLinks.length + 3">-->
-
-<!--&lt;!&ndash; GENERAL &ndash;&gt;-->
-<!--<h3 mat-subheader style="margin-top: 24px">General</h3>-->
-<!--<mat-list-item *ngFor="let link of generalLinks"-->
-<!--role="listitem"-->
-<!--[routerLink]="link.path"-->
-<!--routerLinkActive-->
-<!--#rla="routerLinkActive"-->
-<!--[ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"-->
-<!--class="list-item"-->
-<!--(click)="closeDrawer(drawer)">-->
-<!--<mat-icon matListIcon>{{link.icon}}</mat-icon>-->
-<!--<h3 matLine>{{link.label}}</h3>-->
-<!--</mat-list-item>-->
-
-<!--<div *ngIf="user">-->
-<!--&lt;!&ndash; PERSONAL &ndash;&gt;-->
-<!--<h3 mat-subheader style="margin-top: 24px">Personal</h3>-->
-<!--<mat-list-item *ngFor="let link of personalLinks"-->
-<!--role="listitem"-->
-<!--[routerLink]="link.path"-->
-<!--routerLinkActive-->
-<!--#rla="routerLinkActive"-->
-<!--[ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"-->
-<!--class="list-item"-->
-<!--(click)="closeDrawer(drawer)">-->
-<!--<mat-icon matListIcon>{{link.icon}}</mat-icon>-->
-<!--<h3 matLine>{{link.label}}</h3>-->
-<!--</mat-list-item>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; OTHERS &ndash;&gt;-->
-<!--<h3 mat-subheader style="margin-top: 24px">Others</h3>-->
-<!--<mat-list-item *ngFor="let link of otherLinks"-->
-<!--role="listitem"-->
-<!--[routerLink]="link.path"-->
-<!--routerLinkActive-->
-<!--#rla="routerLinkActive"-->
-<!--[ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"-->
-<!--class="list-item"-->
-<!--(click)="closeDrawer(drawer)">-->
-<!--<mat-icon matListIcon>{{link.icon}}</mat-icon>-->
-<!--<h3 matLine>{{link.label}}</h3>-->
-<!--</mat-list-item>-->
-<!--</mat-list>-->
-<!--</nav> &lt;!&ndash; /my-nav &ndash;&gt;-->
-<!--</mat-sidenav>-->
-
-<!--<mat-sidenav-content class="main-container" [style.padding-top]="headerHeight + 'px'">-->
-<!--<app-page-header [height]="headerHeight" [user]="user"></app-page-header>-->
-
-<!--<app-spinner [hidden]="!pageOnLoad"></app-spinner>-->
-<!--<div [hidden]="pageOnLoad"-->
-<!--style="position: relative;"-->
-<!--[@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">-->
-<!--<router-outlet #o="outlet"></router-outlet>-->
-<!--</div>-->
-<!--</mat-sidenav-content>-->
-<!--</mat-sidenav-container>-->

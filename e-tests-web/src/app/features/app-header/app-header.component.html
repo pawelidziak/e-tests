@@ -1,4 +1,4 @@
-<div [style.color]="appSettings?.currentTheme?.textColor">
+<header [style.color]="appSettings?.currentTheme?.textColor">
 
   <!-- SMALL SLIDE DEVICE NAV -->
   <nav class="my-nav"
@@ -46,7 +46,6 @@
   <!-- APP-HEADER -->
   <div class="app-header"
        [style.height]="height + 'px'"
-       [ngClass]="{'app-header-fixed': fixedHeader}"
        [style.background-image]="fixedHeader ? 'linear-gradient(to left, '+
                 appSettings?.currentTheme?.accent+' 5%, '+
                 appSettings?.currentTheme?.primary +' 50%)' : ''"
@@ -61,7 +60,7 @@
       <nav *ngIf="isSmallScreen">
         <ul class="my-nav-list">
           <!-- STUDY SETS -->
-          <li *ngIf="isUserLoaded && user?.emailVerified" (click)="slideMenu = false">
+          <li *ngIf="user?.emailVerified" (click)="slideMenu = false">
             <a mat-icon-button
                [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
                [routerLinkActive]="['active-link']">
@@ -81,9 +80,14 @@
               <mat-icon aria-label="Account">account_circle</mat-icon>
             </a>
           </li>
-          <li (click)="slideMenu = !slideMenu">
+          <li *ngIf="!slideMenu" (click)="slideMenu = true">
             <a mat-icon-button>
               <mat-icon>menu</mat-icon>
+            </a>
+          </li>
+          <li *ngIf="slideMenu" (click)="slideMenu = false">
+            <a mat-icon-button>
+              <mat-icon>close</mat-icon>
             </a>
           </li>
         </ul>
@@ -108,7 +112,7 @@
           </li>
 
           <!-- STUDY SETS -->
-          <li *ngIf="isUserLoaded">
+          <li *ngIf="user">
             <a mat-button
                [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
                [routerLinkActive]="['active-link']">
@@ -177,4 +181,4 @@
     </ng-template>
   </mat-menu>
 
-</div>
+</header>

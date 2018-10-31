@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './core/services/auth.service';
 import {RWDService} from './core/services/RWD.service';
-import {ALL_ROUTES} from './shared/ROUTES';
-import {MatSidenav} from '@angular/material';
 import {listAnimation, routeAnimations} from './shared/animations';
 import {LoaderService} from './core/services/loader.service';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {AppSettingsService} from './core/services/app-settings.service';
 
 @Component({
@@ -17,23 +15,6 @@ import {AppSettingsService} from './core/services/app-settings.service';
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
   public pageOnLoad: boolean;
-
-  public generalLinks = [
-    {label: 'Dashboard', path: ALL_ROUTES.DASHBOARD, icon: 'dashboard'},
-    {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
-    {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'},
-    {label: 'Popular', path: 'TODO', icon: 'trending_up'}
-  ];
-
-  public personalLinks = [
-    {label: 'Study sets', path: ALL_ROUTES.USER_TESTS_LIST, icon: 'collections_bookmark'}
-  ];
-
-  public otherLinks = [
-    {label: 'About', path: 'TODO', icon: 'help'},
-    {label: 'Download', path: 'TODO', icon: 'cloud_download'},
-    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
-  ];
 
   public isSmallScreen = false;
   public user: any;
@@ -53,12 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       // Scroll to top if accessing a page, not via browser history stack
       if (event instanceof NavigationStart) {
-        console.log(event)
-
-        const urls = event.url.split('/');
-        urls[0] = 'home';
-        console.log(urls);
-
         // window.scrollTo(0, 0);
       }
     });
@@ -92,11 +67,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isSmallScreen.subscribe(res => this.isSmallScreen = res)
     );
-  }
-
-  public closeDrawer(drawer: MatSidenav): void {
-    if (this.isSmallScreen) {
-      drawer.close();
-    }
   }
 }

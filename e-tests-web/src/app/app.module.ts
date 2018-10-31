@@ -7,7 +7,7 @@ import {environment} from '../environments/environment';
 import {SpinnerModule} from './shared/components/spinner/spinner.module';
 import {CoreModule} from './core/core.module';
 import {appRouting} from './app.routing';
-import {MatButtonModule, MatCardModule, MatIconModule, MatListModule, MatSidenavModule,} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
 import {AppHeaderModule} from './features/app-header/app-header.module';
 import {PageHeaderModule} from './shared/components/page-header/page-header.module';
 import {AuthModule} from './features/auth/auth.module';
@@ -25,14 +25,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     appRouting,
     SpinnerModule,
 
-    // przeniesc do MAIN COMPONENT
+    // stworzyc i przeniesc do MAIN COMPONENT
     AuthModule,
     AppHeaderModule,
     PageHeaderModule,
 
     MatCardModule,
-    MatSidenavModule,
-    MatListModule,
     MatIconModule,
     MatButtonModule
   ],
