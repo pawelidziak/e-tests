@@ -10,10 +10,7 @@ button {
 }
 
 .app-setting {
-  @media #{$gt-sm_size} {
-    min-width: 400px;
-  }
-  margin-top: $margin;
+  margin: .5*$margin;
   display: flex;
   flex-direction: column;
 

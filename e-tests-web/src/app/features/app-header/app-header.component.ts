@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {AuthService} from '../../core/services/auth.service';
@@ -23,11 +23,16 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   public headerValues: HeaderValues;
 
   public slideMenu = false;
-  public fixedHeader: boolean;
 
   public generalLinks = [
     {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
     {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'}
+  ];
+
+  public otherLinks = [
+    {label: 'About', path: 'TODO', icon: 'info'},
+    {label: 'Download', path: 'TODO', icon: 'cloud_download'},
+    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
   ];
 
   constructor(private headerService: HeaderService,
@@ -60,9 +65,4 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     this.auth.signOut();
   }
 
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
-    const offsetTop = document.documentElement.scrollTop || document.body.scrollTop;
-    this.fixedHeader = offsetTop > 12;
-  }
 }

@@ -7,6 +7,7 @@
   height: 100%;
   border-radius: $border-radius;
   border: 1px solid $hover_color;
+  //@include box_shadow;
   display: flex;
   flex-direction: column;
   position: relative;

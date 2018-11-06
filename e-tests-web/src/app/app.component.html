@@ -1,40 +1,30 @@
-<app-header [isUserLoaded]="isUserLoaded"
-            [height]="headerHeight"
-            [user]="user"
-            [isSmallScreen]="isSmallScreen">
-</app-header>
 
-<main>
-  <div style="position: relative;">
+<mat-card class="main-card">
+  <main>
     <div id="stripes" aria-hidden="true"
          [style.background-image]="'linear-gradient(150deg, '+
-                appSettings?.currentTheme?.primary+' 15%, '+
-                appSettings?.currentTheme?.accent +' 70%, '+
-                appSettings?.currentTheme?.accentSecond+' 120%)'"
-         [style.top]="-headerHeight + 'px'">
-      <span [style.background-image]="'linear-gradient(to left, '+
-                appSettings?.currentTheme?.primary+' 90%, '+
-                appSettings?.currentTheme?.accent +' 10%)'">
-      </span>
-      <span [style.background-image]="'linear-gradient(100deg, '+
-                appSettings?.currentTheme?.primary+' 15%, '+
-                appSettings?.currentTheme?.accent +' 70%)'">
-      </span>
+                appSettings?.currentTheme?.primary+', '+
+                appSettings?.currentTheme?.accent + ' )'">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
     <div class="container" style="position: relative">
 
       <app-spinner [hidden]="!pageOnLoad"></app-spinner>
-
-      <div [style.height]="headerHeight + 'px'"></div>
+      <app-header [isUserLoaded]="isUserLoaded"
+                  [height]="headerHeight"
+                  [user]="user"
+                  [isSmallScreen]="isSmallScreen">
+      </app-header>
 
       <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
 
       <div [hidden]="pageOnLoad"
-           style="position: relative;"
            [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
         <router-outlet #o="outlet"></router-outlet>
       </div>
 
     </div>
-  </div>
-</main>
+  </main>
+</mat-card>

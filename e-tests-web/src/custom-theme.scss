@@ -30,15 +30,15 @@ $light-warn: mat-palette($mat-red);
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
 // Dark theme$mat-blue-grey, 400
-$dark-primary: mat-palette($mat-blue-grey, 700);
-$dark-accent:  mat-palette($mat-blue-grey, 600);
+$dark-primary: mat-palette($mat-blue-grey, 900);
+$dark-accent:  mat-palette($mat-blue-grey, A700);
 $dark-warn: mat-palette($mat-red);
 
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 // Indigo theme
 $indigo-primary: mat-palette($mat-indigo, A700);
-$indigo-accent: mat-palette($mat-light-blue, 600);
+$indigo-accent: mat-palette($mat-light-blue);
 $indigo-warn: mat-palette($mat-red);
 
 $indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);

@@ -25,8 +25,8 @@ export const MY_THEMES: Array<MyTheme> = [
     name: 'indigo-theme',
     label: 'Blue',
     primary: '#304ffe',
-    accent: '#039be5',
-    accentSecond: '#a6ffcb',
+    accent: '#05d5ff',
+    accentSecond: '#b9f6ca',
     warn: '#f44336',
     textColor: '#FAFAFA'
   },
@@ -40,8 +40,8 @@ export const MY_THEMES: Array<MyTheme> = [
   },
   {
     name: 'dark-theme', label: 'Dark',
-    primary: '#455a64',
-    accent: '#263238',
+    primary: '#263238',
+    accent: '#455a64',
     accentSecond: '#546e7a',
     warn: '#f44336',
     textColor: '#FAFAFA'

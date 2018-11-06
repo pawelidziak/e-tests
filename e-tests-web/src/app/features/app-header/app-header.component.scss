@@ -1,31 +1,39 @@
 @import '../../shared/mixins';
 
 .app-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9;
-  background: transparent;
+
 }
 
 .app-header-container {
+  z-index: 2;
   font-size: 1.1*$font-normal;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
 }
 
-.my-nav {
-  position: fixed;
-  background: rgba(0, 0, 0, .5);
+.my-fixed-nav {
+  position: absolute;
   left: 0;
-  width: 100%;
+  right: 0;
+  top: 0;
+  margin: .5*$margin;
   overflow: hidden;
   z-index: 9;
-  transition: opacity .35s, visibility .35s, height .35s;
-  padding: $margin 0;
+  box-shadow: 0 50px 100px rgba(50, 50, 93, .1), 0 15px 35px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, .1);
+}
+
+.my-fixed-nav-card {
+  padding: 0;
+}
+
+.close-nav {
+  display: flex;
+  align-items: center;
+  padding-left: .5*$margin;
+  justify-content: space-between;
 }
 
 .my-nav-list {
@@ -38,8 +46,18 @@
 }
 
 .my-slide-nav-list {
-  display: block;
-  column-count: 2;
+  display: flex;
+  flex-direction: column;
+  color: $text_secondary;
+  li {
+    width: 100%;
+  }
+  a {
+    width: 100%;
+    padding: .5*$margin 0;
+    outline: none;
+  }
+
 }
 
 .active-link {
@@ -49,3 +67,4 @@
 .mat-menu-item, button {
   outline: none;
 }
+
