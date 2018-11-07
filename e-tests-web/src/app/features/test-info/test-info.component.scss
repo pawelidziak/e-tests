@@ -1,13 +1,6 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-test-info {
-  padding: .5*$margin 0;
-  @media #{$gt-sm_size} {
-    padding: 2*$margin 0;
-  }
-}
-
 button {
   outline: none;
 }

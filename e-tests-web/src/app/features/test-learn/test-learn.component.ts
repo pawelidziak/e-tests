@@ -8,10 +8,10 @@ import {TestModel, TestProgress, TestSettings} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {RWDService} from '../../core/services/RWD.service';
 import {HeaderService} from '../../core/services/header.service';
-import {TestConfigWithRestart} from './test-config/test-config.component';
-import {take} from 'rxjs/operators';
+import {TestConfigComponent, TestConfigWithRestart} from './test-config/test-config.component';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {LoaderService} from '../../core/services/loader.service';
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-test',
@@ -20,6 +20,8 @@ import {LoaderService} from '../../core/services/loader.service';
 })
 export class TestLearnComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
+  private readonly DEFAULT_OCCURRENCES = 2;
+  private readonly DEFAULT_REPETITIONS = 2;
   public testId: string;
 
   public preparedTestExercises: Array<ExerciseWithOccurrences> = [];
@@ -32,9 +34,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   public userIsAuthenticated: boolean;
   public testInProgress: boolean;
 
-  public openConfigDrawer: boolean;
-  public disableConfigDrawerClose: boolean;
-
   public isMediumScreen: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -45,6 +44,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
               private exerciseService: TestExercisesService,
               public loader: LoaderService,
               public auth: AuthService,
+              public dialog: MatDialog,
               public appSettings: AppSettingsService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
@@ -68,6 +68,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isMediumScreen.subscribe(
         res => {
+          // this.headerService.hidePageHeader();
           if (res) {
             this.headerService.hideAppAndPageHeader();
             this.isMediumScreen = true;
@@ -150,8 +151,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.setTestSettings(settings);
     this.loader.complete();
     if (!this.isConfigSet) {
-      this.disableConfigDrawerClose = true;
-      this.openConfigDrawer = true;
+      this.openDialog(true);
     } else {
       this.checkIfTestIsFinish();
       if (!this.isTestEnd) {
@@ -279,28 +279,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.drawExercise();
   }
 
-  public handleCloseConfigDrawer(result: TestConfigWithRestart): void {
-    const settings: TestSettings = {
-      config: result.config,
-      progress: result.restartTestProgress ? {masteredExercisesIds: [], reviewedExercisesIds: []}
-        : this.test.settings.progress
-    };
-    this.test.settings = settings;
-
-    // reload with new config
-    this.prepareExercises();
-
-    // when it's first start
-    if (!this.isConfigSet || result.restartTestProgress) {
-      this.startTest(settings);
-    }
-    this.openConfigDrawer = false;
-  }
-
   /**
    * REVIEWED EXERCISE
    */
-
   private addToReviewed() {
     const index = this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.id);
     if (index !== -1) {
@@ -345,10 +326,49 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    *    COUNTERS
    */
   public countMasteredRatio(): number {
-    if (this.test.settings.progress && this.test.settings.progress.masteredExercisesIds.length === 0) {
+    if (this.test.settings && this.test.settings.progress && this.test.settings.progress.masteredExercisesIds.length === 0) {
       return 0;
     }
     return this.test.settings.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
+  }
+
+  openDialog(disableClose: boolean): void {
+    const dialogRef = this.dialog.open(TestConfigComponent, {
+      disableClose: disableClose,
+      panelClass: 'none-padding-mat-dialog',
+      data: {
+        testId: this.testId,
+        occurrencesExerciseNumber: this.test.settings ? this.test.settings.config.occurrencesNumber : this.DEFAULT_OCCURRENCES,
+        repetitionExerciseNumber: this.test.settings ? this.test.settings.config.repetitionNumber : this.DEFAULT_REPETITIONS,
+        testIsNewOrInProgress: !this.isConfigSet,
+        testIsEnd: this.isTestEnd
+      }
+    });
+
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.handleSaveConfig(result);
+        }
+      })
+    );
+  }
+
+  private handleSaveConfig(result: TestConfigWithRestart): void {
+    const settings: TestSettings = {
+      config: result.config,
+      progress: result.restartTestProgress ? {masteredExercisesIds: [], reviewedExercisesIds: []}
+        : this.test.settings.progress
+    };
+    this.test.settings = settings;
+
+    // reload with new config
+    this.prepareExercises();
+
+    // when it's first start
+    if (!this.isConfigSet || result.restartTestProgress) {
+      this.startTest(settings);
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])

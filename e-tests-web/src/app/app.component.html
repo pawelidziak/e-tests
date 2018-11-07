@@ -1,6 +1,5 @@
 
 <mat-card class="main-card">
-  <main>
     <div id="stripes" aria-hidden="true"
          [style.background-image]="'linear-gradient(150deg, '+
                 appSettings?.currentTheme?.primary+', '+
@@ -9,7 +8,7 @@
       <span></span>
       <span></span>
     </div>
-    <div class="container" style="position: relative">
+    <main class="container" style="position: relative">
 
       <app-spinner [hidden]="!pageOnLoad"></app-spinner>
       <app-header [isUserLoaded]="isUserLoaded"
@@ -25,6 +24,5 @@
         <router-outlet #o="outlet"></router-outlet>
       </div>
 
-    </div>
-  </main>
+    </main>
 </mat-card>

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {TestConfig} from '../../../core/models/Test';
-import {MatDrawer} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {RWDService} from '../../../core/services/RWD.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../../shared/ROUTES';
@@ -10,40 +10,44 @@ export interface TestConfigWithRestart {
   restartTestProgress: boolean;
 }
 
+export interface TestConfigInput {
+  testId: string;
+  occurrencesExerciseNumber: number;
+  repetitionExerciseNumber: number;
+  testIsNewOrInProgress: boolean;
+  testIsEnd: boolean;
+}
+
 @Component({
   selector: 'app-test-config',
   templateUrl: './test-config.component.html',
   styleUrls: ['./test-config.component.scss']
 })
 export class TestConfigComponent implements OnInit, OnDestroy {
-  private readonly DEFAULT_OCCURRENCES = 2;
-  private readonly DEFAULT_REPETITIONS = 2;
   private subscriptions: any[] = [];
 
-  @Input() testId: string;
-  @Input() configDrawer: MatDrawer;
-  @Input() occurrencesExerciseNumber: number;
-  @Input() repetitionExerciseNumber: number;
-  @Input() testIsNewOrInProgress: boolean;
+  private readonly testId: string;
+  public occurrencesExerciseNumber: number;
+  public repetitionExerciseNumber: number;
+  public testIsNewOrInProgress: boolean;
+  public testIsEnd: boolean;
 
-  @Input() testIsEnd: boolean;
-
-  @Output() saveSettings: EventEmitter<TestConfigWithRestart> = new EventEmitter();
   public confirmRestart: boolean;
   public isSmallScreen: boolean;
 
   constructor(private rwdService: RWDService,
-              private router: Router) {
+              private router: Router,
+              public dialogRef: MatDialogRef<TestConfigComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: TestConfigInput) {
+    this.testId = this.data.testId;
+    this.occurrencesExerciseNumber = this.data.occurrencesExerciseNumber;
+    this.repetitionExerciseNumber = this.data.repetitionExerciseNumber;
+    this.testIsNewOrInProgress = this.data.testIsNewOrInProgress;
+    this.testIsEnd = this.data.testIsEnd;
   }
 
   ngOnInit() {
     this.getRWDValue();
-    if (!this.occurrencesExerciseNumber) {
-      this.occurrencesExerciseNumber = this.DEFAULT_OCCURRENCES;
-    }
-    if (!this.repetitionExerciseNumber) {
-      this.repetitionExerciseNumber = this.DEFAULT_REPETITIONS;
-    }
   }
 
   ngOnDestroy() {
@@ -59,7 +63,7 @@ export class TestConfigComponent implements OnInit, OnDestroy {
       restartTestProgress: reset
     };
 
-    this.saveSettings.emit(settings);
+    this.dialogRef.close(settings);
 
     if (this.confirmRestart) {
       this.confirmRestart = false;
@@ -76,5 +80,10 @@ export class TestConfigComponent implements OnInit, OnDestroy {
 
   public backToTest(): void {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}`]);
+    this.closeConfigDialog();
+  }
+
+  closeConfigDialog(): void {
+    this.dialogRef.close();
   }
 }

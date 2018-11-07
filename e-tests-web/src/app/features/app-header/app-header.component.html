@@ -1,4 +1,6 @@
-<header [style.color]="appSettings?.currentTheme?.textColor">
+<header [style.color]="appSettings?.currentTheme?.textColor"
+        *ngIf="headerValues.appHeaderVisibility"
+        [style.height]="height + 'px'">
 
   <!-- SMALL SLIDE DEVICE NAV -->
   <nav class="my-fixed-nav"
@@ -45,9 +47,7 @@
   </nav>
 
   <!-- APP HEADER-CONTAINER -->
-  <div class="container app-header-container"
-       [style.height]="height + 'px'"
-       *ngIf="headerValues.appHeaderVisibility">
+  <div class="container app-header-container">
 
     <a [routerLink]="ALL_ROUTES.DASHBOARD">LOGO</a>
 
@@ -111,7 +111,7 @@
           </a>
         </li>
 
-        <span style="margin: 0 24px"></span>
+        <li style="margin: 0 24px"></li>
 
         <!-- GENERAL LINKS -->
         <li *ngFor="let link of generalLinks">

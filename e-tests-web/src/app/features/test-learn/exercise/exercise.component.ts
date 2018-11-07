@@ -87,6 +87,10 @@ export class ExerciseComponent implements OnInit, OnChanges {
     this.scrollTop();
     this.feedbackMsg = this.drawFeedBackMessage();
     this.checkClicked.emit();
+
+    if (this.isAnswerCorrect) {
+      setTimeout(() => this.showNextExercise(), 1000)
+    }
   }
 
   public showNextExercise(): void {
@@ -131,7 +135,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   public scrollTop(): void {
-    window.scrollTo(0, 0 );
+    window.scrollTo(0, 0);
   }
 
   private drawFeedBackMessage(): string {
@@ -155,7 +159,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
 
   @HostListener('window:keydown', ['$event'])
   preventSpacebarScroll(event: KeyboardEvent): void {
-    if (event.keyCode === KEY_CODE.SPACE_BAR_KEY ) {
+    if (event.keyCode === KEY_CODE.SPACE_BAR_KEY) {
       event.preventDefault();
     }
 

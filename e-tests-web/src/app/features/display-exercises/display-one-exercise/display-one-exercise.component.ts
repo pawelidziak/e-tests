@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
 import {TestExercisesService} from '../../../core/services/test-exercises.service';
 import {MatSnackBar} from '@angular/material';

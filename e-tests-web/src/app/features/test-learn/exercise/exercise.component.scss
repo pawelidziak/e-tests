@@ -1,14 +1,29 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
 
+.section-exercise {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 105px);
+  @media #{$gt-md_size} {
+    min-height: calc(100vh - 188px);
+  }
+}
+
 .question {
   display: flex;
   justify-content: center;
-  padding: 2*$margin $margin;
+  padding: $margin .5*$margin;
+  @media #{$gt-md_size} {
+    padding: 2*$margin $margin;
+  }
 }
 
 .question-big_padding {
-  padding: 4*$margin $margin;
+  padding: 2*$margin .5*$margin;
+  @media #{$gt-md_size} {
+    padding: 4*$margin $margin;
+  }
 }
 
 .answers-grid {
@@ -63,26 +78,35 @@
 }
 
 .answer-feedback {
-  padding: $margin 0;
   display: flex;
   align-items: center;
   border-bottom: 1px solid $hover_color;
   @include upper-text();
+  padding: .5*$margin 0;
+  @media #{$gt-md_size} {
+    padding: $margin 0;
+  }
   .feedback-icon {
     color: $text_secondary;
-    @include mat-icon-size(72px);
     margin-right: $margin;
+    @media #{$gt-md_size} {
+      @include mat-icon-size(72px);
+    }
   }
 }
 
 .answers-container {
-  padding: $margin 0;
+  padding: .5*$margin 0;
+  @media #{$gt-md_size} {
+    padding: $margin 0;
+  }
   border-bottom: 1px solid $hover_color;
   &:last-child {
     border-bottom: none;
   }
   .answer-title {
     @include upper-text();
+    @include fs-small-X-normal();
   }
 }
 
@@ -98,36 +122,21 @@
   }
 }
 
-.exercise-check-next {
-  position: fixed;
-  bottom: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-  @media #{$gt-xs_size} {
-    padding: 0 15px;
+.exercise-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.exercise-button {
+  text-transform: uppercase;
+  border-radius: $border-radius;
+  width: 100%;
+  /deep/ .mat-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   @media #{$gt-md_size} {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    bottom: $margin;
-  }
-  @media #{$gt-lg_size} {
-    left: 250px;
-    bottom: 2*$margin;
-  }
-  button {
-    height: 48px;
-    width: 100%;
-    @media #{$gt-md_size} {
-      width: 25%;
-    }
-    @include upper-text($font-small);
-    /deep/ .mat-button-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    width: 30%;
   }
 }

@@ -25,14 +25,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .paragraph-font {
-  font-size: 1.1*$font-normal;
+  font-size: .9*$font-normal;
+  @media #{$gt-md_size} {
+    font-size: 1.1*$font-normal;
+  }
   opacity: .8;
   font-weight: normal;
 }
 
 .sub-paragraph-font {
   opacity: .8;
-  font-size: $small-font-size;
+  font-size: $font-small;
   color: $text_secondary;
 }
 
@@ -59,15 +62,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.section-margins {
-  margin: 2*$margin 0 $margin;
+.section-padding {
+  padding: 2*$margin 0 $margin;
   @media #{$gt-sm_size} {
-    margin: 3*$margin 0 $margin;
+    padding: 3*$margin 0 $margin;
   }
 }
 
 .padding-top-12 {
   padding-top: 12px;
+}
+
+.none-padding-mat-dialog .mat-dialog-container{
+  padding: 0;
 }
 
 .loading {
