@@ -104,6 +104,16 @@ h1, h2, h3, h4, h5, h6 {
 .d-flex {
   display: flex;
 }
+.d-flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.d-flex-align-justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .my-divider {
   width: 100%;
@@ -130,9 +140,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.small-text {
-  font-size: $font-small;
-}
 
 /*
       MESSAGES
@@ -159,9 +166,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: $material-green;
 }
 
-.z-index-2 {
-  z-index: 2;
-}
 
 .header-line-right {
   position: relative;
@@ -201,11 +205,6 @@ h1, h2, h3, h4, h5, h6 {
     border-left: 15px solid transparent;
 
   }
-}
-
-.icon-form {
-  display: flex;
-  align-items: center;
 }
 
 // NO MATCHES
