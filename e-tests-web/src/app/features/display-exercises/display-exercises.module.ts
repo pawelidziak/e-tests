@@ -4,7 +4,7 @@ import {DisplayExercisesComponent} from './display-exercises.component';
 import {SharedModule} from '../../shared/shared.module';
 import {
   MatButtonModule, MatCheckboxModule,
-  MatExpansionModule, MatFormFieldModule,
+  MatFormFieldModule,
   MatIconModule, MatInputModule,
   MatSnackBarModule,
   MatToolbarModule, MatTooltipModule
@@ -24,7 +24,6 @@ import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatExpansionModule,
     MatCheckboxModule,
     MatTooltipModule,
     MatSnackBarModule,

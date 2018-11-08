@@ -4,7 +4,6 @@ import {TestExercisesService} from '../../../core/services/test-exercises.servic
 import {MatSnackBar} from '@angular/material';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
 
-
 @Component({
   selector: 'app-display-one-exercise',
   templateUrl: './display-one-exercise.component.html',
@@ -15,7 +14,6 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
   @Input() exercise: Exercise;
   @Input() editMode = false;
   @Input() isNew = false;
-  @Input() expanded: boolean;
   @Input() readonly testId: string;
   @Input() readonly isAuthor: boolean;
   @Input() readonly number: number;
@@ -44,7 +42,6 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
 
   public stopEditExercise(): void {
     this.editMode = false;
-    this.expanded = true;
     if (this.copyExercise) {
       this.exercise = JSON.parse(JSON.stringify(this.copyExercise));
       delete this.copyExercise;
@@ -54,7 +51,6 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
 
   public saveExercise(): void {
     this.editMode = false;
-    this.expanded = true;
     this.checkExerciseThenFix();
 
     if (this.exercise.id) {
