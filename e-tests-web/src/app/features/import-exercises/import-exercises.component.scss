@@ -1,0 +1,51 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+button {
+  outline: none;
+}
+
+.name-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.parser-button {
+  margin-right: .5*$margin;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+}
+
+.choose-files-button {
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+}
+
+.selected-parser {
+  font-weight: bold;
+  @include fs-small-X-normal();
+  padding: 0 .5*$margin;
+}
+
+.import-card {
+  border-radius: $border-radius;
+}
+
+.import-card-header {
+  padding: $margin 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.import-buttons {
+  display: flex;
+  align-items: center;
+  button {
+    @include upper-text();
+    margin-left: .5*$margin;
+  }
+}

@@ -1,7 +1,7 @@
 <div class="single-exercise">
 
   <!-- EXERCISE HEADER -->
-  <div class="exercise-header">
+  <div class="exercise-header" [ngClass]="{'small-padding': !editMode, 'large-padding': editMode}">
 
     <!-- NO EDITABLE TITLE -->
     <div *ngIf="!editMode" class="width-100">
@@ -10,8 +10,9 @@
     </div>
 
     <!-- EDITABLE TITLE -->
-    <div *ngIf="editMode" class="width-100"
+    <div *ngIf="editMode" class="width-100" style="display: flex; align-items: center;"
          (keydown)="handleSpacebar($event)">
+      <span class="exercise-number">{{number}}.</span>
       <mat-form-field color="accent"
                       class="width-100"
                       floatLabel="never">
@@ -23,7 +24,7 @@
     </div>
 
     <!-- HEADER BUTTONS -->
-    <div *ngIf="isAuthor">
+    <div *ngIf="isAuthor && !importMode">
       <div *ngIf="!editMode" class="edit-buttons">
         <mat-icon aria-label="Delete"
                   class="action-icon"
@@ -64,7 +65,8 @@
   <!-- ANSWERS -->
   <div class="exercise-answers row">
     <div *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy"
-         class="col-md-6 single-answer">
+         [ngClass]="{'col-12 col-md-6': !editMode, 'col-12': editMode}"
+         class="single-answer">
 
       <!-- NO EDITABLE ANSWER -->
       <div *ngIf="!editMode" class="no-editable-answer">

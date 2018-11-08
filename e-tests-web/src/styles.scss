@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
 .my-sub-title {
   font-size: $font-normal;
   @media #{$gt-md_size} {
-    font-size: 1.1*$font-normal;
+    font-size: 1.2*$font-normal;
   }
   margin: $margin 0;
   opacity: .9;

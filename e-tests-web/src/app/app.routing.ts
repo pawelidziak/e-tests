@@ -2,7 +2,6 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './core/auth.guard';
 import {ALL_ROUTES, ROUTE_PARAMS} from './shared/ROUTES';
-import {TestsBoxesModule} from './shared/components/tests-boxes/tests-boxes.module';
 
 const appRoutes: Routes = [
   /**
@@ -40,6 +39,10 @@ const appRoutes: Routes = [
   {
     path: `${ALL_ROUTES.USER_TESTS_LIST}`,
     loadChildren: 'app/features/user-tests/user-tests.module#UserTestsModule',
+  },
+  {
+    path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}/${ALL_ROUTES.IMPORT_EXERCISES}`,
+    loadChildren: 'app/features/import-exercises/import-exercises.module#ImportExercisesModule'
   },
   // otherwise redirect to dashboard
   {path: '', redirectTo: ALL_ROUTES.DASHBOARD, pathMatch: 'full'},

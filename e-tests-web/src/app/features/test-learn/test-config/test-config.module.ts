@@ -22,9 +22,7 @@ import {A11yModule} from "@angular/cdk/a11y";
     MatDialogModule,
     A11yModule
   ],
-  exports: [
-    TestConfigComponent
-  ],
+  exports: [],
   providers: []
 })
 export class TestConfigModule {

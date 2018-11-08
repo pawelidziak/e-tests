@@ -5,6 +5,7 @@ export const ALL_ROUTES = {
   CREATED_TEST: 'test',
   USER_TESTS_LIST: 'saved',
   TEST_LEARN: 'learn',
+  IMPORT_EXERCISES: 'import',
   APP_SETTINGS: 'settings'
 };
 

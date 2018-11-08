@@ -4,6 +4,8 @@ import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
 import {TestService} from '../../core/services/test.service';
+import {ALL_ROUTES} from "../../shared/ROUTES";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-display-exercises',
@@ -12,6 +14,7 @@ import {TestService} from '../../core/services/test.service';
   animations: [scaleOneZero(), slideFromRightToRight()]
 })
 export class DisplayExercisesComponent implements OnInit {
+  public readonly ALL_ROUTES = ALL_ROUTES;
 
   @Input() readonly origExerciseList: Array<Exercise>;
   @Input() readonly authorId: string;
@@ -25,6 +28,7 @@ export class DisplayExercisesComponent implements OnInit {
   private exercisesNumber: number;
 
   constructor(private testService: TestService,
+              private router: Router,
               public auth: AuthService,
               public appSettings: AppSettingsService) {
   }
@@ -73,4 +77,8 @@ export class DisplayExercisesComponent implements OnInit {
    * HELPERS
    */
   public identifier = (index: number, item: Exercise) => item.createDate;
+
+  public navigateToImport(): void {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.IMPORT_EXERCISES}`]);
+  }
 }

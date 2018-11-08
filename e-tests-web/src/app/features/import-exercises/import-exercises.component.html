@@ -1,0 +1,84 @@
+<section class="section-padding" *ngIf="test">
+
+  <div [style.color]="appSettings.currentTheme.textColor">
+
+    <div class="name-buttons">
+      <h3 class="my-title">Import <strong>exercises</strong> to Your test!</h3>
+
+      <div class="d-flex">
+        <button mat-raised-button
+                class="parser-button"
+                [matMenuTriggerFor]="parserMenu">
+          <span>Parser:</span>
+          <span class="selected-parser">{{selectedParser.label}}</span>
+          <mat-icon aria-label="Parser">expand_more</mat-icon>
+        </button>
+        <button type="button"
+                color="primary"
+                class="choose-files-button"
+                mat-raised-button
+                (click)="fileInput.click()">
+          <span style="margin-right: 12px;">Choose files</span>
+          <mat-icon aria-label="Choose">search</mat-icon>
+        </button>
+        <input type="file"
+               #fileInput
+               hidden
+               multiple
+               accept="text/plain"
+               (change)="getFiles($event)"/>
+      </div>
+    </div>
+
+    <p class="my-sub-title">
+      Choose the right parser, select files and that's all.
+      Choose <strong>E-testo</strong> parser when You import files from E-testo app.
+      Choose <strong>PWR</strong> parser when You import files from old PWR app.
+
+    </p>
+  </div>
+
+  <app-spinner [hidden]="!filesOnLoad"></app-spinner>
+
+  <p class="error-msg" *ngIf="errorMsg && !filesOnLoad">{{errorMsg}}</p>
+
+  <mat-card class="import-card" *ngIf="!filesOnLoad &&  importedExercises.length > 0">
+    <div class="import-card-header">
+      <span>Imported files: <strong>{{selectedFiles.length}}</strong></span>
+
+      <div class="import-buttons">
+        <button mat-raised-button
+                color="accent"
+                (click)="saveExercises();">
+          save
+        </button>
+        <button mat-raised-button
+                (click)="resetExercises();"
+                color="warn">
+          reset
+        </button>
+      </div>
+    </div>
+
+
+    <div *ngFor="let exercise of importedExercises; let i=index">
+      <app-display-one-exercise [exercise]="exercise"
+                                [editMode]="!exercise.id"
+                                [testId]="testId"
+                                [importMode]="true"
+                                [isAuthor]="true"
+                                [number]="i + 1">
+      </app-display-one-exercise>
+    </div>
+
+  </mat-card>
+</section>
+
+<!-- PARSER MENU-->
+<mat-menu #parserMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item *ngFor="let parser of parserOption" (click)="changeParser(parser)">
+      <span>{{parser.label}}</span>
+    </button>
+  </ng-template>
+</mat-menu>

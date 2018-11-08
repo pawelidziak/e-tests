@@ -29,6 +29,13 @@
     </button>
 
     <button mat-icon-button
+            [matTooltip]="'Import'"
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            (click)="navigateToImport()">
+      <mat-icon aria-label="Search">import_export</mat-icon>
+    </button>
+
+    <button mat-icon-button
             [matTooltip]="'Add exercise'"
             *ngIf="auth.currentUserId === authorId && !fixedAddButton"
             (click)="addExercise()">
@@ -38,17 +45,18 @@
 
   </div> <!-- /EXERCISES HEADER -->
 
-    <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
-      <app-display-one-exercise [exercise]="exercise"
-                                [editMode]="!exercise.id"
-                                [testId]="testId"
-                                [isAuthor]="auth.currentUserId === authorId"
-                                [number]="i + 1"
-                                (exerciseAdded)="handleExerciseAdded()"
-                                (exerciseDeleted)="handleExerciseDeleted($event)"
-                                (exerciseCanceled)="handleExerciseCanceled($event)">
-      </app-display-one-exercise>
-    </div>
+  <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+    <app-display-one-exercise [exercise]="exercise"
+                              [editMode]="!exercise.id"
+                              [testId]="testId"
+                              [importMode]="false"
+                              [isAuthor]="auth.currentUserId === authorId"
+                              [number]="i + 1"
+                              (exerciseAdded)="handleExerciseAdded()"
+                              (exerciseDeleted)="handleExerciseDeleted($event)"
+                              (exerciseCanceled)="handleExerciseCanceled($event)">
+    </app-display-one-exercise>
+  </div>
 
   <!-- NO MATCHES -->
   <div *ngIf="copyExerciseList.length > 0 && (copyExerciseList | searchExercise: searchText).length === 0"

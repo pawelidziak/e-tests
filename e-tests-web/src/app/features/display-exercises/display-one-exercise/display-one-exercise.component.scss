@@ -18,7 +18,6 @@ button {
 .exercise-header {
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
-  padding: .5*$margin;
   color: currentColor !important;
   display: flex;
   flex-direction: column;
@@ -28,9 +27,15 @@ button {
     flex-direction: row;
     align-items: center;
   }
-  @media #{$gt-lg_size} {
-    padding: $margin .5*$margin $margin $margin;
-  }
+}
+
+.small-padding {
+  padding: .5*$margin;
+}
+
+.large-padding {
+  padding: 0 .5*$margin;
+
 }
 
 .action-icon {
@@ -75,7 +80,7 @@ button {
   @media #{$gt-xs_size}{
     padding-left: $margin;
   }
-  font-size: $font-small;
+  font-size: 1.1*$font-small;
 }
 
 .editable-answer {

@@ -1,28 +1,27 @@
-
+<app-spinner [hidden]="!pageOnLoad"></app-spinner>
 <mat-card class="main-card">
-    <div id="stripes" aria-hidden="true"
-         [style.background-image]="'linear-gradient(150deg, '+
+  <div id="stripes" aria-hidden="true"
+       [style.background-image]="'linear-gradient(150deg, '+
                 appSettings?.currentTheme?.primary+', '+
                 appSettings?.currentTheme?.accent + ' )'">
-      <span></span>
-      <span></span>
-      <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <main class="container" style="position: relative">
+
+    <app-header [isUserLoaded]="isUserLoaded"
+                [height]="headerHeight"
+                [user]="user"
+                [isSmallScreen]="isSmallScreen">
+    </app-header>
+
+    <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
+
+    <div [hidden]="pageOnLoad"
+         [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
+      <router-outlet #o="outlet"></router-outlet>
     </div>
-    <main class="container" style="position: relative">
 
-      <app-spinner [hidden]="!pageOnLoad"></app-spinner>
-      <app-header [isUserLoaded]="isUserLoaded"
-                  [height]="headerHeight"
-                  [user]="user"
-                  [isSmallScreen]="isSmallScreen">
-      </app-header>
-
-      <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
-
-      <div [hidden]="pageOnLoad"
-           [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
-        <router-outlet #o="outlet"></router-outlet>
-      </div>
-
-    </main>
+  </main>
 </mat-card>

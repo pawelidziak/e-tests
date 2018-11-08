@@ -17,6 +17,7 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
   @Input() readonly testId: string;
   @Input() readonly isAuthor: boolean;
   @Input() readonly number: number;
+  @Input() importMode: boolean;
   @Output() exerciseAdded: EventEmitter<void> = new EventEmitter();
   @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
   @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
