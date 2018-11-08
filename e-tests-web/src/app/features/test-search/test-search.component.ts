@@ -6,6 +6,7 @@ import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
 import {PagerService} from '../../core/services/pager.service';
 import {AuthService} from '../../core/services/auth.service';
+import {AppSettingsService} from "../../core/services/app-settings.service";
 
 @Component({
   selector: 'app-test-search',
@@ -24,7 +25,8 @@ export class TestSearchComponent implements OnInit, OnDestroy {
               private pagerService: PagerService,
               private testService: TestService,
               private loader: LoaderService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
@@ -59,9 +61,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
             this.loader.complete();
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => console.log(error)
       )
     );
   }

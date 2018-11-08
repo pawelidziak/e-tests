@@ -1,19 +1,16 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-app-settings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 button {
   outline: none;
 }
 
+.settings-card {
+  border-radius: $border-radius;
+}
+
 .app-setting {
-  width: 300px;
-  margin-top: $margin;
+  margin: .5*$margin;
   display: flex;
   flex-direction: column;
 
@@ -22,10 +19,9 @@ button {
     justify-content: space-between;
     align-items: center;
   }
-
-  .selected{
-    padding: 5px;
-    border-radius: 5px;
+  .app-settings-select {
+    display: flex;
+    align-items: center;
   }
 }
 

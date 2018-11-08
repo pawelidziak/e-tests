@@ -1,25 +1,39 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../core/services/header.service';
-import {MatDrawer} from '@angular/material';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES} from '../../shared/ROUTES';
+import {slideFromTopToTop} from "../../shared/animations";
 
 @Component({
   selector: 'app-header',
   templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss']
+  styleUrls: ['./app-header.component.scss'],
+  animations: [slideFromTopToTop()]
 })
 export class AppHeaderComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
 
   @Input() height: number;
-  @Input() drawer: MatDrawer;
+  @Input() isSmallScreen: boolean;
+  @Input() user: any;
+  @Input() isUserLoaded: boolean;
 
   public ALL_ROUTES = ALL_ROUTES;
   public headerValues: HeaderValues;
-  public user: any;
-  public isUserLoaded: boolean;
+
+  public slideMenu = false;
+
+  public generalLinks = [
+    {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
+    {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'}
+  ];
+
+  public otherLinks = [
+    {label: 'About', path: 'TODO', icon: 'info'},
+    {label: 'Download', path: 'TODO', icon: 'cloud_download'},
+    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
+  ];
 
   constructor(private headerService: HeaderService,
               private auth: AuthService,
@@ -28,22 +42,10 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getHeaderValues();
-    this.getUser();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  private getUser(): void {
-    this.subscriptions.push(
-      this.auth.currentUserObservable.subscribe(
-        res => {
-          this.user = res;
-          this.isUserLoaded = true;
-        },
-        error => console.log(error)
-      ));
   }
 
   private getHeaderValues(): void {
@@ -62,4 +64,5 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   public logout(): void {
     this.auth.signOut();
   }
+
 }

@@ -1,4 +1,4 @@
-<section class="section-display-exercises" *ngIf="copyExerciseList" id="endExercises">
+<section class="section-display-exercises" *ngIf="copyExerciseList" id="sectionExercise">
 
   <!-- EXERCISES HEADER -->
   <div class="exercises-header">
@@ -29,18 +29,6 @@
     </button>
 
     <button mat-icon-button
-            [matTooltip]="'Expand'"
-            *ngIf="!expandAllExercises"
-            (click)="expandAllExercises = true">
-      <mat-icon aria-label="Expand">unfold_more</mat-icon>
-    </button>
-    <button mat-icon-button
-            [matTooltip]="'Collapse'"
-            *ngIf="expandAllExercises"
-            (click)="expandAllExercises = false">
-      <mat-icon aria-label="Collapse">unfold_less</mat-icon>
-    </button>
-    <button mat-icon-button
             [matTooltip]="'Add exercise'"
             *ngIf="auth.currentUserId === authorId && !fixedAddButton"
             (click)="addExercise()">
@@ -56,26 +44,11 @@
                                 [testId]="testId"
                                 [isAuthor]="auth.currentUserId === authorId"
                                 [number]="i + 1"
-                                [expanded]="expandAllExercises"
-                                (exerciseAdded)="handleExercisAdded()"
+                                (exerciseAdded)="handleExerciseAdded()"
                                 (exerciseDeleted)="handleExerciseDeleted($event)"
                                 (exerciseCanceled)="handleExerciseCanceled($event)">
       </app-display-one-exercise>
     </div>
-
-  <div class="exercise-actions">
-    <button mat-raised-button
-            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
-            color="accent"
-            id="newExerciseButton"
-            (click)="addExercise()"
-            [style.background-image]="'linear-gradient(to right, '+
-                appSettings?.currentTheme?.accent+', '+
-                appSettings?.currentTheme?.primary +')'">
-      <mat-icon aria-label="Add">add</mat-icon>
-      <span>Add exercise</span>
-    </button>
-  </div>
 
   <!-- NO MATCHES -->
   <div *ngIf="copyExerciseList.length > 0 && (copyExerciseList | searchExercise: searchText).length === 0"
@@ -83,5 +56,19 @@
     <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
     <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
+  </div>
+
+  <div class="exercise-actions">
+    <button mat-raised-button
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            color="accent"
+            id="newExerciseButton"
+            (click)="addExercise()"
+            [style.background-image]="'linear-gradient(150deg, '+
+                                              appSettings?.currentTheme?.accent+' 30%,'+
+                                              appSettings?.currentTheme?.primary +' 70%)'">
+      <mat-icon aria-label="Add">add</mat-icon>
+      <span>Add exercise</span>
+    </button>
   </div>
 </section>

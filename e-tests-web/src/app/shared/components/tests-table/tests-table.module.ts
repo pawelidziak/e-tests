@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {TestsTableComponent} from './tests-table.component';
 import {SharedModule} from '../../shared.module';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -21,6 +21,7 @@ import {MyPipesModule} from '../../pipes/my-pipes.module';
     SharedModule,
     MyPipesModule,
 
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatTableModule,

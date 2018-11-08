@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
-import {MatButtonModule, MatDividerModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule} from '@angular/material';
 import {AppHeaderComponent} from './app-header.component';
 
 @NgModule({
@@ -10,7 +10,7 @@ import {AppHeaderComponent} from './app-header.component';
   imports: [
     SharedModule,
 
-    MatToolbarModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,

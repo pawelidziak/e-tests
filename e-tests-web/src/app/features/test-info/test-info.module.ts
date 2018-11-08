@@ -6,7 +6,6 @@ import {
   MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
-  MatChipsModule,
   MatIconModule,
   MatTabsModule,
   MatTooltipModule
@@ -34,7 +33,6 @@ import {TestDescModule} from '../../shared/components/test-create-edit-parts/tes
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatChipsModule,
     MatTooltipModule,
     MatBottomSheetModule,
     MatTabsModule

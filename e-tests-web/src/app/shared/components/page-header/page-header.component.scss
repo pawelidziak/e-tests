@@ -6,30 +6,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $hover_color;
+  background: transparent;
   @include fs-small-X-normal();
 }
 
 .my-breadcrumb {
-  opacity: .7;
   display: flex;
   .breadcrumb-item {
     display: flex;
     align-items: center;
-    a {
-      color: $text_secondary;
-    }
   }
   .breadcrumb-icon {
     margin: 0 5px;
     @include mat-icon-size(16px)
   }
+  a {
+    color: currentColor;
+  }
+}
+
+.current-url {
+  font-size: 1.1*$font-normal;
+  padding: .25*$margin .5*$margin;
+  border-radius: $border-radius;
+  background-color: $hover_color;
 }
 
 #premiumButton {
   outline: none;
   border-radius: 5px;
-  @include fs-small-X-normal();
+  font-size: $font-small;
+  letter-spacing: 1px;
   padding: 0 .5*$margin;
   min-width: 0;
 }

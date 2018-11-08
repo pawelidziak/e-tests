@@ -1,11 +1,6 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-create {
-  margin: $margin 0;
-  @include fs-small-X-normal();
-}
-
 button {
   @include upper-text();
   position: absolute;
@@ -17,19 +12,10 @@ button {
   outline: none;
 }
 
-.create-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .message {
-    margin: $margin .5*$margin;
-    color: $text_secondary;
-    font-size: $font-small;
-    @include upper-text();
-    @include upper-text();
-  }
+.create-card {
+  @include fs-small-X-normal();
+  border-radius: $border-radius;
+  padding-top: $margin;
 }
 
 .details {
@@ -47,9 +33,5 @@ button {
       width: auto;
     }
   }
-}
-
-.error-field {
-  margin-bottom: $margin;
 }
 

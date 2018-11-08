@@ -3,7 +3,7 @@
   <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
 
   <div class="config-header">
-    <button mat-icon-button (click)="configDrawer.close()" *ngIf="!testIsNewOrInProgress">
+    <button mat-icon-button (click)="closeConfigDialog()" *ngIf="!testIsNewOrInProgress">
       <mat-icon aria-label="Close">close</mat-icon>
     </button>
     <button mat-icon-button (click)="backToTest()" *ngIf="testIsNewOrInProgress">
@@ -27,8 +27,8 @@
 
     <p class="sub-paragraph-font">Occurrences number of a single exercise.</p>
   </div>
-  <div class="config-row">
 
+  <div class="config-row">
     <div class="config-row-title">
       <h5 class="paragraph-font">Repetitions ({{repetitionExerciseNumber}})</h5>
       <mat-slider
@@ -39,14 +39,10 @@
         [(ngModel)]="repetitionExerciseNumber">
       </mat-slider>
     </div>
-
     <p class="sub-paragraph-font">Repetition of the exercise in the case of an incorrect answer.</p>
   </div>
 
-  <div style="flex: 1;" *ngIf="!isSmallScreen"></div>
-
-  <div class="config-row" *ngIf="!isSmallScreen">
-
+  <div class="config-row" *ngIf="!isSmallScreen" style="margin: 48px 0 60px 0;">
     <h5 class="paragraph-font">Keyboard shortcuts</h5>
 
     <div class="keyboard-shortcut">
@@ -70,14 +66,13 @@
 
   </div>
 
-  <div style="flex: 1;"></div>
-
   <!-- SAVE -->
   <div class="config-row" *ngIf="!testIsEnd">
 
     <div class="config-row-title">
       <h5 class="paragraph-font">Save</h5>
       <button mat-icon-button
+              cdkFocusInitial
               color="accent"
               (click)="closeDrawer()">
         <mat-icon aria-label="Save">save</mat-icon>

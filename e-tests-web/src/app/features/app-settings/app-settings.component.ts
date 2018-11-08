@@ -11,10 +11,9 @@ export class AppSettingsComponent implements OnInit {
   public themes = MY_THEMES;
   public languages = ['ENG', 'PL', 'GER'];
 
-  constructor(public themeService: AppSettingsService,
+  constructor(public appSettings: AppSettingsService,
               private headerService: HeaderService,
-              @Inject(LOCALE_ID) public locale: string
-  ) {
+              @Inject(LOCALE_ID) public locale: string) {
   }
 
   ngOnInit(): void {
@@ -22,8 +21,6 @@ export class AppSettingsComponent implements OnInit {
   }
 
   public changeTheme(theme: MyTheme): void {
-    this.themeService.currentTheme = theme;
-
-
+    this.appSettings.currentTheme = theme;
   }
 }

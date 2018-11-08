@@ -29,6 +29,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public editTestMode: boolean;
   private copyTest: TestModel;
 
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private testService: TestService,

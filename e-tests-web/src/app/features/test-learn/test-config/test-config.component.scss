@@ -8,20 +8,29 @@ button {
 }
 
 .section-test-config {
-  padding: 0 $margin;
-  height: 100%;
+  padding-bottom: .5*$margin;
   display: flex;
   flex-direction: column;
 }
 
 .config-header {
-  margin: 0 -24px $margin -24px;
-  padding-right: $margin;
+  padding-right: .5*$margin;
+  @media #{$gt-md_size} {
+    padding-right: $margin;
+  }
+  margin-bottom: $margin;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid $hover_color;
   color: $text_secondary;
+}
+
+.config-row {
+  padding: 0 .5*$margin;
+  @media #{$gt-md_size} {
+    padding: 0 $margin;
+  }
 }
 
 .config-row-title {

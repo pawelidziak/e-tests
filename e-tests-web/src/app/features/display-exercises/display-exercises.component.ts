@@ -20,7 +20,6 @@ export class DisplayExercisesComponent implements OnInit {
 
   public copyExerciseList: Array<Exercise>;
   public searchText: string;
-  public expandAllExercises = false;
   public fixedAddButton = false;
   public searchInputFocused = false;
   private exercisesNumber: number;
@@ -37,7 +36,7 @@ export class DisplayExercisesComponent implements OnInit {
 
   public addExercise(): void {
     setTimeout(() => {
-      const element = document.querySelector(`#endExercises`);
+      const element = document.querySelector(`#sectionExercise`);
       element.scrollIntoView({behavior: 'smooth', block: 'end'});
     }, 1);
 
@@ -49,7 +48,7 @@ export class DisplayExercisesComponent implements OnInit {
     });
   }
 
-  public handleExercisAdded(): void {
+  public handleExerciseAdded(): void {
     this.exercisesNumber++;
     this.testService.setTestExercisesNumber(this.testId, this.exercisesNumber)
       .catch(error => console.log(error));

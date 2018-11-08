@@ -1,104 +1,65 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-.section-test-info {
-  padding: .5*$margin;
-  @media #{$gt-sm_size} {
-    padding: 2*$margin;
-  }
+button {
+  outline: none;
 }
 
-.test-info-container {
+// CARD
+.info-card {
+  border-radius: $border-radius;
+  padding: $margin;
+  //box-shadow: none !important;
+}
+
+.info-card-header {
+  font-size: $font-small;
+  color: $text_secondary;
   display: flex;
   flex-direction: column;
-  @media #{$gt-sm_size} {
+  align-items: center;
+  @media #{$gt-xs_size} {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 
-button {
-  outline: none;
-}
-
-// BOXES
-.one-box {
-  border-radius: 20px 0 20px 0;
-  font-size: $font-small;
-  &:nth-child(2) {
-    margin-left: 0;
-    margin-top: .5*$margin;
-  }
-  @media #{$gt-sm_size} {
-    &:nth-child(2) {
-      margin-top: 0;
-      margin-left: $margin;
-    }
-  }
-}
-
-.box-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  button {
-    opacity: .6;
-    transition: opacity .3s ease-in-out;
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .box-header-left {
-    @media #{$lt_xs_size} {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  .rate-box {
-    display: flex;
-    align-items: center;
-    @media #{$btw_sm_md} {
-      flex-direction: column;
-    }
-  }
-}
-
-// GENERAL BOX
 .test-name {
-  font-size: 1.5*$font-normal;
-  font-weight: 600;
-}
-
-.tag-list {
-  outline: none;
   margin: .5*$margin 0;
 }
 
-// OTHER BOX
-.box-row {
+.tag-list {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
+}
 
-  .one-info {
-    display: flex;
-    align-items: center;
-    button {
-      opacity: 0.6;
-      transition: opacity .3s ease-in-out;
-      &:hover {
-        opacity: 1;
-      }
-    }
+// ICON WITH TEXT
+.icon-with-text {
+  display: flex;
+  align-items: center;
+}
+
+.test-icon {
+  @include mat-icon-size(20px);
+  margin-right: .25*$margin;
+  @media #{$gt-md_size} {
+    @include mat-icon-size(24px);
+    margin-right: .5*$margin;
   }
 }
 
-.button-box {
+// BUTTONS
+.buttons-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-end
+}
+
+.box-button {
+  width: 100%;
+  margin: .5*$margin 0;
+  border-radius: $border-radius;
   /deep/ .mat-button-wrapper {
     display: flex;
     justify-content: space-between;
@@ -106,18 +67,9 @@ button {
   }
 }
 
-.box-button {
-  border-radius: 20px;
-  margin-top: $margin;
-}
-
 // TABS
-.my-tabs {
-  margin-top: $margin;
-  border-radius: 20px 0 20px 0;
+.tabs-card{
+  border-radius: $border-radius;
+  margin-top: 2*$margin;
   padding: 0;
-}
-
-/deep/ .mat-tab-header {
-  border-top-left-radius: 20px;
 }

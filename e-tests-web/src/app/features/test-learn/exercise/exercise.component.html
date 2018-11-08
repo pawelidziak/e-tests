@@ -1,5 +1,6 @@
 <div class="section-exercise">
 
+  <!-- TITLE AND ANSWERS -->
   <div *ngIf="!isCheckClicked" [@slideFromRight]>
     <span class="question question-big_padding">{{exerciseWithOccurrences.exercise.question}}</span>
 
@@ -25,10 +26,10 @@
           check
         </mat-icon>
       </button>
-
     </div>
   </div>
 
+  <!-- ANSWER NOTIFICATION -->
   <div *ngIf="isCheckClicked" class="answer-notification" [@slideFromBottom]>
 
     <div class="answer-feedback" *ngIf="isAnswerCorrect">
@@ -75,21 +76,25 @@
     </div>
   </div>
 
+  <div style="flex: 1 0;"></div>
+
   <!-- CHECK / NEXT BUTTONS -->
-  <div class="container exercise-check-next">
+  <div class="exercise-buttons-container">
     <button mat-raised-button
+            class="exercise-button"
             color="accent"
             (click)="checkAnswers()"
             *ngIf="!isCheckClicked">
-      <span>check</span>
       <mat-icon aria-label="Check">check</mat-icon>
+      <span>check</span>
     </button>
     <button mat-raised-button
+            class="exercise-button"
             color="accent"
             (click)="showNextExercise()"
-            *ngIf="isCheckClicked">
-      <span>next</span>
+            *ngIf="isCheckClicked && !isAnswerCorrect">
       <mat-icon aria-label="Next">skip_next</mat-icon>
+      <span>next</span>
     </button>
   </div>
 

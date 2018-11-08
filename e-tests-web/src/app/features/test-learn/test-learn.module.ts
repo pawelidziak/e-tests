@@ -5,12 +5,12 @@ import {TestConfigModule} from './test-config/test-config.module';
 import {ExerciseModule} from './exercise/exercise.module';
 import {testLearnRouting} from './test-learn.routing';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatIconModule,
   MatProgressBarModule,
-  MatSidenavModule, MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
+import {TestConfigComponent} from "./test-config/test-config.component";
 
 @NgModule({
   declarations: [
@@ -22,15 +22,15 @@ import {
     TestConfigModule,
     ExerciseModule,
 
-    MatToolbarModule,
+    MatCardModule,
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressBarModule,
-    MatSidenavModule
+    MatProgressBarModule
   ],
   exports: [],
-  providers: []
+  providers: [],
+  entryComponents: [TestConfigComponent]
 })
 export class TestLearnModule {
 }

@@ -7,40 +7,74 @@
 html, body {
   padding: 0;
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito Sans', Arial, sans-serif;
   scroll-behavior: smooth !important;
 }
 
 body {
-  height: 100vh;
+  //height: 100vh;
 }
 
-.mat-drawer-container {
-  //background-color: transparent !important;
-}
-.fixed-top{
+.fixed-top {
   position: absolute;
   top: 0;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .paragraph-font {
-  font-size: 1.1*$font-normal;
+  font-size: .9*$font-normal;
+  @media #{$gt-md_size} {
+    font-size: 1.1*$font-normal;
+  }
   opacity: .8;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .sub-paragraph-font {
   opacity: .8;
-  font-size: $small-font-size;
+  font-size: $font-small;
   color: $text_secondary;
+}
+
+.my-title {
+  font-size: 1.5*$font-normal;
+  @media #{$gt-md_size} {
+    font-size: 2*$font-normal;
+  }
+  font-weight: normal;
+}
+
+.my-sub-title {
+  font-size: $font-normal;
+  @media #{$gt-md_size} {
+    font-size: 1.1*$font-normal;
+  }
+  margin: $margin 0;
+  opacity: .9;
+}
+
+.sub-title-text {
+  @media #{$gt-sm_size} {
+    padding-right: 2*$margin;
+  }
+}
+
+.section-padding {
+  padding: 2*$margin 0 $margin;
+  @media #{$gt-sm_size} {
+    padding: 3*$margin 0 $margin;
+  }
 }
 
 .padding-top-12 {
   padding-top: 12px;
+}
+
+.none-padding-mat-dialog .mat-dialog-container{
+  padding: 0;
 }
 
 .loading {
@@ -77,10 +111,20 @@ h1, h2, h3, h4, h5, h6 {
 .d-flex {
   display: flex;
 }
+.d-flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.d-flex-align-justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .my-divider {
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: $hover_color;
 }
 
@@ -103,9 +147,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.small-text {
-  font-size: $font-small;
-}
 
 /*
       MESSAGES
@@ -132,9 +173,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: $material-green;
 }
 
-.z-index-2 {
-  z-index: 2;
-}
 
 .header-line-right {
   position: relative;
@@ -174,11 +212,6 @@ h1, h2, h3, h4, h5, h6 {
     border-left: 15px solid transparent;
 
   }
-}
-
-.icon-form{
-  display: flex;
-  align-items: center;
 }
 
 // NO MATCHES

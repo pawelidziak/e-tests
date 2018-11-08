@@ -1,153 +1,36 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
-//
-//.single-exercise {
-//  margin-bottom: .5*$margin;
-//  border-radius: 20px 0 20px 0 !important;
-//  position: relative;
-//  border: 1px solid $hover_color;
-//  //background-color: $hover_color;
-//  box-shadow: none !important;
-//}
-//
-//.expansion-header {
-//  border-radius: 20px 0 20px 0;
-//  color: currentColor !important;
-//}
-//
-//.editable-title {
-//  display: flex;
-//  align-items: center;
-//  width: 100%;
-//}
-//
-//.exercise-number {
-//  font-weight: 600;
-//  margin-right: 12px;
-//}
-//
-///*
-//  ANSWERS
-// */
-//.exercise-answers {
-//  @media #{$gt-xs_size}{
-//    padding: .5*$margin .5*$margin 0;
-//  }
-//}
-//
-//.single-answer {
-//  padding: 0;
-//  display: flex;
-//  align-items: center;
-//}
-//
-//@mixin padding-on-odd-elements() {
-//  &:nth-child(odd) {
-//    padding-bottom: .5*$margin;
-//    @media #{$gt-xs_size}{
-//      padding: 0 $margin $margin 0;
-//    }
-//  }
-//}
-//
-//.no-editable-answer {
-//  display: flex;
-//  align-items: center;
-//  @include padding-on-odd-elements;
-//}
-//
-//.answer-text {
-//  padding-left: .5*$margin;
-//  @media #{$gt-xs_size}{
-//    padding-left: $margin;
-//  }
-//  font-size: $font-small;
-//}
-//
-//.correct-answer {
-//  color: $accent;
-//}
-//
-//.editable-answer {
-//  width: 100%;
-//  display: flex;
-//  align-items: center;
-//  &:nth-child(odd) {
-//    @media #{$gt-sm_size}{
-//      padding-left: .5*$margin;
-//    }
-//  }
-//}
-//
-//.answer-checkbox {
-//  height: 20px;
-//}
-//
-//.add-answer {
-//  padding: 0;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  button {
-//    outline: none;
-//  }
-//}
-//
-///*
-//  ACTIONS
-// */
-//.action-row {
-//  padding: .5*$margin;
-//  button {
-//    outline: none;
-//  }
-//
-//  .edit-actions {
-//    width: 100%;
-//    display: flex;
-//    justify-content: space-between;
-//  }
-//}
-//
-//#editButton, #addImageButton {
-//  color: $text_secondary;
-//  transition: color .3s;
-//  &:hover {
-//    color: $text-dark;
-//  }
-//}
-//
-//#deleteExerciseButton, #deleteAnswerButton, #cancelButton {
-//  color: $text_secondary;
-//  transition: color .3s;
-//  &:hover {
-//    color: $material-red;
-//  }
-//}
 
-.single-exercise {
-  margin-bottom: .5*$margin;
-  border-radius: 20px 0 20px 0;
-  position: relative;
-  border: 1px solid $hover_color;
-  //background-color: $hover_color;
-  box-shadow: none !important;
-
-}
-
-.expansion-header {
-  border-top-left-radius: 20px;
-  padding: .5*$margin;
-  color: currentColor !important;
-  display: flex;
-  justify-content: space-between;
-  //padding-left: .5*$margin;
-  background-color: $hover_color;
-  align-items: center;
+/deep/ .mat-form-field-infix {
+  width: auto;
 }
 
 button {
   outline: none;
+}
+
+.single-exercise {
+  margin-bottom: .5*$margin;
+  border-radius: $border-radius;
+  border: 1px solid $hover_color;
+}
+
+.exercise-header {
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  padding: .5*$margin;
+  color: currentColor !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0.05);
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+    align-items: center;
+  }
+  @media #{$gt-lg_size} {
+    padding: $margin .5*$margin $margin $margin;
+  }
 }
 
 .action-icon {
@@ -161,12 +44,6 @@ button {
   }
 }
 
-.editable-title {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
 .exercise-number {
   font-weight: 600;
   margin-right: 12px;
@@ -176,30 +53,21 @@ button {
   ANSWERS
  */
 .exercise-answers {
-  @media #{$gt-xs_size}{
-    padding: .5*$margin .5*$margin 0;
+  padding: .5*$margin .5*$margin 0;
+  @media #{$gt-lg_size}{
+    padding: $margin $margin .5*$margin;
   }
 }
 
 .single-answer {
-  padding: 0;
   display: flex;
   align-items: center;
-}
-
-@mixin padding-on-odd-elements() {
-  &:nth-child(odd) {
-    padding-bottom: .5*$margin;
-    @media #{$gt-xs_size}{
-      padding: 0 $margin $margin 0;
-    }
-  }
 }
 
 .no-editable-answer {
   display: flex;
   align-items: center;
-  @include padding-on-odd-elements;
+  padding-bottom: 12px;
 }
 
 .answer-text {
@@ -210,19 +78,10 @@ button {
   font-size: $font-small;
 }
 
-.correct-answer {
-  color: $accent;
-}
-
 .editable-answer {
   width: 100%;
   display: flex;
   align-items: center;
-  &:nth-child(odd) {
-    @media #{$gt-sm_size}{
-      padding-left: .5*$margin;
-    }
-  }
 }
 
 .answer-checkbox {
@@ -255,6 +114,11 @@ button {
   }
 }
 
+.edit-buttons {
+  display: flex;
+  align-items: center;
+}
+
 #editButton, #addImageButton {
   color: $text_secondary;
   transition: color .3s;
@@ -270,64 +134,3 @@ button {
     color: $material-red;
   }
 }
-
-
-
-
-
-/////////////
-/////////
-.ribbon {
-  position: absolute;
-  right: -5px;
-  top: -5px;
-  z-index: 1;
-  overflow: hidden;
-  width: 75px;
-  height: 75px;
-  text-align: right;
-}
-
-.ribbon span {
-  font-size: 10px;
-  font-weight: bold;
-  color: #FFF;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 20px;
-  //transform: rotate(45deg);
-  //-webkit-transform: rotate(45deg);
-  width: 100px;
-  display: block;
-  background: #79A70A;
-  background: linear-gradient(#9BC90D 0%, #79A70A 100%);
-  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 19px;
-  right: -21px;
-}
-
-.ribbon span::before {
-  content: "";
-  position: absolute;
-  left: 0px;
-  top: 100%;
-  z-index: -1;
-  border-left: 3px solid #79A70A;
-  border-right: 3px solid transparent;
-  border-bottom: 3px solid transparent;
-  border-top: 3px solid #79A70A;
-}
-
-.ribbon span::after {
-  content: "";
-  position: absolute;
-  right: 0px;
-  top: 100%;
-  z-index: -1;
-  border-left: 3px solid transparent;
-  border-right: 3px solid #79A70A;
-  border-bottom: 3px solid transparent;
-  border-top: 3px solid #79A70A;
-}
-

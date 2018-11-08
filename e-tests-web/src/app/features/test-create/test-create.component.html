@@ -1,50 +1,53 @@
-<section class="section-create">
+<section class="section-padding">
 
-  <div class="container">
+  <div class="row">
 
-    <div class="row justify-content-md-center">
+    <div class="col-12 col-md-6"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title">Let's create a new test!</h3>
+        <p class="my-sub-title">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </div>
+    </div>
 
-      <div class="col-md-auto">
+    <div class="col-12 col-md-6">
 
-        <mat-card style="border-radius: 20px 0 20px 0;">
-          <div class="create-header">
-            <span class="message">Let's create a new test! </span>
+      <mat-card class="create-card">
+        <form (ngSubmit)="saveTest()">
+
+          <app-test-name [(testName)]="newTest.name"
+                         [appearance]="'outline'"
+                         [width100]="true"></app-test-name>
+
+          <app-test-tags [(testTags)]="newTest.tags"
+                         [checkError]="checkTags"
+                         [appearance]="'outline'"
+                         [width100]="true">
+          </app-test-tags>
+
+          <app-test-desc [(testDesc)]="newTest.desc"
+                         [appearance]="'outline'"
+                         [width100]="true"></app-test-desc>
+
+          <div class="details">
+            <app-test-create-date [testCreateDate]="newTest.createDate"
+                                  [appearance]="'outline'"
+                                  [disabled]="true">
+            </app-test-create-date>
+
+            <app-test-visibility [(testVisibility)]="newTest.isPublic"
+                                 [tooltip]="'Private option is unavailable at this moment'"
+                                 [disabled]="true">
+            </app-test-visibility>
           </div>
 
-          <form class="new-test-form" (ngSubmit)="saveTest()">
+          <button mat-button color="accent" type="submit" style="border-radius: 0 0 20px 0;">save</button>
+        </form>
+      </mat-card>
 
-            <app-test-name [(testName)]="newTest.name"
-                           [appearance]="'outline'"
-                           [width100]="true"></app-test-name>
-
-            <app-test-tags [(testTags)]="newTest.tags"
-                           [checkError]="checkTags"
-                           [appearance]="'outline'"
-                           [width100]="true">
-            </app-test-tags>
-
-            <app-test-desc [(testDesc)]="newTest.desc"
-                           [appearance]="'outline'"
-                           [width100]="true"></app-test-desc>
-
-            <div class="details">
-              <app-test-create-date [testCreateDate]="newTest.createDate"
-                                    [appearance]="'outline'"
-                                    [disabled]="true">
-              </app-test-create-date>
-
-              <app-test-visibility [(testVisibility)]="newTest.isPublic"
-                                   [tooltip]="'Private option is unavailable at this moment'"
-                                   [disabled]="true">
-              </app-test-visibility>
-            </div>
-
-            <button mat-button color="accent" type="submit" style="border-radius: 0 0 20px 0;">save</button>
-          </form>
-
-        </mat-card>
-
-      </div> <!-- /col-md-auto -->
-    </div> <!-- /row -->
-  </div> <!-- /container -->
+    </div> <!-- /col-md-auto -->
+  </div> <!-- /row -->
 </section>

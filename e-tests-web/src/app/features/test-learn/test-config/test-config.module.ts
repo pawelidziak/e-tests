@@ -1,7 +1,13 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatIconModule, MatSliderModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatIconModule,
+  MatSliderModule
+} from '@angular/material';
 import {SharedModule} from '../../../shared/shared.module';
 import {TestConfigComponent} from './test-config.component';
+import {A11yModule} from "@angular/cdk/a11y";
 
 @NgModule({
   declarations: [
@@ -13,6 +19,8 @@ import {TestConfigComponent} from './test-config.component';
     MatSliderModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
+    A11yModule
   ],
   exports: [
     TestConfigComponent

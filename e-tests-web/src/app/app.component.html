@@ -1,84 +1,28 @@
-<app-header [height]="headerHeight"
-            [drawer]="drawer">
-</app-header>
 
-<mat-sidenav-container class="app-sidenav-container">
-  <mat-sidenav #drawer
-               class="app-sidenav"
-               [opened]="!isMediumScreen"
-               [mode]="!isMediumScreen ? 'side' : 'over'"
-               [fixedInViewport]="true"
-               [fixedTopGap]="headerHeight">
+<mat-card class="main-card">
+    <div id="stripes" aria-hidden="true"
+         [style.background-image]="'linear-gradient(150deg, '+
+                appSettings?.currentTheme?.primary+', '+
+                appSettings?.currentTheme?.accent + ' )'">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <main class="container" style="position: relative">
 
-    <nav class="my-nav">
+      <app-spinner [hidden]="!pageOnLoad"></app-spinner>
+      <app-header [isUserLoaded]="isUserLoaded"
+                  [height]="headerHeight"
+                  [user]="user"
+                  [isSmallScreen]="isSmallScreen">
+      </app-header>
 
-      <div class="app-logo">
-        LOGO
+      <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
+
+      <div [hidden]="pageOnLoad"
+           [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
+        <router-outlet #o="outlet"></router-outlet>
       </div>
 
-      <div class="loading" *ngIf="!isUserLoaded">Loading...</div>
-
-      <!-- NAV LIST -->
-      <mat-list *ngIf="isUserLoaded"
-                role="list"
-                class="my-sidenav-list"
-                [@listStagger]="generalLinks.length + personalLinks.length + otherLinks.length + 3">
-
-        <!-- GENERAL -->
-        <h3 mat-subheader style="margin-top: 24px">General</h3>
-        <mat-list-item *ngFor="let link of generalLinks"
-                       role="listitem"
-                       [routerLink]="link.path"
-                       routerLinkActive
-                       #rla="routerLinkActive"
-                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
-                       class="list-item"
-                       (click)="closeDrawer(drawer)">
-          <mat-icon matListIcon>{{link.icon}}</mat-icon>
-          <h3 matLine>{{link.label}}</h3>
-        </mat-list-item>
-
-        <div *ngIf="user">
-          <!-- PERSONAL -->
-          <h3 mat-subheader style="margin-top: 24px">Personal</h3>
-          <mat-list-item *ngFor="let link of personalLinks"
-                         role="listitem"
-                         [routerLink]="link.path"
-                         routerLinkActive
-                         #rla="routerLinkActive"
-                         [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
-                         class="list-item"
-                         (click)="closeDrawer(drawer)">
-            <mat-icon matListIcon>{{link.icon}}</mat-icon>
-            <h3 matLine>{{link.label}}</h3>
-          </mat-list-item>
-        </div>
-
-        <!-- OTHERS -->
-        <h3 mat-subheader style="margin-top: 24px">Others</h3>
-        <mat-list-item *ngFor="let link of otherLinks"
-                       role="listitem"
-                       [routerLink]="link.path"
-                       routerLinkActive
-                       #rla="routerLinkActive"
-                       [ngStyle]="rla.isActive ? {'color': appSettings.currentTheme.accent} : ''"
-                       class="list-item"
-                       (click)="closeDrawer(drawer)">
-          <mat-icon matListIcon>{{link.icon}}</mat-icon>
-          <h3 matLine>{{link.label}}</h3>
-        </mat-list-item>
-      </mat-list>
-    </nav> <!-- /my-nav -->
-  </mat-sidenav>
-
-  <mat-sidenav-content class="main-container" [style.padding-top]="headerHeight + 'px'">
-    <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
-
-    <app-spinner [hidden]="!pageOnLoad"></app-spinner>
-    <div [hidden]="pageOnLoad"
-         style="position: relative;"
-         [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
-      <router-outlet #o="outlet"></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </main>
+</mat-card>
