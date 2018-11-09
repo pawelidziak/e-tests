@@ -3,9 +3,11 @@
   <div [style.color]="appSettings.currentTheme.textColor">
 
     <div class="name-buttons">
-      <h3 class="my-title">Import <strong>exercises</strong> to Your test!</h3>
-
-      <div class="d-flex">
+      <div>
+        <span class="beta-paragraph">beta</span>
+        <h3 class="my-title">Import <strong>exercises</strong> to Your test!</h3>
+      </div>
+      <div class="header-buttons">
         <button mat-raised-button
                 class="parser-button"
                 [matMenuTriggerFor]="parserMenu">
@@ -25,7 +27,7 @@
                #fileInput
                hidden
                multiple
-               accept="text/plain"
+               accept=".txt"
                (change)="getFiles($event)"/>
       </div>
     </div>
@@ -40,7 +42,7 @@
 
   <app-spinner [hidden]="!filesOnLoad"></app-spinner>
 
-  <p class="error-msg" *ngIf="errorMsg && !filesOnLoad">{{errorMsg}}</p>
+  <p style="margin-bottom: 24px;" class="error-msg" *ngIf="errorMsg && !filesOnLoad">{{errorMsg}}</p>
 
   <mat-card class="import-card" *ngIf="!filesOnLoad &&  importedExercises.length > 0">
     <div class="import-card-header">

@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../../core/services/header.service';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
+import {RWDService} from "../../../core/services/RWD.service";
 
 @Component({
   selector: 'app-page-header',
@@ -13,13 +14,17 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   @Input() user: any;
 
   public headerValues: HeaderValues;
+  public maxChar: number;
+  public isXSmallScreen: boolean;
 
   constructor(private headerService: HeaderService,
+              private rwdService: RWDService,
               public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
     this.getHeaderValues();
+    this.getRwdValue();
   }
 
   ngOnDestroy() {
@@ -33,4 +38,16 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     );
   }
 
+  private getRwdValue(): void {
+    this.rwdService.isXSmallScreen.subscribe(
+      res => {
+        this.isXSmallScreen = res;
+        if (res) {
+          this.maxChar = 10
+        } else {
+          this.maxChar = 30;
+        }
+      }
+    )
+  }
 }

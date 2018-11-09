@@ -60,7 +60,10 @@ export class TestInfoComponent implements OnInit, OnDestroy {
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-          this.headerService.setCurrentRoute(['home', 'tests']);
+          this.headerService.setCurrentRoute([
+            {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
+            {label: this.test.name, path: ``},
+          ]);
           this.getExercises();
         },
         error => console.log(error)

@@ -38,7 +38,7 @@
 /*
       SIZES
  */
-@mixin fs-small-X-normal($breakpoint: $gt-md_size) {
+@mixin fs-small-X-normal($breakpoint: $gt-lg_size) {
   font-size: $font-small;
   @media #{$breakpoint} {
     font-size: $font-normal;

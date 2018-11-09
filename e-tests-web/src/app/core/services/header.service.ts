@@ -2,16 +2,22 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/index';
 
 export interface HeaderValues {
-  breadcrumb: string[];
+  breadcrumb: Breadcrumb[];
   appHeaderVisibility: boolean;
   pageHeaderVisibility: boolean;
 }
 
+export interface Breadcrumb {
+  label: string;
+  path: string;
+}
+
 @Injectable()
 export class HeaderService {
-  private _breadcrumb: string[] = [];
+  private _breadcrumb: Breadcrumb[] = [];
   private _appHeaderVisibility = true;
   private _pageHeaderVisibility = true;
+  private readonly HOME_BREADCRUMB: Breadcrumb = {label: 'Home', path:'dashboard'};
 
   private _headerValues: BehaviorSubject<HeaderValues> = new BehaviorSubject({
     breadcrumb: this._breadcrumb,
@@ -22,7 +28,8 @@ export class HeaderService {
   constructor() {
   }
 
-  public setCurrentRoute(breadcrumb: string[]): void {
+  public setCurrentRoute(breadcrumb: Breadcrumb[]): void {
+    breadcrumb.unshift(this.HOME_BREADCRUMB);
     this._headerValues.next({
       breadcrumb: breadcrumb,
       appHeaderVisibility: this._appHeaderVisibility,
@@ -35,7 +42,7 @@ export class HeaderService {
   }
 
   /**
-      PAGE HEADER VISIBILITY
+   PAGE HEADER VISIBILITY
    */
   public hidePageHeader(): void {
     this._headerValues.next({
@@ -54,7 +61,7 @@ export class HeaderService {
   }
 
   /**
-      APP HEADER VISIBILITY
+   APP HEADER VISIBILITY
    */
   public hideAppHeader(): void {
     this._headerValues.next({
@@ -73,7 +80,7 @@ export class HeaderService {
   }
 
   /**
-      APP AND PAGE HEADER VISIBILITY
+   APP AND PAGE HEADER VISIBILITY
    */
   public hideAppAndPageHeader(): void {
     this._headerValues.next({

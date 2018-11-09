@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {AppSettingsService} from "../../core/services/app-settings.service";
 import {ImportExerciseService} from "./import-exercise.service";
 import {TestService} from "../../core/services/test.service";
-import {ROUTE_PARAMS} from "../../shared/ROUTES";
+import {ALL_ROUTES, ROUTE_PARAMS} from "../../shared/ROUTES";
 import {ActivatedRoute} from "@angular/router";
 import {TestModel} from "../../core/models/Test";
 import {HeaderService} from "../../core/services/header.service";
@@ -10,6 +10,7 @@ import {HeaderService} from "../../core/services/header.service";
 interface SelectParser {
   label: string;
   value: string;
+  validFileType: string[];
 }
 
 @Component({
@@ -28,8 +29,8 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   public test: TestModel;
   public parserOption: SelectParser[] = [
-    {label: 'E-testo', value: 'etesto'},
-    {label: 'PWR', value: 'pwr'}
+    {label: 'E-testo', value: 'etesto', validFileType: ['TODO']},
+    {label: 'PWR', value: 'pwr', validFileType: ['.txt', 'text/plain']}
   ];
   public selectedParser: SelectParser = this.parserOption[0];
   public errorMsg: string;
@@ -55,22 +56,34 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   }
 
   private getTest() {
+    console.log('get test')
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-          this.headerService.setCurrentRoute(['home', 'tests', this.test.name]);
+          console.log(this.test);
+          this.headerService.setCurrentRoute([
+            {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
+            {label: this.test.name, path: `${ALL_ROUTES.CREATED_TEST}/${this.testId}`},
+            {label: 'Import', path: ''}
+          ]);
         },
         error => console.log(error)
       )
     );
-
   }
 
   public getFiles(event: any) {
-    this.importedExercises = [];
-    this.selectedFiles = [].slice.call(event.target.files);
-    this.uploadFiles()
+    this.errorMsg = '';
+    if (event.target.files.length > 0) {
+      if (this.filesIncorrect(event.target.files)) {
+        this.errorMsg = 'Please select right file/s.';
+        return;
+      }
+      this.importedExercises = [];
+      this.selectedFiles = [].slice.call(event.target.files);
+      this.uploadFiles()
+    }
   }
 
   private uploadFiles() {
@@ -106,4 +119,13 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     this.selectedParser = parser;
   }
 
+  private filesIncorrect(files: any[]): boolean {
+    for (const file of files) {
+      if (file.type !== this.selectedParser.validFileType[1] ||
+        file.name.substr(file.name.length - this.selectedParser.validFileType[0].length) !== this.selectedParser.validFileType[0]) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

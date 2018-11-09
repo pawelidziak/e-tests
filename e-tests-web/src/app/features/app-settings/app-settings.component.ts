@@ -17,7 +17,9 @@ export class AppSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.headerService.setCurrentRoute(['home', 'settings']);
+    this.headerService.setCurrentRoute([
+      {label: 'Settings', path: ''}
+    ]);
   }
 
   public changeTheme(theme: MyTheme): void {

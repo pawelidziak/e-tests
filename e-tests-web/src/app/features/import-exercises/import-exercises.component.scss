@@ -7,18 +7,40 @@ button {
 
 .name-buttons {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  @media #{$gt-sm_size} {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: $margin;
+  @media #{$gt-sm_size} {
+    width: auto;
+    margin-top: 0;
+  }
 }
 
 .parser-button {
-  margin-right: .5*$margin;
+  margin-right: .25*$margin;
+  @media #{$gt-sm_size} {
+    //margin: 0 .5*$margin 0 0;
+  }
   border-radius: $border-radius;
   display: flex;
   align-items: center;
+  @include fs-small-X-normal();
 }
 
 .choose-files-button {
+  @include fs-small-X-normal();
   display: flex;
   align-items: center;
   border-radius: $border-radius;
@@ -26,7 +48,6 @@ button {
 
 .selected-parser {
   font-weight: bold;
-  @include fs-small-X-normal();
   padding: 0 .5*$margin;
 }
 
