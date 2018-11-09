@@ -1,20 +1,36 @@
 <header class="page-header"
-     *ngIf="headerValues.pageHeaderVisibility"
-     [style.color]="appSettings.currentTheme.textColor"
-     [style.height]="height + 'px'">
+        *ngIf="headerValues && headerValues.pageHeaderVisibility"
+        [style.color]="appSettings.currentTheme.textColor"
+        [style.height]="height + 'px'">
 
-  <div class="my-breadcrumb">
+
+  <div *ngIf="isXSmallScreen" class="my-breadcrumb">
+    <a class="breadcrumb-item"
+       [routerLink]="headerValues.breadcrumb[headerValues.breadcrumb.length - 2]?.path">
+      ...
+    </a>
+    <mat-icon aria-label="Separator" class="breadcrumb-icon">chevron_right</mat-icon>
+    <span class="current-url">
+      {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label[0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label.substring(1)  | limitChar: maxChar}}
+    </span>
+  </div>
+
+  <div class="my-breadcrumb" *ngIf="!isXSmallScreen">
     <span *ngFor="let route of headerValues.breadcrumb; let i=index" class="breadcrumb-item">
 
-      <a [routerLink]="route"
+      <a [routerLink]="route.path"
          *ngIf="i < headerValues.breadcrumb.length - 1">
-        {{route[0].toUpperCase() + route.substring(1)}}
+        {{route.label[0].toUpperCase() + route.label.substring(1) | limitChar: maxChar}}
       </a>
 
-      <mat-icon *ngIf="i < headerValues.breadcrumb.length - 1" class="breadcrumb-icon">chevron_right</mat-icon>
+      <mat-icon aria-label="Separator"
+                *ngIf="i < headerValues.breadcrumb.length - 1"
+                class="breadcrumb-icon">
+        chevron_right
+      </mat-icon>
 
       <span *ngIf="i === headerValues.breadcrumb.length - 1" class="current-url">
-        {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1][0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1].substring(1)}}
+        {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label[0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label.substring(1)  | limitChar: maxChar}}
       </span>
     </span>
   </div>

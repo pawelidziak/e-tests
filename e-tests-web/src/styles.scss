@@ -7,7 +7,7 @@
 html, body {
   padding: 0;
   margin: 0;
-  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-family: Camphor, Nunito Sans, Open Sans, Segoe UI, sans-serif, Arial, sans-serif;
   scroll-behavior: smooth !important;
 }
 
@@ -41,16 +41,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .my-title {
   font-size: 1.5*$font-normal;
-  @media #{$gt-md_size} {
-    font-size: 2*$font-normal;
+  @media #{$gt-lg_size} {
+    font-size: 2.6*$font-normal;
   }
   font-weight: normal;
 }
 
 .my-sub-title {
   font-size: $font-normal;
-  @media #{$gt-md_size} {
-    font-size: 1.1*$font-normal;
+  @media #{$gt-lg_size} {
+    font-size: 1.2*$font-normal;
   }
   margin: $margin 0;
   opacity: .9;
@@ -60,6 +60,15 @@ h1, h2, h3, h4, h5, h6 {
   @media #{$gt-sm_size} {
     padding-right: 2*$margin;
   }
+}
+
+.beta-paragraph {
+  padding: 3px 6px;
+  line-height: 16px;
+  background: #24b47e;
+  @include upper-text();
+  border-radius: $border-radius / 2;
+  font-size: $font-small;
 }
 
 .section-padding {
@@ -73,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 12px;
 }
 
-.none-padding-mat-dialog .mat-dialog-container{
+.none-padding-mat-dialog .mat-dialog-container {
   padding: 0;
 }
 
@@ -111,6 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 .d-flex {
   display: flex;
 }
+
 .d-flex-align-center {
   display: flex;
   align-items: center;
@@ -147,7 +157,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-
 /*
       MESSAGES
  */
@@ -172,7 +181,6 @@ h1, h2, h3, h4, h5, h6 {
   @extend .my-msg;
   background-color: $material-green;
 }
-
 
 .header-line-right {
   position: relative;

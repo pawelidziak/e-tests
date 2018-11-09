@@ -7,6 +7,7 @@ import {LoaderService} from '../../core/services/loader.service';
 import {PagerService} from '../../core/services/pager.service';
 import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from "../../core/services/app-settings.service";
+import {ALL_ROUTES} from "../../shared/ROUTES";
 
 @Component({
   selector: 'app-test-search',
@@ -32,7 +33,9 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loader.start();
     this.isLoggedIn();
-    this.headerService.setCurrentRoute(['home', 'search']);
+    this.headerService.setCurrentRoute([
+      {label: 'Search', path: ALL_ROUTES.SEARCH}
+    ]);
   }
 
   ngOnDestroy() {

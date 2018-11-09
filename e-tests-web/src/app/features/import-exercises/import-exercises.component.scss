@@ -1,0 +1,72 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+button {
+  outline: none;
+}
+
+.name-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  @media #{$gt-sm_size} {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: $margin;
+  @media #{$gt-sm_size} {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+.parser-button {
+  margin-right: .25*$margin;
+  @media #{$gt-sm_size} {
+    //margin: 0 .5*$margin 0 0;
+  }
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  @include fs-small-X-normal();
+}
+
+.choose-files-button {
+  @include fs-small-X-normal();
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+}
+
+.selected-parser {
+  font-weight: bold;
+  padding: 0 .5*$margin;
+}
+
+.import-card {
+  border-radius: $border-radius;
+}
+
+.import-card-header {
+  padding: $margin 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.import-buttons {
+  display: flex;
+  align-items: center;
+  button {
+    @include upper-text();
+    margin-left: .5*$margin;
+  }
+}

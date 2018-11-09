@@ -5,6 +5,7 @@ import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
 import {AppSettingsService} from "../../core/services/app-settings.service";
 import {HeaderService} from "../../core/services/header.service";
+import {ALL_ROUTES} from "../../shared/ROUTES";
 
 @Component({
   selector: 'app-user-tests',
@@ -27,7 +28,9 @@ export class UserTestsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loader.start();
-    this.headerService.setCurrentRoute(['home', 'study sets']);
+    this.headerService.setCurrentRoute([
+      {label: 'Study sets', path: ''}
+    ]);
     this.isLoggedIn();
   }
 
