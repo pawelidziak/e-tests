@@ -22,7 +22,11 @@ export class ImportExportExercisesService {
    *  Detect exercises depending on the selected parser
    */
   public detectEtestoExercises(result: any): Exercise[] {
-    return JSON.parse(this.b64DecodeUnicode(result));
+    const list = JSON.parse(this.b64DecodeUnicode(result));
+    for (let i = 0; i < list.length; i++) {
+      list[i].createDate = new Date().getTime() + i;
+    }
+    return list;
   }
 
   public detectPWRExercise(result: any): Exercise {

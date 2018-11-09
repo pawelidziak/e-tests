@@ -1,12 +1,13 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppSettingsService} from "../../core/services/app-settings.service";
 import {ImportExportExercisesService, PARSERS, SelectParser} from "../../core/services/import-export-exercises.service";
 import {TestService} from "../../core/services/test.service";
 import {ALL_ROUTES, ROUTE_PARAMS} from "../../shared/ROUTES";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TestModel} from "../../core/models/Test";
 import {HeaderService} from "../../core/services/header.service";
 import {Exercise} from "../../core/models/Exercise";
+import {TestExercisesService} from "../../core/services/test-exercises.service";
 
 
 @Component({
@@ -29,8 +30,10 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   constructor(public appSettings: AppSettingsService,
               private route: ActivatedRoute,
+              private router: Router,
               private headerService: HeaderService,
               private testService: TestService,
+              private exerciseService: TestExercisesService,
               private importService: ImportExportExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
@@ -48,12 +51,10 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   }
 
   private getTest() {
-    console.log('get test')
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
-          console.log(this.test);
           this.headerService.setCurrentRoute([
             {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
             {label: this.test.name, path: `${ALL_ROUTES.CREATED_TEST}/${this.testId}`},
@@ -85,12 +86,11 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       fileReader.readAsText(this.selectedFiles[i], 'ISO-8859-1');
       fileReader.onload = () => {
 
-        if(this.selectedParser.value === 'etesto'){
+        if (this.selectedParser.value === 'etesto') {
           this.importedExercises = this.importService.detectEtestoExercises(fileReader.result);
         }
-        if(this.selectedParser.value === 'pwr'){
+        if (this.selectedParser.value === 'pwr') {
           this.importedExercises.push(this.importService.detectPWRExercise(fileReader.result));
-
         }
       };
       fileReader.onloadend = () => {
@@ -106,8 +106,17 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   }
 
   public saveExercises(): void {
+    this.filesOnLoad = true;
     this.importedExercises.forEach(x => this.importService.fixExercise(x));
-    console.log(this.importedExercises);
+    this.exerciseService.addExerciseList(this.testId, this.importedExercises)
+      .then(() => {
+        this.filesOnLoad = false;
+        this.navigateToTest();
+      })
+      .catch(error => {
+        this.errorMsg = 'Something went wrong.. Please, let us know on: email@email.com';
+        this.filesOnLoad = false;
+      });
   }
 
   public resetExercises(): void {
@@ -126,5 +135,9 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  private navigateToTest() {
+    this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}`]);
   }
 }

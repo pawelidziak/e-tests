@@ -62,4 +62,12 @@ export class TestExercisesService {
       .delete();
   }
 
+  public addExerciseList(testId: string, list: Exercise[]): Promise<any> {
+    const promises = [];
+    for (const exercise of list) {
+      promises.push(this.addOneExercise(testId, exercise));
+    }
+    return Promise.all(promises);
+  }
+
 }
