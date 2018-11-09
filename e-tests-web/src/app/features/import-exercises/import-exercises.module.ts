@@ -12,7 +12,7 @@ import {
 import {DisplayOneExerciseModule} from "../display-exercises/display-one-exercise/display-one-exercise.module";
 import {importExercisesRouting} from "./import-exercises.routing";
 import {SpinnerModule} from "../../shared/components/spinner/spinner.module";
-import {ImportExerciseService} from "./import-exercise.service";
+import {ImportExportExercisesService} from "../../core/services/import-export-exercises.service";
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import {ImportExerciseService} from "./import-exercise.service";
     MatCheckboxModule
   ],
   exports: [],
-  providers: [ImportExerciseService]
+  providers: [ImportExportExercisesService]
 })
 export class ImportExercisesModule {
 }

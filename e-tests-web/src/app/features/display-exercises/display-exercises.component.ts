@@ -6,6 +6,7 @@ import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
 import {TestService} from '../../core/services/test.service';
 import {ALL_ROUTES} from "../../shared/ROUTES";
 import {Router} from "@angular/router";
+import {ImportExportExercisesService} from "../../core/services/import-export-exercises.service";
 
 @Component({
   selector: 'app-display-exercises',
@@ -29,6 +30,7 @@ export class DisplayExercisesComponent implements OnInit {
 
   constructor(private testService: TestService,
               private router: Router,
+              private importExportService: ImportExportExercisesService,
               public auth: AuthService,
               public appSettings: AppSettingsService) {
   }
@@ -81,4 +83,23 @@ export class DisplayExercisesComponent implements OnInit {
   public navigateToImport(): void {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.IMPORT_EXERCISES}`]);
   }
+
+  public exportToFile(): void {
+    this.importExportService.downLoadFile(this.prepareExerciseListToExport(), 'NAZWA')
+  }
+
+  private prepareExerciseListToExport(): any[] {
+    const preparedList: any[] = [];
+    for (let exercise of this.origExerciseList) {
+      preparedList.push({
+        question: exercise.question,
+        correctAnswers: exercise.correctAnswers,
+        answers: exercise.answers
+      });
+    }
+    return preparedList;
+  }
+
+
+
 }

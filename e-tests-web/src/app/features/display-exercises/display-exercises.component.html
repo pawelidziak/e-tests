@@ -29,19 +29,25 @@
     </button>
 
     <button mat-icon-button
+            [matTooltip]="'Export'"
+            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            (click)="exportToFile()">
+      <mat-icon aria-label="Export">arrow_downward</mat-icon>
+    </button>
+
+    <button mat-icon-button
             [matTooltip]="'Import'"
             *ngIf="auth.currentUserId === authorId && !fixedAddButton"
             (click)="navigateToImport()">
-      <mat-icon aria-label="Search">import_export</mat-icon>
+      <mat-icon aria-label="Import">arrow_upward</mat-icon>
     </button>
 
     <button mat-icon-button
             [matTooltip]="'Add exercise'"
             *ngIf="auth.currentUserId === authorId && !fixedAddButton"
             (click)="addExercise()">
-      <mat-icon aria-label="Expand all">add</mat-icon>
+      <mat-icon aria-label="Add">add</mat-icon>
     </button>
-
 
   </div> <!-- /EXERCISES HEADER -->
 

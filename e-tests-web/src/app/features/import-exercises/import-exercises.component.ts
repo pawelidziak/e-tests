@@ -1,17 +1,13 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AppSettingsService} from "../../core/services/app-settings.service";
-import {ImportExerciseService} from "./import-exercise.service";
+import {ImportExportExercisesService, PARSERS, SelectParser} from "../../core/services/import-export-exercises.service";
 import {TestService} from "../../core/services/test.service";
 import {ALL_ROUTES, ROUTE_PARAMS} from "../../shared/ROUTES";
 import {ActivatedRoute} from "@angular/router";
 import {TestModel} from "../../core/models/Test";
 import {HeaderService} from "../../core/services/header.service";
+import {Exercise} from "../../core/models/Exercise";
 
-interface SelectParser {
-  label: string;
-  value: string;
-  validFileType: string[];
-}
 
 @Component({
   selector: 'app-import-exercises',
@@ -21,17 +17,13 @@ interface SelectParser {
 export class ImportExercisesComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
   private testId: string;
-  @ViewChild('fileInput') fileInput: ElementRef;
 
   private selectedFiles = [];
-  public importedExercises: any[] = [];
+  public importedExercises: Exercise[] = [];
   public filesOnLoad: boolean;
 
   public test: TestModel;
-  public parserOption: SelectParser[] = [
-    {label: 'E-testo', value: 'etesto', validFileType: ['TODO']},
-    {label: 'PWR', value: 'pwr', validFileType: ['.txt', 'text/plain']}
-  ];
+  public parserOption = PARSERS;
   public selectedParser: SelectParser = this.parserOption[0];
   public errorMsg: string;
 
@@ -39,7 +31,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private headerService: HeaderService,
               private testService: TestService,
-              private importService: ImportExerciseService) {
+              private importService: ImportExportExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
         this.testId = params[ROUTE_PARAMS.TEST_ID];
@@ -91,7 +83,16 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       const fileReader = new FileReader();
       this.filesOnLoad = true;
       fileReader.readAsText(this.selectedFiles[i], 'ISO-8859-1');
-      fileReader.onload = () => this.importedExercises.push(this.importService.detectExercise(fileReader.result));
+      fileReader.onload = () => {
+
+        if(this.selectedParser.value === 'etesto'){
+          this.importedExercises = this.importService.detectEtestoExercises(fileReader.result);
+        }
+        if(this.selectedParser.value === 'pwr'){
+          this.importedExercises.push(this.importService.detectPWRExercise(fileReader.result));
+
+        }
+      };
       fileReader.onloadend = () => {
         if (i === this.selectedFiles.length - 1) {
           this.filesOnLoad = false
@@ -112,7 +113,6 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   public resetExercises(): void {
     this.importedExercises = [];
     this.selectedFiles = [];
-    this.fileInput.nativeElement.value = '';
   }
 
   public changeParser(parser: SelectParser) {
@@ -121,8 +121,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   private filesIncorrect(files: any[]): boolean {
     for (const file of files) {
-      if (file.type !== this.selectedParser.validFileType[1] ||
-        file.name.substr(file.name.length - this.selectedParser.validFileType[0].length) !== this.selectedParser.validFileType[0]) {
+      if (file.name.substr(file.name.length - this.selectedParser.validFileType.length) !== this.selectedParser.validFileType) {
         return true;
       }
     }

@@ -8,6 +8,7 @@ import {
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
 import {DisplayOneExerciseModule} from "./display-one-exercise/display-one-exercise.module";
+import {ImportExportExercisesService} from "../../core/services/import-export-exercises.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {DisplayOneExerciseModule} from "./display-one-exercise/display-one-exerc
     MatTooltipModule,
   ],
   exports: [DisplayExercisesComponent],
-  providers: [],
+  providers: [ImportExportExercisesService],
 })
 export class DisplayExercisesModule {
 }

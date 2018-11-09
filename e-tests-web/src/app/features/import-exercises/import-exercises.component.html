@@ -27,7 +27,7 @@
                #fileInput
                hidden
                multiple
-               accept=".txt"
+               [accept]="selectedParser.validFileType"
                (change)="getFiles($event)"/>
       </div>
     </div>
@@ -36,7 +36,6 @@
       Choose the right parser, select files and that's all.
       Choose <strong>E-testo</strong> parser when You import files from E-testo app.
       Choose <strong>PWR</strong> parser when You import files from old PWR app.
-
     </p>
   </div>
 
@@ -46,7 +45,7 @@
 
   <mat-card class="import-card" *ngIf="!filesOnLoad &&  importedExercises.length > 0">
     <div class="import-card-header">
-      <span>Imported files: <strong>{{selectedFiles.length}}</strong></span>
+      <span>Imported exercises: <strong>{{importedExercises.length}}</strong></span>
 
       <div class="import-buttons">
         <button mat-raised-button
@@ -61,7 +60,6 @@
         </button>
       </div>
     </div>
-
 
     <div *ngFor="let exercise of importedExercises; let i=index">
       <app-display-one-exercise [exercise]="exercise"
