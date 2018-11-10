@@ -58,7 +58,7 @@
                               [importMode]="false"
                               [isAuthor]="auth.currentUserId === authorId"
                               [number]="i + 1"
-                              (exerciseAdded)="handleExerciseAdded()"
+                              (exerciseAdded)="handleExerciseAdded($event)"
                               (exerciseDeleted)="handleExerciseDeleted($event)"
                               (exerciseCanceled)="handleExerciseCanceled($event)">
     </app-display-one-exercise>

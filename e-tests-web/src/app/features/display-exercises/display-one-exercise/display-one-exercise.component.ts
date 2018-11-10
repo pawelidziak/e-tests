@@ -18,8 +18,8 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
   @Input() readonly isAuthor: boolean;
   @Input() readonly number: number;
   @Input() importMode: boolean;
-  @Output() exerciseAdded: EventEmitter<void> = new EventEmitter();
   @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
+  @Output() exerciseAdded: EventEmitter<Exercise> = new EventEmitter();
   @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
 
   private copyExercise: Exercise;
@@ -54,26 +54,41 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
     this.editMode = false;
     this.checkExerciseThenFix();
 
-    if (this.exercise.id) {
-      this.exercisesService.updateOneExercise(this.testId, this.exercise)
-        .catch(error => this.openSnackBar(error, 10000));
-    } else {
-      this.exercisesService.addOneExercise(this.testId, this.exercise)
-        .then(res => {
-          if (res.id) {
-            this.exercise.id = res.id;
-            this.exerciseAdded.emit();
-          }
-        })
-        .catch(error => this.openSnackBar(error, 10000));
-    }
+    // if (this.exercise.id) {
+    //   this.exercisesService.updateOneExercise(this.testId, this.exercise)
+    //     .catch(error => this.openSnackBar(error, 10000));
+    // } else {
+    //   this.exercisesService.addOneExercise(this.testId, this.exercise)
+    //     .then(res => {
+    //       if (res.id) {
+    //         this.exercise.id = res.id;
+    //       }
+    //     })
+    //     .catch(error => this.openSnackBar(error, 10000));
+    // }
   }
 
   public deleteExercise(): void {
     this.exerciseDeleted.emit(this.exercise);
-    this.openSnackBar('Exercise deleted', 3000);
-    this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-      .catch(error => this.openSnackBar(error, 10000));
+    // this.openSnackBar('Exercise deleted', 'Undo', 3000);
+    // this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
+    //   .catch(error => this.openSnackBar(error, 10000));
+
+    const snackBarRef = this.snackBar.open('Exercise deleted', 'Undo', {
+      duration: 3000
+    });
+
+    snackBarRef.afterDismissed().subscribe(info => {
+      if (info.dismissedByAction === true) {
+        console.log('NIE USUWAJ');
+        console.log(this.exercise);
+        // this.exerciseAdded.emit(this.exercise);
+        this.exerciseCanceled.emit(this.exercise);
+      } else {
+        console.log('USUN');
+        this.exerciseCanceled.emit(this.exercise);
+      }
+    });
   }
 
   public changeCorrectAnswer(index: number, correct: boolean): void {
@@ -122,10 +137,28 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  private openSnackBar(text: string, duration: number): void {
-    this.snackBar.open(text, 'OK', {
+  private openSnackBar(text: string, action: string, duration: number): void {
+    const snackBarRef = this.snackBar.open(text, action, {
       duration: duration
     });
+
+    snackBarRef.afterDismissed().subscribe(info => {
+      console.log(info);
+      if (info.dismissedByAction === true) {
+        console.log('NIE USUWAJ');
+      } else {
+        console.log('USUN');
+      }
+    });
+
+    // snackBarRef.afterDismissed().subscribe((res) => {
+    //   console.log('The snack-bar was dismissed ' + res);
+    // });
+    //
+    //
+    // snackBarRef.onAction().subscribe((res ) => {
+    //   console.log('The snack-bar action was triggered! ' + res);
+    // });
   }
 
   public handleSpacebar(ev): void {

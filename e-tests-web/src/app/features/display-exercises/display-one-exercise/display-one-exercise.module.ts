@@ -9,14 +9,17 @@ import {
   MatInputModule, MatSnackBarModule,
   MatTooltipModule
 } from "@angular/material";
+import {DirectivesModule} from "../../../shared/directives/directives.module";
 
 
 @NgModule({
   declarations: [
-    DisplayOneExerciseComponent,
+    DisplayOneExerciseComponent
   ],
   imports: [
     SharedModule,
+
+    DirectivesModule,
 
     MatFormFieldModule,
     MatInputModule,

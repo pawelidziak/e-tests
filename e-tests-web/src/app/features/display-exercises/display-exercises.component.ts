@@ -26,7 +26,6 @@ export class DisplayExercisesComponent implements OnInit {
   public searchText: string;
   public fixedAddButton = false;
   public searchInputFocused = false;
-  private exercisesNumber: number;
 
   constructor(private testService: TestService,
               private router: Router,
@@ -37,7 +36,6 @@ export class DisplayExercisesComponent implements OnInit {
 
   ngOnInit() {
     this.copyExerciseList = JSON.parse(JSON.stringify(this.origExerciseList));
-    this.exercisesNumber = this.copyExerciseList.length;
   }
 
   public addExercise(): void {
@@ -54,21 +52,19 @@ export class DisplayExercisesComponent implements OnInit {
     });
   }
 
-  public handleExerciseAdded(): void {
-    this.exercisesNumber++;
-    this.testService.setTestExercisesNumber(this.testId, this.exercisesNumber)
-      .catch(error => console.log(error));
+  public handleExerciseAdded(exercise: Exercise): void {
+    console.log('here');
+    this.copyExerciseList.push(exercise);
+    console.log(exercise);
   }
 
   public handleExerciseDeleted(exercise: Exercise): void {
     const index = this.copyExerciseList.findIndex(x => x.id === exercise.id);
     this.copyExerciseList.splice(index, 1);
-    this.exercisesNumber--;
-    this.testService.setTestExercisesNumber(this.testId, this.exercisesNumber)
-      .catch(error => console.log(error));
   }
 
   public handleExerciseCanceled(exercise: Exercise): void {
+    console.log('handleExerciseCanceled');
     if (!exercise.id) {
       const index = this.copyExerciseList.findIndex(x => x.createDate === exercise.createDate);
       this.copyExerciseList.splice(index, 1);

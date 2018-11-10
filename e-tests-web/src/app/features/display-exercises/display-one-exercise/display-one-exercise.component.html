@@ -1,65 +1,73 @@
 <div class="single-exercise">
 
   <!-- EXERCISE HEADER -->
-  <div class="exercise-header" [ngClass]="{'small-padding': !editMode, 'large-padding': editMode}">
+  <div class="exercise-header " [ngClass]="{'header-no-edit': !editMode, 'header-edit': editMode}">
+
+
+    <!-- HEADER BUTTONS -->
+    <div *ngIf="isAuthor && !importMode" style="float: right;">
+      <div *ngIf="!editMode" class="edit-buttons">
+        <button mat-icon-button
+                class="delete-button"
+                (click)="deleteExercise()"
+                matTooltip="Delete">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="normal-button"
+                (click)="startEditExercise()"
+                matTooltip="Edit">
+          <mat-icon aria-label="Edit">edit_mode</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="editMode" class="edit-buttons">
+
+        <button mat-icon-button
+                matTooltip="Save"
+                style="margin-left: 6px;"
+                (click)="saveExercise()"
+                class="normal-button"
+                color="accent">
+          <mat-icon aria-label="Save">save</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="normal-button"
+                id="addImageButton"
+                matTooltip="Not available yet">
+          <mat-icon aria-label="Add image">add_photo_alternate</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="delete-button"
+                (click)="stopEditExercise()"
+                matTooltip="Cancel">
+          <mat-icon aria-label="Cancel">close</mat-icon>
+        </button>
+
+      </div>
+    </div><!-- /HEADER BUTTONS -->
 
     <!-- NO EDITABLE TITLE -->
-    <div *ngIf="!editMode" class="width-100">
+    <div *ngIf="!editMode" style="margin-top: 6px;">
       <span class="exercise-number">{{number}}.</span>
       <span>{{exercise.question}}</span>
     </div>
 
     <!-- EDITABLE TITLE -->
-    <div *ngIf="editMode" class="width-100" style="display: flex; align-items: center;"
+    <div *ngIf="editMode"
+         class="width-100"
          (keydown)="handleSpacebar($event)">
       <span class="exercise-number">{{number}}.</span>
       <mat-form-field color="accent"
-                      class="width-100"
+                      class="editable-title-form"
                       floatLabel="never">
         <input matInput
+               myAutofocus
                type="text"
                placeholder="Question"
                [(ngModel)]="exercise.question">
       </mat-form-field>
     </div>
 
-    <!-- HEADER BUTTONS -->
-    <div *ngIf="isAuthor && !importMode">
-      <div *ngIf="!editMode" class="edit-buttons">
-        <mat-icon aria-label="Delete"
-                  class="action-icon"
-                  (click)="deleteExercise()"
-                  matTooltip="Delete">
-          delete
-        </mat-icon>
-        <mat-icon aria-label="Edit"
-                  class="action-icon"
-                  (click)="startEditExercise()"
-                  matTooltip="Edit">
-          edit_mode
-        </mat-icon>
-      </div>
-      <div *ngIf="editMode" class="edit-buttons">
-        <button mat-icon-button
-                matTooltip="Save"
-                (click)="saveExercise()"
-                color="accent">
-          <mat-icon>save</mat-icon>
-        </button>
-        <mat-icon aria-label="Add image"
-                  id="addImageButton"
-                  matTooltip="Not available yet">
-          add_photo_alternate
-        </mat-icon>
-        <mat-icon aria-label="Cancel"
-                  id="cancelButton"
-                  class="action-icon"
-                  (click)="stopEditExercise()"
-                  matTooltip="Cancel">
-          close
-        </mat-icon>
-      </div>
-    </div><!-- /HEADER BUTTONS -->
   </div><!-- /EXERCISE HEADER -->
 
   <!-- ANSWERS -->
@@ -86,7 +94,6 @@
 
         <mat-form-field color="accent"
                         class="answer-text width-100"
-                        style="margin-top: 12px;"
                         appearance="outline">
           <mat-label>{{'Answer ' + getLetterFromAscii(j)}}</mat-label>
           <input matInput
@@ -97,6 +104,7 @@
         <button mat-icon-button
                 style="outline: none;"
                 id="deleteAnswerButton"
+                class="delete-button"
                 (click)="deleteOneAnswer(j)"
                 *ngIf="j > 1">
           <mat-icon aria-label="Delete answer">delete_outline</mat-icon>
@@ -105,8 +113,8 @@
 
     </div><!-- /single-answer -->
 
-    <div *ngIf="editMode" class="col-md-6 add-answer">
-      <button mat-button color="accent" (click)="exercise.answers.push('');">
+    <div *ngIf="editMode" class="col-12 add-answer">
+      <button mat-button color="accent" style="opacity: 1;" (click)="exercise.answers.push('');">
         <mat-icon aria-label="Add answer">add</mat-icon>
         <span>Add answer</span>
       </button>
