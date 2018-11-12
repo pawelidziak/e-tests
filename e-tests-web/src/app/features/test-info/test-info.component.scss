@@ -8,8 +8,14 @@ button {
 // CARD
 .info-card {
   border-radius: $border-radius;
-  padding: $margin;
-  //box-shadow: none !important;
+  padding: 0;
+}
+
+.test-info-content {
+  padding: .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
 }
 
 .info-card-header {
@@ -21,6 +27,11 @@ button {
   @media #{$gt-xs_size} {
     flex-direction: row;
     justify-content: space-between;
+  }
+  .no-edit-buttons {
+    @media #{$lt_xs_size} {
+      margin-top: .5*$margin;
+    }
   }
 }
 
@@ -68,8 +79,8 @@ button {
 }
 
 // TABS
-.tabs-card{
-  border-radius: $border-radius;
+.tabs-card {
+  //border-radius: $border-radius;
   margin-top: 2*$margin;
-  padding: 0;
+  //padding: 0;
 }
