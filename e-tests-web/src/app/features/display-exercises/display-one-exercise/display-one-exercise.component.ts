@@ -54,41 +54,42 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
     this.editMode = false;
     this.checkExerciseThenFix();
 
-    // if (this.exercise.id) {
-    //   this.exercisesService.updateOneExercise(this.testId, this.exercise)
-    //     .catch(error => this.openSnackBar(error, 10000));
-    // } else {
-    //   this.exercisesService.addOneExercise(this.testId, this.exercise)
-    //     .then(res => {
-    //       if (res.id) {
-    //         this.exercise.id = res.id;
-    //       }
-    //     })
-    //     .catch(error => this.openSnackBar(error, 10000));
-    // }
+    if (this.exercise.id) {
+      this.exercisesService.updateOneExercise(this.testId, this.exercise)
+        .catch(error => this.openSnackBar(error, 'OK', 10000));
+    } else {
+      this.exercisesService.addOneExercise(this.testId, this.exercise)
+        .then(res => {
+          if (res.id) {
+            this.exercise.id = res.id;
+          }
+        })
+        .catch(error => this.openSnackBar(error, 'OK', 10000));
+    }
   }
 
   public deleteExercise(): void {
     this.exerciseDeleted.emit(this.exercise);
+
     // this.openSnackBar('Exercise deleted', 'Undo', 3000);
-    // this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
-    //   .catch(error => this.openSnackBar(error, 10000));
+    this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
+      .catch(error => this.openSnackBar(error, 'OK', 10000));
 
-    const snackBarRef = this.snackBar.open('Exercise deleted', 'Undo', {
-      duration: 3000
-    });
-
-    snackBarRef.afterDismissed().subscribe(info => {
-      if (info.dismissedByAction === true) {
-        console.log('NIE USUWAJ');
-        console.log(this.exercise);
-        // this.exerciseAdded.emit(this.exercise);
-        this.exerciseCanceled.emit(this.exercise);
-      } else {
-        console.log('USUN');
-        this.exerciseCanceled.emit(this.exercise);
-      }
-    });
+    // const snackBarRef = this.snackBar.open('Exercise deleted', '', {
+    //   duration: 3000
+    // });
+    //
+    // snackBarRef.afterDismissed().subscribe(info => {
+    //   if (info.dismissedByAction === true) {
+    //     console.log('NIE USUWAJ');
+    //     console.log(this.exercise);
+    //     this.exerciseAdded.emit(this.exercise);
+        // this.exerciseCanceled.emit(this.exercise);
+      // } else {
+      //   console.log('USUN');
+      //   this.exerciseCanceled.emit(this.exercise);
+      // }
+    // });
   }
 
   public changeCorrectAnswer(index: number, correct: boolean): void {

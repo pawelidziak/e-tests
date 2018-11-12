@@ -62,6 +62,7 @@
                       floatLabel="never">
         <input matInput
                myAutofocus
+               [shouldBeFocused]="!importMode"
                type="text"
                placeholder="Question"
                [(ngModel)]="exercise.question">

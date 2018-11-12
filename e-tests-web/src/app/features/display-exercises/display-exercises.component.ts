@@ -53,12 +53,13 @@ export class DisplayExercisesComponent implements OnInit {
   }
 
   public handleExerciseAdded(exercise: Exercise): void {
-    console.log('here');
+    console.log('handleExerciseAdded');
     this.copyExerciseList.push(exercise);
     console.log(exercise);
   }
 
   public handleExerciseDeleted(exercise: Exercise): void {
+    console.log('handleExerciseDeleted');
     const index = this.copyExerciseList.findIndex(x => x.id === exercise.id);
     this.copyExerciseList.splice(index, 1);
   }
