@@ -19,7 +19,6 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
   @Input() readonly number: number;
   @Input() importMode: boolean;
   @Output() exerciseDeleted: EventEmitter<Exercise> = new EventEmitter();
-  @Output() exerciseAdded: EventEmitter<Exercise> = new EventEmitter();
   @Output() exerciseCanceled: EventEmitter<Exercise> = new EventEmitter();
 
   private copyExercise: Exercise;
@@ -70,26 +69,8 @@ export class DisplayOneExerciseComponent implements OnInit, AfterViewChecked {
 
   public deleteExercise(): void {
     this.exerciseDeleted.emit(this.exercise);
-
-    // this.openSnackBar('Exercise deleted', 'Undo', 3000);
     this.exercisesService.deleteOneExercise(this.testId, this.exercise.id)
       .catch(error => this.openSnackBar(error, 'OK', 10000));
-
-    // const snackBarRef = this.snackBar.open('Exercise deleted', '', {
-    //   duration: 3000
-    // });
-    //
-    // snackBarRef.afterDismissed().subscribe(info => {
-    //   if (info.dismissedByAction === true) {
-    //     console.log('NIE USUWAJ');
-    //     console.log(this.exercise);
-    //     this.exerciseAdded.emit(this.exercise);
-        // this.exerciseCanceled.emit(this.exercise);
-      // } else {
-      //   console.log('USUN');
-      //   this.exerciseCanceled.emit(this.exercise);
-      // }
-    // });
   }
 
   public changeCorrectAnswer(index: number, correct: boolean): void {

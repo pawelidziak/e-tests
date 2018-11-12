@@ -16,29 +16,18 @@ button {
   justify-content: flex-end;
   margin-bottom: $margin;
   height: 48px;
-  button {
-    opacity: .6;
-    transition: opacity .3s ease-in-out;
-    &:hover {
-      opacity: 1;
-    }
-  }
 }
 
 .exercise-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin: $margin 0;
 }
 
 #newExerciseButton {
   margin-top: $margin;
-  border-radius: 20px;
+  border-radius: $border-radius;
   min-width: 200px;
-  /deep/ .mat-button-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  @include upper-text();
 }
 

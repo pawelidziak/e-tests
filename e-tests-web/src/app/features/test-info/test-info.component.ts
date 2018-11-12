@@ -60,6 +60,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
       this.testService.getTestById(this.testId).subscribe(
         res => {
           this.test = res;
+          this.test.id = this.testId;
           this.headerService.setCurrentRoute([
             {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
             {label: this.test.name, path: ``},
@@ -117,7 +118,9 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   }
 
   public openMoreBottomSheet(): void {
-    this.bottomSheet.open(TestSettingsBottomSheetComponent);
+    this.bottomSheet.open(TestSettingsBottomSheetComponent, {
+      data: {test: this.test, testExercises: this.exercises}
+    });
   }
 
   public navigateToLearn(): void {

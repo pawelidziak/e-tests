@@ -28,23 +28,10 @@
       <mat-icon aria-label="Search">search</mat-icon>
     </button>
 
-    <button mat-icon-button
-            [matTooltip]="'Export'"
-            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
-            (click)="exportToFile()">
-      <mat-icon aria-label="Export">arrow_downward</mat-icon>
-    </button>
-
-    <button mat-icon-button
-            [matTooltip]="'Import'"
-            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
-            (click)="navigateToImport()">
-      <mat-icon aria-label="Import">arrow_upward</mat-icon>
-    </button>
-
-    <button mat-icon-button
+    <button mat-mini-fab
+            style="margin-left: 6px;"
             [matTooltip]="'Add exercise'"
-            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            *ngIf="auth.currentUserId === authorId"
             (click)="addExercise()">
       <mat-icon aria-label="Add">add</mat-icon>
     </button>
@@ -58,7 +45,6 @@
                               [importMode]="false"
                               [isAuthor]="auth.currentUserId === authorId"
                               [number]="i + 1"
-                              (exerciseAdded)="handleExerciseAdded($event)"
                               (exerciseDeleted)="handleExerciseDeleted($event)"
                               (exerciseCanceled)="handleExerciseCanceled($event)">
     </app-display-one-exercise>
@@ -74,15 +60,11 @@
 
   <div class="exercise-actions">
     <button mat-raised-button
-            *ngIf="auth.currentUserId === authorId && !fixedAddButton"
+            *ngIf="auth.currentUserId === authorId && copyExerciseList.length > 5"
             color="accent"
             id="newExerciseButton"
-            (click)="addExercise()"
-            [style.background-image]="'linear-gradient(150deg, '+
-                                              appSettings?.currentTheme?.accent+' 30%,'+
-                                              appSettings?.currentTheme?.primary +' 70%)'">
-      <mat-icon aria-label="Add">add</mat-icon>
-      <span>Add exercise</span>
+            (click)="addExercise()">
+      <span>Add new exercise</span>
     </button>
   </div>
 </section>

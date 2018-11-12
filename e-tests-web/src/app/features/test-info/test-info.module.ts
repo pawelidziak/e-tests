@@ -6,7 +6,7 @@ import {
   MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
-  MatIconModule,
+  MatIconModule, MatListModule,
   MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
@@ -30,6 +30,7 @@ import {TestDescModule} from '../../shared/components/test-create-edit-parts/tes
     TestTagsModule,
     TestDescModule,
 
+    MatListModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,

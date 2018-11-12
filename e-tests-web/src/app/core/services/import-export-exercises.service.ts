@@ -48,7 +48,7 @@ export class ImportExportExercisesService {
    * @param data
    * @param filename
    */
-  public downLoadFile(data: any, filename: string) {
+  public downloadFile(data: any, filename: string) {
     filename = `${filename}.e-testo`;
     const file = new Blob([this.b64EncodeUnicode(JSON.stringify(data))], {type: 'application/octet-stream'});
     if (window.navigator.msSaveOrOpenBlob) // IE10+

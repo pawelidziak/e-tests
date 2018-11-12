@@ -8,6 +8,7 @@ import {TestModel} from "../../core/models/Test";
 import {HeaderService} from "../../core/services/header.service";
 import {Exercise} from "../../core/models/Exercise";
 import {TestExercisesService} from "../../core/services/test-exercises.service";
+import {AuthService} from "../../core/services/auth.service";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   constructor(public appSettings: AppSettingsService,
               private route: ActivatedRoute,
+              private auth: AuthService,
               private router: Router,
               private headerService: HeaderService,
               private testService: TestService,
@@ -54,12 +56,16 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
-          this.test = res;
-          this.headerService.setCurrentRoute([
-            {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
-            {label: this.test.name, path: `${ALL_ROUTES.CREATED_TEST}/${this.testId}`},
-            {label: 'Import', path: ''}
-          ]);
+          if (this.checkIfIsAuthor(res.authorId)) {
+            this.test = res;
+            this.headerService.setCurrentRoute([
+              {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
+              {label: this.test.name, path: `${ALL_ROUTES.CREATED_TEST}/${this.testId}`},
+              {label: 'Import', path: ''}
+            ]);
+          } else {
+            this.router.navigate([ALL_ROUTES.DASHBOARD])
+          }
         },
         error => console.log(error)
       )
@@ -137,7 +143,11 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  private navigateToTest() {
+  private navigateToTest(): void {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}`]);
+  }
+
+  private checkIfIsAuthor(authorId: string): boolean {
+    return this.auth.currentUserId === authorId;
   }
 }

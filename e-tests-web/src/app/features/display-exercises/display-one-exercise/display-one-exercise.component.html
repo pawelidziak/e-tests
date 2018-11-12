@@ -1,7 +1,7 @@
 <div class="single-exercise">
 
   <!-- EXERCISE HEADER -->
-  <div class="exercise-header " [ngClass]="{'header-no-edit': !editMode, 'header-edit': editMode}">
+  <div class="exercise-header " [ngClass]="{'header-edit': editMode}">
 
 
     <!-- HEADER BUTTONS -->
@@ -114,7 +114,7 @@
 
     </div><!-- /single-answer -->
 
-    <div *ngIf="editMode" class="col-12 add-answer">
+    <div *ngIf="editMode && exercise.answers.length < 9" class="col-12 add-answer">
       <button mat-button color="accent" style="opacity: 1;" (click)="exercise.answers.push('');">
         <mat-icon aria-label="Add answer">add</mat-icon>
         <span>Add answer</span>
