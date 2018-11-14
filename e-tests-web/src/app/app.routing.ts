@@ -39,6 +39,7 @@ const appRoutes: Routes = [
   {
     path: `${ALL_ROUTES.USER_TESTS_LIST}`,
     loadChildren: 'app/features/user-tests/user-tests.module#UserTestsModule',
+    canActivate: [AuthGuard]
   },
   {
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}/${ALL_ROUTES.IMPORT_EXERCISES}`,

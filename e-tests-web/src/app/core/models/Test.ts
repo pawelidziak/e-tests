@@ -1,3 +1,6 @@
+import * as firebase from "firebase";
+import Timestamp = firebase.firestore.Timestamp;
+
 export interface TestModel {
   id?: string;
   name: string;
@@ -8,12 +11,14 @@ export interface TestModel {
   authorId: string;
   isPublic: boolean;
   settings?: TestSettings;
+  startedBy?: any[];
   authorObj?: any;
 }
 
 export interface TestSettings {
   config: TestConfig;
   progress?: TestProgress;
+  lastModified: number;
 }
 
 export interface TestConfig {

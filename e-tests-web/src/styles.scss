@@ -237,6 +237,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   .no-matches-icon {
     @include mat-icon-size(100px);
+    color: $hover_color;
   }
 }
 
