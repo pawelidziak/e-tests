@@ -4,11 +4,12 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {DocumentReference} from 'angularfire2/firestore/interfaces';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
-import {map, shareReplay, take} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
 import {Exercise} from '../models/Exercise';
+import {of} from "rxjs";
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
@@ -23,6 +24,7 @@ export class TestService {
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
   private readonly STARTED_TEST_FIELD = 'startedTest';
   private currentTestId: string;
+  private LAST_MODIFIED = 'lastModified';
 
   constructor(private readonly afs: AngularFirestore,
               private readonly cache: CacheService,
@@ -98,6 +100,60 @@ export class TestService {
       });
     }));
   }
+
+  public getStartedTestIdAndSettingsByCurrentUser(): Observable<TestSettings[]> {
+    // first get the user tests
+    const userTest = this.afs.collection(this.USERS_PATH)
+      .doc(this.auth.currentUserId)
+      .collection<TestSettings>(this.STARTED_TEST_FIELD,
+        ref => ref
+          .orderBy(this.LAST_MODIFIED, 'desc'));
+
+    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
+    // not valueChanges())
+    return userTest.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const id = a.payload.doc.id;
+        const data = a.payload.doc.data() as TestSettings;
+        return {id, ...data};
+      });
+    }));
+  }
+
+  // private requestTestsByCurrentUser(): Observable<any[]> {
+  //   // first get the user tests
+  //   const userTest = this.afs.collection<TestModel>(this.TEST_PATH,
+  //     ref => ref
+  //       .where(this.USER_ID_FIELD, '==', this.auth.currentUserId)
+  //       .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
+  //
+  //
+  //   // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
+  //   // not valueChanges())
+  //   return userTest.snapshotChanges().pipe(map(actions => {
+  //     return actions.map(a => {
+  //       const id = a.payload.doc.id;
+  //
+  //       const data = a.payload.doc.data() as TestModel;
+  //
+  //       const cos = this.afs.collection(this.USERS_PATH)
+  //         .doc(this.auth.currentUserId)
+  //         .collection(this.STARTED_TEST_FIELD)
+  //         .doc(id)
+  //         .ref.get()
+  //         .then(res => {
+  //           if (res.exists) {
+  //             data.settings = res.data().settings;
+  //           }
+  //           return {id, ...data};
+  //         })
+  //         .catch(err => console.error(err));
+  //
+  //       return of(cos);
+  //       // return {id, ...data};
+  //     });
+  //   }));
+  // }
 
   public addTest(newTest: TestModel): Promise<DocumentReference> {
     return this.afs.collection(this.TEST_PATH).add(newTest);

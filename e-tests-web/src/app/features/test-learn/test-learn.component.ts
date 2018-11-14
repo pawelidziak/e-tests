@@ -36,6 +36,8 @@ export class TestLearnComponent implements OnInit, OnDestroy {
 
   public isMediumScreen: boolean;
 
+  private areTestSettingsChange = false;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private headerService: HeaderService,
@@ -139,14 +141,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     );
   }
 
-  public checkIfTestIsFinish(): void {
-    if (this.testInProgress) {
-      this.isTestEnd = this.test.settings.progress.masteredExercisesIds.length === this.origTestExercises.length;
-    } else {
-      this.isTestEnd = false;
-    }
-  }
-
   private startTest(settings: TestSettings): void {
     this.setTestSettings(settings);
     this.loader.complete();
@@ -161,11 +155,20 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     }
   }
 
+  public checkIfTestIsFinish(): void {
+    if (this.testInProgress) {
+      this.isTestEnd = this.test.settings.progress.masteredExercisesIds.length === this.origTestExercises.length;
+    } else {
+      this.isTestEnd = false;
+    }
+  }
+
   private setTestSettings(startedTestSettings: TestSettings): void {
     if (startedTestSettings) {
       this.checkProgress(startedTestSettings.progress);
       this.test.settings = {
         config: startedTestSettings.config,
+        lastModified: startedTestSettings.lastModified,
         progress: startedTestSettings.progress
       };
       this.isConfigSet = !!startedTestSettings.config;
@@ -248,7 +251,8 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * FUNCTIONAL
    */
   public saveProgress(): void {
-    if (this.userIsAuthenticated && this.test.settings) {
+    if (this.userIsAuthenticated && this.test.settings && this.areTestSettingsChange) {
+      this.test.settings.lastModified = new Date().getTime();
       this.testService.setTestStarted(this.testId, this.test.settings)
         .catch(error => console.log(error));
     }
@@ -262,6 +266,9 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    *    HANDLERS
    */
   public handleCheckAnswer(): void {
+    if (!this.areTestSettingsChange) {
+      this.areTestSettingsChange = true;
+    }
     const index = this.preparedTestExercises.findIndex(x => x.exercise.id === this.currentExercise.exercise.id);
     this.preparedTestExercises[index] = this.currentExercise;
 
@@ -303,7 +310,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     return this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === id) !== -1;
   }
 
-
   /**
    * MASTERED EXERCISE
    */
@@ -332,7 +338,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     return this.test.settings.progress.masteredExercisesIds.length / this.origTestExercises.length * 100;
   }
 
-  openDialog(disableClose: boolean): void {
+  public openDialog(disableClose: boolean): void {
     const dialogRef = this.dialog.open(TestConfigComponent, {
       disableClose: disableClose,
       panelClass: 'none-padding-mat-dialog',
@@ -346,7 +352,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result: TestConfigWithRestart) => {
         if (result) {
           this.handleSaveConfig(result);
         }
@@ -355,10 +361,14 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   private handleSaveConfig(result: TestConfigWithRestart): void {
+    if (!this.areTestSettingsChange) {
+      this.areTestSettingsChange = true;
+    }
     const settings: TestSettings = {
       config: result.config,
       progress: result.restartTestProgress ? {masteredExercisesIds: [], reviewedExercisesIds: []}
-        : this.test.settings.progress
+        : this.test.settings.progress,
+      lastModified: new Date().getTime()
     };
     this.test.settings = settings;
 
@@ -375,4 +385,5 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   beforeunloadHandler(event) {
     this.saveProgress();
   }
+
 }

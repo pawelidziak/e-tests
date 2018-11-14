@@ -12,7 +12,7 @@ import {AppSettingsService} from "../../../core/services/app-settings.service";
 export class TestsBoxesComponent implements OnInit {
 
   @Input() testList: TestModel[];
-  public searchTest: string;
+ public searchText: TestModel[];
 
   constructor(public appSettings: AppSettingsService) {
   }

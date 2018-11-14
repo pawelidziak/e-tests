@@ -1,11 +1,50 @@
-<section class="section-padding" [style.color]="appSettings.currentTheme.textColor">
+<section class="section-padding" [style.color]="appSettings.currentTheme.textColor" *ngIf="currentlySelectedTests">
 
-  <h3 class="my-title">Choose <strong>Your</strong> study set</h3>
+  <div class="tests-card-header">
+    <h3 class="my-title">Choose <strong>study set</strong></h3>
+
+    <div class="sets-buttons-toggle">
+      <mat-button-toggle-group name="Sets to display"
+                               aria-label="Sets to display"
+                               [(ngModel)]="selected"
+                               (change)="changeTests()">
+        <mat-button-toggle *ngFor="let option of selectOptions"
+                           [value]="option">
+          {{option.label}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
   <p class="my-sub-title" style="margin-bottom: 48px;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
     consequat.
   </p>
 
-  <app-test-boxes [testList]="userTests"></app-test-boxes>
+  <app-test-boxes *ngIf="currentlySelectedTests.length > 0" [testList]="currentlySelectedTests"></app-test-boxes>
+
+  <mat-card *ngIf="currentlySelectedTests.length === 0"
+            [@slideFromTop]
+            class="no-result-card">
+    <p class="my-sub-title no-result-text">No results</p>
+    <div class="no-result-buttons">
+      <a mat-raised-button
+         color="primary"
+         class="go-search-button"
+         [routerLink]="'/'+ALL_ROUTES.SEARCH">
+        <mat-icon>search</mat-icon>
+        <span style="margin-left: 12px;">Go to search</span>
+      </a>
+      <span style="margin: 12px;">or</span>
+      <a mat-flat-button
+         color="primary"
+         class="go-search-button"
+         [routerLink]="'/'+ALL_ROUTES.CREATE_TEST">
+        <mat-icon>add</mat-icon>
+        <span style="margin-left: 12px;">Create test</span>
+      </a>
+    </div>
+  </mat-card>
+
 </section>

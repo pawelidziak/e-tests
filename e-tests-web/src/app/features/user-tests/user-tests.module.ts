@@ -3,6 +3,7 @@ import {userTestsRouting} from './user-tests.routing';
 import {UserTestsComponent} from './user-tests.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TestsBoxesModule} from '../../shared/components/tests-boxes/tests-boxes.module';
+import {MatButtonModule, MatButtonToggleModule, MatCardModule, MatIconModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,11 @@ import {TestsBoxesModule} from '../../shared/components/tests-boxes/tests-boxes.
     SharedModule,
     userTestsRouting,
 
-    TestsBoxesModule
+    TestsBoxesModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [],
   providers: []
