@@ -228,6 +228,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   margin: $margin 0;
   font-size: 1.3*$font-normal;
+  padding: $margin 0;
   .text {
     color: $material-red;
     margin: 2*$margin 0;
@@ -238,6 +239,15 @@ h1, h2, h3, h4, h5, h6 {
   .no-matches-icon {
     @include mat-icon-size(100px);
     color: $hover_color;
+  }
+  .no-matches-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media #{$gt-xs_size} {
+      flex-direction: row;
+    }
   }
 }
 

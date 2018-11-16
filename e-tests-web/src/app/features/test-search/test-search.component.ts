@@ -19,7 +19,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   private userLogged: boolean;
 
   public testList: TestModel[];
-  public isTable = false;
+  public isTable = true;
 
   constructor(private headerService: HeaderService,
               private router: Router,
@@ -28,10 +28,10 @@ export class TestSearchComponent implements OnInit, OnDestroy {
               private loader: LoaderService,
               private auth: AuthService,
               public appSettings: AppSettingsService) {
+    this.loader.start();
   }
 
   ngOnInit() {
-    this.loader.start();
     this.isLoggedIn();
     this.headerService.setCurrentRoute([
       {label: 'Search', path: ALL_ROUTES.SEARCH}
