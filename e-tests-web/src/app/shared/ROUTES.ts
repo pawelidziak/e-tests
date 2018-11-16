@@ -6,7 +6,10 @@ export const ALL_ROUTES = {
   USER_TESTS_LIST: 'saved',
   TEST_LEARN: 'learn',
   IMPORT_EXERCISES: 'import',
-  APP_SETTINGS: 'settings'
+  APP_SETTINGS: 'settings',
+  DOWNLOAD: 'download',
+  ABOUT: 'about',
+  USER_PROFILE: 'profile'
 };
 
 export const ROUTE_PARAMS = {

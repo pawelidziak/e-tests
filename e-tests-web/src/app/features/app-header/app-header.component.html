@@ -137,7 +137,7 @@
   <!-- ACCOUNT MENU -->
   <mat-menu #accountMenu="matMenu">
     <ng-template matMenuContent>
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink]="ALL_ROUTES.USER_PROFILE">
         <mat-icon aria-label="Profile">person</mat-icon>
         <span>Profile</span>
       </button>
