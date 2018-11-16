@@ -1,0 +1,78 @@
+<footer *ngIf="headerValues.pageHeaderVisibility">
+  <mat-card class="app-footer">
+
+    <div class="container">
+      <nav class="row">
+
+        <div class="col-12 col-md-6 app-info">
+        <span class="beta-paragraph"
+              [style.background-color]="appSettings.currentTheme.accent"
+              [style.color]="appSettings.currentTheme.textColor">
+          beta
+        </span>
+          <h3 class="my-sub-title"><strong>E-testo</strong> project is still on beta version.</h3>
+          <p>If You find a bug or You have a change proposal, please contact us on
+            <a href="mailto:contact@e-testo.com"><strong>contact@e-testo.com</strong></a>
+            or by clicking on button
+            below.</p>
+          <div style="display: flex; justify-content: center;">
+            <button mat-button color="accent">
+              Report bug
+            </button>
+            <button mat-button color="accent">
+              Change proposal
+            </button>
+          </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">Navigation</h3>
+          <ul class="footer-list">
+            <li *ngFor="let link of generalLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">General</h3>
+          <ul class="footer-list">
+            <li *ngFor="let link of supportLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">Account</h3>
+          <button mat-raised-button
+                  style="margin-top: 12px;"
+                  *ngIf="!isUserLoggedIn"
+                  color="accent"
+                  (click)="openAuthDialog()">
+            Login
+          </button>
+          <ul class="footer-list" *ngIf="isUserLoggedIn">
+            <li *ngFor="let link of accountLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label}}
+              </a>
+            </li>
+            <li (click)="logout()" style="cursor: pointer;"><a>Logout</a></li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </mat-card>
+</footer>

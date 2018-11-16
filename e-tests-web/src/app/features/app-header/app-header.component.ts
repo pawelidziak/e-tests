@@ -30,8 +30,8 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   ];
 
   public otherLinks = [
-    {label: 'About', path: 'TODO', icon: 'info'},
-    {label: 'Download', path: 'TODO', icon: 'cloud_download'},
+    {label: 'About', path: ALL_ROUTES.ABOUT, icon: 'info'},
+    {label: 'Download', path: ALL_ROUTES.DOWNLOAD, icon: 'cloud_download'},
     {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
   ];
 
