@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TestModel} from '../../../core/models/Test';
 import {slideFromTop} from '../../animations';
 import {AppSettingsService} from "../../../core/services/app-settings.service";
+import {ALL_ROUTES} from "../../ROUTES";
 
 @Component({
   selector: 'app-test-boxes',
@@ -12,7 +13,8 @@ import {AppSettingsService} from "../../../core/services/app-settings.service";
 export class TestsBoxesComponent implements OnInit {
 
   @Input() testList: TestModel[];
- public searchText: TestModel[];
+  public ALL_ROUTES = ALL_ROUTES;
+  public searchText: TestModel[];
 
   constructor(public appSettings: AppSettingsService) {
   }

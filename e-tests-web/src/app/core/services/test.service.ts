@@ -60,19 +60,29 @@ export class TestService {
     return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
   }
 
-  public getTestById(testId: string): Observable<TestModel> {
+  public getTestById(testId: string, checkExist: boolean = true): Observable<TestModel> {
     // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
     //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
     // }
     // return this.cache.get(TEST_KEY);
 
-    return this.requestTestById(testId);
+    return this.requestTestById(testId, checkExist);
   }
 
-  private requestTestById(testId: string): Observable<TestModel> {
-    this.checkIfTestExists(testId);
+  private requestTestById(testId: string, checkExist: boolean = true): Observable<TestModel> {
+    if (checkExist) {
+      this.checkIfTestExists(testId);
+    }
     this.currentTestId = testId;
     return this.afs.doc<TestModel>(`${this.TEST_PATH}/${testId}`).valueChanges();
+  }
+
+  public deleteOneTestSettings(testId: string): Promise<void> {
+    return this.afs.collection('users')
+      .doc(this.auth.currentUserId)
+      .collection('startedTest')
+      .doc(testId)
+      .delete()
   }
 
   public getTestsByCurrentUser(): Observable<TestModel[]> {

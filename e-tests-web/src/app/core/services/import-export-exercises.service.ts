@@ -19,7 +19,7 @@ export class ImportExportExercisesService {
   }
 
   /**
-   *  Detect exercises depending on the selected parser
+   *  Detect exercises depending on the selectedDisplay parser
    */
   public detectEtestoExercises(result: any): Exercise[] {
     const list = JSON.parse(this.b64DecodeUnicode(result));

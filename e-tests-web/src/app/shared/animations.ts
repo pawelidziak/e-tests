@@ -21,17 +21,17 @@ export const routeAnimations = trigger('routeAnimations', [
     sequence([
       query(':leave', animateChild()),
       query(':leave > *', [
-          style({transform: 'translateY(0%)', opacity: 1}),
+          style({opacity: 1}),
           animate('0.25s ease-in-out',
-            style({transform: 'translateY(-3%)', opacity: 0})
+            style({opacity: 0})
           ),
           style({position: 'fixed'})
         ]
       ),
       query(':enter > *', [
-          style({transform: 'translateY(-3%)', opacity: 0, position: 'static'}),
-          animate('0.5s ease-in-out',
-            style({transform: 'translateY(0%)', opacity: 1})
+          style({opacity: 0, position: 'static'}),
+          animate('0.25s ease-in-out',
+            style({opacity: 1})
           )
         ]
       ),

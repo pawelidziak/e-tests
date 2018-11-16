@@ -5,8 +5,8 @@
       <mat-form-field color="accent"
                       floatLabel="never"
                       style="width: 100%;">
-        <input matInput placeholder="Search" [(ngModel)]="searchText"  [disabled]="testList.length === 0">
-        <mat-icon matSuffix aria-label="Search">search</mat-icon>
+        <input matInput placeholder="Search" [(ngModel)]="searchText" [disabled]="testList.length === 0">
+        <!--<mat-icon matSuffix aria-label="Search">search</mat-icon>-->
       </mat-form-field>
     </div>
   </div>
@@ -18,11 +18,36 @@
       <app-one-test-box [oneBox]="user_test"></app-one-test-box>
     </div>
   </div>
-  
+
   <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0"
        class="no-matches">
     <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
-    <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
+    <p><span class="text">No matches</span> for: <code><strong>{{searchText}}</strong></code></p>
     <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
   </div>
+
+
 </mat-card>
+
+<div *ngIf="!testList"
+     style="padding-top: 80px;"
+     class="no-matches">
+  <p class="my-sub-title">No results</p>
+  <div class="no-matches-buttons">
+    <a mat-flat-button
+       color="accent"
+       class="go-search-button"
+       [routerLink]="'/'+ALL_ROUTES.SEARCH">
+      <mat-icon>search</mat-icon>
+      <span style="margin-left: 12px;">Go to search</span>
+    </a>
+    <span style="margin: 12px; font-size: 12px;">or</span>
+    <a mat-flat-button
+       color="accent"
+       class="go-search-button"
+       [routerLink]="'/'+ALL_ROUTES.CREATE_TEST">
+      <mat-icon>add</mat-icon>
+      <span style="margin-left: 12px;">Create test</span>
+    </a>
+  </div>
+</div>

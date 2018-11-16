@@ -60,7 +60,7 @@
 
   <div class="exercise-actions">
     <button mat-raised-button
-            *ngIf="auth.currentUserId === authorId && copyExerciseList.length > 5"
+            *ngIf="auth.currentUserId === authorId && copyExerciseList.length > 5 && searchText === ''"
             color="accent"
             id="newExerciseButton"
             (click)="addExercise()">

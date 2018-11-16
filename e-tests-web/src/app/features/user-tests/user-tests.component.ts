@@ -7,16 +7,7 @@ import {AppSettingsService} from "../../core/services/app-settings.service";
 import {HeaderService} from "../../core/services/header.service";
 import {slideFromTop} from "../../shared/animations";
 import {ALL_ROUTES} from "../../shared/ROUTES";
-
-enum DISPLAY_VALUE {
-  BY_SAVED = 'BY_SAVED',
-  BY_USER = 'BY_USER',
-}
-
-interface ChooseTestDisplay {
-  label: string;
-  value: DISPLAY_VALUE;
-}
+import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'app-user-tests',
@@ -27,27 +18,21 @@ interface ChooseTestDisplay {
 export class UserTestsComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
 
-  private userTests: TestModel[];
-  private startedTests: TestModel[];
-  public currentlySelectedTests: TestModel[];
+  public userTests: TestModel[];
+  public startedTests: TestModel[];
 
   public ALL_ROUTES = ALL_ROUTES;
-
-  public selectOptions: ChooseTestDisplay[] = [
-    {label: 'Recently started', value: DISPLAY_VALUE.BY_SAVED},
-    {label: 'Yours', value: DISPLAY_VALUE.BY_USER}
-  ];
-  public selected: ChooseTestDisplay = this.selectOptions[0];
+  public selectedTabIndex: number;
 
   constructor(private testService: TestService,
-              private loader: LoaderService,
+              public loader: LoaderService,
               private auth: AuthService,
               private headerService: HeaderService,
               public appSettings: AppSettingsService) {
+    this.loader.start();
   }
 
   ngOnInit() {
-    this.loader.start();
     this.headerService.setCurrentRoute([
       {label: 'Study sets', path: ''}
     ]);
@@ -62,27 +47,42 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
         () => {
-          this.getUserTestsWithSettings();
-          this.getStartedTest();
+          const subOne$ = this.testService.getStartedTestIdAndSettingsByCurrentUser();
+          const subTwo$ = this.testService.getTestsByCurrentUser();
+
+          this.loader.start();
+          this.subscriptions.push(
+            combineLatest(subOne$, subTwo$).subscribe(
+              res => {
+                /*
+                        res[0] -> user started tests
+                        res[1] -> user created tests
+                 */
+                if (res[0].length) {
+                  this.startedTests = [];
+                  this.assignTests(res[0]);
+                }
+                if (res[1].length) {
+                  this.userTests = res[1];
+                  this.getTestSettings();
+                }
+
+                if (res[0].length > 0) {
+                  this.selectedTabIndex = 0
+                } else {
+                  this.selectedTabIndex = 1;
+                }
+                this.loader.complete();
+              }, error1 => console.log(error1)
+            )
+          );
         })
     );
   }
 
   /**
-   *    GET TEST CREATED BY USERS (WITH SETTINGS)
+   *    GET TEST SETTINGS
    */
-  private getUserTestsWithSettings(): void {
-    this.subscriptions.push(
-      this.testService.getTestsByCurrentUser().subscribe(
-        res => {
-          this.userTests = res;
-          this.getTestSettings();
-        },
-        error => console.log(error)
-      )
-    );
-  }
-
   private getTestSettings() {
     for (let test of this.userTests) {
       this.loader.start();
@@ -99,38 +99,20 @@ export class UserTestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *    GET TEST STARTED BY USERS (WITH SETTINGS)
+   *    ASSIGN TEST TO SETTINGS
    */
-  private getStartedTest(): void {
-    this.subscriptions.push(
-      this.testService.getStartedTestIdAndSettingsByCurrentUser().subscribe(
-        res => {
-          this.startedTests = [];
-          this.currentlySelectedTests = this.startedTests;
-          this.assignTests(res);
-        }, error => console.log(error)
-      ));
-  }
-
-  private assignTests(res: any[]) {
-    for (let testIdWithSettings of res) {
+  private assignTests(settings: any[]) {
+    for (let testIdWithSettings of settings) {
       this.loader.start();
       this.subscriptions.push(
-        this.testService.getTestById(testIdWithSettings.id).subscribe(
+        this.testService.getTestById(testIdWithSettings.id, false).subscribe(
           res => {
-            const tmpTest: TestModel = res;
-            tmpTest.id = testIdWithSettings.id;
-            tmpTest.settings = {
-              config: testIdWithSettings.config,
-              progress: testIdWithSettings.progress,
-              lastModified: testIdWithSettings.lastModified
-            };
-
-            const index = this.startedTests.findIndex(x => x.id === tmpTest.id);
-            if (index === -1) {
-              this.startedTests.push(tmpTest);
+            if (res) {
+              const tmpTest = this.createTestWithSettings(res, testIdWithSettings);
+              this.pushOrSetToList(tmpTest);
             } else {
-              this.startedTests[index] = tmpTest;
+              this.testService.deleteOneTestSettings(testIdWithSettings.id)
+                .catch(error => console.log(error))
             }
             this.loader.complete();
           }, error => console.log(error)
@@ -138,16 +120,24 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public changeTests(): void {
-    switch (this.selected.value) {
-      case DISPLAY_VALUE.BY_SAVED:
-        this.currentlySelectedTests = this.startedTests;
-        break;
-      case DISPLAY_VALUE.BY_USER:
-        this.currentlySelectedTests = this.userTests;
-        break;
-      default:
-        this.currentlySelectedTests = this.userTests;
+  private createTestWithSettings(res: TestModel, testIdWithSettings: any): TestModel {
+    const tmpTest: TestModel = res;
+    tmpTest.id = testIdWithSettings.id;
+    tmpTest.settings = {
+      config: testIdWithSettings.config,
+      progress: testIdWithSettings.progress,
+      lastModified: testIdWithSettings.lastModified
+    };
+    return tmpTest;
+  }
+
+  private pushOrSetToList(tmpTest: TestModel) {
+    const index = this.startedTests.findIndex(x => x.id === tmpTest.id);
+    if (index === -1) {
+      this.startedTests.push(tmpTest);
+    } else {
+      this.startedTests[index] = tmpTest;
     }
   }
+
 }

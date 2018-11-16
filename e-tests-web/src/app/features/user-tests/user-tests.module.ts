@@ -3,7 +3,7 @@ import {userTestsRouting} from './user-tests.routing';
 import {UserTestsComponent} from './user-tests.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TestsBoxesModule} from '../../shared/components/tests-boxes/tests-boxes.module';
-import {MatButtonModule, MatButtonToggleModule, MatCardModule, MatIconModule} from "@angular/material";
+import {MatCardModule, MatTabsModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -14,10 +14,8 @@ import {MatButtonModule, MatButtonToggleModule, MatCardModule, MatIconModule} fr
     userTestsRouting,
 
     TestsBoxesModule,
-    MatButtonToggleModule,
     MatCardModule,
-    MatButtonModule,
-    MatIconModule
+    MatTabsModule
   ],
   exports: [],
   providers: []
