@@ -20,7 +20,7 @@
 
       <a [routerLink]="route.path"
          *ngIf="i < headerValues.breadcrumb.length - 1">
-        {{route.label[0].toUpperCase() + route.label.substring(1) | limitChar: maxChar}}
+        {{route.label | translate | limitChar: maxChar}}
       </a>
 
       <mat-icon aria-label="Separator"
@@ -30,7 +30,7 @@
       </mat-icon>
 
       <span *ngIf="i === headerValues.breadcrumb.length - 1" class="current-url">
-        {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label[0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label.substring(1)  | limitChar: maxChar}}
+        {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label | translate | limitChar: maxChar}}
       </span>
     </span>
   </div>
