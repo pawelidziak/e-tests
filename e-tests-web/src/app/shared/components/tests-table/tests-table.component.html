@@ -73,6 +73,17 @@
             <span>{{row.createDate | date: 'dd.MM.yyyy'}}</span>
           </div>
 
+          <!-- EXERCISE NUMBER-->
+          <div class="detail-row">
+            <mat-icon aria-label="Exercises"
+                      class="detail-icon"
+                      [matTooltip]="'Exercises'"
+                      [matTooltipPosition]="'before'">
+              folder
+            </mat-icon>
+            <span>{{row.exercisesNumber}}</span>
+          </div>
+
           <!-- TAGS -->
           <div class="detail-row">
             <mat-icon aria-label="Tags"

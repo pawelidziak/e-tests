@@ -4,18 +4,12 @@ button {
   outline: none;
 }
 
-.settings-card {
+.about-card {
   border-radius: $border-radius;
 }
 
-.app-setting {
-  margin: .5*$margin;
+.one-tech {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  .app-settings-select {
-    display: flex;
-    align-items: center;
-  }
 }
