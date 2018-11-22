@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AppSettingsService} from "../../core/services/app-settings.service";
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-about',
@@ -16,13 +17,17 @@ export class AboutComponent implements OnInit {
     {label: 'Angularfire2', link: 'https://github.com/angular/angularfire2/'},
   ];
 
-  constructor(public appSettings: AppSettingsService) {
+  constructor(private headerService: HeaderService,
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
+    this.headerService.setCurrentRoute([
+      {label: 'About', path: ''}
+    ]);
   }
 
-  navigateTolink(link: string) {
+  public navigateTolink(link: string): void {
     window.open(link, "_blank");
   }
 }
