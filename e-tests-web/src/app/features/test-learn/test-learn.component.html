@@ -54,14 +54,16 @@
     </div>
 
     <!-- PROGRESS BAR -->
-    <mat-progress-bar color="accent"
-                      class="my-progress-bar"
-                      mode="determinate"
-                      [value]="countMasteredRatio()">
-    </mat-progress-bar>
+    <div>
+      <mat-progress-bar color="accent"
+                        class="my-progress-bar"
+                        mode="determinate"
+                        [value]="countMasteredRatio()">
+      </mat-progress-bar>
+    </div>
 
     <!-- EXERCISE CONTENT -->
-    <div class="test-learn-exercise" *ngIf="isConfigSet">
+    <div class="test-learn-exercise">
       <app-exercise *ngIf="!isTestEnd"
                     [exerciseWithOccurrences]="currentExercise"
                     [userIsAuthenticated]="userIsAuthenticated"

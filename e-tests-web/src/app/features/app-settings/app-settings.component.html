@@ -16,26 +16,22 @@
     <div class="col-12 col-md-6">
       <mat-card class="settings-card">
         <div class="app-setting">
-          <div class="app-setting-header">
-            <h5 class="paragraph-font">Language</h5>
-            <div class="app-settings-select">
-              <span>ENG</span>
-              <button mat-icon-button [matMenuTriggerFor]="languageMenu" color="accent">
-                <mat-icon aria-label="Language">language</mat-icon>
-              </button>
-            </div>
+          <h5 class="paragraph-font">Language</h5>
+          <div class="app-settings-select">
+            <span>ENG</span>
+            <button mat-icon-button [matMenuTriggerFor]="languageMenu" color="accent">
+              <mat-icon aria-label="Language">language</mat-icon>
+            </button>
           </div>
         </div>
 
         <div class="app-setting">
-          <div class="app-setting-header">
-            <h5 class="paragraph-font">App theme</h5>
-            <div class="app-settings-select">
-              <span>{{appSettings.currentTheme.label}}</span>
-              <button mat-icon-button [matMenuTriggerFor]="themeMenu" color="accent">
-                <mat-icon aria-label="Brush">brush</mat-icon>
-              </button>
-            </div>
+          <h5 class="paragraph-font">App theme</h5>
+          <div class="app-settings-select">
+            <span>{{appSettings.currentTheme.label}}</span>
+            <button mat-icon-button [matMenuTriggerFor]="themeMenu" color="accent">
+              <mat-icon aria-label="Brush">brush</mat-icon>
+            </button>
           </div>
         </div>
       </mat-card>

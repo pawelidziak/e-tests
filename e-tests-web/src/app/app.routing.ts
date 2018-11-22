@@ -45,6 +45,10 @@ const appRoutes: Routes = [
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}/${ALL_ROUTES.IMPORT_EXERCISES}`,
     loadChildren: 'app/features/import-exercises/import-exercises.module#ImportExercisesModule'
   },
+  {
+    path: `${ALL_ROUTES.ABOUT}`,
+    loadChildren: 'app/features/about/about.module#AboutModule'
+  },
   // otherwise redirect to dashboard
   {path: '', redirectTo: ALL_ROUTES.DASHBOARD, pathMatch: 'full'},
   {path: '**', redirectTo: ALL_ROUTES.DASHBOARD}

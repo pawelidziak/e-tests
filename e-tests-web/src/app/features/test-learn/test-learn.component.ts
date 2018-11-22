@@ -12,6 +12,7 @@ import {TestConfigComponent, TestConfigWithRestart} from './test-config/test-con
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {LoaderService} from '../../core/services/loader.service';
 import {MatDialog} from "@angular/material";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-test',
@@ -134,7 +135,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    */
   public checkIfTetIsStarted(): void {
     this.subscriptions.push(
-      this.testService.getTestSettings(this.testId).subscribe(
+      this.testService.getTestSettings(this.testId).pipe(take(1)).subscribe(
         (res: TestSettings) => this.startTest(res),
         error => console.log(error)
       )
