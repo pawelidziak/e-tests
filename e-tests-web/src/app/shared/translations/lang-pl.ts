@@ -3,6 +3,8 @@ export const LANG_PL_NAME = 'pl';
 export const LANG_PL_TRANS = {
   // GENERAL
   'not-available': 'Na ten moment opcja niedostępna',
+  'or': 'lub',
+  'space': 'spacja',
 
   // SETTINGS
   'settings-title': 'Ustawienia',
@@ -116,4 +118,44 @@ export const LANG_PL_TRANS = {
   'display-one-exer-answer-label': 'Odpowiedź ',
   'display-one-exer-answer-placeholder': 'Wpisz odpowiedź...',
   'display-one-exer-add-answer': 'Dodaj odpowiedź',
+
+  // TEST LEARN CONFIG
+  'test-learn-config-header': 'Konfiguracja',
+  'test-learn-config-occurrences': 'Wystąpienia',
+  'test-learn-config-occurrences-text': 'Liczba wystąpień pojedynczego zadania.',
+  'test-learn-config-repetitions': 'Powtórzenia',
+  'test-learn-config-repetitions-text': 'Powtórzenia zadania w przypadku niepoprawnej odpowiedzi.',
+  'test-learn-config-keyboard-shortcuts': 'Skróty klawiszowe',
+  'test-learn-config-keyboard-shortcuts-check-next': 'sprawdź/następne',
+  'test-learn-config-save': 'Zapisz',
+  'test-learn-config-save-text': 'Nowe zadania zostaną załadowane z nową konfiguracją. <strong>Postęp zostanie zachowany.</strong>',
+  'test-learn-config-restart': 'Restart',
+  'test-learn-config-confirm-restart': 'Potwierdź restart',
+  'test-learn-config-restart-text': 'Wszystkie zadania zostaną załadowane z nową konfiguracją. <strong>Postęp NIE zostanie zachowany</strong>',
+
+  // TEST LEARN
+  'test-learn-remained': 'Pozostałe',
+  'test-learn-mastered': 'Opanowane',
+  'test-learn-occurrences': 'Wystąpienia',
+  'test-learn-end': 'Gratulacje, opanowałeś wszystkie zadania!',
+  'test-learn-exam': 'Egzamin',
+  'test-learn-exam-text': 'Sprawdź swoją wiedzę i spróbuj rozwiązać egzamin.',
+  'test-learn-restart': 'Restart',
+  'test-learn-restart-text': 'Zacznij ponownie i powtórz swoją wiedzę!',
+  'test-learn-return': 'Wróć',
+  'test-learn-return-text': 'Wróć do testu.',
+  'test-learn-check': 'Sprawdź',
+  'test-learn-next': 'Nastepne',
+  'test-learn-correct-answers': 'Poprawne odpowiedźi:',
+  'test-learn-selected-answers': 'Zaznaczone odpowiedźi:',
+
+  // TEST LEARN FEEDBACK
+  'nice': 'Nieźle!',
+  'keep-it-up': 'Tak trzymaj!',
+  'good': 'Dobrze!',
+  'you-are-getting-better': 'Jesteś coraz lepszy!',
+  'wrong': 'Źle...',
+  'keep-trying': 'Próbuj dalej...',
+  'repeat-this': 'Powtórz to...',
+  'learn-it': 'Naucz się tego...',
 };

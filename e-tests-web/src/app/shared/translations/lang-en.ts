@@ -3,6 +3,8 @@ export const LANG_EN_NAME = 'en';
 export const LANG_EN_TRANS = {
   // GENERAL
   'not-available': 'At this moment, the option is unavailable',
+  'or': 'or',
+  'space': 'space',
 
   // SETTINGS
   'settings-title': 'Settings',
@@ -116,4 +118,44 @@ export const LANG_EN_TRANS = {
   'display-one-exer-answer-label': 'Answer ',
   'display-one-exer-answer-placeholder': 'Type the answer...',
   'display-one-exer-add-answer': 'Add answer',
+
+  // TEST LEARN CONFIG
+  'test-learn-config-header': 'Configuration',
+  'test-learn-config-occurrences': 'Occurrences',
+  'test-learn-config-occurrences-text': 'Occurrences number of a single exercise.',
+  'test-learn-config-repetitions': 'Repetitions',
+  'test-learn-config-repetitions-text': 'Repetition of the exercise in the case of an incorrect answer.',
+  'test-learn-config-keyboard-shortcuts': 'Keyboard shortcuts',
+  'test-learn-config-keyboard-shortcuts-check-next': 'check/next',
+  'test-learn-config-save': 'Save',
+  'test-learn-config-save-text': 'New exercises will be loaded with new configuration. <strong>Progress will be saved.</strong>',
+  'test-learn-config-restart': 'Restart',
+  'test-learn-config-confirm-restart': 'Confirm restart',
+  'test-learn-config-restart-text': 'All exercises will be loaded with new configuration. <strong>Progress will NOT be saved.</strong>',
+
+  // TEST LEARN
+  'test-learn-remained': 'Remained',
+  'test-learn-mastered': 'Mastered',
+  'test-learn-occurrences': 'Occurrences',
+  'test-learn-end': `Congratulations, you've mastered all the exercises!`,
+  'test-learn-exam': 'Exam',
+  'test-learn-exam-text': 'Check Your knowledge and try solve the exam.',
+  'test-learn-restart': 'Restart',
+  'test-learn-restart-text': 'Start again and consolidate Your knowledge!',
+  'test-learn-return': 'Return',
+  'test-learn-return-text': ' Return to the test.',
+  'test-learn-check': 'Check',
+  'test-learn-next': 'Next',
+  'test-learn-correct-answers': 'Correct answers:',
+  'test-learn-selected-answers': 'Selected answers:',
+
+  // TEST LEARN FEEDBACK
+  'nice': 'nice!',
+  'keep-it-up': 'keep it up!',
+  'good': 'good!',
+  'you-are-getting-better': 'you are getting better!',
+  'wrong': 'wrong...',
+  'try-harder': 'try harder...',
+  'repeat-this': 'repeat this...',
+  'learn-it': 'learn it...',
 };
