@@ -25,7 +25,7 @@
 
   <div class="box-item-row">
     <mat-icon aria-label="Rate" class="box-item-icon">description</mat-icon>
-    <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'No description') | limitChar: 65}}</p>
+    <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'no-desc' | translate) | limitChar: 65}}</p>
   </div>
 
   <div style="flex: 1 0; min-height: 24px;"></div>

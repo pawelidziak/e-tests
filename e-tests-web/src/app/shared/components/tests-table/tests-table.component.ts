@@ -31,6 +31,7 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.getRwdValue();
+    this.translateMatPaginator();
   }
 
   ngOnDestroy() {
@@ -76,4 +77,11 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  private translateMatPaginator(): void {
+    this.paginator._intl.itemsPerPageLabel = this.appSettings.translateText('table-items-per-page');
+    this.paginator._intl.nextPageLabel = this.appSettings.translateText('next-page-label');
+    this.paginator._intl.previousPageLabel = this.appSettings.translateText('prev-page-label');
+    this.paginator._intl.firstPageLabel = this.appSettings.translateText('first-page-label');
+    this.paginator._intl.lastPageLabel = this.appSettings.translateText('last-page-label');
+  }
 }

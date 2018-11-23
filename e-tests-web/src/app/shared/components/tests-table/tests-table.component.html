@@ -1,7 +1,9 @@
 <mat-card class="my-table" [@slideFromTop]>
   <mat-form-field style="width: 100%" color="accent">
     <mat-icon matSuffix>search</mat-icon>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    <input matInput
+           (keyup)="applyFilter($event.target.value)"
+           [placeholder]="'tests-table-placeholder' | translate">
   </mat-form-field>
 
   <table mat-table
@@ -17,7 +19,7 @@
 
     <!-- Rate Column -->
     <ng-container matColumnDef="rate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'tests-table-rate' | translate}}</th>
       <td mat-cell *matCellDef="let row"
           [style.color]="row.expanded ? appSettings.currentTheme.accent : ''">
         <div class="rate-row">
@@ -29,7 +31,7 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'tests-table-name' | translate}}</th>
       <td mat-cell *matCellDef="let row"
           [style.color]="row.expanded ? appSettings.currentTheme.accent : ''">
         {{row.name}}
@@ -38,7 +40,7 @@
 
     <!-- Date Column -->
     <ng-container matColumnDef="createDate" *ngIf="!isSmallScreen">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'tests-table-created' | translate}}</th>
       <td mat-cell *matCellDef="let row" class="small-row"
           [style.color]="row.expanded ? appSettings.currentTheme.accent : ''">
         {{row.createDate | date: 'dd.MM.yyyy'}}
@@ -55,7 +57,7 @@
           <div class="detail-row">
             <mat-icon aria-label="Author"
                       class="detail-icon"
-                      [matTooltip]="'Author'"
+                      [matTooltip]="'tests-table-author' | translate"
                       [matTooltipPosition]="'before'">
               person
             </mat-icon>
@@ -66,7 +68,7 @@
           <div class="detail-row" *ngIf="isSmallScreen">
             <mat-icon aria-label="Date"
                       class="detail-icon"
-                      [matTooltip]="'Created'"
+                      [matTooltip]="'tests-table-created' | translate"
                       [matTooltipPosition]="'before'">
               calendar_today
             </mat-icon>
@@ -77,7 +79,7 @@
           <div class="detail-row">
             <mat-icon aria-label="Exercises"
                       class="detail-icon"
-                      [matTooltip]="'Exercises'"
+                      [matTooltip]="'tests-table-exercises' | translate"
                       [matTooltipPosition]="'before'">
               folder
             </mat-icon>
@@ -88,7 +90,7 @@
           <div class="detail-row">
             <mat-icon aria-label="Tags"
                       class="detail-icon"
-                      [matTooltip]="'Tags'"
+                      [matTooltip]="'tests-table-tags' | translate"
                       [matTooltipPosition]="'before'">
               local_offer
             </mat-icon>
@@ -104,12 +106,12 @@
           <div class="detail-row">
             <mat-icon aria-label="Desc"
                       class="detail-icon"
-                      [matTooltip]="'Description'"
+                      [matTooltip]="'tests-table-desc' | translate"
                       [matTooltipPosition]="'before'">
               description
             </mat-icon>
             <span *ngIf="row.desc?.length > 0">{{row.desc}}</span>
-            <span *ngIf="row.desc?.length === 0">No description</span>
+            <span *ngIf="row.desc?.length === 0">{{ 'no-desc' | translate}}</span>
           </div>
 
           <!-- ACTIONS -->
@@ -118,7 +120,7 @@
                     color="accent"
                     class="see-button"
                     (click)="navigateToTest(row.id)">
-              see
+              {{ 'tests-table-see' | translate}}
             </button>
           </div>
 
@@ -139,5 +141,5 @@
 
   </table>
 
-  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
 </mat-card>
