@@ -120,6 +120,14 @@ export const LANG_PL_TRANS = {
   'test-info-learn': 'Ucz się',
   'test-info-exam': 'Egzamin',
 
+  // TEST INFO BOTTOM SHEET
+  'test-info-export': 'Eksport',
+  'test-info-export-text': 'Eksportuj zadania z testu do pliku',
+  'test-info-import': 'Import',
+  'test-info-import-text': 'Importuj zadania z pliku/ów do testu',
+  'test-info-delete': 'Usuń',
+  'test-info-delete-text': `<strong>Uważaj, operacja nieodwracalna</strong>`,
+
   // DISPLAY EXERCISES
   'display-exer-search': 'Szukaj',
   'display-exer-label': 'Szukaj zadanie',
@@ -176,4 +184,14 @@ export const LANG_PL_TRANS = {
   'keep-trying': 'Próbuj dalej...',
   'repeat-this': 'Powtórz to...',
   'learn-it': 'Naucz się tego...',
+
+  // IMPORT EXERCISES
+  'import-exercises-header': 'Importuj  <strong>zadania</strong> do testu!',
+  'import-exercises-paragraph': `Wybierz odpowiedni parser, zaznacz pliki i to wszystko. <br>
+                                 Wybierz parser <strong>E-testo</strong> kiedy importujesz plik wygenerowany przez aplikację E-testo. <br>
+                                 Wybierz parser <strong>PWR</strong> kiedy importujesz pliki z testownika PWR.`,
+  'import-exercises-choose-files': 'Wybierz pliki',
+  'import-exercises-imported-exercises': 'Zaimportowane zadania',
+  'import-exercises-save': 'zapisz',
+  'import-exercises-reset': 'wyczyść',
 };

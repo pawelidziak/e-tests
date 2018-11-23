@@ -5,7 +5,7 @@
     <div class="name-buttons">
       <div>
         <span class="beta-paragraph">beta</span>
-        <h3 class="my-title">Import <strong>exercises</strong> to Your test!</h3>
+        <h3 class="my-title" [innerHTML]="'import-exercises-header' | translate"></h3>
       </div>
       <div class="header-buttons">
         <button mat-raised-button
@@ -20,7 +20,7 @@
                 class="choose-files-button"
                 mat-raised-button
                 (click)="fileInput.click()">
-          <span style="margin-right: 12px;">Choose files</span>
+          <span style="margin-right: 12px;">{{ 'import-exercises-choose-files' | translate}}</span>
           <mat-icon aria-label="Choose">search</mat-icon>
         </button>
         <input type="file"
@@ -32,11 +32,7 @@
       </div>
     </div>
 
-    <p class="my-sub-title">
-      Choose the right parser, select files and that's all.
-      Choose <strong>E-testo</strong> parser when You import files from E-testo app.
-      Choose <strong>PWR</strong> parser when You import files from old PWR app.
-    </p>
+    <p class="my-sub-title" [innerHTML]="'import-exercises-paragraph' | translate"></p>
   </div>
 
   <app-spinner [hidden]="!filesOnLoad"></app-spinner>
@@ -45,18 +41,18 @@
 
   <mat-card class="import-card" *ngIf="!filesOnLoad &&  importedExercises.length > 0">
     <div class="import-card-header">
-      <span>Imported exercises: <strong>{{importedExercises.length}}</strong></span>
+      <span>{{ 'import-exercises-imported-exercises' | translate}}: <strong>{{importedExercises.length}}</strong></span>
 
       <div class="import-buttons">
         <button mat-raised-button
                 color="accent"
                 (click)="saveExercises();">
-          save
+          {{ 'import-exercises-save' | translate}}
         </button>
         <button mat-raised-button
                 (click)="resetExercises();"
                 color="warn">
-          reset
+          {{ 'import-exercises-reset' | translate}}
         </button>
       </div>
     </div>
