@@ -1,6 +1,8 @@
 export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS = {
+  // GENERAL
+  'not-available': 'At this moment, the option is unavailable',
 
   // SETTINGS
   'settings-title': 'Settings',
@@ -81,4 +83,37 @@ export const LANG_EN_TRANS = {
   'prev-page-label': 'Previous page',
   'first-page-label': 'First page',
   'last-page-label': 'Last page',
+
+  // TEST INFO
+  'test-info-rate': 'Rate',
+  'test-info-created': 'Created',
+  'test-info-author': 'Author',
+  'test-info-edit': 'Edit',
+  'test-info-share': 'Share',
+  'test-info-more': 'More',
+  'test-info-save': 'Save',
+  'test-info-cancel': 'Cancel',
+  'test-info-tags': 'Tags',
+  'test-info-exercises': 'Exercises',
+  'test-info-opinions': 'Opinions',
+  'test-info-notes': 'Notes',
+  'test-info-learn': 'Learn',
+  'test-info-exam': 'Exam',
+
+  // DISPLAY EXERCISES
+  'display-exer-search': 'Search',
+  'display-exer-label': 'Search exercise',
+  'display-exer-placeholder': 'Exercise...',
+  'display-exer-exercise': 'Add exercise',
+
+  // DISPLAY ONE EXERCISE
+  'display-one-exer-delete': 'Delete',
+  'display-one-exer-edit': 'Edit',
+  'display-one-exer-save': 'Save',
+  'display-one-exer-cancel': 'Cancel',
+  'display-one-exer-question-placeholder': 'Question...',
+  'display-one-exer-correct-answer': 'Correct',
+  'display-one-exer-answer-label': 'Answer ',
+  'display-one-exer-answer-placeholder': 'Type the answer...',
+  'display-one-exer-add-answer': 'Add answer',
 };

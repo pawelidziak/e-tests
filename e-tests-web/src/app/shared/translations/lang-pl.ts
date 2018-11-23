@@ -1,6 +1,8 @@
 export const LANG_PL_NAME = 'pl';
 
 export const LANG_PL_TRANS = {
+  // GENERAL
+  'not-available': 'Na ten moment opcja niedostępna',
 
   // SETTINGS
   'settings-title': 'Ustawienia',
@@ -63,7 +65,7 @@ export const LANG_PL_TRANS = {
   'tests-table-name': 'Nazwa',
   'tests-table-created': 'Stworzony',
   'tests-table-author': 'Autor',
-  'tests-table-exercises': 'Ćwiczenia',
+  'tests-table-exercises': 'Zadania',
   'tests-table-tags': 'Tagi',
   'tests-table-desc': 'Opis',
   'tests-table-see': 'Zobacz',
@@ -81,4 +83,37 @@ export const LANG_PL_TRANS = {
   'prev-page-label': 'Poprzednia strona',
   'first-page-label': 'Pierwsza strona',
   'last-page-label': 'Ostatnia strona',
+
+  // TEST INFO
+  'test-info-rate': 'Ocena',
+  'test-info-created': 'Stworzony',
+  'test-info-author': 'Autor',
+  'test-info-edit': 'Edytuj',
+  'test-info-share': 'Udostępnij',
+  'test-info-more': 'Więcej',
+  'test-info-save': 'Zapisz',
+  'test-info-cancel': 'Anuluj',
+  'test-info-tags': 'Tagi',
+  'test-info-exercises': 'Zadania',
+  'test-info-opinions': 'Opinie',
+  'test-info-notes': 'Materiały',
+  'test-info-learn': 'Ucz się',
+  'test-info-exam': 'Egzamin',
+
+  // DISPLAY EXERCISES
+  'display-exer-search': 'Szukaj',
+  'display-exer-label': 'Szukaj zadanie',
+  'display-exer-exercise': 'Dodaj zadanie',
+  'display-exer-placeholder': 'Zadanie...',
+
+  // DISPLAY ONE EXERCISE
+  'display-one-exer-delete': 'Usuń',
+  'display-one-exer-edit': 'Edytuj',
+  'display-one-exer-save': 'Zapisz',
+  'display-one-exer-cancel': 'Anuluj',
+  'display-one-exer-question-placeholder': 'Pytanie...',
+  'display-one-exer-correct-answer': 'Poprawna',
+  'display-one-exer-answer-label': 'Odpowiedź ',
+  'display-one-exer-answer-placeholder': 'Wpisz odpowiedź...',
+  'display-one-exer-add-answer': 'Dodaj odpowiedź',
 };
