@@ -14,18 +14,18 @@ export class AppFooterComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
 
   public generalLinks = [
-    {label: 'Home', path: ALL_ROUTES.DASHBOARD},
-    {label: 'Search', path: ALL_ROUTES.SEARCH},
-    {label: 'Create', path: ALL_ROUTES.CREATE_TEST},
+    {label: 'app-header-home', path: ALL_ROUTES.DASHBOARD},
+    {label: 'app-header-search', path: ALL_ROUTES.SEARCH},
+    {label: 'app-header-create', path: ALL_ROUTES.CREATE_TEST},
   ];
   public accountLinks = [
-    {label: 'Study sets', path: ALL_ROUTES.USER_TESTS_LIST},
-    {label: 'Profile', path: ALL_ROUTES.USER_PROFILE}
+    {label: 'app-header-study-sets', path: ALL_ROUTES.USER_TESTS_LIST},
+    {label: 'app-header-profile', path: ALL_ROUTES.USER_PROFILE}
   ];
   public supportLinks = [
-    {label: 'About', path: ALL_ROUTES.ABOUT},
-    {label: 'Download', path: ALL_ROUTES.DOWNLOAD},
-    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS}
+    {label: 'app-header-about', path: ALL_ROUTES.ABOUT},
+    {label: 'app-header-download', path: ALL_ROUTES.DOWNLOAD},
+    {label: 'app-header-settings', path: ALL_ROUTES.APP_SETTINGS}
   ];
 
   public isUserLoggedIn: boolean;

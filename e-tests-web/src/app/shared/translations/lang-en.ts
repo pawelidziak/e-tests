@@ -6,6 +6,24 @@ export const LANG_EN_TRANS = {
   'or': 'or',
   'space': 'space',
 
+  // APP HEADER
+  'app-header-home': 'Home',
+  'app-header-study-sets': 'Study sets',
+  'app-header-search': 'Search',
+  'app-header-create': 'Create',
+  'app-header-about': 'About',
+  'app-header-download': 'Download',
+  'app-header-settings': 'Settings',
+  'app-header-profile': 'Profile',
+  'app-header-logout': 'Logout',
+
+  // APP FOOTER
+  'app-footer-header': '<strong>E-testo</strong> project is still on beta version.',
+  'app-footer-paragraph': 'If You find a bug or You have a <strong>change proposal</strong>, please contact us on <a href="mailto:contact@e-testo.com"><strong>contact@e-testo.com</strong></a>',
+  'app-footer-navigation': 'Navigation',
+  'app-footer-general': 'General',
+  'app-footer-account': 'User account',
+
   // SETTINGS
   'settings-title': 'Settings',
   'settings-header': 'Change <strong>E-testo</strong> settings',

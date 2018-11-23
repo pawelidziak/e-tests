@@ -25,14 +25,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   public slideMenu = false;
 
   public generalLinks = [
-    {label: 'Search', path: ALL_ROUTES.SEARCH, icon: 'search'},
-    {label: 'Create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'}
+    {label: 'app-header-search', path: ALL_ROUTES.SEARCH, icon: 'search'},
+    {label: 'app-header-create', path: ALL_ROUTES.CREATE_TEST, icon: 'add'}
   ];
 
   public otherLinks = [
-    {label: 'About', path: ALL_ROUTES.ABOUT, icon: 'info'},
-    {label: 'Download', path: ALL_ROUTES.DOWNLOAD, icon: 'cloud_download'},
-    {label: 'Settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
+    {label: 'app-header-about', path: ALL_ROUTES.ABOUT, icon: 'info'},
+    {label: 'app-header-download', path: ALL_ROUTES.DOWNLOAD, icon: 'cloud_download'},
+    {label: 'app-header-settings', path: ALL_ROUTES.APP_SETTINGS, icon: 'settings'}
   ];
 
   constructor(private headerService: HeaderService,
