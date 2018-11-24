@@ -23,7 +23,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     this.headerService.setCurrentRoute([
-      {label: 'About', path: ''}
+      {label: 'about-title', path: ''}
     ]);
   }
 

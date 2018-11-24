@@ -16,7 +16,3 @@ export const dictionary = {
 export const TRANSLATION_PROVIDERS = [
   { provide: TRANSLATIONS, useValue: dictionary },
 ];
-
-export const DICTIONARY_VALUES = {
-  settingsHeader: 'settingsHeader'
-};

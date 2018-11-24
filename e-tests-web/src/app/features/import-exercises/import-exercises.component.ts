@@ -18,7 +18,7 @@ import {AuthService} from "../../core/services/auth.service";
 })
 export class ImportExercisesComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
-  private testId: string;
+  public testId: string;
 
   private selectedFiles = [];
   public importedExercises: Exercise[] = [];
@@ -59,7 +59,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
           if (this.checkIfIsAuthor(res.authorId)) {
             this.test = res;
             this.headerService.setCurrentRoute([
-              {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
+              {label: 'tests-title', path: ALL_ROUTES.USER_TESTS_LIST},
               {label: this.test.name, path: `${ALL_ROUTES.CREATED_TEST}/${this.testId}`},
               {label: 'Import', path: ''}
             ]);

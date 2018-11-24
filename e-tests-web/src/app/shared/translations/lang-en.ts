@@ -5,6 +5,7 @@ export const LANG_EN_TRANS = {
   'not-available': 'At this moment, the option is unavailable',
   'or': 'or',
   'space': 'space',
+  'tests-title': 'Tests',
 
   // APP HEADER
   'app-header-home': 'Home',
@@ -194,4 +195,11 @@ export const LANG_EN_TRANS = {
   'import-exercises-imported-exercises': 'Imported exercises',
   'import-exercises-save': 'save',
   'import-exercises-reset': 'reset',
+
+  // ABOUT APP
+  'about-title': 'About',
+  'about-header': 'About app',
+  'about-paragraph': '<strong>E-testo</strong> is an application that enables learning by solving tests. You can create tests, or solve one of the existing ones. Learning progress is saved, so you can continue learning wherever you are, on any device.',
+  'about-contact': 'Contact:',
+  'about-technologies-libraries': 'Technologies & libraries'
 };

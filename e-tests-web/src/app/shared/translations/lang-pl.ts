@@ -5,6 +5,7 @@ export const LANG_PL_TRANS = {
   'not-available': 'Na ten moment opcja niedostępna',
   'or': 'lub',
   'space': 'spacja',
+  'tests-title': 'Testy',
 
   // APP HEADER
   'app-header-home': 'Główna',
@@ -194,4 +195,11 @@ export const LANG_PL_TRANS = {
   'import-exercises-imported-exercises': 'Zaimportowane zadania',
   'import-exercises-save': 'zapisz',
   'import-exercises-reset': 'wyczyść',
+
+  // ABOUT APP
+  'about-title': 'O aplikacji',
+  'about-header': 'O aplikacji',
+  'about-paragraph': '<strong>E-testo</strong> to aplikacja, umożliwiająca uczenie się poprzez rozwiązywanie testów. Możesz utworzyć testy lub rozwiązywać istniejące. Postęp nauki jest zapisywany, dzięki czemu możesz kontynuować naukę w dowolnym miejscu na dowolnym urządzeniu.',
+  'about-contact': 'Kontakt:',
+  'about-technologies-libraries': 'Technologie & biblioteki'
 };
