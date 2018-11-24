@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {LocalStorageService} from './local-storage.service';
+import {TRANSLATIONS} from '../../shared/translations/translation';
 
 export const MY_COLORS = {
   MATERIAL_GREEN: '#8BC34A',
@@ -15,6 +16,7 @@ export interface MyTheme {
   warn: string;
   textColor: string;
 }
+
 /*
 #5E5094
 #3D73AE
@@ -23,7 +25,7 @@ export interface MyTheme {
 export const MY_THEMES: Array<MyTheme> = [
   {
     name: 'indigo-theme',
-    label: 'Blue',
+    label: 'blue',
     primary: '#304ffe',
     accent: '#05d5ff',
     accentSecond: '#b9f6ca',
@@ -31,7 +33,8 @@ export const MY_THEMES: Array<MyTheme> = [
     textColor: '#FAFAFA'
   },
   {
-    name: 'light-theme', label: 'Light',
+    name: 'light-theme',
+    label: 'light',
     primary: '#f5f5f5',
     accent: '#dcedc8',
     accentSecond: '#a6ffcb',
@@ -39,7 +42,8 @@ export const MY_THEMES: Array<MyTheme> = [
     textColor: '#000'
   },
   {
-    name: 'dark-theme', label: 'Dark',
+    name: 'dark-theme',
+    label: 'dark',
     primary: '#263238',
     accent: '#455a64',
     accentSecond: '#546e7a',
@@ -55,7 +59,9 @@ export class AppSettingsService {
   private _currentTheme: MyTheme = MY_THEMES[0];
   private _currentSettings: AppSettings;
 
-  constructor() {
+  private _currentLang: string = 'en';
+
+  constructor(@Inject(TRANSLATIONS) private _translations: any) {
     this.assignSettings();
   }
 
@@ -73,15 +79,28 @@ export class AppSettingsService {
     this.applyTheme();
   }
 
+  get currentLang(): string {
+    return this._currentLang;
+  }
+
+  set currentLang(lang: string) {
+    this._currentLang = lang;
+    this._currentSettings = {
+      language: this._currentLang,
+      theme: this._currentSettings.theme
+    };
+    this.saveSettingsToLocalStorage();
+  }
 
   private assignSettings() {
     this._currentSettings = LocalStorageService.getObject(this.APP_SETTINGS_KEY);
     if (this._currentSettings) {
       this.currentTheme = MY_THEMES[MY_THEMES.findIndex(x => x.name === this._currentSettings.theme)];
+      this.currentLang = this._currentSettings.language;
     }
     if (!this._currentSettings) {
       this._currentSettings = {
-        language: 'ENG',
+        language: this.currentLang,
         theme: this.currentTheme.name
       };
     }
@@ -101,6 +120,14 @@ export class AppSettingsService {
       classList.remove(...toRemove);
     }
     classList.add(this._currentSettings.theme);
+  }
+
+  public translateText(key: any): any {
+    if (this._translations[this.currentLang] && this._translations[this.currentLang][key]) {
+      return this._translations[this.currentLang][key];
+    }
+
+    return key;
   }
 }
 

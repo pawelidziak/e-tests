@@ -4,7 +4,6 @@ import {TestModel} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
-import {PagerService} from '../../core/services/pager.service';
 import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from "../../core/services/app-settings.service";
 import {ALL_ROUTES} from "../../shared/ROUTES";
@@ -23,7 +22,6 @@ export class TestSearchComponent implements OnInit, OnDestroy {
 
   constructor(private headerService: HeaderService,
               private router: Router,
-              private pagerService: PagerService,
               private testService: TestService,
               private loader: LoaderService,
               private auth: AuthService,
@@ -34,7 +32,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoggedIn();
     this.headerService.setCurrentRoute([
-      {label: 'Search', path: ALL_ROUTES.SEARCH}
+      {label: 'search-title', path: ALL_ROUTES.SEARCH}
     ]);
   }
 

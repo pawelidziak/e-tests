@@ -8,17 +8,29 @@
         <!-- LEFT -->
         <div class="d-flex-align-center">
           <div class="icon-with-text">
-            <mat-icon aria-label="Rate" matTooltip="Rate" class="test-icon">star</mat-icon>
+            <mat-icon aria-label="Rate"
+                      [matTooltip]="'test-info-rate' | translate"
+                      class="test-icon">
+              star
+            </mat-icon>
             <span>5.1</span>
           </div>
 
           <div class="icon-with-text" style="margin: 0 12px;">
-            <mat-icon aria-label="Date" matTooltip="Date" class="test-icon">date_range</mat-icon>
+            <mat-icon aria-label="Date"
+                      [matTooltip]="'test-info-created' | translate"
+                      class="test-icon">
+              date_range
+            </mat-icon>
             <span>{{test.createDate | date: 'dd.MM.yyyy'}}</span>
           </div>
 
           <div class="icon-with-text">
-            <mat-icon aria-label="Author" matTooltip="Author" class="test-icon">account_circle</mat-icon>
+            <mat-icon aria-label="Author"
+                      [matTooltip]="'test-info-author' | translate"
+                      class="test-icon">
+              account_circle
+            </mat-icon>
             <span>Author</span>
           </div>
         </div>
@@ -27,15 +39,18 @@
         <!-- EDIT /SHARE / MORE BUTTONS -->
         <div *ngIf="!editTestMode" class="no-edit-buttons">
           <button mat-icon-button
-                  matTooltip="Edit"
+                  [matTooltip]="'test-info-edit' | translate"
                   *ngIf="auth.currentUserId === test.authorId"
                   (click)="startEditMode()">
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Share">
+          <button mat-icon-button
+                  [matTooltip]="'test-info-share' | translate">
             <mat-icon aria-label="Share icon">share</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="More" (click)="openMoreBottomSheet()">
+          <button mat-icon-button
+                  [matTooltip]="'test-info-more' | translate"
+                  (click)="openMoreBottomSheet()">
             <mat-icon aria-label="More icon">more_horiz</mat-icon>
           </button>
         </div>
@@ -44,14 +59,14 @@
         <div *ngIf="auth.currentUserId === test.authorId && editTestMode">
           <button mat-icon-button
                   color="accent"
-                  matTooltip="Save"
+                  [matTooltip]="'test-info-save' | translate"
                   [disabled]="testIncorrect()"
                   (click)="stopEditMode(true)">
             <mat-icon aria-label="Save icon">save</mat-icon>
           </button>
           <button mat-icon-button
                   color="warn"
-                  matTooltip="Cancel"
+                  [matTooltip]="'test-info-cancel' | translate"
                   (click)="stopEditMode(false)">
             <mat-icon aria-label="Cancel">close</mat-icon>
           </button>
@@ -70,7 +85,11 @@
             </h3>
 
             <div class="d-flex-align-center sub-paragraph-font">
-              <mat-icon aria-label="Tags" matTooltip="Tags" class="test-icon">local_offer</mat-icon>
+              <mat-icon aria-label="Tags"
+                        [matTooltip]="'test-info-tags' | translate"
+                        class="test-icon">
+                local_offer
+              </mat-icon>
               <div class="tag-list">
               <span *ngFor="let tag of test.tags let i=index;">
                 <span>{{tag}}</span>
@@ -94,7 +113,7 @@
                     [disabled]="exercises.length === 0"
                     color="accent">
               <mat-icon aria-label="Learn">play_arrow</mat-icon>
-              <span>Learn</span>
+              <span>{{ 'test-info-learn' | translate}}</span>
             </button>
             <button mat-raised-button
                     #examButton
@@ -105,7 +124,7 @@
                     [disabled]="exercises.length === 0"
                     color="accent">
               <mat-icon aria-label="Exam">event_note</mat-icon>
-              <span>Exam</span>
+              <span>{{ 'test-info-exam' | translate}}</span>
             </button>
           </div><!-- /BUTTONS -->
         </div> <!-- /ROW -->
@@ -137,7 +156,7 @@
     <mat-tab-group color="accent" mat-stretch-tabs [dynamicHeight]="true" class="tabs-card">
 
       <!-- EXERCISES -->
-      <mat-tab label="Exercises">
+      <mat-tab [label]="'test-info-exercises' | translate">
         <app-display-exercises *ngIf="exercises"
                                [origExerciseList]="exercises"
                                [testId]="testId"
@@ -146,19 +165,19 @@
       </mat-tab>
 
       <!-- COMMENTS -->
-      <mat-tab label="Opinions">
+      <mat-tab [label]="'test-info-opinions' | translate">
         <ng-template matTabContent>
           <div style="padding: 24px; text-align: center;">
-            <p class="my-title">Not available yet</p>
+            <p class="my-title">{{ 'not-available' | translate}}</p>
           </div>
         </ng-template>
       </mat-tab>
 
       <!-- NOTES -->
-      <mat-tab label="Notes">
+      <mat-tab [label]="'test-info-notes' | translate">
         <ng-template matTabContent>
           <div style="padding: 24px; text-align: center;">
-            <p class="my-title">Not available yet</p>
+            <p class="my-title">{{ 'not-available' | translate}}</p>
           </div>
         </ng-template>
       </mat-tab>

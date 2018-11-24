@@ -5,25 +5,21 @@
     <div class="col-12 col-md-6"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
-        <h3 class="my-title">About</h3>
+        <h3 class="my-title">{{ 'about-header' | translate}}</h3>
+        <p class="my-sub-title" [innerHTML]="'about-paragraph' | translate"></p>
         <p class="my-sub-title">
-          <strong>E-testo</strong> is an application that enables learning by solving tests. You can create tests, or
-          choose one of the existing ones. Learning progress is saved, so you can continue learning wherever you are, on
-          any device.
-        </p>
-        <p class="my-sub-title">
-          Contact:
-          <a [style.color]="appSettings.currentTheme.textColor"
-             href="mailto:contact@e-testo.com">
+          {{ 'about-contact' | translate}}
+          <a href="mailto:contact@e-testo.com"  [style.color]="appSettings.currentTheme.textColor">
             <strong>contact@e-testo.com</strong>
           </a>
         </p>
+
       </div>
     </div>
 
     <div class="col-12 col-md-6">
       <mat-card class="about-card">
-        <h4 class="my-sub-title" style="text-align: center;">Technologies & libraries</h4>
+        <h4 class="my-sub-title" style="text-align: center;">{{ 'about-technologies-libraries' | translate}}</h4>
         <div class="one-tech" *ngFor="let oneTech of usedTechs">
           <h5 class="paragraph-font">{{oneTech.label}}</h5>
           <button mat-icon-button color="accent" (click)="navigateTolink(oneTech.link)">

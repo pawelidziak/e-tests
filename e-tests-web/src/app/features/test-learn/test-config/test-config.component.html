@@ -9,13 +9,13 @@
     <button mat-icon-button (click)="backToTest()" *ngIf="testIsNewOrInProgress">
       <mat-icon aria-label="Back">arrow_back</mat-icon>
     </button>
-    <h3>Configuration</h3>
+    <h3>{{ 'test-learn-config-header' | translate}}</h3>
   </div>
 
   <div class="config-row">
 
     <div class="config-row-title">
-      <h5 class="paragraph-font">Occurrences ({{occurrencesExerciseNumber}})</h5>
+      <h5 class="paragraph-font">{{ 'test-learn-config-occurrences' | translate}} ({{occurrencesExerciseNumber}})</h5>
       <mat-slider
         [min]="1"
         [max]="10"
@@ -25,12 +25,12 @@
       </mat-slider>
     </div>
 
-    <p class="sub-paragraph-font">Occurrences number of a single exercise.</p>
+    <p class="sub-paragraph-font">{{ 'test-learn-config-occurrences-text' | translate}}</p>
   </div>
 
   <div class="config-row">
     <div class="config-row-title">
-      <h5 class="paragraph-font">Repetitions ({{repetitionExerciseNumber}})</h5>
+      <h5 class="paragraph-font">{{ 'test-learn-config-repetitions' | translate}} ({{repetitionExerciseNumber}})</h5>
       <mat-slider
         [min]="0"
         [max]="10"
@@ -39,19 +39,19 @@
         [(ngModel)]="repetitionExerciseNumber">
       </mat-slider>
     </div>
-    <p class="sub-paragraph-font">Repetition of the exercise in the case of an incorrect answer.</p>
+    <p class="sub-paragraph-font">{{ 'test-learn-config-repetitions-text' | translate}}</p>
   </div>
 
   <div class="config-row" *ngIf="!isSmallScreen" style="margin: 48px 0 60px 0;">
-    <h5 class="paragraph-font">Keyboard shortcuts</h5>
+    <h5 class="paragraph-font">{{ 'test-learn-config-keyboard-shortcuts' | translate}}</h5>
 
     <div class="keyboard-shortcut">
       <span class="shortcut">
         <code>enter</code>
-        or
-        <code>space</code>
+        {{ 'or' | translate}}
+        <code>{{ 'space' | translate}}</code>
       </span>
-      <span class="sub-paragraph-font">check/next</span>
+      <span class="sub-paragraph-font">{{ 'test-learn-config-keyboard-shortcuts-check-next' | translate}}</span>
     </div>
 
     <div class="keyboard-shortcut">
@@ -70,7 +70,7 @@
   <div class="config-row" *ngIf="!testIsEnd">
 
     <div class="config-row-title">
-      <h5 class="paragraph-font">Save</h5>
+      <h5 class="paragraph-font">{{ 'test-learn-config-save' | translate}}</h5>
       <button mat-icon-button
               cdkFocusInitial
               color="accent"
@@ -79,8 +79,9 @@
       </button>
     </div>
 
-    <p class="sub-paragraph-font padding-top-12" *ngIf="!testIsNewOrInProgress">
-      New exercises will be loaded with new configuration. <strong>Progress will be saved</strong>.
+    <p class="sub-paragraph-font padding-top-12"
+       *ngIf="!testIsNewOrInProgress"
+       [innerHTML]="'test-learn-config-save-text' | translate">
     </p>
   </div>
 
@@ -88,8 +89,8 @@
   <div class="config-row" *ngIf="!testIsNewOrInProgress">
 
     <div class="config-row-title">
-      <h5 class="paragraph-font" *ngIf="!confirmRestart">Restart</h5>
-      <h5 class="paragraph-font" *ngIf="confirmRestart">Confirm restart</h5>
+      <h5 class="paragraph-font" *ngIf="!confirmRestart">{{ 'test-learn-config-restart' | translate}}</h5>
+      <h5 class="paragraph-font" *ngIf="confirmRestart">{{ 'test-learn-config-confirm-restart' | translate}}</h5>
       <button mat-icon-button
               *ngIf="!confirmRestart"
               [color]="testIsNewOrInProgress ? 'accent' : 'warn'"
@@ -111,8 +112,8 @@
       </div>
     </div>
 
-    <p class="sub-paragraph-font padding-top-12">
-      All exercises will be loaded with new configuration. <strong>Progress will NOT be saved</strong>.
+    <p class="sub-paragraph-font padding-top-12"
+      [innerHTML]="'test-learn-config-restart-text' | translate">
     </p>
   </div>
 

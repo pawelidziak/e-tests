@@ -9,9 +9,9 @@
                     color="accent"
                     class="width-100"
                     floatLabel="never">
-      <mat-label>Search exercise</mat-label>
+      <mat-label>{{ 'display-exer-label' | translate}}</mat-label>
       <input matInput [(ngModel)]="searchText"
-             placeholder="Search exercise">
+             [placeholder]="'display-exer-placeholder' | translate">
       <button mat-button matSuffix
               mat-icon-button
               aria-label="Close"
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <button mat-icon-button
-            [matTooltip]="'Search'"
+            [matTooltip]="'display-exer-search' | translate"
             *ngIf="!searchInputFocused"
             [disabled]="copyExerciseList.length === 0"
             (click)="searchInputFocused = true">
@@ -30,7 +30,7 @@
 
     <button mat-mini-fab
             style="margin-left: 6px;"
-            [matTooltip]="'Add exercise'"
+            [matTooltip]="'display-exer-exercise' | translate"
             *ngIf="auth.currentUserId === authorId"
             (click)="addExercise()">
       <mat-icon aria-label="Add">add</mat-icon>
@@ -54,8 +54,8 @@
   <div *ngIf="copyExerciseList.length > 0 && (copyExerciseList | searchExercise: searchText).length === 0"
        class="no-matches">
     <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
-    <p><span class="text">No matches</span> for <strong>{{searchText}}</strong></p>
-    <button mat-stroked-button color="accent" (click)="searchText = ''">clear input</button>
+    <p class="text">{{ 'no-results' | translate}}</p>
+    <button mat-stroked-button color="accent" (click)="searchText = ''">{{ 'clear-input' | translate}}</button>
   </div>
 
   <div class="exercise-actions">
@@ -64,7 +64,7 @@
             color="accent"
             id="newExerciseButton"
             (click)="addExercise()">
-      <span>Add new exercise</span>
+      <span>{{ 'display-exer-exercise' | translate}}</span>
     </button>
   </div>
 </section>

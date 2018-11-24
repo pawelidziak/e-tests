@@ -11,13 +11,11 @@ import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {HeaderService} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {LoaderService} from '../../core/services/loader.service';
-import {slideFromTop} from '../../shared/animations';
 
 @Component({
   selector: 'app-test-info',
   templateUrl: './test-info.component.html',
-  styleUrls: ['./test-info.component.scss'],
-  animations: [slideFromTop()]
+  styleUrls: ['./test-info.component.scss']
 })
 export class TestInfoComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
@@ -62,7 +60,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
           this.test = res;
           this.test.id = this.testId;
           this.headerService.setCurrentRoute([
-            {label: 'Tests', path: ALL_ROUTES.USER_TESTS_LIST},
+            {label: 'tests-title', path: ALL_ROUTES.USER_TESTS_LIST},
             {label: this.test.name, path: ``},
           ]);
           this.getExercises();

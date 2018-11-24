@@ -3,27 +3,26 @@
   <!-- EXERCISE HEADER -->
   <div class="exercise-header " [ngClass]="{'header-edit': editMode}">
 
-
     <!-- HEADER BUTTONS -->
     <div *ngIf="isAuthor && !importMode" style="float: right;">
       <div *ngIf="!editMode" class="edit-buttons">
         <button mat-icon-button
                 class="delete-button"
                 (click)="deleteExercise()"
-                matTooltip="Delete">
+                [matTooltip]="'display-one-exer-delete' | translate">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
         <button mat-icon-button
                 class="normal-button"
                 (click)="startEditExercise()"
-                matTooltip="Edit">
+                [matTooltip]="'display-one-exer-edit' | translate">
           <mat-icon aria-label="Edit">edit_mode</mat-icon>
         </button>
       </div>
       <div *ngIf="editMode" class="edit-buttons">
 
         <button mat-icon-button
-                matTooltip="Save"
+                [matTooltip]="'display-one-exer-save' | translate"
                 style="margin-left: 6px;"
                 (click)="saveExercise()"
                 class="normal-button"
@@ -33,13 +32,13 @@
         <button mat-icon-button
                 class="normal-button"
                 id="addImageButton"
-                matTooltip="Not available yet">
+                [matTooltip]="'not-available' | translate">
           <mat-icon aria-label="Add image">add_photo_alternate</mat-icon>
         </button>
         <button mat-icon-button
                 class="delete-button"
                 (click)="stopEditExercise()"
-                matTooltip="Cancel">
+                [matTooltip]="'display-one-exer-cancel' | translate">
           <mat-icon aria-label="Cancel">close</mat-icon>
         </button>
 
@@ -64,7 +63,7 @@
                myAutofocus
                [shouldBeFocused]="!importMode"
                type="text"
-               placeholder="Question"
+               [placeholder]="'display-one-exer-question-placeholder' | translate"
                [(ngModel)]="exercise.question">
       </mat-form-field>
     </div>
@@ -88,7 +87,7 @@
       <!-- EDITABLE ANSWER -->
       <div *ngIf="editMode" class="editable-answer">
         <mat-checkbox #matCheck
-                      matTooltip="Correct"
+                      [matTooltip]="'display-one-exer-correct-answer' | translate"
                       [checked]="checkIfIsCorrect(j)"
                       (change)="changeCorrectAnswer(j, matCheck.checked)"
                       class="answer-checkbox"></mat-checkbox>
@@ -96,9 +95,9 @@
         <mat-form-field color="accent"
                         class="answer-text width-100"
                         appearance="outline">
-          <mat-label>{{'Answer ' + getLetterFromAscii(j)}}</mat-label>
+          <mat-label>{{('display-one-exer-answer-label' | translate) + getLetterFromAscii(j)}}</mat-label>
           <input matInput
-                 placeholder="Type the answer..."
+                 [placeholder]="'display-one-exer-answer-placeholder' | translate"
                  [(ngModel)]="exercise.answers[j]">
         </mat-form-field>
 
@@ -106,6 +105,7 @@
                 style="outline: none;"
                 id="deleteAnswerButton"
                 class="delete-button"
+                [matTooltip]="'display-one-exer-delete' | translate"
                 (click)="deleteOneAnswer(j)"
                 *ngIf="j > 1">
           <mat-icon aria-label="Delete answer">delete_outline</mat-icon>
@@ -117,7 +117,7 @@
     <div *ngIf="editMode && exercise.answers.length < 9" class="col-12 add-answer">
       <button mat-button color="accent" style="opacity: 1;" (click)="exercise.answers.push('');">
         <mat-icon aria-label="Add answer">add</mat-icon>
-        <span>Add answer</span>
+        <span>{{ 'display-one-exer-add-answer' |translate}}</span>
       </button>
     </div>
 

@@ -5,11 +5,8 @@
     <div class="col-12 col-md-6"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
-        <h3 class="my-title">Let's create a new test!</h3>
-        <p class="my-sub-title">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.</p>
+        <h3 class="my-title" [innerHTML]="'create-header' | translate"></h3>
+        <p class="my-sub-title">{{ 'create-paragraph' | translate }}</p>
       </div>
     </div>
 
@@ -39,12 +36,12 @@
             </app-test-create-date>
 
             <app-test-visibility [(testVisibility)]="newTest.isPublic"
-                                 [tooltip]="'Private option is unavailable at this moment'"
+                                 [tooltip]="'test-visibility-tooltip' | translate"
                                  [disabled]="true">
             </app-test-visibility>
           </div>
 
-          <button mat-button color="accent" type="submit" style="border-radius: 0 0 20px 0;">save</button>
+          <button mat-button color="accent" type="submit" style="border-radius: 0 0 20px 0;">{{ 'create-save' | translate}}</button>
         </form>
       </mat-card>
 

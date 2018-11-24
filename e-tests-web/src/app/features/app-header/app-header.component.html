@@ -23,7 +23,7 @@
             [routerLinkActive]="['active-link']">
           <a mat-button>
             <mat-icon>{{link.icon}}</mat-icon>
-            <span style="padding-left: 12px;">{{link.label}}</span>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
           </a>
         </li>
 
@@ -38,7 +38,7 @@
             [routerLinkActive]="['active-link']">
           <a mat-button>
             <mat-icon>{{link.icon}}</mat-icon>
-            <span style="padding-left: 12px;">{{link.label}}</span>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
           </a>
         </li>
 
@@ -107,7 +107,7 @@
              [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
              [routerLinkActive]="['active-link']">
             <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
-            <span style="padding-left: 12px;">Study sets</span>
+            <span style="padding-left: 12px;">{{ 'app-header-study-sets' | translate}}</span>
           </a>
         </li>
 
@@ -119,7 +119,7 @@
              [routerLink]="link.path"
              [routerLinkActive]="['active-link']">
             <mat-icon>{{link.icon}}</mat-icon>
-            <span style="padding-left: 12px;">{{link.label}}</span>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
           </a>
         </li>
 
@@ -139,14 +139,14 @@
     <ng-template matMenuContent>
       <button mat-menu-item [routerLink]="ALL_ROUTES.USER_PROFILE">
         <mat-icon aria-label="Profile">person</mat-icon>
-        <span>Profile</span>
+        <span>{{ 'app-header-profile' | translate}}</span>
       </button>
 
       <mat-divider></mat-divider>
 
       <button mat-menu-item (click)="logout()">
         <mat-icon aria-label="Logout">power_settings_new</mat-icon>
-        <span>Logout</span>
+        <span>{{ 'app-header-logout' | translate}}</span>
       </button>
     </ng-template>
   </mat-menu>
@@ -156,7 +156,7 @@
     <ng-template matMenuContent>
       <button mat-menu-item *ngFor="let link of otherLinks" [routerLink]="link.path">
         <mat-icon>{{link.icon}}</mat-icon>
-        <span>{{link.label}}</span>
+        <span>{{link.label | translate}}</span>
       </button>
     </ng-template>
   </mat-menu>

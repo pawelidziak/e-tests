@@ -9,7 +9,8 @@ import {HeaderService} from '../../core/services/header.service';
 })
 export class AppSettingsComponent implements OnInit {
   public themes = MY_THEMES;
-  public languages = ['ENG', 'PL', 'GER'];
+  public languages = ['en', 'pl'];
+  public translatedText: string;
 
   constructor(public appSettings: AppSettingsService,
               private headerService: HeaderService,
@@ -18,11 +19,20 @@ export class AppSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.setCurrentRoute([
-      {label: 'Settings', path: ''}
+      {label: 'settings-title', path: ''}
     ]);
   }
 
   public changeTheme(theme: MyTheme): void {
     this.appSettings.currentTheme = theme;
+  }
+
+  public changeLanguage(lang: string): void {
+    this.appSettings.currentLang = lang;
+    this.refreshText();
+  }
+
+  refreshText() {
+    this.translatedText = this.appSettings.translateText('hello world');
   }
 }

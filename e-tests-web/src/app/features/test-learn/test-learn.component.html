@@ -15,9 +15,9 @@
 
       <!-- Remained -->
       <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
-           [matTooltip]="isMediumScreen ? 'Remained' : ''">
+           [matTooltip]="isMediumScreen ? ('test-learn-remained' | translate) : ''">
         <mat-icon aria-label="Remained" class="info-icon">subject</mat-icon>
-        <span *ngIf="!isMediumScreen">Remained: </span>
+        <span *ngIf="!isMediumScreen">{{'test-learn-remained' | translate}} : </span>
         <span [style.color]="appSettings.currentTheme.accent"
               [ngClass]="{'info-value': !isMediumScreen}">
                   {{origTestExercises.length - test.settings?.progress?.masteredExercisesIds.length}}
@@ -26,9 +26,9 @@
 
       <!-- Mastered -->
       <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
-           [matTooltip]="isMediumScreen ? 'Mastered' : ''">
+           [matTooltip]="isMediumScreen ? ('test-learn-mastered' | translate) : ''">
         <mat-icon aria-label="Done" class="info-icon">done_all</mat-icon>
-        <span *ngIf="!isMediumScreen">Mastered: </span>
+        <span *ngIf="!isMediumScreen">{{'test-learn-mastered' | translate}} : </span>
         <span [style.color]="appSettings.currentTheme.accent"
               [ngClass]="{'info-value': !isMediumScreen}">
                    {{test.settings.progress?.masteredExercisesIds.length}}
@@ -37,9 +37,9 @@
 
       <!-- Occurrences-->
       <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
-           [matTooltip]="isMediumScreen ? 'Occurrences' : ''">
+           [matTooltip]="isMediumScreen ? ('test-learn-occurrences' | translate) : ''">
         <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
-        <span *ngIf="!isMediumScreen">Occurrences: </span>
+        <span *ngIf="!isMediumScreen">{{'test-learn-occurrences' | translate}}: </span>
         <span [style.color]="appSettings.currentTheme.accent"
               [ngClass]="{'info-value': !isMediumScreen}">
                   {{currentExercise?.occurrences || 0}}
@@ -76,7 +76,7 @@
       <div *ngIf="isTestEnd">
         <div class="test-end-header">
           <mat-icon id="done" aria-label="Done icon">done</mat-icon>
-          <h5 class="paragraph-font">Congratulations, you've mastered all the exercises!</h5>
+          <h5 class="paragraph-font">{{ 'test-learn-end' | translate}}</h5>
         </div>
 
         <div class="my-divider"></div>
@@ -85,15 +85,13 @@
         <div class="test-end-action">
           <div style="width: 270px;">
             <div class="end-actions">
-              <h5 class="paragraph-font">Exam</h5>
+              <h5 class="paragraph-font">{{ 'test-learn-exam' | translate}}</h5>
               <button mat-icon-button
                       color="accent">
                 <mat-icon aria-label="Restart">assignment</mat-icon>
               </button>
             </div>
-            <p class="sub-paragraph-font">
-              Check Your knowledge and try solve the exam.
-            </p>
+            <p class="sub-paragraph-font">{{ 'test-learn-exam-text' | translate}}</p>
           </div>
         </div>
 
@@ -101,16 +99,14 @@
         <div class="test-end-action">
           <div style="width: 270px;">
             <div class="end-actions">
-              <h5 class="paragraph-font">Restart</h5>
+              <h5 class="paragraph-font">{{ 'test-learn-restart' | translate}}</h5>
               <button mat-icon-button
                       (click)="openDialog(false)"
                       color="warn">
                 <mat-icon aria-label="Restart">restore_page</mat-icon>
               </button>
             </div>
-            <p class="sub-paragraph-font">
-              Start again and consolidate your knowledge!
-            </p>
+            <p class="sub-paragraph-font">{{ 'test-learn-restart-text' | translate}}</p>
           </div>
         </div>
 
@@ -118,14 +114,12 @@
         <div class="test-end-action">
           <div style="width: 270px;">
             <div class="end-actions">
-              <h5 class="paragraph-font">Return</h5>
+              <h5 class="paragraph-font">{{ 'test-learn-return' | translate}}</h5>
               <button mat-icon-button (click)="backToTest()">
                 <mat-icon aria-label="Return">arrow_back</mat-icon>
               </button>
             </div>
-            <p class="sub-paragraph-font">
-              Return to the test.
-            </p>
+            <p class="sub-paragraph-font">{{ 'test-learn-return-text' | translate}}</p>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 <section class="section-padding" [style.color]="appSettings.currentTheme.textColor">
 
   <div class="search-header">
-    <h3 class="my-title">Search any study sets <strong>You</strong> want!</h3>
+    <h3 class="my-title" [innerHTML]="'study-sets-header' | translate"></h3>
     <div style="display: flex;">
       <button mat-icon-button (click)="isTable = false">
         <mat-icon aria-label="Table">view_module</mat-icon>
@@ -12,11 +12,7 @@
     </div>
   </div>
 
-  <p class="my-sub-title" style="margin-bottom: 48px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat.
-  </p>
+  <p class="my-sub-title" style="margin-bottom: 48px;">{{ 'search-paragraph' | translate}}</p>
 
   <app-test-boxes *ngIf="!isTable" [testList]="testList"></app-test-boxes>
   <app-tests-table *ngIf="isTable" [testList]="testList"></app-tests-table>

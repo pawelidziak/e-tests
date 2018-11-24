@@ -34,7 +34,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.headerService.setCurrentRoute([
-      {label: 'Study sets', path: ''}
+      {label: 'study-sets-title', path: ''}
     ]);
     this.isLoggedIn();
   }

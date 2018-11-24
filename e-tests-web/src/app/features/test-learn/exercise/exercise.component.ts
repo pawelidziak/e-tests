@@ -20,16 +20,16 @@ export enum KEY_CODE {
 })
 export class ExerciseComponent implements OnInit, OnChanges {
   private RANDOM_CORRECT_FEEDBACK = [
-    'nice!',
-    'keep it up!',
-    'good!',
-    'you are getting better!'
+    'nice',
+    'keep-it-up',
+    'good',
+    'you-are-getting-better'
   ];
   private RANDOM_INCORRECT_FEEDBACK = [
-    'wrong...',
-    'try harder...',
-    'repeat this...',
-    'learn it...'
+    'wrong',
+    'keep-trying',
+    'repeat-this',
+    'learn-it'
   ];
   @Input() exerciseWithOccurrences: ExerciseWithOccurrences;
   @Input() repetitionExerciseNumber: number;

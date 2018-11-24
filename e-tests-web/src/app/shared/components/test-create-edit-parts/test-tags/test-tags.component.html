@@ -2,7 +2,7 @@
                 [color]="color"
                 [ngClass]="{'width-100': width100}"
                 [style.margin]="margins">
-  <mat-label>Tags</mat-label>
+  <mat-label>{{ 'test-tags-label' | translate}}</mat-label>
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let tag of testTags"
               class="one-tag"
@@ -12,7 +12,7 @@
       {{tag}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="New tag..."
+    <input [placeholder]="'test-tags-placeholder' | translate"
            #chipInput
            [matChipInputFor]="chipList"
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -20,6 +20,6 @@
            (matChipInputTokenEnd)="addTag(chipInput)"
            (focusout)="addTag(chipInput)"/>
   </mat-chip-list>
-  <mat-hint>Separate by <strong>ENTER</strong> or <strong>COMMA</strong></mat-hint>
-  <mat-error *ngIf="chipList.errorState">Choose at least <strong>1</strong> tag</mat-error>
+  <mat-hint [innerHTML]="'test-tags-hint' | translate"></mat-hint>
+  <mat-error *ngIf="chipList.errorState" [innerHTML]="'test-tags-error' | translate"></mat-error>
 </mat-form-field>

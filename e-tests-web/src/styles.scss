@@ -232,7 +232,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: $margin 0;
   .text {
     color: $material-red;
-    margin: 2*$margin 0;
   }
   button {
     @include upper-text();
