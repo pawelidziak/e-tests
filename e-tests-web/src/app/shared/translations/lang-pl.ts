@@ -201,5 +201,11 @@ export const LANG_PL_TRANS = {
   'about-header': 'O aplikacji',
   'about-paragraph': '<strong>E-testo</strong> to aplikacja, umożliwiająca uczenie się poprzez rozwiązywanie testów. Możesz utworzyć testy lub rozwiązywać istniejące. Postęp nauki jest zapisywany, dzięki czemu możesz kontynuować naukę w dowolnym miejscu na dowolnym urządzeniu.',
   'about-contact': 'Kontakt:',
-  'about-technologies-libraries': 'Technologie & biblioteki'
+  'about-technologies-libraries': 'Technologie & biblioteki',
+
+  // USER PROFILE
+  'user-profile-title': 'Profil',
+  'user-profile-header': 'Zmień swoje dane',
+  'user-profile-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+
 };

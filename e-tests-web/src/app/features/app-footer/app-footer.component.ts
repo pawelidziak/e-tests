@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ALL_ROUTES} from "../../shared/ROUTES";
-import {AuthService} from "../../core/services/auth.service";
-import {Subscription} from "rxjs";
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {HeaderService, HeaderValues} from "../../core/services/header.service";
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {AuthService} from '../../core/services/auth.service';
+import {Subscription} from 'rxjs';
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService, HeaderValues} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-footer',
@@ -19,8 +19,7 @@ export class AppFooterComponent implements OnInit, OnDestroy {
     {label: 'app-header-create', path: ALL_ROUTES.CREATE_TEST},
   ];
   public accountLinks = [
-    {label: 'app-header-study-sets', path: ALL_ROUTES.USER_TESTS_LIST},
-    {label: 'app-header-profile', path: ALL_ROUTES.USER_PROFILE}
+    {label: 'app-header-study-sets', path: ALL_ROUTES.USER_TESTS_LIST}
   ];
   public supportLinks = [
     {label: 'app-header-about', path: ALL_ROUTES.ABOUT},
@@ -56,7 +55,12 @@ export class AppFooterComponent implements OnInit, OnDestroy {
 
   private checkUser(): void {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
-      res => this.isUserLoggedIn = !!res,
+      res => {
+        this.isUserLoggedIn = !!res;
+        this.accountLinks.push(
+          {label: 'app-header-profile', path: `${this.auth.currentUserId}/${ALL_ROUTES.USER_PROFILE}`}
+        );
+      },
       error => console.log(error)
     ));
   }

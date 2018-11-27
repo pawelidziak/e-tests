@@ -1,0 +1,21 @@
+@import '../../shared/variables';
+@import '../../shared/mixins';
+
+.profile-card {
+  border-radius: $border-radius;
+}
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.account-image {
+  display: flex;
+  justify-content: center;
+}
+
+.account-icon {
+  @include mat-icon-size(92px);
+  color: $text_secondary;
+}

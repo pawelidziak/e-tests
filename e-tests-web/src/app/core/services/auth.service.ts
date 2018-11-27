@@ -94,9 +94,17 @@ export class AuthService {
   }
 
   // Sends email allowing user to toReset password
-  public resetPassword(email: string) {
+  public resetPassword(email: string): Promise<any> {
     const auth = this.afAuth.auth;
     return auth.sendPasswordResetEmail(email)
+      .catch((error: any) => {
+        throw new Error((error.message));
+      });
+  }
+
+  public updateEmail(email: string): Promise<any> {
+    const auth = this.afAuth.auth;
+    return auth.currentUser.updateEmail(email)
       .catch((error: any) => {
         throw new Error((error.message));
       });

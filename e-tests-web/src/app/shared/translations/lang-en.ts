@@ -201,5 +201,11 @@ export const LANG_EN_TRANS = {
   'about-header': 'About app',
   'about-paragraph': '<strong>E-testo</strong> is an application that enables learning by solving tests. You can create tests, or solve one of the existing ones. Learning progress is saved, so you can continue learning wherever you are, on any device.',
   'about-contact': 'Contact:',
-  'about-technologies-libraries': 'Technologies & libraries'
+  'about-technologies-libraries': 'Technologies & libraries',
+
+  // USER PROFILE
+  'user-profile-title': 'Profile',
+  'user-profile-header': 'Change <strong>Your</strong> personal data',
+  'user-profile-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+
 };

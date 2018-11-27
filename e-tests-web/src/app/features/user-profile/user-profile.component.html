@@ -1,0 +1,45 @@
+<section class="section-padding">
+
+  <div class="row">
+
+    <div class="col-12 col-md-6"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title" [innerHTML]="'user-profile-header' | translate"></h3>
+        <p class="my-sub-title" [innerHTML]="'user-profile-paragraph' | translate"></p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <mat-card class="profile-card">
+        <div class="account-image">
+          <mat-icon class="account-icon"
+                    aria-label="Account icon"
+                    >
+            account_circle
+          </mat-icon>
+
+        </div>
+        <mat-form-field color="accent"
+                        class="width-100"
+                        appearance="outline">
+          <mat-label>Display name</mat-label>
+          <input matInput
+                 [disabled]="!isOwner"
+                 placeholder="Your display name...">
+        </mat-form-field>
+
+        <mat-form-field color="accent"
+                        class="width-100"
+                        appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput
+                 [disabled]="!isOwner"
+                 placeholder="Your email...">
+        </mat-form-field>
+
+      </mat-card>
+
+    </div> <!-- /col-md-auto -->
+  </div> <!-- /row -->
+</section>
