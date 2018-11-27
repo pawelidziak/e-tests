@@ -81,7 +81,7 @@ export class TestService {
       .doc(this.auth.currentUserId)
       .collection('startedTest')
       .doc(testId)
-      .delete()
+      .delete();
   }
 
   public getTestsByCurrentUser(): Observable<TestModel[]> {
