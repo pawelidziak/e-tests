@@ -41,6 +41,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  public googleLogin(): void {
+    this.auth.loginWithGoogle()
+      .then(() => this.authDialog.close())
+      .catch(error => {
+        this.matTabGrp.realignInkBar();
+        this.errorMsg = error;
+        this.scrollTop();
+      });
+  }
+
   public loginWithEmail(): void {
     if (this.loginForm.invalid) {
       return;
