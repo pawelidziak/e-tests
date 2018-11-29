@@ -3,44 +3,51 @@
   <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
   <div class="ok-msg" *ngIf="responseMsg">{{responseMsg}}</div>
 
-  <span class="register-text">create account for free!</span>
+  <h4 class="register-text">{{ 'register-header' | translate}}</h4>
 
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="register-form">
+
+      <!-- DISPLAY NAME-->
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Display Name</mat-label>
-        <input type="text" matInput placeholder="Display Name" [formControl]="displayName">
+        <mat-label>{{ 'register-display-name-label' | translate}}</mat-label>
+        <input type="text"
+               matInput
+               [placeholder]="'register-display-name-placeholder' | translate"
+               [formControl]="displayName">
         <mat-icon matSuffix class="register-icon">account_circle</mat-icon>
-        <mat-error *ngIf="displayName.hasError('required')">Display Name is <strong>required</strong></mat-error>
+        <mat-error *ngIf="displayName.hasError('required')" [innerHTML]="'register-display-name-error-required' | translate"></mat-error>
       </mat-form-field>
 
+      <!-- EMAIL -->
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput placeholder="Email" [formControl]="email">
+        <mat-label>{{ 'login-email-label' | translate}}</mat-label>
+        <input type="email" matInput [placeholder]="'login-email-placeholder' | translate" [formControl]="email">
         <mat-icon matSuffix class="register-icon">mail</mat-icon>
-        <mat-error *ngIf="email.hasError('required')">Email is <strong>required</strong></mat-error>
-        <mat-error *ngIf="email.hasError('email')">Email is <strong>badly formatted</strong></mat-error>
+        <mat-error *ngIf="email.hasError('required')" [innerHTML]="'login-email-error-required' | translate"></mat-error>
+        <mat-error *ngIf="email.hasError('email')" [innerHTML]="'login-email-error-format' | translate"></mat-error>
       </mat-form-field>
 
+      <!-- PASSWORD -->
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'login-password-label' | translate}}</mat-label>
         <input matInput
                [type]="hidePassword ? 'password' : 'text'"
-               placeholder="Password"
+               [placeholder]="'login-password-placeholder' | translate"
                [formControl]="password">
         <mat-icon matSuffix
                   class="register-icon"
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
-        <mat-error *ngIf="password.hasError('required')">Password is <strong>required</strong></mat-error>
+        <mat-error *ngIf="password.hasError('required')" [innerHTML]="'login-password-error-required' | translate"></mat-error>
       </mat-form-field>
 
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Confirm Password</mat-label>
+        <mat-label>{{ 'register-confirm-password-label' | translate}}</mat-label>
         <input matInput
                [type]="hidePassword ? 'password' : 'text'"
-               placeholder="Password"
+               [placeholder]="'register-confirm-password-placeholder' | translate"
                [formControl]="confirmPassword"
                appCompare="password">
         <mat-icon matSuffix
@@ -48,9 +55,8 @@
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
-        <mat-error *ngIf="confirmPassword.hasError('required')">Confirm password is <strong>required</strong>
-        </mat-error>
-        <mat-error *ngIf="confirmPassword.hasError('compare')">Password does not match</mat-error>
+        <mat-error *ngIf="confirmPassword.hasError('required')" [innerHTML]="'login-password-error-required' | translate"></mat-error>
+        <mat-error *ngIf="confirmPassword.hasError('compare')">{{ 'register-confirm-password-error-compare' | translate}}</mat-error>
       </mat-form-field>
     </div>
 
@@ -58,7 +64,7 @@
             id="registerButton"
             color="accent"
             type="submit">
-      Register
+      {{ 'register-button' | translate }}
     </button>
 
   </form>

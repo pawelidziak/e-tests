@@ -10,6 +10,33 @@ export const LANG_PL_TRANS = {
   'change-success': 'Zmiany zostały zapisane.',
   'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
 
+  // AUTH
+  'auth-login': 'Logowanie',
+  'auth-register': 'Rejestracja',
+
+  // LOGIN / FORGOT PASSWORD
+  'login-google': 'Logowanie Google',
+  'login-email-label': 'Email',
+  'login-email-placeholder': 'Email',
+  'login-email-error-required': 'Email jest <strong>wymagany</strong>',
+  'login-email-error-format': 'Email jest <strong>źle sformatowany</strong>',
+  'login-password-label': 'Hasło',
+  'login-password-placeholder': 'Hasło',
+  'login-password-error-required': 'Hasło jest <strong>wymagane</strong>',
+  'login-remember-me': 'Zapamiętaj mnie',
+  'login-button': 'Zaloguj',
+  'login-forgot-passwd': 'Zapomniałeś hasła?',
+  'login-button-send': 'Wyślij',
+  'login-button-cancel': 'Anuluj',
+  'register-header': 'Stwórz konto za darmo!',
+  'register-display-name-label': 'Wyświetlana nazwa',
+  'register-display-name-placeholder': 'Wyświetlana nazwa',
+  'register-display-name-error-required': 'Nazwa jest <strong>wymagana</strong>',
+  'register-confirm-password-label': 'Potwierdź hasło',
+  'register-confirm-password-placeholder': 'Potwierdź hasło',
+  'register-confirm-password-error-compare': 'Hasło nie jest takie same',
+  'register-button': 'Stwórz konto',
+
   // APP HEADER
   'app-header-home': 'Główna',
   'app-header-study-sets': 'Zestawy',

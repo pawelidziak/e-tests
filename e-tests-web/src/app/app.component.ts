@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './core/services/auth.service';
 import {RWDService} from './core/services/RWD.service';
 import {listAnimation, routeAnimations} from './shared/animations';
@@ -67,5 +67,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isSmallScreen.subscribe(res => this.isSmallScreen = res)
     );
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    if (this.appSettings.logoutAfterRefresh) {
+      this.auth.signOut();
+      console.log('logout');
+    }
   }
 }
