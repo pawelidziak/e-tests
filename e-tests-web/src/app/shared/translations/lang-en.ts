@@ -10,6 +10,35 @@ export const LANG_EN_TRANS = {
   'change-success': 'The changes were saved successfully',
   'instructions-send-to-email': 'Instructions have been sent to the email.',
 
+  // AUTH
+  'auth-login': 'Login',
+  'auth-register': 'Register',
+
+  // LOGIN / FORGOT PASSWORD / REGISTER
+  'login-google': 'Google login',
+  'login-email-label': 'Email',
+  'login-email-placeholder': 'Email',
+  'login-email-error-required': 'Email is <strong>required</strong>',
+  'login-email-error-format': 'Email is <strong>badly formatted</strong>',
+  'login-password-label': 'Password',
+  'login-password-placeholder': 'Password',
+  'login-password-error-required': 'Password is <strong>required</strong>',
+  'login-remember-me': 'Remember me',
+  'login-button': 'Login',
+  'login-forgot-passwd': 'Forgot password?',
+  'login-button-send': 'Send',
+  'login-button-cancel': 'Cancel',
+  'register-header': 'create account for free!',
+  'register-display-name-label': 'Display name',
+  'register-display-name-placeholder': 'Display name',
+  'register-display-name-error-required': 'Display name is <strong>required</strong>',
+  'register-confirm-password-label': 'Confirm password',
+  'register-confirm-password-placeholder': 'Confirm password',
+  'register-confirm-password-error-required': 'Password is <strong>required</strong>',
+  'register-confirm-password-error-compare': 'Password does not match',
+  'register-button': 'Register',
+
+
   // APP HEADER
   'app-header-home': 'Home',
   'app-header-study-sets': 'Study sets',

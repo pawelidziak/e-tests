@@ -9,6 +9,7 @@ import {
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {SpinnerModule} from '../../shared/components/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import {RegisterComponent} from './register/register.component';
   ],
   imports: [
     SharedModule,
+    SpinnerModule,
+
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,

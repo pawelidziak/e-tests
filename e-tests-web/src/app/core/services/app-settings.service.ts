@@ -58,8 +58,8 @@ export class AppSettingsService {
 
   private _currentTheme: MyTheme = MY_THEMES[0];
   private _currentSettings: AppSettings;
-
   private _currentLang: string = 'en';
+  private _logoutAfterRefresh: boolean;
 
   constructor(@Inject(TRANSLATIONS) private _translations: any) {
     this.assignSettings();
@@ -90,6 +90,14 @@ export class AppSettingsService {
       theme: this._currentSettings.theme
     };
     this.saveSettingsToLocalStorage();
+  }
+
+  get logoutAfterRefresh(): boolean {
+    return this._logoutAfterRefresh;
+  }
+
+  set logoutAfterRefresh(value: boolean) {
+    this._logoutAfterRefresh = value;
   }
 
   private assignSettings() {

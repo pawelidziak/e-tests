@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatDialogRef, MatTabGroup} from '@angular/material';
@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
   @Input() matTabGrp: MatTabGroup;
   @Input() authDialog: MatDialogRef<AuthComponent>;
+  @Output() onLoading: EventEmitter<boolean> = new EventEmitter();
 
   public hidePassword = true;
 
@@ -47,15 +48,19 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    this.onLoading.emit(true);
 
-    // TODO show some loader
     this.auth.emailPasswordRegister(this.displayName.value, this.email.value, this.password.value)
-      .then(() => this.authDialog.close())
+      .then(() => {
+        this.authDialog.close();
+        this.onLoading.emit(false);
+      })
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;
         this.responseMsg = '';
         this.scrollTop();
+        this.onLoading.emit(false);
       });
   }
 

@@ -8,30 +8,31 @@
        class="login-container">
 
     <div class="social-login">
-      <button mat-raised-button id="google" (click)="googleLogin()">Login with Google</button>
+      <button mat-raised-button id="google" (click)="googleLogin()">{{ 'login-google' | translate}}</button>
     </div>
 
     <!-- EMAIL / PASSWORD FORM -->
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginWithEmail()">
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ 'login-email-label' | translate}}</mat-label>
         <input matInput type="email"
-               placeholder="Email"
+               [placeholder]="'login-email-placeholder' | translate"
                [formControl]="email">
         <mat-icon class="login-icon"
                   matSuffix
                   aria-label="Email">
           mail
         </mat-icon>
-        <mat-error *ngIf="email.hasError('required')">Email is <strong>required</strong></mat-error>
-        <mat-error *ngIf="email.hasError('email')">Email is <strong>badly formatted</strong></mat-error>
+        <mat-error *ngIf="email.hasError('required')" [innerHTML]="'login-email-error-required' | translate"></mat-error>
+        <mat-error *ngIf="email.hasError('email')" [innerHTML]="'login-email-error-format' | translate"></mat-error>
       </mat-form-field>
 
+      <!-- PASSWORD -->
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'login-password-label' | translate}}</mat-label>
         <input matInput
                [type]="hidePassword ? 'password' : 'text'"
-               placeholder="Password"
+               [placeholder]="'login-password-placeholder' | translate"
                [formControl]="password">
         <mat-icon class="login-icon"
                   matSuffix
@@ -39,15 +40,15 @@
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
-        <mat-error *ngIf="password.hasError('required')">Password is <strong>required</strong></mat-error>
+        <mat-error *ngIf="password.hasError('required')" [innerHTML]="'login-password-error-required' | translate"></mat-error>
       </mat-form-field>
 
       <div class="login-actions">
         <mat-checkbox style="margin-top: 8px;"
                       [(formControl)]="rememberMe">
-          Remember me
+          {{ 'login-remember-me' | translate}}
         </mat-checkbox>
-        <button mat-raised-button color="accent" type="submit">login</button>
+        <button mat-raised-button color="accent" type="submit">{{ 'login-button' | translate}}</button>
       </div>
 
     </form>
@@ -55,30 +56,31 @@
        class="width-100"
        style="text-align: left"
        (click)="showForgotPassword = true">
-      Forgot password?
+      {{ 'login-forgot-passwd' | translate}}
     </a>
   </div>
 
   <!-- FORGOT PASSWORD -->
-  <div class="forgot-password" *ngIf="showForgotPassword">
+  <div class="forgot-password" *ngIf="showForgotPassword" [@slideFromBottom]>
 
     <form class="forgot-form" (ngSubmit)="forgotPassword()">
       <mat-form-field color="accent" appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ 'login-email-label' | translate}}</mat-label>
         <input matInput type="email"
-               placeholder="Email"
+               [placeholder]="'login-email-placeholder' | translate"
                [formControl]="forgotEmail">
-        <mat-error *ngIf="forgotEmail.hasError('required')">Email is <strong>required</strong></mat-error>
-        <mat-error *ngIf="forgotEmail.hasError('email')">Email is <strong>badly formatted</strong></mat-error>
+        <mat-error *ngIf="forgotEmail.hasError('required')"
+                   [innerHTML]="'login-email-error-required' | translate"></mat-error>
+        <mat-error *ngIf="forgotEmail.hasError('email')" [innerHTML]="'login-email-error-format' | translate"></mat-error>
       </mat-form-field>
-      <button mat-button color="accent" type="submit" class="width-100">send</button>
+      <button mat-button color="accent" type="submit" class="width-100">{{ 'login-button-send' | translate}}</button>
     </form>
 
     <a mat-button
        class="width-100"
        (click)="showForgotPassword = false"
        *ngIf="showForgotPassword">
-      Cancel
+      {{ 'login-button-cancel' | translate}}
     </a>
   </div>
 

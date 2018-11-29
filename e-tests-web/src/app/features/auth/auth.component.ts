@@ -8,6 +8,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class AuthComponent implements OnInit {
 
+  public loading: boolean;
+
   constructor(public dialogRef: MatDialogRef<AuthComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
