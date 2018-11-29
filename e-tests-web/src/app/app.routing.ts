@@ -55,7 +55,7 @@ const appRoutes: Routes = [
   },
   // USER PROFILE
   {
-    path: `:${ROUTE_PARAMS.USER_ID}/${ALL_ROUTES.USER_PROFILE}`,
+    path: `${ALL_ROUTES.USER_PROFILE}`,
     loadChildren: 'app/features/user-profile/user-profile.module#UserProfileModule',
     canActivate: [AuthGuard]
   },

@@ -2,7 +2,15 @@ import {NgModule} from '@angular/core';
 import {UserProfileComponent} from './user-profile.component';
 import {SharedModule} from '../../shared/shared.module';
 import {userProfileRouting} from './user-profile.routing';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+} from '@angular/material';
+import {DirectivesModule} from '../../shared/directives/directives.module';
+import {SpinnerModule} from '../../shared/components/spinner/spinner.module';
 @NgModule({
   declarations: [
     UserProfileComponent
@@ -10,6 +18,8 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatIn
   imports: [
     SharedModule,
     userProfileRouting,
+    DirectivesModule,
+    SpinnerModule,
 
     MatCardModule,
     MatButtonModule,
@@ -17,7 +27,6 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatIn
     MatInputModule,
     MatFormFieldModule,
     MatInputModule
-
   ],
   exports: [],
   providers: []

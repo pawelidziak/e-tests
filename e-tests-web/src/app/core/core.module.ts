@@ -21,7 +21,6 @@ import {ScrollService} from './services/scroll.service';
 import {AppSettingsService} from './services/app-settings.service';
 import {TranslateService} from './services/translate.service';
 import {TRANSLATION_PROVIDERS} from '../shared/translations/translation';
-import {UserService} from './services/user.service';
 
 @NgModule({
   declarations: [],
@@ -42,7 +41,6 @@ import {UserService} from './services/user.service';
     },
     {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
 
-    UserService,
     LoaderService,
     ScrollService,
     AppSettingsService,

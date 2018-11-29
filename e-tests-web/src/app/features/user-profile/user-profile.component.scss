@@ -1,16 +1,21 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
+button {
+  outline: none;
+}
+
+.profile-card-container {
+  @media #{$lt_md_size} {
+    margin-top: 2*$margin;
+  }
+}
+
 .profile-card {
   border-radius: $border-radius;
 }
 
-.card-header {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.account-image {
+.account-image, .profile-actions {
   display: flex;
   justify-content: center;
 }
@@ -18,4 +23,57 @@
 .account-icon {
   @include mat-icon-size(92px);
   color: $text_secondary;
+  margin-top: -62px;
+  background-color: $text-white;
+  border-radius: 50%;
+  @include box_shadow;
+}
+
+.account-photo {
+  margin-top: -62px;
+  background-size: cover;
+  height: 92px;
+  width: 92px;
+  border-radius: 50%;
+  @include box_shadow;
+}
+
+.profile-actions {
+  button {
+    @include upper-text();
+  }
+}
+
+.drop-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 300px;
+  border: 2px dashed;
+  border-radius: $border-radius;
+
+  &.hovering {
+    border: 2px solid;
+    opacity: .5;
+  }
+}
+
+.photo-url-label {
+  position: absolute;
+  top: -10px;
+  left: 5px;
+  padding: 0 7px;
+  box-shadow: none !important;
+  font-size: 12px;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  padding: $margin 0;
+  img {
+    @include size(200px, 200px);
+  }
 }

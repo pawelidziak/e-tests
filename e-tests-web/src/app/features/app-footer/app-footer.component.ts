@@ -19,7 +19,8 @@ export class AppFooterComponent implements OnInit, OnDestroy {
     {label: 'app-header-create', path: ALL_ROUTES.CREATE_TEST},
   ];
   public accountLinks = [
-    {label: 'app-header-study-sets', path: ALL_ROUTES.USER_TESTS_LIST}
+    {label: 'app-header-study-sets', path: ALL_ROUTES.USER_TESTS_LIST},
+    {label: 'app-header-profile', path: ALL_ROUTES.USER_PROFILE}
   ];
   public supportLinks = [
     {label: 'app-header-about', path: ALL_ROUTES.ABOUT},
@@ -55,12 +56,7 @@ export class AppFooterComponent implements OnInit, OnDestroy {
 
   private checkUser(): void {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
-      res => {
-        this.isUserLoggedIn = !!res;
-        this.accountLinks.push(
-          {label: 'app-header-profile', path: `${this.auth.currentUserId}/${ALL_ROUTES.USER_PROFILE}`}
-        );
-      },
+      res => this.isUserLoggedIn = !!res,
       error => console.log(error)
     ));
   }
