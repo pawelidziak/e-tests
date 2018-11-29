@@ -43,6 +43,9 @@
   margin: 0;
   display: flex;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
 }
 
 .my-slide-nav-list {
@@ -68,3 +71,16 @@
   outline: none;
 }
 
+.user-button {
+  /deep/ .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.user-photo {
+  background-size: cover;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}

@@ -13,5 +13,6 @@ export const ALL_ROUTES = {
 };
 
 export const ROUTE_PARAMS = {
-  TEST_ID: 'testId'
+  TEST_ID: 'testId',
+  USER_ID: 'userId'
 };

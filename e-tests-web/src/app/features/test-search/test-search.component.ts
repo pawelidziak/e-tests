@@ -5,8 +5,7 @@ import {HeaderService} from '../../core/services/header.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
 import {AuthService} from '../../core/services/auth.service';
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {ALL_ROUTES} from "../../shared/ROUTES";
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-test-search',
@@ -32,7 +31,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoggedIn();
     this.headerService.setCurrentRoute([
-      {label: 'search-title', path: ALL_ROUTES.SEARCH}
+      {label: 'search-title', path: ''}
     ]);
   }
 

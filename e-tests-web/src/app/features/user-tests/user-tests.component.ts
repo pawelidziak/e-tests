@@ -3,11 +3,11 @@ import {TestModel} from '../../core/models/Test';
 import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {LoaderService} from '../../core/services/loader.service';
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {HeaderService} from "../../core/services/header.service";
-import {slideFromTop} from "../../shared/animations";
-import {ALL_ROUTES} from "../../shared/ROUTES";
-import {combineLatest} from "rxjs";
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService} from '../../core/services/header.service';
+import {slideFromTop} from '../../shared/animations';
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-user-tests',
@@ -68,7 +68,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
                 }
 
                 if (res[0].length > 0) {
-                  this.selectedTabIndex = 0
+                  this.selectedTabIndex = 0;
                 } else {
                   this.selectedTabIndex = 1;
                 }
@@ -84,7 +84,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
    *    GET TEST SETTINGS
    */
   private getTestSettings() {
-    for (let test of this.userTests) {
+    for (const test of this.userTests) {
       this.loader.start();
       this.subscriptions.push(
         this.testService.getTestSettings(test.id).subscribe(
@@ -102,7 +102,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
    *    ASSIGN TEST TO SETTINGS
    */
   private assignTests(settings: any[]) {
-    for (let testIdWithSettings of settings) {
+    for (const testIdWithSettings of settings) {
       this.loader.start();
       this.subscriptions.push(
         this.testService.getTestById(testIdWithSettings.id, false).subscribe(
@@ -112,7 +112,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
               this.pushOrSetToList(tmpTest);
             } else {
               this.testService.deleteOneTestSettings(testIdWithSettings.id)
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
             }
             this.loader.complete();
           }, error => console.log(error)

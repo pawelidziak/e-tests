@@ -11,7 +11,7 @@
     </a>
     <mat-icon aria-label="Separator" class="breadcrumb-icon">chevron_right</mat-icon>
     <span class="current-url">
-      {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label[0].toUpperCase() + headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label.substring(1)  | limitChar: maxChar}}
+      {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label | translate | limitChar: maxChar}}
     </span>
   </div>
 

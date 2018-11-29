@@ -3,6 +3,22 @@ import * as functions from 'firebase-functions';
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
+// exports.createProfile = functions.auth.user()
+//     .onCreate((userRecord, context) => {
+//         const id = userRecord.uid;
+//         const user = {
+//             displayName: userRecord.displayName,
+//             photoURL: userRecord.photoURL,
+//             email: userRecord.email,
+//             created: context.timestamp
+//         };
+//
+//         return admin
+//             .firestore()
+//             .doc(`users/${id}`)
+//             .set(user);
+//     });
+
 exports.increaseTestExercisesNumberOnAddExercise = functions.firestore
     .document(`tests/{testId}/exercises/{exerciseId}`)
     .onCreate(async (snap, context) => {

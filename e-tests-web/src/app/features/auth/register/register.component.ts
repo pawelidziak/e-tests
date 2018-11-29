@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
-import {MatTabGroup} from '@angular/material';
+import {MatDialogRef, MatTabGroup} from '@angular/material';
+import {AuthComponent} from '../auth.component';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import {MatTabGroup} from '@angular/material';
 export class RegisterComponent implements OnInit {
 
   @Input() matTabGrp: MatTabGroup;
+  @Input() authDialog: MatDialogRef<AuthComponent>;
 
   public hidePassword = true;
 
@@ -45,14 +47,10 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+
     // TODO show some loader
     this.auth.emailPasswordRegister(this.displayName.value, this.email.value, this.password.value)
-      .then(() => {
-        this.matTabGrp.realignInkBar();
-        this.responseMsg = 'Verification email has been sent';
-        this.errorMsg = '';
-        this.scrollTop();
-      })
+      .then(() => this.authDialog.close())
       .catch(error => {
         this.matTabGrp.realignInkBar();
         this.errorMsg = error;

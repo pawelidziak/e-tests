@@ -6,6 +6,9 @@ export const LANG_EN_TRANS = {
   'or': 'or',
   'space': 'space',
   'tests-title': 'Tests',
+  'error-general': 'Something went wrong.. Please try again.',
+  'change-success': 'The changes were saved successfully',
+  'instructions-send-to-email': 'Instructions have been sent to the email.',
 
   // APP HEADER
   'app-header-home': 'Home',
@@ -201,5 +204,21 @@ export const LANG_EN_TRANS = {
   'about-header': 'About app',
   'about-paragraph': '<strong>E-testo</strong> is an application that enables learning by solving tests. You can create tests, or solve one of the existing ones. Learning progress is saved, so you can continue learning wherever you are, on any device.',
   'about-contact': 'Contact:',
-  'about-technologies-libraries': 'Technologies & libraries'
+  'about-technologies-libraries': 'Technologies & libraries',
+
+  // USER PROFILE
+  'user-profile-title': 'Profile',
+  'user-profile-header': 'Change <strong>Your</strong> personal data',
+  'user-profile-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'user-profile-error-type': 'Unsupported file type',
+  'user-profile-error-size': 'The maximum file size is 1MB',
+  'user-profile-display-name-label': 'Display name',
+  'user-profile-display-name-placeholder': 'Your display name...',
+  'user-profile-photo-label': 'Photo',
+  'user-profile-drag-file': 'Drag Your photo here (.jpg, .png)',
+  'user-profile-drag-choose': 'or choose from files...',
+  'user-profile-edit': 'Edit',
+  'user-profile-reset-password': 'Reset password',
+  'user-profile-save': 'Save',
+  'user-profile-cancel': 'Cancel',
 };

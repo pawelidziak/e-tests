@@ -20,7 +20,7 @@ import {TestExercisesService} from './services/test-exercises.service';
 import {ScrollService} from './services/scroll.service';
 import {AppSettingsService} from './services/app-settings.service';
 import {TranslateService} from './services/translate.service';
-import {TRANSLATION_PROVIDERS} from "../shared/translations/translation";
+import {TRANSLATION_PROVIDERS} from '../shared/translations/translation';
 
 @NgModule({
   declarations: [],

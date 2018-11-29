@@ -12,22 +12,19 @@ import {AngularFirestore} from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
-
-  private _user: User = null;
+  private readonly USERS_PATH = 'users';
+  private _user: any = null;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
               private dialog: MatDialog) {
-    const sub$ = this.afAuth.authState.subscribe(auth => {
-      this._user = auth;
-    });
+    this.afAuth.authState.subscribe((auth) => this._user = auth);
   }
 
   get currentUserObservable(): Observable<any> {
     return this.afAuth.authState;
   }
-
 
   // Returns true if user is logged in
   get isAuthenticated(): boolean {
@@ -44,7 +41,6 @@ export class AuthService {
     return this.isAuthenticated ? this._user.uid : '';
   }
 
-
   // Logout
   public signOut() {
     this.router.navigate([ALL_ROUTES.DASHBOARD])
@@ -58,12 +54,8 @@ export class AuthService {
   public emailPasswordRegister(displayName: string, email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(success => {
-        const user = firebase.auth().currentUser;
-        user.sendEmailVerification().catch((error: any) => {
-            throw new Error(error.message);
-          }
-        );
-        this.updateUserData();
+        this._user = success.user;
+        this.setUserData(displayName);
       })
       .catch((error: any) => {
         throw new Error(error.message);
@@ -72,29 +64,18 @@ export class AuthService {
 
   public emailPasswordLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(success => {
-        if (success.user.emailVerified === false) {
-          throw new Error('Email not verified.');
-        } else {
-          this._user = success.user;
-        }
-      })
+      .then(success => this._user = success.user)
       .catch((error: any) => {
         throw new Error(error.message);
       });
   }
 
-  // method updates user profile (not in database!)
-  private updatePersonal(name: string) {
-    const user = firebase.auth().currentUser;
-    return user.updateProfile({
-      displayName: name,
-      photoURL: ''
-    });
+  public updateEmail(email: string): Promise<any> {
+    return this._user.updateEmail(email);
   }
 
   // Sends email allowing user to toReset password
-  public resetPassword(email: string) {
+  public resetPassword(email: string): Promise<any> {
     const auth = this.afAuth.auth;
     return auth.sendPasswordResetEmail(email)
       .catch((error: any) => {
@@ -108,10 +89,6 @@ export class AuthService {
         disableClose: disableClose
       }
     });
-
-    // const sub$ = dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed = ' + result);
-    // });
   }
 
   public loginWithGoogle() {
@@ -123,30 +100,72 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this._user = credential.user;
-        this.updateUserData();
-        console.log(this._user);
+        this.setUserData();
       })
       .catch((error: any) => {
         throw new Error(error.message);
       });
   }
 
-  private updateUserData(): void {
+  private setUserData(displayName: string = this._user.displayName,
+                      email: string = this._user.email,
+                      photoURL: string = this._user.photoURL): void {
     const data = {
-      email: this._user.email,
-      displayName: this._user.displayName,
-      photoURL: this._user.photoURL
+      displayName: displayName,
+      email: email,
+      photoURL: photoURL
     };
 
-    const ref = this.afs.collection('users').doc(this.currentUserId).ref;
+    const ref = this.afs.collection(this.USERS_PATH).doc(this.currentUserId).ref;
     ref.get()
       .then(docSnapshot => {
         if (!docSnapshot.exists) {
           ref.set(data)
             .catch(error => console.log(error));
+          this._user.updateProfile({
+              displayName: displayName,
+              photoURL: photoURL
+            }
+          ).catch(error => {
+            throw new Error(error.message);
+          });
         }
       })
       .catch(error => console.log(error));
   }
 
+  public updateCurrentUserData(displayName: string, photoURL: string): Promise<any> {
+    const updateProfileAuth = this._user.updateProfile({
+        displayName: displayName,
+        photoURL: photoURL
+      }
+    );
+    const updateProfileInFS = this.afs.collection(this.USERS_PATH)
+      .doc(this.currentUserId)
+      .update({displayName: displayName, photoURL: photoURL});
+
+    return Promise.all([updateProfileAuth, updateProfileInFS]);
+  }
+
+  public getCurrentUserData(): Observable<User> {
+    return this.afs.doc<User>(`${this.USERS_PATH}/${this.currentUserId}`).valueChanges();
+  }
+
+  public getUserDataById(userId: string): Observable<User> {
+    this.checkIfUserExists(userId);
+    return this.afs.doc<User>(`${this.USERS_PATH}/${userId}`).valueChanges();
+  }
+
+  /**
+   * Method checks if 'user' with given id exists in firestore, if not it navigate to 404 page
+   * @param {userId} userId
+   */
+  private checkIfUserExists(userId: string): void {
+    this.afs.doc(`${this.USERS_PATH}/${userId}`).ref.get()
+      .then(docSnapshot => {
+        if (!docSnapshot.exists) {
+          this.router.navigate([ALL_ROUTES.DASHBOARD]);
+        }
+      });
+  }
 }

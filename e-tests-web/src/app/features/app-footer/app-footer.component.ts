@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ALL_ROUTES} from "../../shared/ROUTES";
-import {AuthService} from "../../core/services/auth.service";
-import {Subscription} from "rxjs";
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {HeaderService, HeaderValues} from "../../core/services/header.service";
+import {ALL_ROUTES} from '../../shared/ROUTES';
+import {AuthService} from '../../core/services/auth.service';
+import {Subscription} from 'rxjs';
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {HeaderService, HeaderValues} from '../../core/services/header.service';
 
 @Component({
   selector: 'app-footer',

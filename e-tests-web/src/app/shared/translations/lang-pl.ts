@@ -6,6 +6,9 @@ export const LANG_PL_TRANS = {
   'or': 'lub',
   'space': 'spacja',
   'tests-title': 'Testy',
+  'error-general': 'Coś poszło nie tak... Proszę spróbuj ponownie.',
+  'change-success': 'Zmiany zostały zapisane.',
+  'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
 
   // APP HEADER
   'app-header-home': 'Główna',
@@ -201,5 +204,21 @@ export const LANG_PL_TRANS = {
   'about-header': 'O aplikacji',
   'about-paragraph': '<strong>E-testo</strong> to aplikacja, umożliwiająca uczenie się poprzez rozwiązywanie testów. Możesz utworzyć testy lub rozwiązywać istniejące. Postęp nauki jest zapisywany, dzięki czemu możesz kontynuować naukę w dowolnym miejscu na dowolnym urządzeniu.',
   'about-contact': 'Kontakt:',
-  'about-technologies-libraries': 'Technologie & biblioteki'
+  'about-technologies-libraries': 'Technologie & biblioteki',
+
+  // USER PROFILE
+  'user-profile-title': 'Profil',
+  'user-profile-header': 'Zmień swoje dane',
+  'user-profile-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'user-profile-error-type': 'Nieobsługiwany typ pliku',
+  'user-profile-error-size': 'Maksymalny rozmiar pliku wynosi 1MB',
+  'user-profile-display-name-label': 'Wyświetlana nazwa',
+  'user-profile-display-name-placeholder': 'Twoja nazwa...',
+  'user-profile-photo-label': 'Zdjęcie',
+  'user-profile-drag-file': 'Przeciągnij tutaj swoje zdjęcie (.jpg, .png)',
+  'user-profile-drag-choose': 'lub wybierz z plików...',
+  'user-profile-edit': 'Edytuj',
+  'user-profile-reset-password': 'Zresetuj hasło',
+  'user-profile-save': 'Zapisz',
+  'user-profile-cancel': 'Anuluj',
 };

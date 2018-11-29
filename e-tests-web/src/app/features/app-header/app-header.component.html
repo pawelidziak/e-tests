@@ -55,7 +55,7 @@
     <nav *ngIf="isSmallScreen">
       <ul class="my-nav-list">
         <!-- STUDY SETS -->
-        <li *ngIf="user?.emailVerified" (click)="slideMenu = false">
+        <li *ngIf="user" (click)="slideMenu = false">
           <a mat-icon-button
              [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
              [routerLinkActive]="['active-link']">
@@ -65,15 +65,20 @@
         <!-- ACCOUNT -->
         <li *ngIf="isUserLoaded" (click)="slideMenu = false">
           <a mat-raised-button
-             *ngIf="!user?.emailVerified"
+             *ngIf="!user"
              (click)="openAuthDialog()">
             Login
           </a>
           <a mat-icon-button
              [matMenuTriggerFor]="accountMenu"
-             *ngIf="user?.emailVerified">
+             *ngIf="user && !user.photoURL">
             <mat-icon aria-label="Account">account_circle</mat-icon>
           </a>
+          <div *ngIf="user && user.photoURL"
+               [matMenuTriggerFor]="accountMenu"
+               class="user-photo"
+               [style.background-image]="'url(' + user.photoURL +')'">
+          </div>
         </li>
         <li (click)="slideMenu = true">
           <a mat-icon-button>
@@ -89,14 +94,19 @@
         <!-- USER ICONS -->
         <li *ngIf="isUserLoaded">
           <a mat-raised-button
-             *ngIf="!user?.emailVerified"
+             *ngIf="!user"
              (click)="openAuthDialog()">
             Login
           </a>
           <a mat-button
              [matMenuTriggerFor]="accountMenu"
-             *ngIf="user?.emailVerified">
-            <mat-icon aria-label="Account">account_circle</mat-icon>
+             *ngIf="user"
+             class="user-button">
+            <mat-icon aria-label="Account" *ngIf="!user.photoURL">account_circle</mat-icon>
+            <div *ngIf="user.photoURL"
+                 class="user-photo"
+                 [style.background-image]="'url(' + user.photoURL +')'">
+            </div>
             <span style="padding-left: 12px;">{{user.displayName}}</span>
           </a>
         </li>

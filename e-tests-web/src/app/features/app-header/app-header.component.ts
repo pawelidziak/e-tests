@@ -3,7 +3,7 @@ import {HeaderService, HeaderValues} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {slideFromTopToTop} from "../../shared/animations";
+import {slideFromTopToTop} from '../../shared/animations';
 
 @Component({
   selector: 'app-header',
