@@ -47,6 +47,18 @@ export class TestExercisesService {
       .add(exercise);
   }
 
+  private increaseExerciseNumber(testRef: DocumentReference): Promise<any> {
+    return this.afs.firestore.runTransaction(transaction => {
+      return transaction.get(testRef).then(sfDoc => {
+        if (!sfDoc.exists) {
+          throw new Error('Document does not exist!');
+        }
+        const newExercisesNumber = sfDoc.data().exercisesNumber + 1;
+        transaction.update(testRef, {exercisesNumber: newExercisesNumber});
+      });
+    });
+  }
+
   public updateOneExercise(testId: string, exercise: Exercise): Promise<void> {
     const copyExercise = JSON.parse(JSON.stringify(exercise));
     delete copyExercise.id;
@@ -60,6 +72,18 @@ export class TestExercisesService {
     return this.afs.collection(`${this.TEST_PATH}/${testId}/${this.EXERCISES_PATH}`)
       .doc(exerciseId)
       .delete();
+  }
+
+  private decreaseExerciseNumber(testRef: DocumentReference): Promise<any> {
+    return this.afs.firestore.runTransaction(transaction => {
+      return transaction.get(testRef).then(sfDoc => {
+        if (!sfDoc.exists) {
+          throw new Error('Document does not exist!');
+        }
+        const newExercisesNumber = sfDoc.data().exercisesNumber - 1;
+        transaction.update(testRef, {exercisesNumber: newExercisesNumber});
+      });
+    });
   }
 
   public addExerciseList(testId: string, list: Exercise[]): Promise<any> {

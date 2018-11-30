@@ -1,15 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {ImportExportExercisesService, PARSERS, SelectParser} from "../../core/services/import-export-exercises.service";
-import {TestService} from "../../core/services/test.service";
-import {ALL_ROUTES, ROUTE_PARAMS} from "../../shared/ROUTES";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TestModel} from "../../core/models/Test";
-import {HeaderService} from "../../core/services/header.service";
-import {Exercise} from "../../core/models/Exercise";
-import {TestExercisesService} from "../../core/services/test-exercises.service";
-import {AuthService} from "../../core/services/auth.service";
-
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {ImportExportExercisesService, PARSERS, SelectParser} from '../../core/services/import-export-exercises.service';
+import {TestService} from '../../core/services/test.service';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TestModel} from '../../core/models/Test';
+import {HeaderService} from '../../core/services/header.service';
+import {Exercise} from '../../core/models/Exercise';
+import {TestExercisesService} from '../../core/services/test-exercises.service';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-import-exercises',
@@ -64,7 +63,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
               {label: 'Import', path: ''}
             ]);
           } else {
-            this.router.navigate([ALL_ROUTES.DASHBOARD])
+            this.router.navigate([ALL_ROUTES.DASHBOARD]);
           }
         },
         error => console.log(error)
@@ -81,7 +80,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       }
       this.importedExercises = [];
       this.selectedFiles = [].slice.call(event.target.files);
-      this.uploadFiles()
+      this.uploadFiles();
     }
   }
 
@@ -101,13 +100,13 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       };
       fileReader.onloadend = () => {
         if (i === this.selectedFiles.length - 1) {
-          this.filesOnLoad = false
+          this.filesOnLoad = false;
         }
       };
       fileReader.onerror = () => {
         this.errorMsg = 'Something went wrong.. Please, let us know on: email@email.com';
         this.filesOnLoad = false;
-      }
+      };
     }
   }
 
