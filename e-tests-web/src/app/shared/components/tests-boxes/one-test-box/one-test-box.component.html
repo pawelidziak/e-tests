@@ -11,6 +11,11 @@
   </div>
 
   <div class="box-item-row">
+    <mat-icon aria-label="Remained" class="box-item-icon">folder</mat-icon>
+    <span class="sub-paragraph-font">{{oneBox.exercises.length}}</span>
+  </div>
+
+  <div class="box-item-row">
     <mat-icon aria-label="Tags" class="box-item-icon">local_offer</mat-icon>
     <div class="tag-row">
       <span *ngFor="let tag of oneBox.tags let i=index;" class="sub-paragraph-font">
@@ -25,29 +30,30 @@
 
   <div class="box-item-row">
     <mat-icon aria-label="Rate" class="box-item-icon">description</mat-icon>
-    <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'no-desc' | translate) | limitChar: 65}}</p>
+    <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'no-desc' | translate) | limitChar:
+      65}}</p>
   </div>
 
-  <div style="flex: 1 0; min-height: 24px;"></div>
+  <!--<div style="flex: 1 0; min-height: 24px;"></div>-->
 
-  <div class="box-item-footer">
+  <!--<div class="box-item-footer">-->
 
-    <div class="box-item-row">
-      <mat-icon aria-label="Rate" class="box-item-icon">star_rate</mat-icon>
-      <span class="sub-paragraph-font">5.0</span>
-    </div>
-    <div class="box-item-row">
-      <mat-icon aria-label="Remained" class="box-item-icon">folder</mat-icon>
-      <span class="sub-paragraph-font">{{oneBox.exercises.length}}</span>
-    </div>
-    <div class="box-item-row">
-      <mat-icon aria-label="Comment" class="box-item-icon">comment</mat-icon>
-      <span class="sub-paragraph-font">3</span>
-    </div>
-    <div class="box-item-row">
-      <mat-icon aria-label="Note" class="box-item-icon">note</mat-icon>
-      <span class="sub-paragraph-font">2</span>
-    </div>
-  </div>
+  <!--<div class="box-item-row">-->
+  <!--<mat-icon aria-label="Rate" class="box-item-icon">star_rate</mat-icon>-->
+  <!--<span class="sub-paragraph-font">5.0</span>-->
+  <!--</div>-->
+  <!--<div class="box-item-row">-->
+  <!--<mat-icon aria-label="Remained" class="box-item-icon">folder</mat-icon>-->
+  <!--<span class="sub-paragraph-font">{{oneBox.exercises.length}}</span>-->
+  <!--</div>-->
+  <!--<div class="box-item-row">-->
+  <!--<mat-icon aria-label="Comment" class="box-item-icon">comment</mat-icon>-->
+  <!--<span class="sub-paragraph-font">3</span>-->
+  <!--</div>-->
+  <!--<div class="box-item-row">-->
+  <!--<mat-icon aria-label="Note" class="box-item-icon">note</mat-icon>-->
+  <!--<span class="sub-paragraph-font">2</span>-->
+  <!--</div>-->
+  <!--</div>-->
 
 </div>

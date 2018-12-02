@@ -63,9 +63,11 @@ export class TestsTableComponent implements OnInit, OnChanges, OnDestroy {
   private createDisplayedColumns(value: boolean): void {
     this.isSmallScreen = value;
     if (this.isSmallScreen) {
-      this.displayedColumns = ['rate', 'name'];
+      // this.displayedColumns = ['rate', 'name'];
+      this.displayedColumns = ['name'];
     } else {
-      this.displayedColumns = ['createDate', 'name', 'rate'];
+      // this.displayedColumns = ['createDate', 'name', 'rate'];
+      this.displayedColumns = ['createDate', 'name'];
     }
   }
 

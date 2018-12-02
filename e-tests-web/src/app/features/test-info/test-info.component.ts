@@ -61,16 +61,31 @@ export class TestInfoComponent implements OnInit, OnDestroy {
             this.test = res;
             this.test.id = this.testId;
             this.exercises = this.test.exercises;
+            this.getAuthor();
+            this.headerService.setCurrentRoute([
+              {label: 'tests-title', path: ALL_ROUTES.SEARCH},
+              {label: this.test.name, path: ``},
+            ]);
+          } else {
+            this.loader.complete();
           }
-          this.headerService.setCurrentRoute([
-            {label: 'tests-title', path: ALL_ROUTES.SEARCH},
-            {label: this.test.name, path: ``},
-          ]);
-          this.loader.complete();
         },
         error => console.log(error)
       )
     );
+  }
+
+  private getAuthor() {
+    this.subscriptions.push(
+      this.testService.getAuthor(this.test.authorId).subscribe(
+        res => {
+          this.test.authorObj = res;
+          this.loader.complete();
+        }, error => {
+          this.loader.complete();
+        }
+      ));
+
   }
 
   public startEditMode(): void {
