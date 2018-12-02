@@ -5,7 +5,7 @@ import {AuthService} from '../../core/services/auth.service';
 import {TestService} from '../../core/services/test.service';
 import {Router} from '@angular/router';
 import {ALL_ROUTES} from '../../shared/ROUTES';
-import {AppSettingsService} from "../../core/services/app-settings.service";
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-test-create',
@@ -78,7 +78,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
       createDate: new Date().getTime(),
       authorId: '',
       isPublic: true,
-      exercisesNumber: 0
+      exercises: []
     };
   }
 

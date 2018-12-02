@@ -7,8 +7,10 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import {MyPipesModule} from '../../shared/pipes/my-pipes.module';
-import {DisplayOneExerciseModule} from "./display-one-exercise/display-one-exercise.module";
-import {ImportExportExercisesService} from "../../core/services/import-export-exercises.service";
+import {DisplayOneExerciseModule} from './display-one-exercise/display-one-exercise.module';
+import {ImportExportExercisesService} from '../../core/services/import-export-exercises.service';
+import {AddEditExerciseComponent} from './add-edit-exercise/add-edit-exercise.component';
+import {AddEditExerciseModule} from './add-edit-exercise/add-edit-exercise.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import {ImportExportExercisesService} from "../../core/services/import-export-ex
     SharedModule,
     MyPipesModule,
     DisplayOneExerciseModule,
+    AddEditExerciseModule,
 
     MatFormFieldModule,
     MatInputModule,
@@ -27,6 +30,7 @@ import {ImportExportExercisesService} from "../../core/services/import-export-ex
   ],
   exports: [DisplayExercisesComponent],
   providers: [ImportExportExercisesService],
+  entryComponents: [AddEditExerciseComponent]
 })
 export class DisplayExercisesModule {
 }

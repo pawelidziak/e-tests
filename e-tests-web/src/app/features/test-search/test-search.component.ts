@@ -82,14 +82,18 @@ export class TestSearchComponent implements OnInit, OnDestroy {
   }
 
   private getTestSettings() {
-    for (const test of this.testList) {
-      this.subscriptions.push(
-        this.testService.getTestSettings(test.id).subscribe(
-          res => {
-            test.settings = res;
-            this.loader.complete();
-          }, error => console.log(error)
-        ));
+    if (this.testList.length) {
+      for (const test of this.testList) {
+        this.subscriptions.push(
+          this.testService.getTestSettings(test.id).subscribe(
+            res => {
+              test.settings = res;
+              this.loader.complete();
+            }, error => console.log(error)
+          ));
+      }
+    } else {
+      this.loader.complete();
     }
   }
 }

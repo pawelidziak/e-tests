@@ -1,5 +1,4 @@
 export interface Exercise {
-  id?: string;
   question: string;
   answers: Array<string>;
   correctAnswers: Array<number>;

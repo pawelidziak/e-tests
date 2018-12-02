@@ -15,6 +15,7 @@
   </mat-list-item>
 
   <mat-list-item class="my-list-item"
+                 (click)="deleteTest()"
                  *ngIf="auth.currentUserId === test.authorId">
     <mat-icon mat-list-icon>delete</mat-icon>
     <h4 mat-line>{{ 'test-info-delete' | translate}}</h4>

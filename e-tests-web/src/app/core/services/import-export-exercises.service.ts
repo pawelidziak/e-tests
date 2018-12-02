@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Exercise} from "../models/Exercise";
+import {Exercise} from '../models/Exercise';
 
 export interface SelectParser {
   label: string;
@@ -51,10 +51,10 @@ export class ImportExportExercisesService {
   public downloadFile(data: any, filename: string) {
     filename = `${filename}.e-testo`;
     const file = new Blob([this.b64EncodeUnicode(JSON.stringify(data))], {type: 'application/octet-stream'});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
+    if (window.navigator.msSaveOrOpenBlob) {// IE10+
       window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-      const a = document.createElement("a");
+    } else { // Others
+      const a = document.createElement('a');
       const url = URL.createObjectURL(file);
       a.href = url;
       a.download = filename;
@@ -74,36 +74,14 @@ export class ImportExportExercisesService {
 
   private b64EncodeUnicode(str) {
     return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-      return String.fromCharCode(parseInt(p1, 16))
-    }))
+      return String.fromCharCode(parseInt(p1, 16));
+    }));
   }
 
   private b64DecodeUnicode(str) {
     return decodeURIComponent(Array.prototype.map.call(atob(str), (c) => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-  }
-
-  /**
-   * Replace empty question and delete empty answers
-   * @param exercise
-   */
-  public fixExercise(exercise: Exercise) {
-    if (exercise.question === '') {
-      exercise.question = 'Empty question...';
-    }
-    for (let i = 0; i < exercise.answers.length; i++) {
-      if (exercise.answers[0] === '') {
-        exercise.answers[0] = 'Empty answer A ...';
-      }
-      if (exercise.answers[1] === '') {
-        exercise.answers[1] = 'Empty answer B ...';
-      }
-      if (i > 1 && exercise.answers[i] === '') {
-        exercise.answers.splice(i, 1);
-        i--;
-      }
-    }
   }
 
   /**
@@ -137,7 +115,7 @@ export class ImportExportExercisesService {
   private getAnswers(result: any, newLinesIndexTab: any[]) {
     const answers = [];
     for (let j = 1; j < newLinesIndexTab.length; j++) {
-      answers.push(result.substring(newLinesIndexTab[j] + 1, newLinesIndexTab[j + 1]))
+      answers.push(result.substring(newLinesIndexTab[j] + 1, newLinesIndexTab[j + 1]));
     }
     return answers;
   }

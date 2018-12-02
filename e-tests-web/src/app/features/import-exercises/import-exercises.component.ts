@@ -1,15 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AppSettingsService} from "../../core/services/app-settings.service";
-import {ImportExportExercisesService, PARSERS, SelectParser} from "../../core/services/import-export-exercises.service";
-import {TestService} from "../../core/services/test.service";
-import {ALL_ROUTES, ROUTE_PARAMS} from "../../shared/ROUTES";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TestModel} from "../../core/models/Test";
-import {HeaderService} from "../../core/services/header.service";
-import {Exercise} from "../../core/models/Exercise";
-import {TestExercisesService} from "../../core/services/test-exercises.service";
-import {AuthService} from "../../core/services/auth.service";
-
+import {AppSettingsService} from '../../core/services/app-settings.service';
+import {ImportExportExercisesService, PARSERS, SelectParser} from '../../core/services/import-export-exercises.service';
+import {TestService} from '../../core/services/test.service';
+import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TestModel} from '../../core/models/Test';
+import {HeaderService} from '../../core/services/header.service';
+import {Exercise} from '../../core/models/Exercise';
+import {TestExercisesService} from '../../core/services/test-exercises.service';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-import-exercises',
@@ -28,6 +27,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   public parserOption = PARSERS;
   public selectedParser: SelectParser = this.parserOption[0];
   public errorMsg: string;
+  public isHovering: boolean;
 
   constructor(public appSettings: AppSettingsService,
               private route: ActivatedRoute,
@@ -64,7 +64,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
               {label: 'Import', path: ''}
             ]);
           } else {
-            this.router.navigate([ALL_ROUTES.DASHBOARD])
+            this.router.navigate([ALL_ROUTES.DASHBOARD]);
           }
         },
         error => console.log(error)
@@ -72,16 +72,29 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     );
   }
 
+  public handleExerciseUpdated(exercise: Exercise): void {
+    const index = this.importedExercises.findIndex(x => x.createDate === exercise.createDate);
+    this.importedExercises[index] = exercise;
+  }
+
+  public handleExerciseDeleted(id: number): void {
+    const index = this.importedExercises.findIndex(x => x.createDate === id);
+    this.importedExercises.splice(index, 1);
+  }
+
   public getFiles(event: any) {
     this.errorMsg = '';
-    if (event.target.files.length > 0) {
-      if (this.filesIncorrect(event.target.files)) {
+    console.log(event);
+    if (event.length > 0 && event.length <= 100) {
+      if (this.filesIncorrect(event)) {
         this.errorMsg = 'Please select right file/s.';
         return;
       }
       this.importedExercises = [];
-      this.selectedFiles = [].slice.call(event.target.files);
-      this.uploadFiles()
+      this.selectedFiles = [].slice.call(event);
+      this.uploadFiles();
+    } else {
+      this.errorMsg = 'The maximum number of files is 100';
     }
   }
 
@@ -101,20 +114,20 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       };
       fileReader.onloadend = () => {
         if (i === this.selectedFiles.length - 1) {
-          this.filesOnLoad = false
+          this.filesOnLoad = false;
         }
       };
       fileReader.onerror = () => {
         this.errorMsg = 'Something went wrong.. Please, let us know on: email@email.com';
         this.filesOnLoad = false;
-      }
+      };
     }
   }
 
   public saveExercises(): void {
     this.filesOnLoad = true;
-    this.importedExercises.forEach(x => this.importService.fixExercise(x));
-    this.exerciseService.addExerciseList(this.testId, this.importedExercises)
+    this.importedExercises.forEach(x => this.exerciseService.fixExercise(x));
+    this.exerciseService.saveExercises(this.testId, this.importedExercises)
       .then(() => {
         this.filesOnLoad = false;
         this.navigateToTest();
@@ -149,5 +162,9 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   private checkIfIsAuthor(authorId: string): boolean {
     return this.auth.currentUserId === authorId;
+  }
+
+  public toggleHover(event: boolean): void {
+    this.isHovering = event;
   }
 }

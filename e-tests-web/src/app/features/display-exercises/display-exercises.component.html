@@ -32,7 +32,8 @@
             style="margin-left: 6px;"
             [matTooltip]="'display-exer-exercise' | translate"
             *ngIf="auth.currentUserId === authorId"
-            (click)="addExercise()">
+            [disabled]="copyExerciseList.length > 99"
+            (click)="openExerciseDialog()">
       <mat-icon aria-label="Add">add</mat-icon>
     </button>
 
@@ -40,14 +41,17 @@
 
   <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
     <app-display-one-exercise [exercise]="exercise"
-                              [editMode]="!exercise.id"
-                              [testId]="testId"
-                              [importMode]="false"
-                              [isAuthor]="auth.currentUserId === authorId"
                               [number]="i + 1"
-                              (exerciseDeleted)="handleExerciseDeleted($event)"
-                              (exerciseCanceled)="handleExerciseCanceled($event)">
+                              [isAuthor]="auth.currentUserId === authorId"
+                              (exerciseUpdated)="handleExerciseUpdated($event)"
+                              (exerciseDeleted)="handleExerciseDeleted($event)">
     </app-display-one-exercise>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div *ngIf="copyExerciseList.length === 0" class="no-results">
+    <mat-icon aria-label="No matches icon" class="no-results-icon">sentiment_very_dissatisfied</mat-icon>
+    <p class="my-sub-title">{{ 'test-info-no-results' | translate}}</p>
   </div>
 
   <!-- NO MATCHES -->
@@ -63,7 +67,8 @@
             *ngIf="auth.currentUserId === authorId && copyExerciseList.length > 5 && searchText === ''"
             color="accent"
             id="newExerciseButton"
-            (click)="addExercise()">
+            [disabled]="copyExerciseList.length > 99"
+            (click)="openExerciseDialog()">
       <span>{{ 'display-exer-exercise' | translate}}</span>
     </button>
   </div>

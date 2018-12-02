@@ -150,6 +150,7 @@ export const LANG_PL_TRANS = {
   'test-info-notes': 'Materiały',
   'test-info-learn': 'Ucz się',
   'test-info-exam': 'Egzamin',
+  'test-info-no-results': 'Brak zadań',
 
   // TEST INFO BOTTOM SHEET
   'test-info-export': 'Eksport',
@@ -157,6 +158,7 @@ export const LANG_PL_TRANS = {
   'test-info-import': 'Import',
   'test-info-import-text': 'Importuj zadania z pliku/ów do testu',
   'test-info-delete': 'Usuń',
+  'test-info-confirm-delete': 'Na pewno chcesz usunąć test?',
   'test-info-delete-text': `<strong>Uważaj, operacja nieodwracalna</strong>`,
 
   // DISPLAY EXERCISES
@@ -225,6 +227,8 @@ export const LANG_PL_TRANS = {
   'import-exercises-imported-exercises': 'Zaimportowane zadania',
   'import-exercises-save': 'zapisz',
   'import-exercises-reset': 'wyczyść',
+  'import-exercises-drag-file': `Przeciągnij swoje pliki tutaj`,
+  'import-exercises-drag-choose': 'lub wybierz...',
 
   // ABOUT APP
   'about-title': 'O aplikacji',
