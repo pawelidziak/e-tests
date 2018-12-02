@@ -63,7 +63,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
             this.exercises = this.test.exercises;
           }
           this.headerService.setCurrentRoute([
-            {label: 'tests-title', path: ALL_ROUTES.USER_TESTS_LIST},
+            {label: 'tests-title', path: ALL_ROUTES.SEARCH},
             {label: this.test.name, path: ``},
           ]);
           this.loader.complete();
