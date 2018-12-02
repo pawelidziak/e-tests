@@ -1,5 +1,4 @@
-import * as firebase from "firebase";
-import Timestamp = firebase.firestore.Timestamp;
+import {Exercise} from './Exercise';
 
 export interface TestModel {
   id?: string;
@@ -7,12 +6,12 @@ export interface TestModel {
   tags: string[];
   desc?: string;
   createDate: number;
-  exercisesNumber: number;
   authorId: string;
   isPublic: boolean;
   settings?: TestSettings;
   startedBy?: any[];
   authorObj?: any;
+  exercises?: Exercise[];
 }
 
 export interface TestSettings {
@@ -27,11 +26,11 @@ export interface TestConfig {
 }
 
 export interface TestProgress {
-  masteredExercisesIds: Array<string>;
+  masteredExercisesIds: Array<number>;
   reviewedExercisesIds: Array<ExerciseOccurrences>;
 }
 
 interface ExerciseOccurrences {
-  id: string;
+  id: number;
   occurrences: number;
 }

@@ -57,30 +57,18 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
-          this.test = res;
-          this.test.id = this.testId;
+          if (res) {
+            this.test = res;
+            this.test.id = this.testId;
+            this.exercises = this.test.exercises;
+          }
           this.headerService.setCurrentRoute([
             {label: 'tests-title', path: ALL_ROUTES.USER_TESTS_LIST},
             {label: this.test.name, path: ``},
           ]);
-          this.getExercises();
+          this.loader.complete();
         },
         error => console.log(error)
-      )
-    );
-  }
-
-  private getExercises() {
-    this.subscriptions.push(
-      this.exercisesService.getTestExercises(this.testId).subscribe(
-        res => {
-          this.exercises = res;
-          this.loader.complete();
-        },
-        error => {
-          console.log(error);
-          this.loader.complete();
-        }
       )
     );
   }

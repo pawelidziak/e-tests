@@ -234,4 +234,8 @@ export class TestService {
     return this.afs.collection(this.TEST_PATH).doc(testId).update({exercisesNumber: exercisesNumber});
   }
 
+  public deleteTest(testId: string): Promise<void> {
+    return this.afs.collection(this.TEST_PATH).doc(testId).delete();
+  }
+
 }

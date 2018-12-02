@@ -152,6 +152,7 @@ export const LANG_EN_TRANS = {
   'test-info-notes': 'Notes',
   'test-info-learn': 'Learn',
   'test-info-exam': 'Exam',
+  'test-info-no-results': 'No tasks',
 
   // TEST INFO BOTTOM SHEET
   'test-info-export': 'Export',
@@ -159,6 +160,7 @@ export const LANG_EN_TRANS = {
   'test-info-import': 'Import',
   'test-info-import-text': 'Import exercises to Your test',
   'test-info-delete': 'Delete',
+  'test-info-confirm-delete': 'Are you sure you want to delete the test?',
   'test-info-delete-text': `<strong>Be careful, it's permanent</strong>`,
 
   // DISPLAY EXERCISES
@@ -227,6 +229,8 @@ export const LANG_EN_TRANS = {
   'import-exercises-imported-exercises': 'Imported exercises',
   'import-exercises-save': 'save',
   'import-exercises-reset': 'reset',
+  'test-info-drag-file': `Drag Your file/s here`,
+  'test-info-drag-choose': 'or choose...',
 
   // ABOUT APP
   'about-title': 'About',

@@ -36,10 +36,10 @@ export class OneTestBoxComponent implements OnInit {
   public calculateProgress(): number {
     if (this.oneBox.settings) {
       if ((this.oneBox.settings.progress && this.oneBox.settings.progress.masteredExercisesIds.length === 0) ||
-        this.oneBox.exercisesNumber === 0) {
+        this.oneBox.exercises.length === 0) {
         return 0;
       }
-      return this.oneBox.settings.progress.masteredExercisesIds.length / this.oneBox.exercisesNumber * 100;
+      return this.oneBox.settings.progress.masteredExercisesIds.length / this.oneBox.exercises.length * 100;
     }
     return 0;
   }

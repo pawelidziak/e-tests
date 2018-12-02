@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {DisplayOneExerciseComponent} from "./display-one-exercise.component";
-import {SharedModule} from "../../../shared/shared.module";
+import {DisplayOneExerciseComponent} from './display-one-exercise.component';
+import {SharedModule} from '../../../shared/shared.module';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -8,8 +8,8 @@ import {
   MatIconModule,
   MatInputModule, MatSnackBarModule,
   MatTooltipModule
-} from "@angular/material";
-import {DirectivesModule} from "../../../shared/directives/directives.module";
+} from '@angular/material';
+import {DirectivesModule} from '../../../shared/directives/directives.module';
 
 
 @NgModule({
@@ -18,7 +18,6 @@ import {DirectivesModule} from "../../../shared/directives/directives.module";
   ],
   imports: [
     SharedModule,
-
     DirectivesModule,
 
     MatFormFieldModule,

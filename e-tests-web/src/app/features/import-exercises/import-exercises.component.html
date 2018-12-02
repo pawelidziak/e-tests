@@ -1,49 +1,62 @@
 <section class="section-padding" *ngIf="test">
 
-  <div [style.color]="appSettings.currentTheme.textColor">
+  <div class="row">
+    <div class="col-12 col-md-6" [style.color]="appSettings.currentTheme.textColor">
+      <span class="beta-paragraph">beta</span>
+      <h3 class="my-title" [innerHTML]="'import-exercises-header' | translate"></h3>
+      <p class="my-sub-title" [innerHTML]="'import-exercises-paragraph' | translate"></p>
 
-    <div class="name-buttons">
-      <div>
-        <span class="beta-paragraph">beta</span>
-        <h3 class="my-title" [innerHTML]="'import-exercises-header' | translate"></h3>
-      </div>
-      <div class="header-buttons">
-        <button mat-raised-button
-                class="parser-button"
-                [matMenuTriggerFor]="parserMenu">
-          <span>Parser:</span>
-          <span class="selected-parser">{{selectedParser.label}}</span>
-          <mat-icon aria-label="Parser">expand_more</mat-icon>
-        </button>
-        <button type="button"
-                color="primary"
-                class="choose-files-button"
-                mat-raised-button
-                (click)="fileInput.click()">
-          <span style="margin-right: 12px;">{{ 'import-exercises-choose-files' | translate}}</span>
-          <mat-icon aria-label="Choose">search</mat-icon>
-        </button>
-        <input type="file"
-               #fileInput
-               hidden
-               multiple
-               [accept]="selectedParser.validFileType"
-               (change)="getFiles($event)"/>
-      </div>
     </div>
+    <div class="col-12 col-md-6">
+      <mat-card class="select-card">
+        <div class="select-header">
+          <button mat-raised-button
+                  color="accent"
+                  class="parser-button"
+                  [matMenuTriggerFor]="parserMenu">
+            <span>Parser:</span>
+            <span class="selected-parser">{{selectedParser.label}}</span>
+            <mat-icon aria-label="Parser">expand_more</mat-icon>
+          </button>
+        </div>
 
-    <p class="my-sub-title" [innerHTML]="'import-exercises-paragraph' | translate"></p>
+        <div class="drop-zone"
+             [style.border-color]="appSettings.currentTheme.accent"
+             appDropZone
+             (hovered)="toggleHover($event)"
+             (dropped)="getFiles($event)"
+             [class.hovering]="isHovering">
+
+          <h3 class="my-sub-title" style="margin-bottom: 24px;"> {{'import-exercises-drag-file' | translate}}</h3>
+
+          <button mat-raised-button (click)="fileInput.click()">
+            <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+            <span style="margin-left: 24px;">{{'import-exercises-drag-choose' | translate}}</span>
+          </button>
+
+          <input #fileInput
+                 hidden
+                 multiple
+                 [accept]="selectedParser.validFileType"
+                 type="file"
+                 (change)="getFiles($event.target.files)">
+        </div>
+
+
+      </mat-card>
+    </div>
   </div>
 
   <app-spinner [hidden]="!filesOnLoad"></app-spinner>
 
-  <p style="margin-bottom: 24px;" class="error-msg" *ngIf="errorMsg && !filesOnLoad">{{errorMsg}}</p>
+  <p style="margin: 24px 0;" class="error-msg" *ngIf="errorMsg && !filesOnLoad">{{errorMsg}}</p>
 
   <mat-card class="import-card" *ngIf="!filesOnLoad &&  importedExercises.length > 0">
     <div class="import-card-header">
       <span>{{ 'import-exercises-imported-exercises' | translate}}: <strong>{{importedExercises.length}}</strong></span>
 
       <div class="import-buttons">
+        <span>Warning! Imported exercises will overwrite current.</span>
         <button mat-raised-button
                 color="accent"
                 (click)="saveExercises();">
@@ -59,11 +72,10 @@
 
     <div *ngFor="let exercise of importedExercises; let i=index">
       <app-display-one-exercise [exercise]="exercise"
-                                [editMode]="!exercise.id"
-                                [testId]="testId"
-                                [importMode]="true"
                                 [isAuthor]="true"
-                                [number]="i + 1">
+                                [number]="i + 1"
+                                (exerciseUpdated)="handleExerciseUpdated($event)"
+                                (exerciseDeleted)="handleExerciseDeleted($event)">
       </app-display-one-exercise>
     </div>
 

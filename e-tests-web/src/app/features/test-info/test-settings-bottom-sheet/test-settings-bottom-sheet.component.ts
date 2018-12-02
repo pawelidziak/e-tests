@@ -1,11 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material';
-import {ImportExportExercisesService} from "../../../core/services/import-export-exercises.service";
-import {Exercise} from "../../../core/models/Exercise";
-import {TestModel} from "../../../core/models/Test";
-import {ALL_ROUTES} from "../../../shared/ROUTES";
-import {Router} from "@angular/router";
-import {AuthService} from "../../../core/services/auth.service";
+import {ImportExportExercisesService} from '../../../core/services/import-export-exercises.service';
+import {Exercise} from '../../../core/models/Exercise';
+import {TestModel} from '../../../core/models/Test';
+import {ALL_ROUTES} from '../../../shared/ROUTES';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../core/services/auth.service';
+import {AppSettingsService} from '../../../core/services/app-settings.service';
+import {TestService} from '../../../core/services/test.service';
 
 @Component({
   selector: 'app-test-settings-bottom-sheet',
@@ -21,6 +23,8 @@ export class TestSettingsBottomSheetComponent implements OnInit {
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
               private router: Router,
               public auth: AuthService,
+              private appSettings: AppSettingsService,
+              private testService: TestService,
               private importExportService: ImportExportExercisesService) {
     this.test = this.data.test;
     this.testExercises = this.data.testExercises;
@@ -36,7 +40,7 @@ export class TestSettingsBottomSheetComponent implements OnInit {
 
   private prepareExerciseListToExport(): any[] {
     const preparedList: any[] = [];
-    for (let exercise of this.testExercises) {
+    for (const exercise of this.testExercises) {
       preparedList.push({
         question: exercise.question,
         correctAnswers: exercise.correctAnswers,
@@ -51,4 +55,14 @@ export class TestSettingsBottomSheetComponent implements OnInit {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.test.id}/${ALL_ROUTES.IMPORT_EXERCISES}`]);
   }
 
+  public deleteTest(): void {
+    if (confirm(this.appSettings.translateText('test-info-confirm-delete'))) {
+      this.testService.deleteTest(this.test.id)
+        .then(() => {
+          this.bottomSheetRef.dismiss();
+          this.router.navigateByUrl(ALL_ROUTES.DASHBOARD);
+        })
+        .catch(error => console.log(error));
+    }
+  }
 }

@@ -20,6 +20,9 @@ button {
   border: 1px solid $hover_color;
 }
 
+/*
+  HEADER
+ */
 .exercise-header {
   padding: .5*$margin;
   min-height: 60px;
@@ -29,20 +32,10 @@ button {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.header-edit {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  @media #{$gt-xs_size} {
-    flex-direction: row-reverse;
-    align-items: center;
-  }
-}
-
-.editable-title-form {
-  width: 85%;
-  @media #{$gt-lg_size} {
-    width: 95%;
+.edit-exercise-button {
+  color: $text_secondary;
+  &:hover {
+    color: $text-dark;
   }
 }
 
@@ -57,82 +50,23 @@ button {
 .exercise-answers {
   padding: .5*$margin .5*$margin 0;
   @media #{$gt-lg_size}{
-    padding: $margin $margin .5*$margin;
+    padding: $margin .5*$margin .5*$margin;
   }
-}
-
-/deep/ .mat-form-field-wrapper {
-  padding-bottom: 0;
 }
 
 .single-answer {
   display: flex;
   align-items: center;
-  margin-bottom: .25*$margin;
-  @media #{$gt-md_size}{
-    margin-bottom: .5*$margin;
-  }
+  margin-bottom: .5*$margin;
 }
 
 .no-editable-answer {
   display: flex;
   align-items: center;
-  padding-bottom: 12px;
 }
 
 .answer-text {
   min-width: 0;
   padding-left: .5*$margin;
-  @media #{$gt-xs_size}{
-    padding-left: $margin;
-  }
   font-size: 1.1*$font-small;
-}
-
-.editable-answer {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.answer-checkbox {
-  height: 20px;
-}
-
-.add-answer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  button {
-    outline: none;
-  }
-}
-
-/*
-  ACTIONS
- */
-.edit-buttons {
-  display: flex;
-  align-items: center;
-}
-
-.normal-button {
-  color: $text_secondary;
-  &:hover {
-    color: $text-dark;
-  }
-}
-
-.delete-button {
-  color: $text_secondary;
-  &:hover {
-    color: $material-red;
-  }
-}
-
-#deleteAnswerButton {
-  margin-right: -12px;
-  @media #{$gt-lg_size} {
-    margin-right: -19px;
-  }
 }

@@ -31,3 +31,10 @@ button {
   @include upper-text();
 }
 
+.no-results {
+  text-align: center;
+}
+
+.no-results-icon {
+  @include mat-icon-size(76px);
+}

@@ -27,6 +27,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   public parserOption = PARSERS;
   public selectedParser: SelectParser = this.parserOption[0];
   public errorMsg: string;
+  public isHovering: boolean;
 
   constructor(public appSettings: AppSettingsService,
               private route: ActivatedRoute,
@@ -71,16 +72,29 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     );
   }
 
+  public handleExerciseUpdated(exercise: Exercise): void {
+    const index = this.importedExercises.findIndex(x => x.createDate === exercise.createDate);
+    this.importedExercises[index] = exercise;
+  }
+
+  public handleExerciseDeleted(id: number): void {
+    const index = this.importedExercises.findIndex(x => x.createDate === id);
+    this.importedExercises.splice(index, 1);
+  }
+
   public getFiles(event: any) {
     this.errorMsg = '';
-    if (event.target.files.length > 0) {
-      if (this.filesIncorrect(event.target.files)) {
+    console.log(event);
+    if (event.length > 0 && event.length <= 100) {
+      if (this.filesIncorrect(event)) {
         this.errorMsg = 'Please select right file/s.';
         return;
       }
       this.importedExercises = [];
-      this.selectedFiles = [].slice.call(event.target.files);
+      this.selectedFiles = [].slice.call(event);
       this.uploadFiles();
+    } else {
+      this.errorMsg = 'The maximum number of files is 100';
     }
   }
 
@@ -112,8 +126,8 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   public saveExercises(): void {
     this.filesOnLoad = true;
-    this.importedExercises.forEach(x => this.importService.fixExercise(x));
-    this.exerciseService.addExerciseList(this.testId, this.importedExercises)
+    this.importedExercises.forEach(x => this.exerciseService.fixExercise(x));
+    this.exerciseService.saveExercises(this.testId, this.importedExercises)
       .then(() => {
         this.filesOnLoad = false;
         this.navigateToTest();
@@ -148,5 +162,9 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   private checkIfIsAuthor(authorId: string): boolean {
     return this.auth.currentUserId === authorId;
+  }
+
+  public toggleHover(event: boolean): void {
+    this.isHovering = event;
   }
 }
