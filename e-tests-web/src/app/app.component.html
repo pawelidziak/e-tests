@@ -1,14 +1,15 @@
 <app-spinner [hidden]="!pageOnLoad"></app-spinner>
 <mat-card class="main-card">
-  <div id="stripes" aria-hidden="true"
-       [style.background-image]="'linear-gradient(150deg, '+
-                appSettings?.currentTheme?.primary+', '+
-                appSettings?.currentTheme?.accent + ' )'">
+  <div id="stripes"
+       aria-hidden="true"
+       [style.background-image]="'linear-gradient(to bottom, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'">
     <span></span>
     <span></span>
     <span></span>
   </div>
-  <main class="container" style="position: relative; padding-bottom: 100px;">
+  <main class="container" style="position: relative;">
 
     <app-header [isUserLoaded]="isUserLoaded"
                 [height]="headerHeight"
@@ -25,6 +26,37 @@
 
   </main>
 
+  <div style="flex: 1 0"></div>
+  <app-footer></app-footer>
+
 </mat-card>
 
-<app-footer [hidden]="pageOnLoad"></app-footer>
+<!--<mat-card class="cos">-->
+<!--<div class="cos0" >-->
+<!--<div class="cos1"></div>-->
+<!--<div class="cos2"></div>-->
+<!--<div class="cos3"></div>-->
+
+<!--</div>-->
+<!--<div class="cos-main">-->
+<!--<main class="container" style="position: relative;">-->
+
+<!--<app-header [isUserLoaded]="isUserLoaded"-->
+<!--[height]="headerHeight"-->
+<!--[user]="user"-->
+<!--[isSmallScreen]="isSmallScreen">-->
+<!--</app-header>-->
+
+<!--<app-page-header [height]="headerHeight" [user]="user"></app-page-header>-->
+
+<!--<div [hidden]="pageOnLoad"-->
+<!--[@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">-->
+<!--<router-outlet #o="outlet"></router-outlet>-->
+<!--</div>-->
+
+<!--</main>-->
+
+<!--<div style="flex: 1 0"></div>-->
+<!--<app-footer [hidden]="pageOnLoad"></app-footer>-->
+<!--</div>-->
+<!--</mat-card>-->

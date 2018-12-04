@@ -9,9 +9,8 @@
 //$my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
 //
 //@include angular-material-theme($my-app-theme);
-
-
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 // Typography
@@ -22,42 +21,52 @@ $custom-typography: mat-typography-config(
 );
 @include angular-material-typography($custom-typography);
 
-// Light theme
-$light-primary: mat-palette($mat-grey, 100);
-$light-accent: mat-palette($mat-green, 600);
-$light-warn: mat-palette($mat-red);
+// Blue theme
+$blue-primary: mat-palette($mat-indigo, A700);
+$blue-accent: mat-palette($mat-light-blue);
+$blue-warn: mat-palette($mat-red);
 
-$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
+
+// Purple theme
+$purple-primary: mat-palette($mat-deep-purple, 700);
+$purple-accent: mat-palette($mat-deep-purple, A200);
+$purple-warn: mat-palette($mat-red);
+
+$purple-theme: mat-light-theme($purple-primary, $purple-accent, $purple-warn);
+
+// Green theme
+$green-primary: mat-palette($mat-green, 800);
+$green-accent: mat-palette($mat-green, 600);
+$green-warn: mat-palette($mat-red);
+
+$green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
 
 // Dark theme$mat-blue-grey, 400
 $dark-primary: mat-palette($mat-blue-grey, 900);
-$dark-accent:  mat-palette($mat-blue-grey, A700);
-$dark-warn: mat-palette($mat-red);
+$dark-accent: mat-palette($mat-blue-grey, 600);
+$dark-warn: mat-palette($mat-red, 500);
 
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-
-// Indigo theme
-$indigo-primary: mat-palette($mat-indigo, A700);
-$indigo-accent: mat-palette($mat-light-blue);
-$indigo-warn: mat-palette($mat-red);
-
-$indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
-
 
 // ADD THEMES
 
 // default
-@include angular-material-theme($indigo-theme);
+@include angular-material-theme($blue-theme);
 
-.light-theme {
-  @include angular-material-theme($light-theme);
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+}
+
+.purple-theme {
+  @include angular-material-theme($purple-theme);
+}
+
+.green-theme {
+  @include angular-material-theme($green-theme);
 }
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
-}
-
-.indigo-theme {
-  @include angular-material-theme($indigo-theme);
 }
 

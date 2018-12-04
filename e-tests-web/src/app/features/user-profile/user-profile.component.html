@@ -1,6 +1,6 @@
 <app-spinner [hidden]="!fileOnLoad"></app-spinner>
 
-<section class="section-padding" *ngIf="owner">
+<section class="section-padding">
 
   <div class="row">
 
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-6 profile-card-container">
+    <div class="col-12 col-md-6 profile-card-container" *ngIf="owner">
       <!-- PROFILE CARD -->
       <mat-card class="profile-card">
         <div class="account-image">
@@ -47,6 +47,7 @@
                           appearance="outline">
             <mat-label>{{'user-profile-display-name-label' | translate}}</mat-label>
             <input matInput
+                   type="text"
                    [(ngModel)]="owner.displayName"
                    [placeholder]="'user-profile-display-name-placeholder' | translate">
           </mat-form-field>
