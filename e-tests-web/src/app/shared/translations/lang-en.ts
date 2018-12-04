@@ -64,7 +64,8 @@ export const LANG_EN_TRANS = {
   'language': 'Language',
   'app-theme': 'App theme',
   'blue': 'Blue',
-  'light': 'Light',
+  'green': 'Green',
+  'purple': 'Purple',
   'dark': 'Dark',
 
   // CREATE-TEST

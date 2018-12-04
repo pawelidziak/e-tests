@@ -65,6 +65,12 @@ button {
   align-items: center;
 }
 
+.correct-answer {
+  //background-color: $text_secondary;
+  font-weight: bold;
+  font-size: 1.2*$font-normal;
+}
+
 .answer-text {
   min-width: 0;
   padding-left: .5*$margin;

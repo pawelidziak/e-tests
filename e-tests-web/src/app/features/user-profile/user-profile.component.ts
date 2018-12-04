@@ -49,7 +49,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
         res => {
-          this.owner = res;
+          this.owner = res as User;
+          this.owner = {
+            uid: res.uid,
+            email: res.email,
+            displayName: res.displayName,
+            photoURL: res.photoURL
+          };
           this.loader.complete();
         }, () => this.loader.complete()
       )
@@ -66,7 +72,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         task.snapshotChanges().pipe(
           finalize(() => {
-              this.subscriptions.push(fileUploadRef.getDownloadURL().subscribe(url => this.savePersonalToFS(this.owner.displayName, url)));
+              this.subscriptions.push(fileUploadRef.getDownloadURL().subscribe(url => {
+                this.savePersonalToFS(this.owner.displayName, url);
+                this.owner.photoURL = url;
+              }));
               this.clearSelectFile();
             }
           )).subscribe()
@@ -113,7 +122,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private savePersonalToFS(displayName: string, photoURL: string): void {
     this.auth.updateCurrentUserData(displayName, photoURL)
       .then((res) => {
-        console.log(res);
         this.errorMsg = '';
         this.responseMsg = 'change-success';
         this.fileOnLoad = false;

@@ -62,7 +62,8 @@ export const LANG_PL_TRANS = {
   'language': 'Język',
   'app-theme': 'Styl aplikacji',
   'blue': 'Niebieski',
-  'light': 'Jasny',
+  'green': 'Zielony',
+  'purple': 'Fioletowy',
   'dark': 'Ciemny',
 
   // CREATE-TEST

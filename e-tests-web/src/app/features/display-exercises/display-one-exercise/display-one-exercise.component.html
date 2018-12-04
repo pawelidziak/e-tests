@@ -28,7 +28,8 @@
 
       <!-- NO EDITABLE ANSWER -->
       <div *ngIf="!editMode" class="no-editable-answer">
-        <span [style.color]="checkIfIsCorrect(j) ? appSettings.currentTheme.accent : ''">
+        <span [ngClass]="{'correct-answer': checkIfIsCorrect(j)}"
+          [style.color]="checkIfIsCorrect(j) ? appSettings.currentTheme.accent : ''">
           {{getLetterFromAscii(j)}}
         </span>
         <span class="answer-text">{{answer}}</span>

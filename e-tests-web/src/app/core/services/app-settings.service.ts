@@ -12,7 +12,6 @@ export interface MyTheme {
   label: string;
   primary: string;
   accent: string;
-  accentSecond: string;
   warn: string;
   textColor: string;
 }
@@ -24,29 +23,34 @@ export interface MyTheme {
  */
 export const MY_THEMES: Array<MyTheme> = [
   {
-    name: 'indigo-theme',
+    name: 'blue-theme',
     label: 'blue',
     primary: '#304ffe',
     accent: '#05d5ff',
-    accentSecond: '#b9f6ca',
     warn: '#f44336',
     textColor: '#FAFAFA'
   },
   {
-    name: 'light-theme',
-    label: 'light',
-    primary: '#f5f5f5',
-    accent: '#dcedc8',
-    accentSecond: '#a6ffcb',
+    name: 'green-theme',
+    label: 'green',
+    primary: '#2e7d32',
+    accent: '#00c853',
     warn: '#f44336',
-    textColor: '#000'
+    textColor: '#FAFAFA'
+  },
+  {
+    name: 'purple-theme',
+    label: 'purple',
+    primary: '#512da8',
+    accent: '#7C4DFF',
+    warn: '#f44336',
+    textColor: '#FAFAFA'
   },
   {
     name: 'dark-theme',
     label: 'dark',
     primary: '#263238',
-    accent: '#455a64',
-    accentSecond: '#546e7a',
+    accent: '#546e7a',
     warn: '#f44336',
     textColor: '#FAFAFA'
   }
