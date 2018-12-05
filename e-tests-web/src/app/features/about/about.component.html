@@ -7,12 +7,13 @@
       <div class="sub-title-text">
         <h3 class="my-title">{{ 'about-header' | translate}}</h3>
         <p class="my-sub-title" [innerHTML]="'about-paragraph' | translate"></p>
-        <p class="my-sub-title">
-          {{ 'about-contact' | translate}}
-          <a href="mailto:contact@e-testo.com"  [style.color]="appSettings.currentTheme.textColor">
-            <strong>contact@e-testo.com</strong>
-          </a>
-        </p>
+        <div style="text-align: center; margin-bottom: 24px;">
+          <button mat-flat-button>
+            <a href="mailto:contact@e-testo.com">
+              <strong>contact@e-testo.com</strong>
+            </a>
+          </button>
+        </div>
 
       </div>
     </div>

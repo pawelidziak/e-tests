@@ -12,7 +12,7 @@ import {AppHeaderModule} from './features/app-header/app-header.module';
 import {PageHeaderModule} from './shared/components/page-header/page-header.module';
 import {AuthModule} from './features/auth/auth.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppFooterModule} from "./features/app-footer/app-footer.module";
+import {AppFooterModule} from './features/app-footer/app-footer.module';
 
 @NgModule({
   declarations: [

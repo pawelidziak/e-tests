@@ -1,8 +1,5 @@
 <section class="section-test-learn">
-  <div *ngIf="loader.isOnLoad && (!userIsAuthenticated || !isConfigSet)" class="">
-    TODO Fajny obrazek
-  </div>
-
+  <app-skeleton-loading *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)"></app-skeleton-loading>
   <mat-card class="test-learn-card" *ngIf="userIsAuthenticated && isConfigSet && test">
 
     <!-- LEARN HEADER -->

@@ -10,7 +10,8 @@ import {
   MatProgressBarModule,
   MatTooltipModule
 } from '@angular/material';
-import {TestConfigComponent} from "./test-config/test-config.component";
+import {TestConfigComponent} from './test-config/test-config.component';
+import {SkeletonLoadingModule} from '../../shared/components/skeleton-loading/skeleton-loading.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {TestConfigComponent} from "./test-config/test-config.component";
     testLearnRouting,
     TestConfigModule,
     ExerciseModule,
+    SkeletonLoadingModule,
 
     MatCardModule,
     MatTooltipModule,
