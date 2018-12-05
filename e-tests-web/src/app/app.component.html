@@ -18,7 +18,8 @@
     </app-header>
 
     <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
-    <div [hidden]="!pageOnLoad">ŁADOWANIE !!!!!!</div>
+
+    <div [hidden]="!pageOnLoad" style="height: 400px;"></div>
 
     <div [hidden]="pageOnLoad"
          [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
@@ -27,7 +28,7 @@
 
   </main>
 
-  <div style="flex: 1 0; min-height: 100px;"></div>
+  <div style="flex: 1 0;"></div>
   <app-footer></app-footer>
 
 </mat-card>

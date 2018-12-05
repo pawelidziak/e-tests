@@ -48,9 +48,7 @@ export class AppFooterComponent implements OnInit, OnDestroy {
   private getHeaderValues(): void {
     this.subscriptions.push(
       this.headerService.getHeaderValues().subscribe(
-        res => {
-          this.headerValues = res;
-        })
+        res => this.headerValues = res)
     );
   }
 
