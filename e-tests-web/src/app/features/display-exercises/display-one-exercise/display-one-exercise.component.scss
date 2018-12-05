@@ -63,10 +63,13 @@ button {
 .no-editable-answer {
   display: flex;
   align-items: center;
+  .answer-letter {
+    width: 12px;
+    text-align: center;
+  }
 }
 
 .correct-answer {
-  //background-color: $text_secondary;
   font-weight: bold;
   font-size: 1.2*$font-normal;
 }

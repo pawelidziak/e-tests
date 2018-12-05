@@ -54,14 +54,6 @@
     <!-- SMALL DEVICE NAV -->
     <nav *ngIf="isSmallScreen">
       <ul class="my-nav-list">
-        <!-- STUDY SETS -->
-        <li *ngIf="user" (click)="slideMenu = false">
-          <a mat-icon-button
-             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
-             [routerLinkActive]="['active-link']">
-            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
-          </a>
-        </li>
         <!-- ACCOUNT -->
         <li *ngIf="isUserLoaded" (click)="slideMenu = false">
           <a mat-raised-button
@@ -79,6 +71,14 @@
                class="user-photo"
                [style.background-image]="'url(' + user.photoURL +')'">
           </div>
+        </li>
+        <!-- STUDY SETS -->
+        <li *ngIf="user" (click)="slideMenu = false">
+          <a mat-icon-button
+             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+             [routerLinkActive]="['active-link']">
+            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+          </a>
         </li>
         <li (click)="slideMenu = true">
           <a mat-icon-button>

@@ -18,6 +18,7 @@
     </app-header>
 
     <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
+    <div [hidden]="!pageOnLoad">ŁADOWANIE !!!!!!</div>
 
     <div [hidden]="pageOnLoad"
          [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
@@ -26,37 +27,7 @@
 
   </main>
 
-  <div style="flex: 1 0"></div>
+  <div style="flex: 1 0; min-height: 100px;"></div>
   <app-footer></app-footer>
 
 </mat-card>
-
-<!--<mat-card class="cos">-->
-<!--<div class="cos0" >-->
-<!--<div class="cos1"></div>-->
-<!--<div class="cos2"></div>-->
-<!--<div class="cos3"></div>-->
-
-<!--</div>-->
-<!--<div class="cos-main">-->
-<!--<main class="container" style="position: relative;">-->
-
-<!--<app-header [isUserLoaded]="isUserLoaded"-->
-<!--[height]="headerHeight"-->
-<!--[user]="user"-->
-<!--[isSmallScreen]="isSmallScreen">-->
-<!--</app-header>-->
-
-<!--<app-page-header [height]="headerHeight" [user]="user"></app-page-header>-->
-
-<!--<div [hidden]="pageOnLoad"-->
-<!--[@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">-->
-<!--<router-outlet #o="outlet"></router-outlet>-->
-<!--</div>-->
-
-<!--</main>-->
-
-<!--<div style="flex: 1 0"></div>-->
-<!--<app-footer [hidden]="pageOnLoad"></app-footer>-->
-<!--</div>-->
-<!--</mat-card>-->

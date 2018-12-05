@@ -1,6 +1,10 @@
 @import '../../../shared/variables';
 @import '../../../shared/mixins';
 
+.add-edit-dialog-section {
+  padding: 24px;
+}
+
 .exercise-question {
   display: flex;
   align-items: center;
@@ -18,7 +22,7 @@
   padding-bottom: 0;
 }
 
-.single-answer {
+.add-edit-single-answer {
   display: flex;
   align-items: center;
   margin-bottom: .25*$margin;
@@ -72,7 +76,7 @@
 .overview-header {
   margin: 2*$margin 0 $margin;
   @media #{$gt-lg_size} {
-    margin: 4*$margin 0 $margin;
+    margin: 3*$margin 0 $margin;
   }
   font: 500 20px/32px Roboto
 }

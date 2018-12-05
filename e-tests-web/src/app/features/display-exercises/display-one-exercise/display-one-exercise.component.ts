@@ -40,7 +40,9 @@ export class DisplayOneExerciseComponent implements OnInit {
 
   public openExerciseDialog(): void {
     const dialogRef = this.dialog.open(AddEditExerciseComponent, {
-      data: {exercise: this.exercise, isNew: false}
+      maxWidth: '90vw',
+      panelClass: 'none-padding-mat-dialog',
+      data: {exercise: JSON.parse(JSON.stringify(this.exercise)), isNew: false}
     });
 
     dialogRef.afterClosed().subscribe((result: ExerciseDialogClose) => {

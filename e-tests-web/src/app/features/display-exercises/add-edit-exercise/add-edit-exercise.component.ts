@@ -24,7 +24,6 @@ export class AddEditExerciseComponent implements OnInit {
 
   public isNew: boolean;
   public exercise: Exercise;
-  private copyExercise: Exercise;
 
   constructor(public dialogRef: MatDialogRef<AddEditExerciseComponent, ExerciseDialogClose>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,7 +34,6 @@ export class AddEditExerciseComponent implements OnInit {
   ngOnInit() {
     this.isNew = this.data.isNew;
     this.exercise = this.data.exercise;
-    this.copyExercise = JSON.parse(JSON.stringify(this.exercise));
   }
 
   public saveExercise(): void {

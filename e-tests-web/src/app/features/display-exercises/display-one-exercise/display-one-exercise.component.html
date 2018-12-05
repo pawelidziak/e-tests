@@ -27,8 +27,9 @@
          class="col-12 col-md-6 single-answer">
 
       <!-- NO EDITABLE ANSWER -->
-      <div *ngIf="!editMode" class="no-editable-answer">
-        <span [ngClass]="{'correct-answer': checkIfIsCorrect(j)}"
+      <div class="no-editable-answer">
+        <span class="answer-letter"
+          [ngClass]="{'correct-answer': checkIfIsCorrect(j)}"
           [style.color]="checkIfIsCorrect(j) ? appSettings.currentTheme.accent : ''">
           {{getLetterFromAscii(j)}}
         </span>

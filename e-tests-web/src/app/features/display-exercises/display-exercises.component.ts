@@ -77,6 +77,8 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
       };
 
       const dialogRef = this.dialog.open(AddEditExerciseComponent, {
+        maxWidth: '90vw',
+        panelClass: 'none-padding-mat-dialog',
         data: {exercise: newExercise, isNew: true}
       });
 

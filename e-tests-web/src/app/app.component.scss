@@ -6,7 +6,6 @@
 #stripes {
   width: 100%;
   min-height: 69vh;
-  //height: 100%;
   overflow: hidden;
   -webkit-transform: skewY(-10deg);
   transform: skewY(-10deg);
@@ -23,10 +22,8 @@
 }
 
 #stripes :first-child {
-  //background: $hover_color;
   background-image: linear-gradient(to right, transparent, $hover_color 50%, transparent);
   width: 75%;
-  //left: -11%;
   top: 20%;
   height: 33%;
   @media #{$gt-xs_size} {
@@ -36,106 +33,14 @@
   @media #{$gt-sm_size} {
     top: 30%;
   }
-  //top: 130px;
-  //height: 35%;
-  //@media #{$gt-sm_size} {
-  //  top: 150px;
-  //}
 }
-
-//#stripes :nth-child(2) {
-//  @media #{$gt-sm_size} {
-//    background-image: linear-gradient(to right, $hover_color 50%, transparent);
-//    width: 30%;
-//    bottom: -30%;
-//    height: 45%;
-//    left: -10%;
-//  }
-//}
-
-//#stripes :nth-child(3) {
-//  width: 100%;
-//  bottom: 0;
-//  right: 0;
-//  height: 100px;
-//  @media #{$gt-lg_size} {
-//    width: 50%;
-//    height: 200px;
-//  }
-//}
 
 .main-card {
   min-height: 100vh;
-  height: 100%;
   padding: 0;
   border-radius: 0;
   border: none;
   box-shadow: none !important;
-  display: flex;
-  flex-direction: column;
-  //background: url(https://firebase.google.com/images/backslant-home-top.svg) no-repeat;
-  //background-size: 100%
-
-  //background: #fafafa url(../assets/bg.svg) repeat-y 50% 0;
-  //background-size: 100%
-}
-
-.cos {
-  //position: relative;
-  //height: 100%;
-  min-height: 100vh;
-  box-shadow: none !important;
-  padding: 0;
-  //overflow: hidden;
-}
-
-.cos0 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-}
-
-.cos1 {
-  -webkit-transform: skewY(-25deg);
-  transform: skewY(-25deg);
-  -webkit-transform-origin: 0;
-  transform-origin: 0;
-  background: #fafafa;
-  min-height: 700px;
-
-}
-
-.cos2 {
-  right: 0;
-  -webkit-transform: skewY(25deg);
-  transform: skewY(25deg);
-  -webkit-transform-origin: 0;
-  transform-origin: 0;
-  background: #304ffe;
-  min-height: 700px;
-  width: 100%;
-  position: absolute;
-  top: -1000px;
-}
-
-.cos3 {
-  -webkit-transform: skewY(25deg);
-  transform: skewY(25deg);
-  -webkit-transform-origin: 0;
-  transform-origin: 0;
-  background: #05d5ff;
-  min-height: 1000px;
-  width: 100%;
-}
-
-.cos-main {
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //height: 100%;
   display: flex;
   flex-direction: column;
 }
