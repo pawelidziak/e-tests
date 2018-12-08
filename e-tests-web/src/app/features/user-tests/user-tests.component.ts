@@ -47,24 +47,31 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
         () => {
+          this.loader.start();
           const subOne$ = this.testService.getStartedTestIdAndSettingsByCurrentUser();
           const subTwo$ = this.testService.getTestsByCurrentUser();
 
-          this.loader.start();
           this.subscriptions.push(
-            combineLatest(subOne$, subTwo$).subscribe(
-              res => {
+            combineLatest(subOne$.observable, subTwo$.observable).subscribe(
+              (res: any) => {
                 /*
                         res[0] -> user started tests
                         res[1] -> user created tests
                  */
                 if (res[0].length) {
-                  this.startedTests = [];
-                  this.assignTests(res[0]);
+                  // means its test
+                  if (subOne$.fromCache) {
+                    this.startedTests = res[0];
+                  } else {
+                    this.startedTests = [];
+                    this.assignTests(res[0]);
+                  }
                 }
                 if (res[1].length) {
                   this.userTests = res[1];
-                  this.getTestSettings();
+                  if (!subTwo$.fromCache) {
+                    this.getTestSettings();
+                  }
                 }
 
                 if (res[0].length > 0) {
@@ -84,13 +91,14 @@ export class UserTestsComponent implements OnInit, OnDestroy {
    *    GET TEST SETTINGS
    */
   private getTestSettings() {
-    for (const test of this.userTests) {
+    for (let i = 0; i < this.userTests.length; i++) {
       this.loader.start();
       this.subscriptions.push(
-        this.testService.getTestSettings(test.id).subscribe(
+        this.testService.getTestSettings(this.userTests[i].id).subscribe(
           res => {
-            if (res) {
-              test.settings = res;
+            this.userTests[i].settings = res;
+            if (i === this.userTests.length - 1) {
+              this.testService.saveUserTestToCache(this.userTests);
             }
             this.loader.complete();
           }, error => console.log(error)
@@ -102,17 +110,20 @@ export class UserTestsComponent implements OnInit, OnDestroy {
    *    ASSIGN TEST TO SETTINGS
    */
   private assignTests(settings: any[]) {
-    for (const testIdWithSettings of settings) {
+    for (let i = 0; i < settings.length; i++) {
       this.loader.start();
       this.subscriptions.push(
-        this.testService.getTestById(testIdWithSettings.id, false).subscribe(
+        this.testService.getTestById(settings[i].id, false).subscribe(
           res => {
             if (res) {
-              const tmpTest = this.createTestWithSettings(res, testIdWithSettings);
+              const tmpTest = this.createTestWithSettings(res, settings[i]);
               this.pushOrSetToList(tmpTest);
             } else {
-              this.testService.deleteOneTestSettings(testIdWithSettings.id)
+              this.testService.deleteOneTestSettings(settings[i].id)
                 .catch(error => console.log(error));
+            }
+            if (i === settings.length - 1) {
+              this.testService.saveStartedTestToCache(this.startedTests);
             }
             this.loader.complete();
           }, error => console.log(error)

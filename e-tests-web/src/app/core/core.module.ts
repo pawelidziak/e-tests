@@ -16,7 +16,6 @@ import {CanDeactivateGuard} from './can-deactivate-guard';
 import {TestService} from './services/test.service';
 import {LoaderService} from './services/loader.service';
 import {AuthGuard} from './auth.guard';
-import {TestExercisesService} from './services/test-exercises.service';
 import {ScrollService} from './services/scroll.service';
 import {AppSettingsService} from './services/app-settings.service';
 import {TranslateService} from './services/translate.service';
@@ -50,7 +49,6 @@ import {TRANSLATION_PROVIDERS} from '../shared/translations/translation';
     CacheService,
     HeaderService,
     TestService,
-    TestExercisesService,
     TRANSLATION_PROVIDERS, TranslateService
   ]
 })

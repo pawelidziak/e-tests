@@ -5,7 +5,6 @@ import {TestService} from '../../core/services/test.service';
 import {TestModel} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {Exercise} from '../../core/models/Exercise';
-import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {HeaderService} from '../../core/services/header.service';
@@ -31,7 +30,6 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private testService: TestService,
-              private exercisesService: TestExercisesService,
               private bottomSheet: MatBottomSheet,
               private headerService: HeaderService,
               private loader: LoaderService,
@@ -61,11 +59,14 @@ export class TestInfoComponent implements OnInit, OnDestroy {
             this.test = res;
             this.test.id = this.testId;
             this.exercises = this.test.exercises;
-            this.getAuthor();
+            if (!this.test.authorObj) {
+              this.getAuthor();
+            }
             this.headerService.setCurrentRoute([
               {label: 'tests-title', path: ALL_ROUTES.SEARCH},
               {label: this.test.name, path: ``},
             ]);
+            this.loader.complete();
           } else {
             this.loader.complete();
           }
@@ -107,7 +108,6 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   private saveTest(): void {
     this.testService.updateTest(this.testId, this.test)
-      .then(() => console.log('zapisano'))
       .catch(error => console.log(error));
   }
 

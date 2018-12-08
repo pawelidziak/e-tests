@@ -3,15 +3,19 @@ import {TestModel, TestSettings} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
-import {map} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
 import {Exercise} from '../models/Exercise';
+import {of} from 'rxjs';
+import {LoaderService} from './loader.service';
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
-const USER_TESTS_KEY = 'user_test';
+const USER_TESTS_KEY = 'user_created_test';
+const USER_STARTED_TESTS = 'user_started_tests';
+const ALL_TESTS = 'all_tests';
 
 @Injectable()
 export class TestService {
@@ -21,60 +25,110 @@ export class TestService {
   private readonly USER_ID_FIELD = 'authorId';
   private readonly TEST_CREATE_DATE_FIELD = 'createDate';
   private readonly STARTED_TEST_FIELD = 'startedTest';
+  private readonly LAST_MODIFIED = 'lastModified';
   private currentTestId: string;
-  private LAST_MODIFIED = 'lastModified';
 
   constructor(private readonly afs: AngularFirestore,
               private readonly cache: CacheService,
               private readonly auth: AuthService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly loader: LoaderService) {
   }
 
-  public getTests(): Observable<TestModel[]> {
-    // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
-    //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
-    // }
-    // return this.cache.get(TEST_KEY);
 
+  /**
+   *      ADD TEST
+   */
+  public addTest(newTest: TestModel): Promise<any> {
+    this.removeCreatedTestFromCache();
+    return this.afs.collection(this.TEST_PATH).add(newTest);
+  }
+
+  /**
+   *      UPDATE TEST
+   */
+  public updateTest(testId: string, test: TestModel): Promise<void> {
+    this.removeCreatedTestFromCache();
+    return this.afs.collection(this.TEST_PATH)
+      .doc(testId)
+      .update(test);
+  }
+
+  /**
+   *      REMOVE TEST
+   */
+  public deleteTest(testId: string): Promise<void> {
+    if (this.currentTestId === testId) {
+      this.removeCurrentTestFromCache();
+    }
+    return this.afs.collection(this.TEST_PATH).doc(testId).delete();
+  }
+
+  /**
+   *      GET TEST AUTHOR
+   */
+  public getAuthor(userId: string): Observable<any> {
+    return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
+  }
+
+  public saveExercises(testId: string, exercises: Exercise[]): Promise<void> {
+    return this.afs.collection(this.TEST_PATH)
+      .doc(testId)
+      .update({exercises: exercises});
+  }
+
+  /**
+   *      GET ALL TESTS
+   */
+  public getTests(): Observable<TestModel[]> {
+    if (!this.cache.get(ALL_TESTS)) {
+      this.cache.set(ALL_TESTS, this.requestGetTests().pipe(shareReplay(CACHE_SIZE)));
+    }
+    return this.cache.get(ALL_TESTS);
+  }
+
+  private requestGetTests(): Observable<TestModel[]> {
     // first get the user tests
     const tests = this.afs.collection<TestModel>(this.TEST_PATH,
       ref => ref
         .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
 
-    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
-    // not valueChanges())
+    // then return it and additionally assigns the test id
     return tests.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const id = a.payload.doc.id;
-        // const author = this.afs.doc(a.payload.doc.data().authorId).ref.get().then(x => console.log(x));
         const data = a.payload.doc.data() as TestModel;
         return {id, ...data};
       });
     }));
   }
 
-
-  public getAuthor(userId: string): Observable<any> {
-    return this.afs.collection(this.USERS_PATH).doc(userId).valueChanges();
-  }
-
-  public getTestById(testId: string, checkExist: boolean = true): Observable<TestModel> {
-    // if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
-    //   this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
-    // }
-    // return this.cache.get(TEST_KEY);
-
-    return this.requestTestById(testId, checkExist);
-  }
-
-  private requestTestById(testId: string, checkExist: boolean = true): Observable<TestModel> {
-    if (checkExist) {
-      this.checkIfTestExists(testId);
+  /**
+   *      GET TEST BY ID
+   */
+  public getTestById(testId: string, checkCache: boolean = true): Observable<TestModel> {
+    if (checkCache) {
+      if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
+        this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+      }
+      return this.cache.get(TEST_KEY);
     }
+    return this.requestTestById(testId);
+  }
+
+  public removeCurrentTestFromCache(): void {
+    this.cache.clear(TEST_KEY);
+  }
+
+  private requestTestById(testId: string): Observable<TestModel> {
+    this.checkIfTestExists(testId);
     this.currentTestId = testId;
     return this.afs.doc<TestModel>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }
 
+  /**
+   *      DELETE ONE USER STARTED TEST SETTINGS
+   */
   public deleteOneTestSettings(testId: string): Promise<void> {
     return this.afs.collection('users')
       .doc(this.auth.currentUserId)
@@ -83,12 +137,22 @@ export class TestService {
       .delete();
   }
 
-  public getTestsByCurrentUser(): Observable<TestModel[]> {
-    // if (!this.cache.get(USER_TESTS_KEY)) {
-    //   this.cache.set(USER_TESTS_KEY, this.requestTestsByCurrentUser().pipe(shareReplay(CACHE_SIZE)));
-    // }
-    // return this.cache.get(USER_TESTS_KEY);
-    return this.requestTestsByCurrentUser();
+  /**
+   *      GET TESTS CREATED BY CURRENT USER
+   */
+  public getTestsByCurrentUser(): any {
+    if (this.cache.get(USER_TESTS_KEY)) {
+      return {fromCache: true, observable: this.cache.get(USER_TESTS_KEY)};
+    }
+    return {fromCache: false, observable: this.requestTestsByCurrentUser()};
+  }
+
+  public saveUserTestToCache(userTests: TestModel[]): void {
+    this.cache.set(USER_TESTS_KEY, of(userTests));
+  }
+
+  private removeCreatedTestFromCache(): void {
+    this.cache.clear(USER_TESTS_KEY);
   }
 
   private requestTestsByCurrentUser(): Observable<TestModel[]> {
@@ -98,8 +162,7 @@ export class TestService {
         .where(this.USER_ID_FIELD, '==', this.auth.currentUserId)
         .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
 
-    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
-    // not valueChanges())
+    // then return it and additionally assigns the test id
     return userTest.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const id = a.payload.doc.id;
@@ -109,16 +172,32 @@ export class TestService {
     }));
   }
 
-  public getStartedTestIdAndSettingsByCurrentUser(): Observable<TestSettings[]> {
+  /**
+   *      GET TESTS STARTED BY CURRENT USER (just test id with settings)
+   */
+  public getStartedTestIdAndSettingsByCurrentUser(): any {
+    if (this.cache.get(USER_STARTED_TESTS)) {
+      return {fromCache: true, observable: this.cache.get(USER_STARTED_TESTS)};
+    }
+    return {fromCache: false, observable: this.requestStartedTestIdAndSettingsByCurrentUser()};
+  }
+
+  public saveStartedTestToCache(testList: TestModel[]): void {
+    this.cache.set(USER_STARTED_TESTS, of(testList));
+  }
+
+  private removeTestStartedFromCache(): void {
+    this.cache.clear(USER_STARTED_TESTS);
+  }
+
+  public requestStartedTestIdAndSettingsByCurrentUser(): Observable<TestSettings[]> {
     // first get the user tests
     const userTest = this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
-      .collection<TestSettings>(this.STARTED_TEST_FIELD,
-        ref => ref
-          .orderBy(this.LAST_MODIFIED, 'desc'));
+      .collection<TestSettings>(this.STARTED_TEST_FIELD, ref => ref
+        .orderBy(this.LAST_MODIFIED, 'desc'));
 
-    // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
-    // not valueChanges())
+    // then return it and additionally assigns the test id
     return userTest.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const id = a.payload.doc.id;
@@ -128,55 +207,9 @@ export class TestService {
     }));
   }
 
-  // private requestTestsByCurrentUser(): Observable<any[]> {
-  //   // first get the user tests
-  //   const userTest = this.afs.collection<TestModel>(this.TEST_PATH,
-  //     ref => ref
-  //       .where(this.USER_ID_FIELD, '==', this.auth.currentUserId)
-  //       .orderBy(this.TEST_CREATE_DATE_FIELD, 'desc'));
-  //
-  //
-  //   // then return it and additionally assigns the test id (that's why we use snapshotChanges().map(...) and
-  //   // not valueChanges())
-  //   return userTest.snapshotChanges().pipe(map(actions => {
-  //     return actions.map(a => {
-  //       const id = a.payload.doc.id;
-  //
-  //       const data = a.payload.doc.data() as TestModel;
-  //
-  //       const cos = this.afs.collection(this.USERS_PATH)
-  //         .doc(this.auth.currentUserId)
-  //         .collection(this.STARTED_TEST_FIELD)
-  //         .doc(id)
-  //         .ref.get()
-  //         .then(res => {
-  //           if (res.exists) {
-  //             data.settings = res.data().settings;
-  //           }
-  //           return {id, ...data};
-  //         })
-  //         .catch(err => console.error(err));
-  //
-  //       return of(cos);
-  //       // return {id, ...data};
-  //     });
-  //   }));
-  // }
-
-  public addTest(newTest: TestModel): Promise<any> {
-    return this.afs.collection(this.TEST_PATH).add(newTest);
-  }
-
-  public updateTest(testId: string, test: TestModel): Promise<void> {
-    return this.afs.collection(this.TEST_PATH)
-      .doc(testId)
-      .update(test);
-  }
-
   /**
    *  TEST SETTINGS
    */
-
   public getTestSettings(testId: string): Observable<TestSettings> {
     return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
@@ -186,6 +219,7 @@ export class TestService {
   }
 
   public setTestStarted(testId: string, testStarted: TestSettings): Promise<void> {
+    this.removeTestStartedFromCache();
     return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
       .collection(this.STARTED_TEST_FIELD)
@@ -201,7 +235,8 @@ export class TestService {
     this.afs.doc(`${this.TEST_PATH}/${testId}`).ref.get()
       .then(docSnapshot => {
         if (!docSnapshot.exists) {
-          this.router.navigate([ALL_ROUTES.DASHBOARD]);
+          this.removeCurrentTestFromCache();
+          this.router.navigate([ALL_ROUTES.DASHBOARD]).then(() => this.loader.complete());
         }
       });
   }
@@ -228,13 +263,25 @@ export class TestService {
     exercise.correctAnswers.sort((a, b) => a - b);
   }
 
-
-  public setTestExercisesNumber(testId: string, exercisesNumber: number) {
-    return this.afs.collection(this.TEST_PATH).doc(testId).update({exercisesNumber: exercisesNumber});
+  /**
+   * Replace empty question and delete empty answers
+   * @param exercise
+   */
+  public fixExercise(exercise: Exercise) {
+    if (exercise.question === '') {
+      exercise.question = 'Empty question...';
+    }
+    for (let i = 0; i < exercise.answers.length; i++) {
+      if (exercise.answers[0] === '') {
+        exercise.answers[0] = 'Empty answer A ...';
+      }
+      if (exercise.answers[1] === '') {
+        exercise.answers[1] = 'Empty answer B ...';
+      }
+      if (i > 1 && exercise.answers[i] === '') {
+        exercise.answers.splice(i, 1);
+        i--;
+      }
+    }
   }
-
-  public deleteTest(testId: string): Promise<void> {
-    return this.afs.collection(this.TEST_PATH).doc(testId).delete();
-  }
-
 }

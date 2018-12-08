@@ -3,13 +3,13 @@ import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
-import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {MatDialog} from '@angular/material';
 import {
   AddEditExerciseComponent,
   CLOSE_OPERATION,
   ExerciseDialogClose
 } from './add-edit-exercise/add-edit-exercise.component';
+import {TestService} from '../../core/services/test.service';
 
 @Component({
   selector: 'app-display-exercises',
@@ -28,7 +28,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   public searchInputFocused = false;
 
   constructor(public auth: AuthService,
-              private testExercisesService: TestExercisesService,
+              private testService: TestService,
               private dialog: MatDialog,
               public appSettings: AppSettingsService) {
   }
@@ -54,15 +54,10 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * HELPERS
-   */
-  public identifier = (index: number, item: Exercise) => item.createDate;
-
   private saveExercises() {
     if (JSON.stringify(this.copyExerciseList) !== JSON.stringify(this.origExerciseList) &&
       this.copyExerciseList.length <= 100) {
-      this.testExercisesService.saveExercises(this.testId, this.copyExerciseList)
+      this.testService.saveExercises(this.testId, this.copyExerciseList)
         .catch(error => console.log(error));
     }
   }
@@ -92,6 +87,11 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  /**
+   * HELPERS
+   */
+  public identifier = (index: number, item: Exercise) => item.createDate;
 
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {

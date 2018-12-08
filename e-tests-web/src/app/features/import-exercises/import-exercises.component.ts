@@ -7,7 +7,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TestModel} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {Exercise} from '../../core/models/Exercise';
-import {TestExercisesService} from '../../core/services/test-exercises.service';
 import {AuthService} from '../../core/services/auth.service';
 
 @Component({
@@ -35,7 +34,6 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
               private router: Router,
               private headerService: HeaderService,
               private testService: TestService,
-              private exerciseService: TestExercisesService,
               private importService: ImportExportExercisesService) {
     this.subscriptions.push(
       this.route.parent.params.subscribe(params => {
@@ -84,7 +82,6 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   public getFiles(event: any) {
     this.errorMsg = '';
-    console.log(event);
     if (event.length > 0 && event.length <= 100) {
       if (this.filesIncorrect(event)) {
         this.errorMsg = 'Please select right file/s.';
@@ -126,8 +123,8 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
 
   public saveExercises(): void {
     this.filesOnLoad = true;
-    this.importedExercises.forEach(x => this.exerciseService.fixExercise(x));
-    this.exerciseService.saveExercises(this.testId, this.importedExercises)
+    this.importedExercises.forEach(x => this.testService.fixExercise(x));
+    this.testService.saveExercises(this.testId, this.importedExercises)
       .then(() => {
         this.filesOnLoad = false;
         this.navigateToTest();

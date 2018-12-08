@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Exercise} from '../../../core/models/Exercise';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
-import {TestExercisesService} from '../../../core/services/test-exercises.service';
+import {TestService} from '../../../core/services/test.service';
 
 export enum CLOSE_OPERATION {
   'SAVE',
@@ -28,7 +28,7 @@ export class AddEditExerciseComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddEditExerciseComponent, ExerciseDialogClose>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public appSettings: AppSettingsService,
-              private exerciseService: TestExercisesService) {
+              private testService: TestService) {
   }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class AddEditExerciseComponent implements OnInit {
   }
 
   public saveExercise(): void {
-    this.exerciseService.fixExercise(this.exercise);
+    this.testService.fixExercise(this.exercise);
     this.dialogRef.close({exercise: this.exercise, operation: CLOSE_OPERATION.SAVE});
   }
 
