@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exercise} from '../../../core/models/Exercise';
-import {TestExercisesService} from '../../../core/services/test-exercises.service';
 import {MatDialog} from '@angular/material';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
 import {
@@ -22,8 +21,7 @@ export class DisplayOneExerciseComponent implements OnInit {
   @Output() exerciseUpdated: EventEmitter<Exercise> = new EventEmitter();
   @Output() exerciseDeleted: EventEmitter<number> = new EventEmitter();
 
-  constructor(private exercisesService: TestExercisesService,
-              private dialog: MatDialog,
+  constructor(private dialog: MatDialog,
               public appSettings: AppSettingsService) {
   }
 

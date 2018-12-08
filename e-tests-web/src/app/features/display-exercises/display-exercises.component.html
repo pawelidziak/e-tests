@@ -39,7 +39,7 @@
 
   </div> <!-- /EXERCISES HEADER -->
 
-  <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index; trackBy: identifier">
+  <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index">
     <app-display-one-exercise [exercise]="exercise"
                               [number]="i + 1"
                               [isAuthor]="auth.currentUserId === authorId"

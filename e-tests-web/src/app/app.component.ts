@@ -73,7 +73,6 @@ export class AppComponent implements OnInit, OnDestroy {
   beforeunloadHandler(event) {
     if (this.appSettings.logoutAfterRefresh) {
       this.auth.signOut();
-      console.log('logout');
     }
   }
 }

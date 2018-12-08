@@ -33,7 +33,7 @@
               <mat-label>{{('display-one-exer-answer-label' | translate) + getLetterFromAscii(j)}}</mat-label>
               <input matInput
                      [placeholder]="'display-one-exer-answer-placeholder' | translate"
-                     [(ngModel)]="answer">
+                     [(ngModel)]="exercise.answers[j]">
             </mat-form-field>
 
             <button mat-icon-button

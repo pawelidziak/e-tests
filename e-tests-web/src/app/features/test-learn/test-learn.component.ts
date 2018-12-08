@@ -91,7 +91,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
         this.loader.start();
         if (res) {
           this.userIsAuthenticated = true;
-          this.getTestExercises();
+          this.getTest();
         } else {
           this.userIsAuthenticated = false;
           this.auth.openAuthDialog(true);
@@ -104,13 +104,17 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * INITIAL
    */
-  private getTestExercises() {
+  private getTest() {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
-          this.test = res;
-          this.origTestExercises = res.exercises;
-          this.checkIfTetIsStarted();
+          if (res) {
+            this.test = res;
+            this.origTestExercises = res.exercises;
+            this.checkIfTetIsStarted();
+          } else {
+            this.loader.complete();
+          }
         },
         error => console.log(error)
       )
@@ -239,7 +243,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
    * FUNCTIONAL
    */
   public saveProgress(): void {
-    if (this.userIsAuthenticated && this.test.settings && this.areTestSettingsChange) {
+    if (this.test && this.userIsAuthenticated && this.test.settings && this.areTestSettingsChange) {
       this.test.settings.lastModified = new Date().getTime();
       this.testService.setTestStarted(this.testId, this.test.settings)
         .catch(error => console.log(error));
