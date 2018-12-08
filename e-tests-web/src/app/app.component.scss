@@ -5,7 +5,14 @@
  */
 #stripes {
   width: 100%;
-  min-height: 75vh;
+  position: absolute;
+  height: 500px;
+  @media #{$gt-md_size} {
+    height: 600px;
+  }
+  @media #{$gt-lg_size} {
+    height: 750px;
+  }
   overflow: hidden;
   -webkit-transform: skewY(-10deg);
   transform: skewY(-10deg);
@@ -37,6 +44,7 @@
 
 .main-card {
   min-height: 100vh;
+  overflow-x: hidden;
   padding: 0;
   border-radius: 0;
   border: none;

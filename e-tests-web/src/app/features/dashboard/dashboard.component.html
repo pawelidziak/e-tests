@@ -1,12 +1,53 @@
-<nav mat-tab-nav-bar class="sub-nav" color="accent">
-  <a mat-tab-link
-        *ngFor="let link of examples"
-        [routerLink]="link.path"
-        routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">
-    <mat-icon *ngIf="!isSmallScreen" aria-label="Link icon" class="link-icon">{{link.icon}}</mat-icon>
-    <span>{{link.label}}</span>
-  </a>
-</nav>
+<!--<nav mat-tab-nav-bar class="sub-nav" color="accent">-->
+<!--<a mat-tab-link-->
+<!--*ngFor="let link of examples"-->
+<!--[routerLink]="link.path"-->
+<!--routerLinkActive #rla="routerLinkActive"-->
+<!--[active]="rla.isActive">-->
+<!--<mat-icon *ngIf="!isSmallScreen" aria-label="Link icon" class="link-icon">{{link.icon}}</mat-icon>-->
+<!--<span>{{link.label}}</span>-->
+<!--</a>-->
+<!--</nav>-->
 
-<router-outlet></router-outlet>
+<!--<router-outlet></router-outlet>-->
+
+<section class="section-padding">
+  <div class="row">
+    <div class="col-12 col-md-7"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
+        <p class="my-sub-title">{{ 'create-paragraph' | translate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illustrations">
+
+    <mat-card class="illustration tablet-landscape">
+    </mat-card>
+    <mat-card class="illustration phone-large"></mat-card>
+  </div>
+
+  <div class="content-title">
+    ODKRYJ E-TESTO TERAZ
+  </div>
+  <div class="promo-with-img">
+    <div>
+      TWÓRZ SWOJE TEST
+    </div>
+    <div>IMG TWORZENIA</div>
+  </div>
+  <div class="promo-with-img d-row-reverse">
+    <div>
+      PRZESZUKUJ ISTNIEJACE
+    </div>
+    <div>IMG SZUKANIA</div>
+  </div>
+  content
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+
+</section>

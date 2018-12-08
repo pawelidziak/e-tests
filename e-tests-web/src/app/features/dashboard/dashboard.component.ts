@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RWDService} from '../../core/services/RWD.service';
+import {HeaderService} from '../../core/services/header.service';
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +20,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {path: '/d', label: 'About', icon: 'contact_support'}
   ];
 
-  constructor(private rwdService: RWDService) {
+  constructor(private rwdService: RWDService,
+              private headerService: HeaderService,
+              public appSettings: AppSettingsService) {
   }
 
   ngOnInit() {
     this.getRWDValue();
+    this.headerService.setCurrentRoute([]);
   }
 
   ngOnDestroy() {

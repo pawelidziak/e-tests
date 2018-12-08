@@ -14,6 +14,10 @@ export const LANG_EN_TRANS = {
   'auth-login': 'Login',
   'auth-register': 'Register',
 
+  // DASHBOARD
+  'dashboard-title': 'Home',
+  'dashboard-header': 'The new way of studying',
+
   // LOGIN / FORGOT PASSWORD / REGISTER
   'login-google': 'Google login',
   'login-email-label': 'Email',

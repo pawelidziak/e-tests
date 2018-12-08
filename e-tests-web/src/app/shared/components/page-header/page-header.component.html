@@ -3,13 +3,13 @@
         [style.color]="appSettings.currentTheme.textColor"
         [style.height]="height + 'px'">
 
-
   <div *ngIf="isXSmallScreen" class="my-breadcrumb">
-    <a class="breadcrumb-item back-dots"
-       [routerLink]="headerValues.breadcrumb[headerValues.breadcrumb.length - 2]?.path">
-      ...
-    </a>
-    <mat-icon aria-label="Separator" class="breadcrumb-icon">chevron_right</mat-icon>
+    <button mat-icon-button
+            style="margin-left: -12px;"
+            *ngIf="headerValues.breadcrumb.length > 1"
+            [routerLink]="headerValues.breadcrumb[headerValues.breadcrumb.length - 2]?.path">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
     <span class="current-url">
       {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label | translate | limitChar: maxChar}}
     </span>
