@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard.component';
 import {dashboardRouting} from './dashboard.routing';
-import {MatCardModule, MatIconModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule, MatTabsModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -13,6 +13,7 @@ import {MatCardModule, MatIconModule, MatTabsModule} from '@angular/material';
     dashboardRouting,
 
     MatCardModule,
+    MatButtonModule,
     MatIconModule,
     MatTabsModule
   ],

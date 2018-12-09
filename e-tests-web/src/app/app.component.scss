@@ -14,8 +14,8 @@
     height: 750px;
   }
   overflow: hidden;
-  -webkit-transform: skewY(-10deg);
-  transform: skewY(-10deg);
+  -webkit-transform: skewY(-6deg);
+  transform: skewY(-6deg);
   -webkit-transform-origin: 0;
   transform-origin: 0;
 }
@@ -31,14 +31,17 @@
 #stripes :first-child {
   background-image: linear-gradient(to right, transparent, $hover_color 50%, transparent);
   width: 75%;
-  top: 20%;
-  height: 33%;
+  top: 120px;
+  height: 250px;
   @media #{$gt-xs_size} {
     width: 50%;
-    top: 23%;
+    height: 200px;
   }
-  @media #{$gt-sm_size} {
-    top: 30%;
+  @media #{$gt-md_size} {
+    top: 150px;
+  }
+  @media screen and (min-width: 1500px) {
+    top: 180px;
   }
 }
 

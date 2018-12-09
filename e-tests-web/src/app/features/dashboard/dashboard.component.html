@@ -23,31 +23,114 @@
   </div>
 
   <div class="illustrations">
-
-    <mat-card class="illustration tablet-landscape">
-    </mat-card>
+    <mat-card class="illustration tablet-landscape"></mat-card>
     <mat-card class="illustration phone-large"></mat-card>
   </div>
 
-  <div class="content-title">
-    ODKRYJ E-TESTO TERAZ
-  </div>
-  <div class="promo-with-img">
-    <div>
-      TWÓRZ SWOJE TEST
+  <div class="dashboard-content_outer">
+    <div class="promo-bg-one">
+      <span></span>
+      <span></span>
     </div>
-    <div>IMG TWORZENIA</div>
-  </div>
-  <div class="promo-with-img d-row-reverse">
-    <div>
-      PRZESZUKUJ ISTNIEJACE
+
+    <div class="content-title">
+      <h3 class="my-title">Odkryj E-Testo teraz</h3>
     </div>
-    <div>IMG SZUKANIA</div>
+
+    <mat-card class="dashboard-content">
+
+      <!-- LEARN -->
+      <div class="promo-container d-row-reverse" style="margin-top: -100px;">
+        <div class="promo-text">
+          <h5 class="my-title">Ucz się</h5>
+          <p class="my-sub-title">Uczenie się może być przyjemne. Rozwiązuj testy i powtarzaj swoją wiedzę</p>
+          <button mat-raised-button>Create test</button>
+        </div>
+        <mat-card class="promo-bg">
+          <img alt="learn" src="../../../assets/promo/learn.svg">
+        </mat-card>
+      </div>
+
+      <!-- NEW TEST -->
+      <div class="promo-container">
+        <div class="promo-text">
+          <h5 class="my-title">Twórz nowe testy</h5>
+          <p class="my-sub-title">W prosty i szybki sposób stwórz swój własny test</p>
+          <button mat-raised-button>Create test</button>
+        </div>
+        <mat-card class="promo-bg">
+          <img alt="create" src="../../../assets/promo/create.svg">
+        </mat-card>
+      </div>
+
+      <!-- TEST LEARN CONFIG -->
+      <div class="promo-container d-row-reverse">
+        <div class="promo-text">
+          <h5 class="my-title">Dostosuj test</h5>
+          <p class="my-sub-title">Wybierz wygodne dla Ciebie ustawienia uczenia się</p>
+          <button mat-raised-button>Create test</button>
+        </div>
+        <mat-card class="promo-bg">
+          <img alt="config" src="../../../assets/promo/test_config.svg">
+        </mat-card>
+      </div>
+
+      <!-- SEARCH TEST -->
+      <div class="promo-container">
+        <div class="promo-text">
+          <h5 class="my-title">Wyszukuj testy</h5>
+          <p class="my-sub-title">Sprawdzaj testy stworzone przez innych użytkowników i przekonaj się czy je
+            rozwiążesz</p>
+          <button mat-raised-button>Szukaj testy</button>
+        </div>
+        <mat-card class="promo-bg promo-bg-reverse">
+          <img alt="search" src="../../../assets/promo/search.svg">
+        </mat-card>
+      </div>
+
+      <!-- IMPORT EXERCISES -->
+      <div class="promo-container d-row-reverse">
+        <div class="promo-text">
+        <span class="beta-paragraph"
+              [style.background-color]="appSettings.currentTheme.accent"
+              [style.color]="appSettings.currentTheme.textColor">
+            beta
+          </span>
+          <h5 class="my-title">Importuj zadania</h5>
+          <p class="my-sub-title">Skorzystaj z funkcji importu by w szybki sposób zapełnić test zadaniami</p>
+        </div>
+        <mat-card class="promo-bg ">
+          <img alt="import" src="../../../assets/promo/create.svg">
+        </mat-card>
+      </div>
+
+      <!-- STARTED TEST -->
+      <div class="promo-container">
+        <div class="promo-text">
+          <h5 class="my-title">Przeglądaj swój postęp</h5>
+          <p class="my-sub-title">Sprawdzaj rozpoczęte testy wraz z ich postępem</p>
+          <button mat-raised-button>Rozpoczęte testy</button>
+        </div>
+        <mat-card class="promo-bg promo-bg-reverse">
+          <img alt="search" src="../../../assets/promo/create.svg">
+        </mat-card>
+      </div>
+
+      <!-- ALL DEVICES -->
+      <div class="all-devices">
+        A TO WSZYSTKO GDZIEKOLWIEK JESTES, NA JAKIMKOLWIEK URZĄDZENIU
+        <div>IMG LAPTOPA, TABLETU, SMARTFONA</div>
+      </div>
+
+      <!-- JOIN US-->
+      <div>
+        login
+      </div>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+    </mat-card>
   </div>
-  content
-  <br><br><br><br><br>
-  <br><br><br><br><br>
-  <br><br><br><br><br>
-  <br><br><br><br><br>
 
 </section>
