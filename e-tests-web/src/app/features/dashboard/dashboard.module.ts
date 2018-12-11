@@ -3,6 +3,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard.component';
 import {dashboardRouting} from './dashboard.routing';
 import {MatButtonModule, MatCardModule, MatIconModule, MatTabsModule} from '@angular/material';
+import {OnePromoModule} from './one-promo/one-promo.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {MatButtonModule, MatCardModule, MatIconModule, MatTabsModule} from '@ang
     SharedModule,
     dashboardRouting,
 
+    OnePromoModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,

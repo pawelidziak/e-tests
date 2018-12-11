@@ -1,17 +1,5 @@
 @import '../../shared/variables';
-
-.sub-nav {
-  display: flex;
-  justify-content: center;
-  a {
-    text-decoration: none;
-  }
-}
-
-.link-icon {
-  margin-right: .5*$margin;
-  text-decoration: none;
-}
+@import '../../shared/mixins';
 
 .illustrations {
   margin-top: 33px;
@@ -24,10 +12,6 @@
 }
 
 .dashboard-bg {
-  //-webkit-transform: rotate(-10deg);
-  //transform: rotate(-10deg);
-  //-webkit-transform-origin: 100% 0;
-  //transform-origin: 100% 0;
   height: 100%;
   top: 0;
   left: 0;
@@ -99,44 +83,22 @@
 }
 
 .content-title {
-  //margin-top: 100px;
   text-align: center;
   min-height: 200px;
 }
 
-.promo-with-img {
-  z-index: 1;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 300px;
-  margin-bottom: 200px;
-}
-
-@mixin rotate($rotate) {
-  -webkit-transform: rotate($rotate);
-  transform: rotate($rotate);
-}
-
-@mixin promo-bg2($left, $right) {
-  position: absolute;
-  left: $left;
-  right: $right;
-  height: 80%;
-}
-
 .dashboard-content {
-  //position: relative;
-  padding: 0 auto;
+  padding: 0;
+  border-radius: $border-radius;
 }
 
 .promo-bg-one {
-  @include promo-bg2(-1000px, -1000px);
-  //background: #fafafa url(https://firebase.google.com/images/backslant-home-repeat.svg) repeat-y 50% 0;
-  //background-size: 100%
+  position: absolute;
+  left: -1000px;
+  right: -1000px;
+  height: 80%;
   span {
-    height: 360px;
+    height: 500px;
     width: 100%;
     position: absolute;
     &:first-child {
@@ -145,69 +107,69 @@
       background-color: rgba(0, 0, 0, 0.03);
     }
     &:nth-child(2) {
-      top: 1320px;
+      top: 1520px;
       @include rotate(6deg);
       background-color: rgba(0, 0, 0, 0.02);
+    }
+    &:nth-child(3) {
+      top: 2730px;
+      @include rotate(-6deg);
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+    &:nth-child(4) {
+      top: 3940px;
+      @include rotate(6deg);
+      background-color: rgba(0, 0, 0, 0.05);
     }
   }
 }
 
-.all-devices {
+.all-devices, .join-us {
+  padding: 72px 0;
   text-align: center;
+  border-bottom: 1px solid $hover_color;
 }
 
-@mixin promo-bg() {
-  width: 250px;
-  height: 340px;
-  border-radius: 24px;
-  @media #{$gt-lg_size} {
-    width: 324px;
-    height: 460px;
-  }
-  img {
-    border: 1px solid $hover_color;
-    border-radius: $border-radius;
-    height: calc(100% - 96px);
-    width: calc(100% - 24px);
-    position: absolute;
-    top: 48px;
-    left: 12px;
-  }
-}
-
-.promo-bg {
-  @include promo-bg();
-}
-
-.promo-bg-reverse {
-  @include promo-bg();
-}
-
-.promo-container {
+.devices-icons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 100px;
-  @media #{$gt-xs_size} {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-}
-
-.d-row-reverse {
-  @media #{$gt-xs_size} {
-    flex-direction: row-reverse;
-  }
-}
-
-.promo-text {
-  text-align: center;
-  padding-bottom: 24px;
-  @media #{$gt-xs_size} {
-    padding: 0 12px;
-  }
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  margin-bottom: 2*$margin;
+  .device-icon {
+    @include mat-icon-size(72px);
+    margin: 0 6px;
+  }
+}
+
+.devices-img {
+  margin-top: 3*$margin;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  @media #{$gt-sm_size} {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+}
+
+.phone-portrait {
+  @include phone_skeleton();
+  @include size(250px, 340px);
+  @media #{$gt-lg_size} {
+    @include size(324px, 460px);
+  }
+}
+
+.phone-landscape {
+  @include phone_skeleton();
+  @include size(340px, 250px);
+  margin-top: 24px;
+  @media #{$gt-lg_size} {
+    margin-top: 0;
+    @include size(460px, 324px);
+  }
+}
+
+.join-us {
+  //text-align: center;
+  //border-bottom: 1px solid $hover_color;
 }

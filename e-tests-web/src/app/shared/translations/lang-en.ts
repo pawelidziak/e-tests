@@ -38,10 +38,8 @@ export const LANG_EN_TRANS = {
   'register-display-name-error-required': 'Display name is <strong>required</strong>',
   'register-confirm-password-label': 'Confirm password',
   'register-confirm-password-placeholder': 'Confirm password',
-  'register-confirm-password-error-required': 'Password is <strong>required</strong>',
   'register-confirm-password-error-compare': 'Password does not match',
   'register-button': 'Register',
-
 
   // APP HEADER
   'app-header-home': 'Home',
@@ -234,8 +232,8 @@ export const LANG_EN_TRANS = {
   'import-exercises-imported-exercises': 'Imported exercises',
   'import-exercises-save': 'save',
   'import-exercises-reset': 'reset',
-  'test-info-drag-file': `Drag Your file/s here`,
-  'test-info-drag-choose': 'or choose...',
+  'import-exercises-drag-file': `Drag Your file/s here`,
+  'import-exercises-drag-choose': 'or choose...',
 
   // ABOUT APP
   'about-title': 'About',

@@ -1,0 +1,90 @@
+@import '../../../shared/variables';
+@import '../../../shared/mixins';
+
+/**
+      ONE PROMO CONTAINER
+ */
+.promo-container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 50px 0;
+  border-bottom: 1px solid $hover_color;
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+.d-row-reverse {
+  @media #{$gt-xs_size} {
+    flex-direction: row-reverse;
+  }
+}
+
+/**
+      PROMO SVG
+ */
+.promo-svg-container {
+  position: relative;
+}
+
+.promo-svg {
+  @include phone_skeleton();
+  @include size(250px, 340px);
+  @media #{$gt-lg_size} {
+    @include size(324px, 460px);
+  }
+}
+
+.promo-icon {
+  display: none;
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  @media #{$gt-sm_size} {
+    display: block;
+    left: -75px;
+    @include mat-icon-size(150px);
+  }
+  @media #{$gt-md_size} {
+    left: -100px;
+    @include mat-icon-size(170px);
+  }
+}
+.promo-icon2{
+
+}
+/**
+      TEXT
+ */
+.promo-text {
+  text-align: center;
+  padding-bottom: 24px;
+  @media #{$gt-xs_size} {
+    padding: 0 12px;
+    max-width: 40%;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.promo-icon_small {
+  @include mat-icon-size(72px);
+  margin: 0 6px;
+  @media #{$gt-xs_size} {
+    @include mat-icon-size(102px);
+    margin: 0 12px;
+  }
+}
+
+.hide_gt_xs {
+  @media #{$gt_sm_size} {
+    display: none;
+  }
+}
+
+

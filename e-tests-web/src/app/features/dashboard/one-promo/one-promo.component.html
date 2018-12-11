@@ -1,0 +1,26 @@
+<div class="promo-container" [ngClass]="{'d-row-reverse': isBigIcon}">
+  <div class="promo-svg-container">
+    <mat-card class="promo-svg">
+      <img [alt]="alt" [src]="imgUrl">
+    </mat-card>
+    <!--<mat-icon *ngIf="isBigIcon"-->
+              <!--color="accent"-->
+              <!--attr.aria-label="{{alt}}"-->
+              <!--class="promo-icon">-->
+      <!--{{headerIcon}}-->
+    <!--</mat-icon>-->
+  </div>
+
+  <div class="promo-text">
+    <mat-icon [color]="headerIconColor"
+              attr.aria-label="{{alt}}"
+              class="promo-icon_small">
+      {{headerIcon}}
+    </mat-icon>
+    <h5 class="my-title">{{headerText}}</h5>
+    <p class="my-sub-title">{{paragraph}}</p>
+
+    <ng-content></ng-content>
+
+  </div>
+</div>

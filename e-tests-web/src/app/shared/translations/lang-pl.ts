@@ -16,7 +16,7 @@ export const LANG_PL_TRANS = {
 
   // DASHBOARD
   'dashboard-title': 'Główna',
-  'dashboard-header': 'Nowy sposób na nauce',
+  'dashboard-header': 'Nowy sposób na nauke',
 
   // LOGIN / FORGOT PASSWORD
   'login-google': 'Logowanie Google',
