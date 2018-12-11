@@ -5,6 +5,7 @@
       ONE PROMO CONTAINER
  */
 .promo-container {
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -30,11 +31,12 @@
 }
 
 .promo-svg {
-  @include phone_skeleton();
-  @include size(250px, 340px);
-  @media #{$gt-lg_size} {
-    @include size(324px, 460px);
-  }
+  //@include phone_skeleton();
+  //@include size(250px, 340px);
+  //@media #{$gt-lg_size} {
+  //  @include size(324px, 460px);
+  //}
+  border: 1px solid $hover_color;
 }
 
 .promo-icon {
@@ -53,23 +55,25 @@
     @include mat-icon-size(170px);
   }
 }
-.promo-icon2{
+
+.promo-icon2 {
 
 }
+
 /**
       TEXT
  */
 .promo-text {
-  text-align: center;
-  padding-bottom: 24px;
-  @media #{$gt-xs_size} {
-    padding: 0 12px;
-    max-width: 40%;
-  }
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.cos {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
 }
 
 .promo-icon_small {
@@ -87,4 +91,49 @@
   }
 }
 
+.one-feature {
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+  padding: 12px;
+  flex-direction: column-reverse;
+  margin-bottom: 24px;
+  @media #{$gt-md_size} {
+    margin-bottom: 0;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 24px 0;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
 
+.feature-text {
+  text-align: center;
+  margin-top: 24px;
+  @media #{$gt-md_size} {
+    margin-top: 0;
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.feature-icon {
+  margin-left: 24px;
+  @include mat-icon-size(60px);
+}
+
+.promo-header {
+  color: $text_secondary;
+  font-size: 1.5*$font-normal;
+  @include upper-text();
+  margin: 12px 0 ;
+  text-align: center;
+}
+
+.promo-paragraph {
+  text-align: center;
+  color: $text_secondary;
+}

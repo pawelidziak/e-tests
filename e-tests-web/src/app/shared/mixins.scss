@@ -69,8 +69,10 @@
       ROTATE
  */
 @mixin rotate($rotate) {
-  -webkit-transform: rotate($rotate);
-  transform: rotate($rotate);
+  //-webkit-transform: rotate($rotate);
+  //transform: rotate($rotate);
+  -webkit-transform: skewY($rotate);
+  transform: skewY($rotate);
 }
 
 
@@ -91,4 +93,10 @@
     top: 48px;
     left: 12px;
   }
+}
+
+@mixin border-none(){
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }

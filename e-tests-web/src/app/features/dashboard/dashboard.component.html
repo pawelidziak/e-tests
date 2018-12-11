@@ -13,7 +13,7 @@
 
 <section class="section-padding">
   <div class="row">
-    <div class="col-12 col-md-7"
+    <div class="col-12 col-md-9"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
         <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
@@ -22,116 +22,132 @@
     </div>
   </div>
 
-  <div class="illustrations">
-    <mat-card class="illustration tablet-landscape"></mat-card>
-    <mat-card class="illustration phone-large"></mat-card>
-  </div>
+  <!--<div class="illustrations">-->
+  <!--<mat-card class="illustration tablet-landscape"></mat-card>-->
+  <!--<mat-card class="illustration phone-large"></mat-card>-->
+  <!--</div>-->
 
-  <div class="dashboard-content_outer">
-    <div class="promo-bg-one">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+  <mat-card class="dashboard-card">
+
+    <!-- ALL DEVICES -->
+    <div class="all-devices">
+      <div class="devices-icons">
+        <mat-icon aria-label="Smartphone" class="device-icon">smartphone</mat-icon>
+        <mat-icon aria-label="Laptop" class="device-icon">laptop</mat-icon>
+        <mat-icon aria-label="Tablet" class="device-icon">tablet</mat-icon>
+      </div>
+
+      <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">
+        Gdziekolwiek jesteś
+      </h3>
+      <p class="my-sub-title">Korzystaj z E-Testo gdziekolwiek jesteś, na jakimkolwiek urządzeniu. Twoje postępy będą
+        zachowane.</p>
+
+      <p class="my-sub-title">Pobierz aplikację na komputer, lub dodaj do ekranu startowego telefonu / tabletu!</p>
+
+      <button mat-raised-button
+              class="download-button"
+              [routerLink]="ALL_ROUTES.DOWNLOAD"
+              color="accent">
+        <mat-icon aria-label="Download">cloud_download</mat-icon>
+        <span style="margin-left: 12px;">pobierz teraz</span>
+      </button>
     </div>
 
-    <div class="content-title">
-      <h3 class="my-title">Odkryj E-Testo teraz</h3>
-    </div>
 
-    <mat-card class="dashboard-content">
-
+    <!-- FEATURES -->
+    <div class="row" style="margin: 100px 0;">
       <!-- LEARN -->
-      <app-one-promo [headerText]="'Ucz się'"
-                     [headerIcon]="'play_circle_filled'"
-                     [paragraph]="'Uczenie się może być przyjemne. Rozwiązuj testy i powtarzaj swoją wiedzę'"
-                     [imgUrl]="'assets/promo/learn.svg'"
-                     [alt]="'Learn'">
-      </app-one-promo>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Ucz się'"
+                       [headerIcon]="'play_circle_filled'"
+                       [paragraph]="'Uczenie się może być przyjemne. Rozwiązuj testy i powtarzaj swoją wiedzę'"
+                       [imgUrl]="'assets/promo/learn.svg'"
+                       [alt]="'Learn'">
+        </app-one-promo>
+      </div>
 
       <!-- NEW TEST -->
-      <app-one-promo [headerText]="'Twórz nowe testy'"
-                     [headerIcon]="'add_circle_outline'"
-                     [paragraph]="'W prosty i szybki sposób stwórz swój własny test'"
-                     [imgUrl]="'assets/promo/create.svg'"
-                     [alt]="'Create'"
-                     [isBigIcon]="true">
-        <button mat-raised-button>Stwórz test</button>
-      </app-one-promo>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Twórz nowe testy'"
+                       [headerIcon]="'add_circle_outline'"
+                       [paragraph]="'W prosty i szybki sposób stwórz swój własny test'"
+                       [imgUrl]="'assets/promo/create.svg'"
+                       [alt]="'Create'"
+                       [isBigIcon]="true">
+          <button mat-raised-button>Stwórz test</button>
+        </app-one-promo>
+      </div>
 
       <!-- SEARCH TEST -->
-      <app-one-promo [headerText]="'Wyszukuj testy'"
-                     [headerIcon]="'search'"
-                     [paragraph]="'Sprawdzaj testy stworzone przez innych użytkowników i przekonaj się czy je rozwiążesz'"
-                     [imgUrl]="'assets/promo/search.svg'"
-                     [alt]="'Create'">
-        <button mat-raised-button>Szukaj testy</button>
-      </app-one-promo>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Wyszukuj testy'"
+                       [headerIcon]="'search'"
+                       [paragraph]="'Sprawdzaj testy stworzone przez innych użytkowników i przekonaj się czy je rozwiążesz'"
+                       [imgUrl]="'assets/promo/search.svg'"
+                       [alt]="'Create'">
+          <button mat-raised-button>Szukaj testy</button>
+        </app-one-promo>
+      </div>
 
       <!-- TEST LEARN CONFIG -->
-      <app-one-promo [headerText]="'Dostosuj test'"
-                     [headerIcon]="'settings'"
-                     [paragraph]="'Wybierz wygodne dla Ciebie ustawienia uczenia się'"
-                     [imgUrl]="'assets/promo/test_config.svg'"
-                     [alt]="'Settings'"
-                     [isBigIcon]="true">
-      </app-one-promo>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Dostosuj test'"
+                       [headerIcon]="'settings'"
+                       [paragraph]="'Wybierz wygodne dla Ciebie ustawienia uczenia się'"
+                       [imgUrl]="'assets/promo/test_config.svg'"
+                       [alt]="'Settings'"
+                       [isBigIcon]="true">
+        </app-one-promo>
+      </div>
 
       <!-- IMPORT EXERCISES -->
-      <app-one-promo [headerText]="'Importuj / eksportuj'"
-                     [headerIcon]="'import_export'"
-                     [paragraph]="'Skorzystaj z funkcji importu oraz eksportu by w szybki wczytać lub pobrać zadania'"
-                     [imgUrl]="'assets/promo/import_export.svg'"
-                     [alt]="'Import / eskport'">
-        <span class="beta-paragraph"
-              [style.background-color]="appSettings.currentTheme.accent"
-              [style.color]="appSettings.currentTheme.textColor">
-                beta
-        </span>
-      </app-one-promo>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Importuj / eksportuj'"
+                       [headerIcon]="'import_export'"
+                       [paragraph]="'Skorzystaj z funkcji importu oraz eksportu by w szybki wczytać lub pobrać zadania'"
+                       [imgUrl]="'assets/promo/import_export.svg'"
+                       [alt]="'Import / eskport'">
+          <span class="beta-paragraph"
+                [style.background-color]="appSettings.currentTheme.accent"
+                [style.color]="appSettings.currentTheme.textColor">
+          beta
+          </span>
+        </app-one-promo>
+      </div>
 
       <!-- STARTED TEST -->
-      <app-one-promo [headerText]="'Przeglądaj swój postęp'"
-                     [headerIcon]="'school'"
-                     [paragraph]="'Sprawdzaj rozpoczęte testy wraz z ich postępem'"
-                     [imgUrl]="'assets/promo/study_sets.svg'"
-                     [alt]="'Progress'"
-                     [isBigIcon]="true">
-      </app-one-promo>
-
-
-      <!-- ALL DEVICES -->
-      <div class="all-devices">
-
-        <div class="devices-icons">
-          <mat-icon aria-label="Smartphone" class="device-icon">smartphone</mat-icon>
-          <mat-icon aria-label="Laptop" class="device-icon">laptop</mat-icon>
-          <mat-icon aria-label="Tablet" class="device-icon">tablet</mat-icon>
-        </div>
-
-        <h5 class="my-title">Gdziekolwiek jesteś</h5>
-        <p class="my-sub-title">Korzystaj z E-Testo gdziekolwiek jesteś, na jakimkolwiek urządzeniu</p>
-
-        <div class="devices-img">
-          <mat-card class="phone-portrait">
-            <img alt="Phone" src="assets/promo/general_phone.svg">
-          </mat-card>
-          <mat-card class="phone-landscape">
-            <img alt="Phone" src="assets/promo/general_landscape.svg">
-          </mat-card>
-        </div>
+      <div class="col-12 col-md-6">
+        <app-one-promo [headerText]="'Przeglądaj swój postęp'"
+                       [headerIcon]="'school'"
+                       [paragraph]="'Sprawdzaj rozpoczęte testy wraz z ich postępem'"
+                       [imgUrl]="'assets/promo/study_sets.svg'"
+                       [alt]="'Progress'"
+                       [isBigIcon]="true">
+        </app-one-promo>
       </div>
+    </div>
 
-      <!-- JOIN US-->
-      <div class="join-us">
-        login
-      </div>
-      <br><br><br><br><br>
-      <br><br><br><br><br>
-      <br><br><br><br><br>
-      <br><br><br><br><br>
-    </mat-card>
-  </div>
+    <!-- JOIN US-->
+    <div *ngIf="!user" class="join-us">
+      <h3 class="my-title">Wypróbuj za darmo</h3>
+      <p class="my-sub-title">Załóż konto i przekonaj się sam. W szybki i prosty sposób zmień podejście do nauki</p>
+    </div>
+
+    <div *ngIf="user" class="join-us">
+      <h3 class="my-title">Dziękujemy, że jesteś z nami!</h3>
+
+        <button mat-raised-button
+                color="accent">
+          Przejdź do zestawów
+        </button>
+        <button mat-raised-button
+                color="accent">
+          Wyszukaj test
+        </button>
+    </div>
+
+  </mat-card>
 
 </section>
 
