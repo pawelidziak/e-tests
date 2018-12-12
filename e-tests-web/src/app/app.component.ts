@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public isUserLoaded: boolean;
   public headerHeight = 48;
 
+  public isIEOrEdge: boolean;
   constructor(private rwdService: RWDService,
               private auth: AuthService,
               private loader: LoaderService,
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUser();
     this.getRWDValue();
+    this.isIEOrEdge = /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
   }
 
   ngOnDestroy() {

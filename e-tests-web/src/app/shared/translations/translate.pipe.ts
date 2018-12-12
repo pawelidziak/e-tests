@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {AppSettingsService} from "../../core/services/app-settings.service";
+import {AppSettingsService} from '../../core/services/app-settings.service';
 
 @Pipe({
   name: 'translate',
@@ -12,7 +12,9 @@ export class TranslatePipe implements PipeTransform {
   }
 
   transform(value: string, args: any[]): any {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
     return this.appSettings.translateText(value);
   }
 }
