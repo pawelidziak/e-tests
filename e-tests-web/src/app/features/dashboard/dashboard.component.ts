@@ -12,7 +12,7 @@ import {AuthService} from '../../core/services/auth.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions: any[] = [];
   public ALL_ROUTES = ALL_ROUTES;
-  public user: any;
+  public isUserLoggedIn: boolean;
 
   constructor(private auth: AuthService,
               private headerService: HeaderService,
@@ -31,12 +31,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private getUser(): void {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
-        res => {
-          this.user = res;
-          console.log(this.user);
-          console.log('coo')
-        },
+        res => this.isUserLoggedIn = !!res,
         error => console.log(error)
       ));
+  }
+
+  public openAuthDialog(): void {
+    this.auth.openAuthDialog(false);
   }
 }

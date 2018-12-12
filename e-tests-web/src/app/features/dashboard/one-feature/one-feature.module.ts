@@ -1,23 +1,22 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
-import {OnePromoComponent} from './one-promo.component';
+import {MatCardModule, MatIconModule} from '@angular/material';
+import {OneFeatureComponent} from './one-feature.component';
 import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [
-    OnePromoComponent
+    OneFeatureComponent
   ],
   imports: [
     SharedModule,
 
     MatCardModule,
-    MatButtonModule,
     MatIconModule
   ],
   exports: [
-    OnePromoComponent
+    OneFeatureComponent
   ],
   providers: []
 })
-export class OnePromoModule {
+export class OneFeatureModule {
 }

@@ -1,16 +1,3 @@
-<!--<nav mat-tab-nav-bar class="sub-nav" color="accent">-->
-<!--<a mat-tab-link-->
-<!--*ngFor="let link of examples"-->
-<!--[routerLink]="link.path"-->
-<!--routerLinkActive #rla="routerLinkActive"-->
-<!--[active]="rla.isActive">-->
-<!--<mat-icon *ngIf="!isSmallScreen" aria-label="Link icon" class="link-icon">{{link.icon}}</mat-icon>-->
-<!--<span>{{link.label}}</span>-->
-<!--</a>-->
-<!--</nav>-->
-
-<!--<router-outlet></router-outlet>-->
-
 <section class="section-padding">
   <div class="row">
     <div class="col-12 col-md-9"
@@ -22,132 +9,130 @@
     </div>
   </div>
 
-  <!--<div class="illustrations">-->
-  <!--<mat-card class="illustration tablet-landscape"></mat-card>-->
-  <!--<mat-card class="illustration phone-large"></mat-card>-->
-  <!--</div>-->
-
   <mat-card class="dashboard-card">
-
     <!-- ALL DEVICES -->
     <div class="all-devices">
       <div class="devices-icons">
-        <mat-icon aria-label="Smartphone" class="device-icon">smartphone</mat-icon>
-        <mat-icon aria-label="Laptop" class="device-icon">laptop</mat-icon>
-        <mat-icon aria-label="Tablet" class="device-icon">tablet</mat-icon>
+        <mat-icon aria-label="Smartphone" class="dashboard-large-icon">smartphone</mat-icon>
+        <mat-icon aria-label="Laptop" class="dashboard-large-icon">laptop</mat-icon>
+        <mat-icon aria-label="Tablet" class="dashboard-large-icon">tablet</mat-icon>
       </div>
 
       <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">
-        Gdziekolwiek jesteś
+        {{ 'device-header' | translate }}
       </h3>
-      <p class="my-sub-title">Korzystaj z E-Testo gdziekolwiek jesteś, na jakimkolwiek urządzeniu. Twoje postępy będą
-        zachowane.</p>
-
-      <p class="my-sub-title">Pobierz aplikację na komputer, lub dodaj do ekranu startowego telefonu / tabletu!</p>
+      <p class="my-sub-title" [innerHTML]="'device-paragraph' | translate"></p>
 
       <button mat-raised-button
-              class="download-button"
-              [routerLink]="ALL_ROUTES.DOWNLOAD"
+              class="dashboard-button"
+              [routerLink]="'/' + ALL_ROUTES.DOWNLOAD"
               color="accent">
         <mat-icon aria-label="Download">cloud_download</mat-icon>
-        <span style="margin-left: 12px;">pobierz teraz</span>
+        <span style="margin-left: 12px;">{{ 'dashboard-download-button' | translate }}</span>
       </button>
     </div>
 
-
     <!-- FEATURES -->
-    <div class="row" style="margin: 100px 0;">
+    <div class="row">
       <!-- LEARN -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Ucz się'"
-                       [headerIcon]="'play_circle_filled'"
-                       [paragraph]="'Uczenie się może być przyjemne. Rozwiązuj testy i powtarzaj swoją wiedzę'"
-                       [imgUrl]="'assets/promo/learn.svg'"
-                       [alt]="'Learn'">
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-learn-header' | translate"
+                         [headerIcon]="'school'"
+                         [paragraph]="'feature-learn-paragraph' | translate"
+                         [ariaLabel]="'Learn'">
+        </app-one-feature>
       </div>
 
       <!-- NEW TEST -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Twórz nowe testy'"
-                       [headerIcon]="'add_circle_outline'"
-                       [paragraph]="'W prosty i szybki sposób stwórz swój własny test'"
-                       [imgUrl]="'assets/promo/create.svg'"
-                       [alt]="'Create'"
-                       [isBigIcon]="true">
-          <button mat-raised-button>Stwórz test</button>
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-create-header' | translate"
+                         [headerIcon]="'add_circle_outline'"
+                         [paragraph]="'feature-create-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
       </div>
 
       <!-- SEARCH TEST -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Wyszukuj testy'"
-                       [headerIcon]="'search'"
-                       [paragraph]="'Sprawdzaj testy stworzone przez innych użytkowników i przekonaj się czy je rozwiążesz'"
-                       [imgUrl]="'assets/promo/search.svg'"
-                       [alt]="'Create'">
-          <button mat-raised-button>Szukaj testy</button>
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-search-header' | translate"
+                         [headerIcon]="'search'"
+                         [paragraph]="'feature-search-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
       </div>
 
       <!-- TEST LEARN CONFIG -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Dostosuj test'"
-                       [headerIcon]="'settings'"
-                       [paragraph]="'Wybierz wygodne dla Ciebie ustawienia uczenia się'"
-                       [imgUrl]="'assets/promo/test_config.svg'"
-                       [alt]="'Settings'"
-                       [isBigIcon]="true">
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-config-header' | translate"
+                         [headerIcon]="'settings'"
+                         [paragraph]="'feature-config-paragraph' | translate"
+                         [ariaLabel]="'Settings'">
+        </app-one-feature>
       </div>
 
       <!-- IMPORT EXERCISES -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Importuj / eksportuj'"
-                       [headerIcon]="'import_export'"
-                       [paragraph]="'Skorzystaj z funkcji importu oraz eksportu by w szybki wczytać lub pobrać zadania'"
-                       [imgUrl]="'assets/promo/import_export.svg'"
-                       [alt]="'Import / eskport'">
-          <span class="beta-paragraph"
-                [style.background-color]="appSettings.currentTheme.accent"
-                [style.color]="appSettings.currentTheme.textColor">
-          beta
-          </span>
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-import-header' | translate"
+                         [headerIcon]="'import_export'"
+                         [paragraph]="'feature-import-paragraph' | translate"
+                         [ariaLabel]="'Import / eskport'">
+        </app-one-feature>
       </div>
 
       <!-- STARTED TEST -->
       <div class="col-12 col-md-6">
-        <app-one-promo [headerText]="'Przeglądaj swój postęp'"
-                       [headerIcon]="'school'"
-                       [paragraph]="'Sprawdzaj rozpoczęte testy wraz z ich postępem'"
-                       [imgUrl]="'assets/promo/study_sets.svg'"
-                       [alt]="'Progress'"
-                       [isBigIcon]="true">
-        </app-one-promo>
+        <app-one-feature [headerText]="'feature-started-header' | translate"
+                         [headerIcon]="'collections_bookmark'"
+                         [paragraph]="'feature-started-paragraph' | translate"
+                         [ariaLabel]="'Progress'">
+        </app-one-feature>
       </div>
     </div>
 
     <!-- JOIN US-->
-    <div *ngIf="!user" class="join-us">
-      <h3 class="my-title">Wypróbuj za darmo</h3>
-      <p class="my-sub-title">Załóż konto i przekonaj się sam. W szybki i prosty sposób zmień podejście do nauki</p>
+    <!-- USER NOT LOGGED -->
+    <div *ngIf="!isUserLoggedIn" class="join-us">
+      <mat-icon aria-label="Logo" class="dashboard-large-icon">whatshot</mat-icon>
+      <h3 class="my-title">{{ 'join-header' | translate }}</h3>
+      <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
+
+      <button mat-raised-button
+              color="accent"
+              class="dashboard-button"
+              (click)="openAuthDialog()">
+        {{ 'join-button' | translate}}
+      </button>
     </div>
 
-    <div *ngIf="user" class="join-us">
-      <h3 class="my-title">Dziękujemy, że jesteś z nami!</h3>
+    <!-- USER LOGGED -->
+    <div *ngIf="isUserLoggedIn" class="join-us">
+      <mat-icon aria-label="Happy face" class="dashboard-large-icon">sentiment_very_satisfied</mat-icon>
+      <h3 [style.color]="appSettings.currentTheme.accent"
+          class="my-title">
+        {{ 'greetings-header' | translate}}
+      </h3>
+      <p class="my-sub-title">
+        {{ 'greetings-paragraph' | translate}}
+        <a href="mailto:contact@e-testo.com">
+          <strong>contact@e-testo.com</strong>
+        </a>
+      </p>
 
-        <button mat-raised-button
-                color="accent">
-          Przejdź do zestawów
-        </button>
-        <button mat-raised-button
-                color="accent">
-          Wyszukaj test
-        </button>
+      <button mat-button
+              [routerLink]="'/' + ALL_ROUTES.USER_TESTS_LIST"
+              class="dashboard-button"
+              color="accent">
+        {{ 'greetings-button-sets' | translate}}
+      </button>
+      <button mat-button
+              [routerLink]="'/' + ALL_ROUTES.SEARCH"
+              class="dashboard-button"
+              color="accent">
+        {{ 'greetings-button-search' | translate}}
+      </button>
     </div>
 
-  </mat-card>
+  </mat-card><!-- /dashboard-card -->
 
 </section>
 

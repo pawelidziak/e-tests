@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OnePromoComponent } from './one-promo.component';
+import { OneFeatureComponent } from './one-feature.component';
 
-describe('OnePromoComponent', () => {
-  let component: OnePromoComponent;
-  let fixture: ComponentFixture<OnePromoComponent>;
+describe('OneFeatureComponent', () => {
+  let component: OneFeatureComponent;
+  let fixture: ComponentFixture<OneFeatureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OnePromoComponent ]
+      declarations: [ OneFeatureComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OnePromoComponent);
+    fixture = TestBed.createComponent(OneFeatureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

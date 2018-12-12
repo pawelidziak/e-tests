@@ -1,19 +1,13 @@
 <app-spinner [hidden]="!pageOnLoad"></app-spinner>
 <mat-card class="main-card">
-  <div id="stripes"
+  <div class="main-header-bg"
        aria-hidden="true"
        [style.background-image]="'linear-gradient(to bottom, '+
                        appSettings?.currentTheme?.primary+', '+
                        appSettings?.currentTheme?.accent+')'">
     <span></span>
     <span></span>
-    <!--<span></span>-->
   </div>
-  <!--<div class="waves">-->
-    <!--<span></span>-->
-    <!--<span></span>-->
-    <!--<span></span>-->
-  <!--</div>-->
   <main class="container" style="position: relative; padding-bottom: 100px;">
 
     <app-header [isUserLoaded]="isUserLoaded"
@@ -28,11 +22,13 @@
 
     <div [hidden]="pageOnLoad"
          [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
-      <div class="testuje">
+      <div class="router-bg">
         <span [style.background-image]="'linear-gradient(to right, '+
                        appSettings?.currentTheme?.primary+', '+
                        appSettings?.currentTheme?.accent+')'"></span>
-        <span [style.background-color]="appSettings?.currentTheme?.primary"></span>
+        <span [style.background-image]="'linear-gradient(to left, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'"></span>
         <span [style.background-image]="'linear-gradient(to right, '+
                        appSettings?.currentTheme?.primary+', '+
                        appSettings?.currentTheme?.accent+')'"></span>

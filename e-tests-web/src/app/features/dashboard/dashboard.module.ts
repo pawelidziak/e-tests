@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard.component';
 import {dashboardRouting} from './dashboard.routing';
-import {MatButtonModule, MatCardModule, MatIconModule, MatTabsModule} from '@angular/material';
-import {OnePromoModule} from './one-promo/one-promo.module';
+import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
+import {OneFeatureModule} from './one-feature/one-feature.module';
 
 @NgModule({
   declarations: [
@@ -13,11 +13,10 @@ import {OnePromoModule} from './one-promo/one-promo.module';
     SharedModule,
     dashboardRouting,
 
-    OnePromoModule,
+    OneFeatureModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule,
-    MatTabsModule
+    MatIconModule
   ],
   exports: [],
   providers: []

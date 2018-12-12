@@ -2,22 +2,13 @@
 @import 'shared/mixins';
 
 /*
-      STRIPES
+      MAIN HEADER BG
  */
-#stripes {
+.main-header-bg {
   width: 100%;
   position: absolute;
   height: 85vh;
-  //height: 500px;
-  //@media #{$gt-md_size} {
-  //  height: 600px;
-  //}
-  //@media #{$gt-lg_size} {
-  //  height: 750px;
-  //}
   overflow: hidden;
-  //-webkit-transform: skewY(-6deg);
-  //transform: skewY(-6deg);
   @include rotate(-2deg);
   -webkit-transform-origin: 0;
   transform-origin: 0;
@@ -52,31 +43,6 @@
   }
 }
 
-//#stripes, #stripes span {
-//  position: absolute;
-//}
-//
-//#stripes span {
-//  height: 50%;
-//}
-//
-//#stripes :first-child {
-//  background-image: linear-gradient(to right, transparent, $hover_color 50%, transparent);
-//  width: 75%;
-//  top: 120px;
-//  height: 250px;
-//  @media #{$gt-xs_size} {
-//    width: 50%;
-//    height: 200px;
-//  }
-//  @media #{$gt-md_size} {
-//    top: 150px;
-//  }
-//  @media screen and (min-width: 1500px) {
-//    top: 180px;
-//  }
-//}
-
 .main-card {
   min-height: 100vh;
   overflow-x: hidden;
@@ -88,14 +54,14 @@
   flex-direction: column;
 }
 
-.testuje{
+.router-bg {
   opacity: 0.9;
   overflow: hidden;
   position: absolute;
-  top: 1500px;
+  top: 1400px;
   left: -1000px;
   right: -1000px;
-  height: calc(100% - 1500px);
+  height: calc(100% - 1400px);
   span {
     height: 850px;
     width: 100%;
@@ -106,19 +72,24 @@
       background-color: rgba(0, 0, 0, 0.03);
     }
     &:nth-child(2) {
-      top: 1520px;
+      top: 1600px;
       @include rotate(2deg);
       background-color: rgba(0, 0, 0, 0.02);
     }
     &:nth-child(3) {
-      top: 2730px;
+      top: 3125px;
       @include rotate(-2deg);
       background-color: rgba(0, 0, 0, 0.04);
     }
     &:nth-child(4) {
-      top: 3940px;
+      top: 4650px;
       @include rotate(2deg);
       background-color: rgba(0, 0, 0, 0.05);
+    }
+    &:nth-child(5) {
+      top: 6175px;
+      @include rotate(2deg);
+      background-color: rgba(0, 0, 0, 0.06);
     }
   }
 }
