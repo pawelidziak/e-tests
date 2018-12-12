@@ -62,7 +62,7 @@ export class AppSettingsService {
 
   private _currentTheme: MyTheme = MY_THEMES[0];
   private _currentSettings: AppSettings;
-  private _currentLang: string = 'en';
+  private _currentLang = 'en';
   private _logoutAfterRefresh: boolean;
 
   constructor(@Inject(TRANSLATIONS) private _translations: any) {
@@ -107,8 +107,13 @@ export class AppSettingsService {
   private assignSettings() {
     this._currentSettings = LocalStorageService.getObject(this.APP_SETTINGS_KEY);
     if (this._currentSettings) {
-      this.currentTheme = MY_THEMES[MY_THEMES.findIndex(x => x.name === this._currentSettings.theme)];
-      this.currentLang = this._currentSettings.language;
+      const index = MY_THEMES.findIndex(x => x.name === this._currentSettings.theme);
+      if (index !== -1) {
+        this.currentTheme = MY_THEMES[index];
+      }
+      if (this._currentSettings.language) {
+        this.currentLang = this._currentSettings.language;
+      }
     }
     if (!this._currentSettings) {
       this._currentSettings = {

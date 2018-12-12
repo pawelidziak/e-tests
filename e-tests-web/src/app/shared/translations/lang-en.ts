@@ -14,6 +14,32 @@ export const LANG_EN_TRANS = {
   'auth-login': 'Login',
   'auth-register': 'Register',
 
+  // DASHBOARD
+  'dashboard-title': 'Home',
+  'dashboard-header': 'The new way of studying',
+  'device-header': 'Wherever You are',
+  'device-paragraph': 'Use E-Testo wherever you are, on any device. Your progress will be saved. <br> Download the application to your computer, or add it to the start screen of your phone / tablet!',
+  'dashboard-download-button': 'Download now',
+  'feature-learn-header': 'Learn',
+  'feature-learn-paragraph': 'Learning can be pleasant. Solve tests and repeat your knowledge',
+  'feature-create-header': 'Create new tests',
+  'feature-create-paragraph': 'Create your own test in a simple and fast way',
+  'feature-search-header': 'Search for tests',
+  'feature-search-paragraph': 'Check the tests created by other users and see if you solve them',
+  'feature-config-header': 'Adjust the test',
+  'feature-config-paragraph': 'Choose comfortable learning settings for you',
+  'feature-import-header': 'Import / export',
+  'feature-import-paragraph': 'Use the import and export functions to quickly upload or download tasks',
+  'feature-started-header': 'Browse your progress',
+  'feature-started-paragraph': 'Check the started tests along with their progress',
+  'join-header': 'Try it for free',
+  'join-paragraph': 'Create an account and see for yourself. Change the approach to learning in a quick and easy way',
+  'join-button': 'Login / Register',
+  'greetings-header': 'Thank You for being with us!',
+  'greetings-paragraph': 'If you have questions, please contact:',
+  'greetings-button-sets': 'Go to sets',
+  'greetings-button-search': 'Search for a test',
+
   // LOGIN / FORGOT PASSWORD / REGISTER
   'login-google': 'Google login',
   'login-email-label': 'Email',
@@ -34,10 +60,8 @@ export const LANG_EN_TRANS = {
   'register-display-name-error-required': 'Display name is <strong>required</strong>',
   'register-confirm-password-label': 'Confirm password',
   'register-confirm-password-placeholder': 'Confirm password',
-  'register-confirm-password-error-required': 'Password is <strong>required</strong>',
   'register-confirm-password-error-compare': 'Password does not match',
   'register-button': 'Register',
-
 
   // APP HEADER
   'app-header-home': 'Home',
@@ -230,8 +254,8 @@ export const LANG_EN_TRANS = {
   'import-exercises-imported-exercises': 'Imported exercises',
   'import-exercises-save': 'save',
   'import-exercises-reset': 'reset',
-  'test-info-drag-file': `Drag Your file/s here`,
-  'test-info-drag-choose': 'or choose...',
+  'import-exercises-drag-file': `Drag Your file/s here`,
+  'import-exercises-drag-choose': 'or choose...',
 
   // ABOUT APP
   'about-title': 'About',

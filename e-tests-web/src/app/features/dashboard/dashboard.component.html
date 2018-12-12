@@ -1,12 +1,138 @@
-<nav mat-tab-nav-bar class="sub-nav" color="accent">
-  <a mat-tab-link
-        *ngFor="let link of examples"
-        [routerLink]="link.path"
-        routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">
-    <mat-icon *ngIf="!isSmallScreen" aria-label="Link icon" class="link-icon">{{link.icon}}</mat-icon>
-    <span>{{link.label}}</span>
-  </a>
-</nav>
+<section class="section-padding">
+  <div class="row">
+    <div class="col-12 col-md-9"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
+        <p class="my-sub-title">{{ 'create-paragraph' | translate }}</p>
+      </div>
+    </div>
+  </div>
 
-<router-outlet></router-outlet>
+  <mat-card class="dashboard-card">
+    <!-- ALL DEVICES -->
+    <div class="all-devices">
+      <div class="devices-icons">
+        <mat-icon aria-label="Smartphone" class="dashboard-large-icon">smartphone</mat-icon>
+        <mat-icon aria-label="Laptop" class="dashboard-large-icon">laptop</mat-icon>
+        <mat-icon aria-label="Tablet" class="dashboard-large-icon">tablet</mat-icon>
+      </div>
+
+      <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">
+        {{ 'device-header' | translate }}
+      </h3>
+      <p class="my-sub-title" [innerHTML]="'device-paragraph' | translate"></p>
+
+      <button mat-raised-button
+              class="dashboard-button"
+              [routerLink]="'/' + ALL_ROUTES.DOWNLOAD"
+              color="accent">
+        <mat-icon aria-label="Download">cloud_download</mat-icon>
+        <span style="margin-left: 12px;">{{ 'dashboard-download-button' | translate }}</span>
+      </button>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row">
+      <!-- LEARN -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-learn-header' | translate"
+                         [headerIcon]="'school'"
+                         [paragraph]="'feature-learn-paragraph' | translate"
+                         [ariaLabel]="'Learn'">
+        </app-one-feature>
+      </div>
+
+      <!-- NEW TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-create-header' | translate"
+                         [headerIcon]="'add_circle_outline'"
+                         [paragraph]="'feature-create-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
+      </div>
+
+      <!-- SEARCH TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-search-header' | translate"
+                         [headerIcon]="'search'"
+                         [paragraph]="'feature-search-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
+      </div>
+
+      <!-- TEST LEARN CONFIG -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-config-header' | translate"
+                         [headerIcon]="'settings'"
+                         [paragraph]="'feature-config-paragraph' | translate"
+                         [ariaLabel]="'Settings'">
+        </app-one-feature>
+      </div>
+
+      <!-- IMPORT EXERCISES -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-import-header' | translate"
+                         [headerIcon]="'import_export'"
+                         [paragraph]="'feature-import-paragraph' | translate"
+                         [ariaLabel]="'Import / eskport'">
+        </app-one-feature>
+      </div>
+
+      <!-- STARTED TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-started-header' | translate"
+                         [headerIcon]="'collections_bookmark'"
+                         [paragraph]="'feature-started-paragraph' | translate"
+                         [ariaLabel]="'Progress'">
+        </app-one-feature>
+      </div>
+    </div>
+
+    <!-- JOIN US-->
+    <!-- USER NOT LOGGED -->
+    <div *ngIf="!isUserLoggedIn" class="join-us">
+      <mat-icon aria-label="Logo" class="dashboard-large-icon">whatshot</mat-icon>
+      <h3 class="my-title">{{ 'join-header' | translate }}</h3>
+      <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
+
+      <button mat-raised-button
+              color="accent"
+              class="dashboard-button"
+              (click)="openAuthDialog()">
+        {{ 'join-button' | translate}}
+      </button>
+    </div>
+
+    <!-- USER LOGGED -->
+    <div *ngIf="isUserLoggedIn" class="join-us">
+      <mat-icon aria-label="Happy face" class="dashboard-large-icon">sentiment_very_satisfied</mat-icon>
+      <h3 [style.color]="appSettings.currentTheme.accent"
+          class="my-title">
+        {{ 'greetings-header' | translate}}
+      </h3>
+      <p class="my-sub-title">
+        {{ 'greetings-paragraph' | translate}}
+        <a href="mailto:contact@e-testo.com">
+          <strong>contact@e-testo.com</strong>
+        </a>
+      </p>
+
+      <button mat-button
+              [routerLink]="'/' + ALL_ROUTES.USER_TESTS_LIST"
+              class="dashboard-button"
+              color="accent">
+        {{ 'greetings-button-sets' | translate}}
+      </button>
+      <button mat-button
+              [routerLink]="'/' + ALL_ROUTES.SEARCH"
+              class="dashboard-button"
+              color="accent">
+        {{ 'greetings-button-search' | translate}}
+      </button>
+    </div>
+
+  </mat-card><!-- /dashboard-card -->
+
+</section>
+

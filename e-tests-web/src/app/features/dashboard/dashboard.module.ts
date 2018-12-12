@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard.component';
 import {dashboardRouting} from './dashboard.routing';
-import {MatIconModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
+import {OneFeatureModule} from './one-feature/one-feature.module';
 
 @NgModule({
   declarations: [
@@ -12,8 +13,10 @@ import {MatIconModule, MatTabsModule} from '@angular/material';
     SharedModule,
     dashboardRouting,
 
-    MatIconModule,
-    MatTabsModule
+    OneFeatureModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [],
   providers: []

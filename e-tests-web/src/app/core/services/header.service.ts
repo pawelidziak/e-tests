@@ -17,7 +17,7 @@ export class HeaderService {
   private _breadcrumb: Breadcrumb[] = [];
   private _appHeaderVisibility = true;
   private _pageHeaderVisibility = true;
-  private readonly HOME_BREADCRUMB: Breadcrumb = {label: 'Home', path: 'dashboard'};
+  private readonly HOME_BREADCRUMB: Breadcrumb = {label: 'dashboard-title', path: 'dashboard'};
 
   private _headerValues: BehaviorSubject<HeaderValues> = new BehaviorSubject({
     breadcrumb: this._breadcrumb,

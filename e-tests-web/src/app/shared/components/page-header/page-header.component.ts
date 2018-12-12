@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HeaderService, HeaderValues} from '../../../core/services/header.service';
 import {AppSettingsService} from '../../../core/services/app-settings.service';
-import {RWDService} from "../../../core/services/RWD.service";
+import {RWDService} from '../../../core/services/RWD.service';
 
 @Component({
   selector: 'app-page-header',
@@ -43,11 +43,11 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
       res => {
         this.isXSmallScreen = res;
         if (res) {
-          this.maxChar = 10
+          this.maxChar = 10;
         } else {
           this.maxChar = 30;
         }
       }
-    )
+    );
   }
 }

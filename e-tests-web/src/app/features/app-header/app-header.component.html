@@ -1,6 +1,7 @@
-<header [style.color]="appSettings?.currentTheme?.textColor"
-        *ngIf="headerValues.appHeaderVisibility"
-        [style.height]="height + 'px'">
+<header *ngIf="headerValues.appHeaderVisibility"
+        [style.color]="appSettings?.currentTheme?.textColor"
+        [style.height]="height + 'px'"
+        style="margin: 12px 0;">
 
   <!-- SMALL SLIDE DEVICE NAV -->
   <nav class="my-fixed-nav"
@@ -49,7 +50,7 @@
   <!-- APP HEADER-CONTAINER -->
   <div class="container app-header-container">
 
-    <a [routerLink]="ALL_ROUTES.DASHBOARD">LOGO</a>
+    <a style="margin-right: 24px;" [routerLink]="ALL_ROUTES.DASHBOARD">LOGO</a>
 
     <!-- SMALL DEVICE NAV -->
     <nav *ngIf="isSmallScreen">
@@ -89,8 +90,30 @@
     </nav>
 
     <!-- LARGE DEVICE NAV -->
-    <nav *ngIf="!isSmallScreen">
+    <nav *ngIf="!isSmallScreen" style="width: 100%">
       <ul class="my-nav-list">
+        <!-- GENERAL LINKS -->
+        <li *ngFor="let link of generalLinks">
+          <a mat-button
+             [routerLink]="link.path"
+             [routerLinkActive]="['active-link']">
+            <mat-icon>{{link.icon}}</mat-icon>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
+          </a>
+        </li>
+
+        <li style="flex: 1 0"></li>
+
+        <!-- STUDY SETS -->
+        <li *ngIf="user">
+          <a mat-button
+             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+             [routerLinkActive]="['active-link']">
+            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+            <span style="padding-left: 12px;">{{ 'app-header-study-sets' | translate}}</span>
+          </a>
+        </li>
+
         <!-- USER ICONS -->
         <li *ngIf="isUserLoaded">
           <a mat-raised-button
@@ -108,28 +131,6 @@
                  [style.background-image]="'url(' + user.photoURL +')'">
             </div>
             <span style="padding-left: 12px;">{{user.displayName}}</span>
-          </a>
-        </li>
-
-        <!-- STUDY SETS -->
-        <li *ngIf="user">
-          <a mat-button
-             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
-             [routerLinkActive]="['active-link']">
-            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
-            <span style="padding-left: 12px;">{{ 'app-header-study-sets' | translate}}</span>
-          </a>
-        </li>
-
-        <li style="margin: 0 24px"></li>
-
-        <!-- GENERAL LINKS -->
-        <li *ngFor="let link of generalLinks">
-          <a mat-button
-             [routerLink]="link.path"
-             [routerLinkActive]="['active-link']">
-            <mat-icon>{{link.icon}}</mat-icon>
-            <span style="padding-left: 12px;">{{link.label | translate}}</span>
           </a>
         </li>
 

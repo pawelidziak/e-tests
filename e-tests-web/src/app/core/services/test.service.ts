@@ -220,6 +220,7 @@ export class TestService {
 
   public setTestStarted(testId: string, testStarted: TestSettings): Promise<void> {
     this.removeTestStartedFromCache();
+    this.removeCreatedTestFromCache();
     return this.afs.collection(this.USERS_PATH)
       .doc(this.auth.currentUserId)
       .collection(this.STARTED_TEST_FIELD)

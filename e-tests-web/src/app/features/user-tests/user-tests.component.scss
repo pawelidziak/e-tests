@@ -1,5 +1,4 @@
 @import '../../shared/variables';
-@import '../../shared/mixins';
 
 .tests-card {
   border-radius: $border-radius;
@@ -9,4 +8,7 @@
   padding: 0;
   border-radius: $border-radius;
   min-height: 410px;
+  @media #{$gt-md_size} {
+    min-height: 600px;
+  }
 }
