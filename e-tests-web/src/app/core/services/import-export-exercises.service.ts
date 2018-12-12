@@ -9,7 +9,7 @@ export interface SelectParser {
 
 export const PARSERS: SelectParser[] = [
   {label: 'E-testo', value: 'etesto', validFileType: '.e-testo'},
-  {label: 'PWR', value: 'pwr', validFileType: '.txt'}
+  {label: 'TXT', value: 'txt', validFileType: '.txt'}
 ];
 
 @Injectable()

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatBottomSheet} from '@angular/material';
+import {MatBottomSheet, MatSnackBar} from '@angular/material';
 import {TestService} from '../../core/services/test.service';
 import {TestModel} from '../../core/models/Test';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
@@ -10,6 +10,7 @@ import {ALL_ROUTES, ROUTE_PARAMS} from '../../shared/ROUTES';
 import {HeaderService} from '../../core/services/header.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
 import {LoaderService} from '../../core/services/loader.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-test-info',
@@ -33,6 +34,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
               private bottomSheet: MatBottomSheet,
               private headerService: HeaderService,
               private loader: LoaderService,
+              private snackBar: MatSnackBar,
               public appSettings: AppSettingsService,
               public auth: AuthService) {
     this.loader.start();
@@ -126,6 +128,27 @@ export class TestInfoComponent implements OnInit, OnDestroy {
 
   public navigateToLearn(): void {
     this.router.navigate([`${ALL_ROUTES.CREATED_TEST}/${this.testId}/${ALL_ROUTES.TEST_LEARN}`]);
+  }
+
+  public openShareSnackbar(): void {
+    this.copyTestUrlToClipboard(`${environment.appUrl}${ALL_ROUTES.CREATED_TEST}/${this.testId}`);
+    this.snackBar.open(this.appSettings.translateText('test-info-share-text'), 'OK', {
+      duration: 5000,
+    });
+  }
+
+  private copyTestUrlToClipboard(val: string): void {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 }
 

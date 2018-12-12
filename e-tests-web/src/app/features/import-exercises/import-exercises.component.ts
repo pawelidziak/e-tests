@@ -8,6 +8,7 @@ import {TestModel} from '../../core/models/Test';
 import {HeaderService} from '../../core/services/header.service';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
+import {LoaderService} from '../../core/services/loader.service';
 
 @Component({
   selector: 'app-import-exercises',
@@ -29,6 +30,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   public isHovering: boolean;
 
   constructor(public appSettings: AppSettingsService,
+              private loader: LoaderService,
               private route: ActivatedRoute,
               private auth: AuthService,
               private router: Router,
@@ -51,6 +53,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
   }
 
   private getTest() {
+    this.loader.start();
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
@@ -64,6 +67,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
           } else {
             this.router.navigate([ALL_ROUTES.DASHBOARD]);
           }
+          this.loader.complete();
         },
         error => console.log(error)
       )

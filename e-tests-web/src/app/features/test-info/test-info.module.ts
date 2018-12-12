@@ -6,9 +6,9 @@ import {
   MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
+  MatTooltipModule,
   MatIconModule, MatListModule,
-  MatTabsModule,
-  MatTooltipModule
+  MatTabsModule, MatSnackBarModule
 } from '@angular/material';
 import {TestSettingsBottomSheetComponent} from './test-settings-bottom-sheet/test-settings-bottom-sheet.component';
 import {DisplayExercisesModule} from '../display-exercises/display-exercises.module';
@@ -36,7 +36,8 @@ import {TestDescModule} from '../../shared/components/test-create-edit-parts/tes
     MatCardModule,
     MatTooltipModule,
     MatBottomSheetModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ],
   exports: [],
   providers: [],

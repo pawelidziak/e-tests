@@ -54,6 +54,7 @@
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button mat-icon-button
+                  (click)="openShareSnackbar()"
                   [matTooltip]="'test-info-share' | translate">
             <mat-icon aria-label="Share icon">share</mat-icon>
           </button>
@@ -115,7 +116,7 @@
             <button mat-raised-button
                     #learnButton
                     [style.background-image]="!learnButton.disabled ? 'linear-gradient(150deg, '+
-                                              appSettings?.currentTheme?.accent+' 30%,'+
+                                              appSettings?.currentTheme?.accent+' 15%,'+
                                               appSettings?.currentTheme?.primary +' 70%)' : ''"
                     class="box-button"
                     (click)="navigateToLearn()"
@@ -126,15 +127,16 @@
             </button>
             <button mat-raised-button
                     #examButton
-                    [style.background-image]="!learnButton.disabled ? 'linear-gradient(150deg, '+
-                                              appSettings?.currentTheme?.accent+' 30%,'+
+                    [style.background-image]="!examButton.disabled ? 'linear-gradient(150deg, '+
+                                              appSettings?.currentTheme?.accent+' 15%,'+
                                               appSettings?.currentTheme?.primary +' 70%)' : ''"
                     class="box-button"
-                    [disabled]="exercises.length === 0"
+                    disabled
                     color="accent">
               <mat-icon aria-label="Exam">event_note</mat-icon>
               <span>{{ 'test-info-exam' | translate}}</span>
             </button>
+            <span class="not-available">{{ 'not-available' | translate }}</span>
           </div><!-- /BUTTONS -->
         </div> <!-- /ROW -->
       </div><!-- /NO EDITABLE BOX -->

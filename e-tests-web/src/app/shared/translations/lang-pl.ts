@@ -168,6 +168,7 @@ export const LANG_PL_TRANS = {
   'test-info-author': 'Autor',
   'test-info-edit': 'Edytuj',
   'test-info-share': 'Udostępnij',
+  'test-info-share-text': 'Link został skopiowany do schowka',
   'test-info-more': 'Więcej',
   'test-info-save': 'Zapisz',
   'test-info-cancel': 'Anuluj',
@@ -249,7 +250,7 @@ export const LANG_PL_TRANS = {
   'import-exercises-header': 'Importuj  <strong>zadania</strong> do testu!',
   'import-exercises-paragraph': `Wybierz odpowiedni parser, zaznacz pliki i to wszystko. <br>
                                  Wybierz parser <strong>E-testo</strong> kiedy importujesz plik wygenerowany przez aplikację E-testo. <br>
-                                 Wybierz parser <strong>PWR</strong> kiedy importujesz pliki z testownika PWR.`,
+                                 Wybierz parser <strong>TXT</strong> kiedy importujesz zadania z pojedynczych plików txt.`,
   'import-exercises-choose-files': 'Wybierz pliki',
   'import-exercises-imported-exercises': 'Zaimportowane zadania',
   'import-exercises-save': 'zapisz',
