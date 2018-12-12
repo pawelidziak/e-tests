@@ -49,6 +49,7 @@ export class TestService {
    */
   public updateTest(testId: string, test: TestModel): Promise<void> {
     this.removeCreatedTestFromCache();
+    this.removeTestStartedFromCache();
     return this.afs.collection(this.TEST_PATH)
       .doc(testId)
       .update(test);
@@ -58,9 +59,9 @@ export class TestService {
    *      REMOVE TEST
    */
   public deleteTest(testId: string): Promise<void> {
-    if (this.currentTestId === testId) {
-      this.removeCurrentTestFromCache();
-    }
+    this.removeCurrentTestFromCache();
+    this.removeCreatedTestFromCache();
+    this.removeTestStartedFromCache();
     return this.afs.collection(this.TEST_PATH).doc(testId).delete();
   }
 
