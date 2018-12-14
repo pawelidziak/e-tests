@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {SharedModule} from "../../shared/shared.module";
-import {AppFooterComponent} from "./app-footer.component";
-import {MatButtonModule, MatCardModule} from "@angular/material";
+import {NgModule} from '@angular/core';
+import {SharedModule} from '../../shared/shared.module';
+import {AppFooterComponent} from './app-footer.component';
+import {MatButtonModule, MatCardModule} from '@angular/material';
 
 @NgModule({
   declarations: [

@@ -77,7 +77,7 @@
                    type="file"
                    (change)="getFile($event.target.files)">
             <div class="preview-container" *ngIf="previewUrl">
-              <img [src]="previewUrl">
+              <img [src]="previewUrl || ''">
             </div>
 
           </div>

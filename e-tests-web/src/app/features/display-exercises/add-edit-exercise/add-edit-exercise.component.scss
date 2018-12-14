@@ -81,6 +81,24 @@
   font: 500 20px/32px Roboto
 }
 
+.header-line-right {
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  &:after {
+    content: '';
+    display: inline-block;
+    background: $divider_color;
+    margin-right: -100%;
+    margin-left: .5*$margin;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+  }
+}
+
 .exercise-dialog-actions {
   display: flex;
   justify-content: space-between;

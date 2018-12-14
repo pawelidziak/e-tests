@@ -1,14 +1,3 @@
-//@import '~@angular/material/theming';
-//
-//@include mat-core();
-//
-//$my-app-primary: mat-palette($mat-teal);
-//$my-app-accent: mat-palette($mat-amber);
-//$my-app-warn: mat-palette($mat-red);
-//
-//$my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
-//
-//@include angular-material-theme($my-app-theme);
 @import '~@angular/material/theming';
 
 @include mat-core();

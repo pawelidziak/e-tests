@@ -10,6 +10,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import {DisplayOneExerciseModule} from '../display-one-exercise/display-one-exercise.module';
+
 @NgModule({
   declarations: [
     AddEditExerciseComponent

@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {TestModel, TestSettings} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
 import {map, shareReplay} from 'rxjs/operators';
 import {ALL_ROUTES} from '../../shared/ROUTES';
 import {Router} from '@angular/router';
 import {CacheService} from './cache.service';
 import {Exercise} from '../models/Exercise';
-import {of} from 'rxjs';
 import {LoaderService} from './loader.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {of} from 'rxjs';
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
@@ -34,7 +34,6 @@ export class TestService {
               private readonly router: Router,
               private readonly loader: LoaderService) {
   }
-
 
   /**
    *      ADD TEST

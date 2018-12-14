@@ -106,10 +106,13 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
       fileReader.readAsText(this.selectedFiles[i], 'ISO-8859-1');
       fileReader.onload = () => {
 
-        if (this.selectedParser.value === 'etesto') {
+        // e-testo
+        if (this.selectedParser.value === this.parserOption[0].value) {
           this.importedExercises = this.importService.detectEtestoExercises(fileReader.result);
         }
-        if (this.selectedParser.value === 'pwr') {
+
+        // txt
+        if (this.selectedParser.value === this.parserOption[1].value) {
           this.importedExercises.push(this.importService.detectPWRExercise(fileReader.result));
         }
       };

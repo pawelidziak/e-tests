@@ -94,7 +94,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
   public identifier = (index: number, item: Exercise) => item.createDate;
 
   @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event) {
+  beforeunloadHandler() {
     this.saveExercises();
   }
 }
