@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {TestModel, TestSettings} from '../models/Test';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/internal/Observable';
 import {AuthService} from './auth.service';
 import {map, shareReplay} from 'rxjs/operators';
-import {ALL_ROUTES} from '../../shared/ROUTES';
+import {ALL_ROUTES} from '@shared/routes';
 import {Router} from '@angular/router';
-import {CacheService} from './cache.service';
-import {Exercise} from '../models/Exercise';
-import {of} from 'rxjs';
+import {Exercise} from '@core/models';
 import {LoaderService} from './loader.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {of} from 'rxjs';
+import {CacheUtils} from '@shared/utils';
 
 const CACHE_SIZE = 1;
 const TEST_KEY = 'current_test';
@@ -17,7 +17,9 @@ const USER_TESTS_KEY = 'user_created_test';
 const USER_STARTED_TESTS = 'user_started_tests';
 const ALL_TESTS = 'all_tests';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TestService {
 
   private readonly TEST_PATH = 'tests';
@@ -29,12 +31,10 @@ export class TestService {
   private currentTestId: string;
 
   constructor(private readonly afs: AngularFirestore,
-              private readonly cache: CacheService,
               private readonly auth: AuthService,
               private readonly router: Router,
               private readonly loader: LoaderService) {
   }
-
 
   /**
    *      ADD TEST
@@ -82,10 +82,10 @@ export class TestService {
    *      GET ALL TESTS
    */
   public getTests(): Observable<TestModel[]> {
-    if (!this.cache.get(ALL_TESTS)) {
-      this.cache.set(ALL_TESTS, this.requestGetTests().pipe(shareReplay(CACHE_SIZE)));
+    if (!CacheUtils.get(ALL_TESTS)) {
+      CacheUtils.set(ALL_TESTS, this.requestGetTests().pipe(shareReplay(CACHE_SIZE)));
     }
-    return this.cache.get(ALL_TESTS);
+    return CacheUtils.get(ALL_TESTS);
   }
 
   private requestGetTests(): Observable<TestModel[]> {
@@ -109,16 +109,16 @@ export class TestService {
    */
   public getTestById(testId: string, checkCache: boolean = true): Observable<TestModel> {
     if (checkCache) {
-      if (this.currentTestId !== testId || !this.cache.get(TEST_KEY)) {
-        this.cache.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+      if (this.currentTestId !== testId || !CacheUtils.get(TEST_KEY)) {
+        CacheUtils.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
       }
-      return this.cache.get(TEST_KEY);
+      return CacheUtils.get(TEST_KEY);
     }
     return this.requestTestById(testId);
   }
 
   public removeCurrentTestFromCache(): void {
-    this.cache.clear(TEST_KEY);
+    CacheUtils.clear(TEST_KEY);
   }
 
   private requestTestById(testId: string): Observable<TestModel> {
@@ -142,18 +142,18 @@ export class TestService {
    *      GET TESTS CREATED BY CURRENT USER
    */
   public getTestsByCurrentUser(): any {
-    if (this.cache.get(USER_TESTS_KEY)) {
-      return {fromCache: true, observable: this.cache.get(USER_TESTS_KEY)};
+    if (CacheUtils.get(USER_TESTS_KEY)) {
+      return {fromCache: true, observable: CacheUtils.get(USER_TESTS_KEY)};
     }
     return {fromCache: false, observable: this.requestTestsByCurrentUser()};
   }
 
   public saveUserTestToCache(userTests: TestModel[]): void {
-    this.cache.set(USER_TESTS_KEY, of(userTests));
+    CacheUtils.set(USER_TESTS_KEY, of(userTests));
   }
 
   private removeCreatedTestFromCache(): void {
-    this.cache.clear(USER_TESTS_KEY);
+    CacheUtils.clear(USER_TESTS_KEY);
   }
 
   private requestTestsByCurrentUser(): Observable<TestModel[]> {
@@ -177,18 +177,18 @@ export class TestService {
    *      GET TESTS STARTED BY CURRENT USER (just test id with settings)
    */
   public getStartedTestIdAndSettingsByCurrentUser(): any {
-    if (this.cache.get(USER_STARTED_TESTS)) {
-      return {fromCache: true, observable: this.cache.get(USER_STARTED_TESTS)};
+    if (CacheUtils.get(USER_STARTED_TESTS)) {
+      return {fromCache: true, observable: CacheUtils.get(USER_STARTED_TESTS)};
     }
     return {fromCache: false, observable: this.requestStartedTestIdAndSettingsByCurrentUser()};
   }
 
   public saveStartedTestToCache(testList: TestModel[]): void {
-    this.cache.set(USER_STARTED_TESTS, of(testList));
+    CacheUtils.set(USER_STARTED_TESTS, of(testList));
   }
 
   private removeTestStartedFromCache(): void {
-    this.cache.clear(USER_STARTED_TESTS);
+    CacheUtils.clear(USER_STARTED_TESTS);
   }
 
   public requestStartedTestIdAndSettingsByCurrentUser(): Observable<TestSettings[]> {

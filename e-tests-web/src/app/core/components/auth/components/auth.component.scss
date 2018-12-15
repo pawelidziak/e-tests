@@ -1,0 +1,21 @@
+@import '../../../../../assets/scss/variables';
+@import '../../../../../assets/scss/mixins';
+
+.section-auth {
+  overflow: hidden;
+}
+
+.mat-dialog-content {
+  max-height: 90vh;
+}
+
+/deep/ .mat-dialog-container {
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+
+/deep/ .mat-tab-label {
+  width: 50%;
+}
+

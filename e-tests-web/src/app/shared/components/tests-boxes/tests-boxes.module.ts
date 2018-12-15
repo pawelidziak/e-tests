@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {TestsBoxesComponent} from './tests-boxes.component';
 import {SharedModule} from '../../shared.module';
-import { OneTestBoxComponent } from './one-test-box/one-test-box.component';
+import {OneTestBoxComponent} from './one-test-box/one-test-box.component';
+import {MyPipesModule} from '../../pipes/my-pipes.module';
 import {
   MatButtonModule,
   MatCardModule,
@@ -9,7 +10,6 @@ import {
   MatIconModule, MatInputModule,
   MatProgressBarModule
 } from '@angular/material';
-import {MyPipesModule} from '../../pipes/my-pipes.module';
 
 @NgModule({
   declarations: [

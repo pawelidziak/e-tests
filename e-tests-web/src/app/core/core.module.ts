@@ -1,55 +1,25 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {JwtInterceptor} from './jwt.interceptor';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {throwIfAlreadyLoaded} from './module-import-guard';
+import {AuthGuard, CanDeactivateGuard, throwIfAlreadyLoaded} from './guards';
 import {Overlay} from '@angular/cdk/overlay';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {GestureConfig} from '@angular/material';
-import {HeaderService} from './services/header.service';
-import {RWDService} from './services/RWD.service';
-import {CacheService} from './services/cache.service';
-import {FirebaseModule} from './firebase.module';
-import {AuthService} from './services/auth.service';
-import {CanDeactivateGuard} from './can-deactivate-guard';
-import {TestService} from './services/test.service';
-import {LoaderService} from './services/loader.service';
-import {AuthGuard} from './auth.guard';
-import {ScrollService} from './services/scroll.service';
-import {AppSettingsService} from './services/app-settings.service';
-import {TranslateService} from './services/translate.service';
-import {TRANSLATION_PROVIDERS} from '../shared/translations/translation';
+import {TRANSLATION_PROVIDERS} from '@shared/translations';
+import {FirebaseModule} from '@core/firebase.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    FirebaseModule,
-    BrowserAnimationsModule,
-    HttpClientModule
+    FirebaseModule
   ],
   exports: [],
   providers: [
-    AuthService,
     AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
-    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
-
-    LoaderService,
-    ScrollService,
-    AppSettingsService,
-    Overlay, // needed for angular ckd
-    RWDService,
     CanDeactivateGuard,
-    CacheService,
-    HeaderService,
-    TestService,
-    TRANSLATION_PROVIDERS, TranslateService
+    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
+    Overlay, // needed for angular ckd
+    TRANSLATION_PROVIDERS
   ]
 })
 export class CoreModule {

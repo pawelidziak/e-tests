@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '../../../../assets/scss/variables';
 
 .skeleton {
   margin-top: 48px;
@@ -42,53 +42,13 @@
   padding: 12px;
   margin-top: 24px;
 }
+
 .answer-text-100 {
   @include title(100%, 10px);
 }
 
 .answer-text-80 {
   @include title(80%, 10px);
-}
-
-.answer-text-60 {
-  @include title(60%, 10px);
-}
-
-.skeleton-container {
-  padding: 24px 0;
-  @media #{$gt-sm_size} {
-    padding: 48px;
-  }
-}
-
-.skeleton-container_inner {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-top: 24px;
-}
-
-.skeleton-text-container {
-  width: 100%;
-}
-
-.circle {
-  @include skeleton-bg;
-  width: 51px;
-  height: 48px;
-  border-radius: 50%;
-  margin-right: 24px;
-}
-
-.rectangle {
-  @include skeleton-bg;
-  width: 60px;
-  height: 200px;
-  @media #{$gt-sm_size} {
-    height: 300px;
-  }
-  border-radius: $border-radius;
-  margin-left: 24px;
 }
 
 .button {

@@ -5,7 +5,6 @@
                     [value]="calculateProgress()">
   </mat-progress-bar>
 
-
   <div class="box-item-row">
     <h3 class="paragraph-font">{{oneBox.name | limitChar: 40}}</h3>
   </div>
@@ -33,27 +32,5 @@
     <p class="sub-paragraph-font" style="margin: 0">{{(oneBox.desc? oneBox.desc : 'no-desc' | translate) | limitChar:
       65}}</p>
   </div>
-
-  <!--<div style="flex: 1 0; min-height: 24px;"></div>-->
-
-  <!--<div class="box-item-footer">-->
-
-  <!--<div class="box-item-row">-->
-  <!--<mat-icon aria-label="Rate" class="box-item-icon">star_rate</mat-icon>-->
-  <!--<span class="sub-paragraph-font">5.0</span>-->
-  <!--</div>-->
-  <!--<div class="box-item-row">-->
-  <!--<mat-icon aria-label="Remained" class="box-item-icon">folder</mat-icon>-->
-  <!--<span class="sub-paragraph-font">{{oneBox.exercises.length}}</span>-->
-  <!--</div>-->
-  <!--<div class="box-item-row">-->
-  <!--<mat-icon aria-label="Comment" class="box-item-icon">comment</mat-icon>-->
-  <!--<span class="sub-paragraph-font">3</span>-->
-  <!--</div>-->
-  <!--<div class="box-item-row">-->
-  <!--<mat-icon aria-label="Note" class="box-item-icon">note</mat-icon>-->
-  <!--<span class="sub-paragraph-font">2</span>-->
-  <!--</div>-->
-  <!--</div>-->
 
 </div>

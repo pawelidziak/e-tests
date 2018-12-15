@@ -1,58 +1,10 @@
 <app-spinner [hidden]="!pageOnLoad"></app-spinner>
-<mat-card class="main-card">
-  <div class="main-header-bg"
-       aria-hidden="true"
-       [style.background-image]="'linear-gradient(to bottom, '+
-                       appSettings?.currentTheme?.primary+', '+
-                       appSettings?.currentTheme?.accent+')'">
-    <span></span>
-    <span></span>
-  </div>
-  <main *ngIf="!isIEOrEdge"
-        class="container"
-        style="position: relative; padding-bottom: 100px;">
 
-    <app-header [isUserLoaded]="isUserLoaded"
-                [height]="headerHeight"
-                [user]="user"
-                [isSmallScreen]="isSmallScreen">
-    </app-header>
-
-    <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
-
-    <div [hidden]="!pageOnLoad" style="height: 400px;"></div>
-
-    <div [hidden]="pageOnLoad"
-         [@routeAnimations]="o.isActivated && !pageOnLoad ? o.activatedRoute : ''">
-      <div class="router-bg">
-        <span [style.background-image]="'linear-gradient(to right, '+
-                       appSettings?.currentTheme?.primary+', '+
-                       appSettings?.currentTheme?.accent+')'"></span>
-        <span [style.background-image]="'linear-gradient(to left, '+
-                       appSettings?.currentTheme?.primary+', '+
-                       appSettings?.currentTheme?.accent+')'"></span>
-        <span [style.background-image]="'linear-gradient(to right, '+
-                       appSettings?.currentTheme?.primary+', '+
-                       appSettings?.currentTheme?.accent+')'"></span>
-        <span [style.background-image]="'linear-gradient(to left, '+
-                       appSettings?.currentTheme?.primary+', '+
-                       appSettings?.currentTheme?.accent+')'"></span>
-      </div>
-      <router-outlet #o="outlet"></router-outlet>
-    </div>
-
-  </main>
-
-  <div *ngIf="!isIEOrEdge" style="flex: 1 0;"></div>
-  <app-footer *ngIf="!isIEOrEdge" [hidden]="pageOnLoad"></app-footer>
-
-  <div *ngIf="isIEOrEdge" class="ie-edge" [style.color]="appSettings.currentTheme?.textColor">
-    <span style="min-height: 400px;">LOGO</span>
-    <h3 class="my-title">We are sorry, the E-Testo is not supported in your browser</h3>
-    <p class="my-sub-title">To use the application, download it to your computer, or use a different web browser</p>
-    <button mat-raised-button>DOWNLOAD E-TESTO</button>
-  </div>
-
-</mat-card>
-
-
+<app-main *ngIf="!isIEOrEdge"></app-main>
+<!--<h1>coo</h1>-->
+<div *ngIf="isIEOrEdge" class="ie-edge">
+  <span style="min-height: 400px;">LOGO</span>
+  <h3 class="my-title">We are sorry, the E-Testo is not supported in your browser</h3>
+  <p class="my-sub-title">To use the application, download it to your computer, or use a different web browser</p>
+  <button mat-raised-button>DOWNLOAD E-TESTO</button>
+</div>

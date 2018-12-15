@@ -9,7 +9,6 @@
                [placeholder]="'test-boxes-placeholder' | translate"
                [(ngModel)]="searchText"
                [disabled]="testList.length === 0">
-        <!--<mat-icon matSuffix aria-label="Search">search</mat-icon>-->
       </mat-form-field>
     </div>
   </div>
@@ -28,7 +27,6 @@
     <p class="text">{{ 'no-results' | translate}}</p>
     <button mat-stroked-button color="accent" (click)="searchText = ''">{{ 'clear-input' | translate}}</button>
   </div>
-
 
 </mat-card>
 

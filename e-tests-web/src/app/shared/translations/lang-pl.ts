@@ -9,6 +9,7 @@ export const LANG_PL_TRANS = {
   'error-general': 'Coś poszło nie tak... Proszę spróbuj ponownie.',
   'change-success': 'Zmiany zostały zapisane.',
   'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
+  'new-app-version': 'Dostępna nowa wersja. Załadować?',
 
   // AUTH
   'auth-login': 'Logowanie',
@@ -252,11 +253,12 @@ export const LANG_PL_TRANS = {
                                  Wybierz parser <strong>E-testo</strong> kiedy importujesz plik wygenerowany przez aplikację E-testo. <br>
                                  Wybierz parser <strong>TXT</strong> kiedy importujesz zadania z pojedynczych plików txt.`,
   'import-exercises-choose-files': 'Wybierz pliki',
-  'import-exercises-imported-exercises': 'Zaimportowane zadania',
+  'import-exercises-imported-exercises': 'Zaimportowane',
   'import-exercises-save': 'zapisz',
   'import-exercises-reset': 'wyczyść',
   'import-exercises-drag-file': `Przeciągnij swoje pliki tutaj`,
   'import-exercises-drag-choose': 'lub wybierz...',
+  'import-exercises-save-warning': '<strong>Uwaga!</strong> Zaimportowane zadania nadpiszą aktualne.',
 
   // ABOUT APP
   'about-title': 'O aplikacji',

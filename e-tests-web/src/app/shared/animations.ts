@@ -1,7 +1,7 @@
 import {
   animate,
   animateChild,
-  query as q,
+  query,
   sequence,
   stagger,
   state,
@@ -10,35 +10,84 @@ import {
   trigger
 } from '@angular/animations';
 
-const query = (s, a, o = {optional: true}) => q(s, a, o);
+/*
+      STEPS
+ */
+const TRANSFORM_FROM_RIGHT = [
+  style({transform: 'translateX(3%)', opacity: 0}),
+  animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
+];
+
+const TRANSFORM_TO_RIGHT = [
+  style({transform: 'translateX(0%)', opacity: 1}),
+  animate('.25s ease-in-out', style({transform: 'translateX(3%)', opacity: 0}))
+];
+
+const TRANSFORM_FROM_LEFT = [
+  style({transform: 'translateX(-3%)', opacity: 0}),
+  animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
+];
+
+const TRANSFORM_TO_LEFT = [
+  style({transform: 'translateY(0%)', opacity: 1}),
+  animate('.25s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0}))
+];
+
+const TRANSFORM_FROM_BOTTOM = [
+  style({transform: 'translateY(3%)', opacity: 0}),
+  animate('.25s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
+];
+
+const TRANSFORM_TO_TOP = [
+  style({transform: 'translateY(0%)', opacity: 1}),
+  animate('.25s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0}))
+];
+
+export const TRANSFORM_FROM_TOP = [
+  style({transform: 'translateY(-3%)', opacity: 0}),
+  animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
+];
+
+const SCALE_ONE = [
+  style({opacity: 0, transform: 'scale(0)'}),
+  animate('.35s ease-in-out', style({opacity: 1, transform: 'scale(1)'}))
+];
+
+const SCALE_ZERO = [
+  style({opacity: 1, transform: 'scale(1)'}),
+  animate('.35s ease-in-out', style({opacity: 0, transform: 'scale(0)'}))
+];
 
 /*
       ROUTE ANIMATIONS
  */
-export const routeAnimations = trigger('routeAnimations', [
-  transition('* => *', [
-    query(':enter > *', style({opacity: 0, position: 'fixed'})),
-    sequence([
-      query(':leave', animateChild()),
-      query(':leave > *', [
-          style({opacity: 1}),
-          animate('0.25s ease-in-out',
-            style({opacity: 0})
-          ),
-          style({position: 'fixed'})
-        ]
-      ),
-      query(':enter > *', [
-          style({opacity: 0, position: 'static'}),
-          animate('0.25s ease-in-out',
-            style({opacity: 1})
-          )
-        ]
-      ),
-      query(':enter', animateChild()),
+export function routeAnimations() {
+  return trigger('routeAnimations', [
+    transition('* => *', [
+      query(':enter > *', style({opacity: 0, position: 'fixed'}), {optional: true}),
+      sequence([
+        query(':leave', animateChild(), {optional: true}),
+        query(':leave > *', [
+            style({opacity: 1}),
+            animate('0.25s ease-in-out',
+              style({opacity: 0})
+            ),
+            style({position: 'fixed'})
+          ], {optional: true}
+        ),
+        query(':enter > *', [
+            style({opacity: 0, position: 'static'}),
+            animate('0.25s ease-in-out',
+              style({opacity: 1})
+            )
+          ], {optional: true}
+        ),
+        query(':enter', animateChild(), {optional: true}),
+      ]),
     ]),
-  ]),
-]);
+  ])
+    ;
+}
 
 /*
       LIST ANIMATIONS
@@ -46,12 +95,11 @@ export const routeAnimations = trigger('routeAnimations', [
 export function listAnimation() {
   return trigger('listStagger', [
     transition('* => *', [
-      query(':enter', style({opacity: 0})),
+      query(':enter', style({opacity: 0}), {optional: true}),
       query(':enter',
-        stagger(100, TRANSFORM_FROM_TOP)
+        stagger(100, TRANSFORM_FROM_TOP), {optional: true}
       )
     ]),
-
   ]);
 }
 
@@ -129,53 +177,3 @@ export function scaleOneZero() {
     transition(':leave', SCALE_ZERO),
   ]);
 }
-
-/*
-      STEPS
- */
-
-const TRANSFORM_FROM_RIGHT = [
-  style({transform: 'translateX(3%)', opacity: 0}),
-  animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
-];
-
-const TRANSFORM_TO_RIGHT = [
-  style({transform: 'translateX(0%)', opacity: 1}),
-  animate('.25s ease-in-out', style({transform: 'translateX(3%)', opacity: 0}))
-];
-
-const TRANSFORM_FROM_LEFT = [
-  style({transform: 'translateX(-3%)', opacity: 0}),
-  animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))
-];
-
-const TRANSFORM_TO_LEFT = [
-  style({transform: 'translateY(0%)', opacity: 1}),
-  animate('.25s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0}))
-];
-
-const TRANSFORM_FROM_BOTTOM = [
-  style({transform: 'translateY(3%)', opacity: 0}),
-  animate('.25s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
-];
-
-const TRANSFORM_TO_TOP = [
-  style({transform: 'translateY(0%)', opacity: 1}),
-  animate('.25s ease-in-out', style({transform: 'translateY(-3%)', opacity: 0}))
-];
-
-const TRANSFORM_FROM_TOP = [
-  style({transform: 'translateY(-3%)', opacity: 0}),
-  animate('0.5s ease-in-out', style({transform: 'translateY(0%)', opacity: 1}))
-];
-
-const SCALE_ONE = [
-  style({opacity: 0, transform: 'scale(0)'}),
-  animate('.35s ease-in-out', style({opacity: 1, transform: 'scale(1)'}))
-];
-
-const SCALE_ZERO = [
-  style({opacity: 1, transform: 'scale(1)'}),
-  animate('.35s ease-in-out', style({opacity: 0, transform: 'scale(0)'}))
-];
-

@@ -1,0 +1,128 @@
+<section class="section-test-learn">
+  <app-skeleton-loading *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)"></app-skeleton-loading>
+  <mat-card class="test-learn-card" *ngIf="userIsAuthenticated && isConfigSet && test">
+
+    <!-- LEARN HEADER -->
+    <div class="test-learn-header">
+
+      <!-- BACK -->
+      <button mat-icon-button (click)="backToTest()">
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+      </button>
+
+      <!-- Remained -->
+      <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
+           [matTooltip]="isMediumScreen ? ('test-learn-remained' | translate) : ''">
+        <mat-icon aria-label="Remained" class="info-icon">subject</mat-icon>
+        <span *ngIf="!isMediumScreen">{{'test-learn-remained' | translate}} : </span>
+        <span [style.color]="appSettings.currentTheme.accent"
+              [ngClass]="{'info-value': !isMediumScreen}">
+                  {{origTestExercises.length - test.settings?.progress?.masteredExercisesIds.length}}
+      </span>
+      </div>
+
+      <!-- Mastered -->
+      <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
+           [matTooltip]="isMediumScreen ? ('test-learn-mastered' | translate) : ''">
+        <mat-icon aria-label="Done" class="info-icon">done_all</mat-icon>
+        <span *ngIf="!isMediumScreen">{{'test-learn-mastered' | translate}} : </span>
+        <span [style.color]="appSettings.currentTheme.accent"
+              [ngClass]="{'info-value': !isMediumScreen}">
+                   {{test.settings.progress?.masteredExercisesIds.length}}
+      </span>
+      </div>
+
+      <!-- Occurrences-->
+      <div [ngClass]="{'one-info_small': isMediumScreen, 'one-info_big': !isMediumScreen}"
+           [matTooltip]="isMediumScreen ? ('test-learn-occurrences' | translate) : ''">
+        <mat-icon aria-label="Repeat" class="info-icon">repeat</mat-icon>
+        <span *ngIf="!isMediumScreen">{{'test-learn-occurrences' | translate}}: </span>
+        <span [style.color]="appSettings.currentTheme.accent"
+              [ngClass]="{'info-value': !isMediumScreen}">
+                  {{currentExercise?.occurrences || 0}}
+      </span>
+      </div>
+
+      <!-- SETTINGS -->
+      <button mat-icon-button (click)="openDialog(false)">
+        <mat-icon aria-label="Settings">settings</mat-icon>
+      </button>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div>
+      <mat-progress-bar color="accent"
+                        class="my-progress-bar"
+                        mode="determinate"
+                        [value]="countMasteredRatio()">
+      </mat-progress-bar>
+    </div>
+
+    <!-- EXERCISE CONTENT -->
+    <div class="test-learn-exercise">
+      <app-exercise *ngIf="!isTestEnd"
+                    [exerciseWithOccurrences]="currentExercise"
+                    [userIsAuthenticated]="userIsAuthenticated"
+                    [repetitionExerciseNumber]="test.settings?.config.repetitionNumber"
+                    (checkClicked)="handleCheckAnswer()"
+                    (nextClicked)="handleNextAnswer()">
+      </app-exercise>
+
+      <!-- TEST END -->
+      <div *ngIf="isTestEnd">
+        <div class="test-end-header">
+          <mat-icon id="done" aria-label="Done icon">done</mat-icon>
+          <h5 class="paragraph-font">{{ 'test-learn-end' | translate}}</h5>
+        </div>
+
+        <div class="my-divider"></div>
+
+        <!-- EXAM -->
+        <div class="test-end-action">
+          <div style="width: 270px;">
+            <div class="end-actions">
+              <h5 class="paragraph-font">{{ 'test-learn-exam' | translate}}</h5>
+              <button mat-icon-button
+                      color="accent">
+                <mat-icon aria-label="Restart">assignment</mat-icon>
+              </button>
+            </div>
+            <p class="sub-paragraph-font">{{ 'test-learn-exam-text' | translate}}</p>
+          </div>
+        </div>
+
+        <!-- RESTART -->
+        <div class="test-end-action">
+          <div style="width: 270px;">
+            <div class="end-actions">
+              <h5 class="paragraph-font">{{ 'test-learn-restart' | translate}}</h5>
+              <button mat-icon-button
+                      (click)="openDialog(false)"
+                      color="warn">
+                <mat-icon aria-label="Restart">restore_page</mat-icon>
+              </button>
+            </div>
+            <p class="sub-paragraph-font">{{ 'test-learn-restart-text' | translate}}</p>
+          </div>
+        </div>
+
+        <!-- RETURN -->
+        <div class="test-end-action">
+          <div style="width: 270px;">
+            <div class="end-actions">
+              <h5 class="paragraph-font">{{ 'test-learn-return' | translate}}</h5>
+              <button mat-icon-button (click)="backToTest()">
+                <mat-icon aria-label="Return">arrow_back</mat-icon>
+              </button>
+            </div>
+            <p class="sub-paragraph-font">{{ 'test-learn-return-text' | translate}}</p>
+          </div>
+        </div>
+
+      </div><!-- end TEST END -->
+    </div><!-- end EXERCISE CONTENT -->
+
+  </mat-card>
+</section>
+
+

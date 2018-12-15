@@ -2,41 +2,36 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AppComponent} from './app.component';
-import {environment} from '../environments/environment';
-
-import {SpinnerModule} from './shared/components/spinner/spinner.module';
-import {CoreModule} from './core/core.module';
-import {appRouting} from './app.routing';
-import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
-import {AppHeaderModule} from './features/app-header/app-header.module';
-import {PageHeaderModule} from './shared/components/page-header/page-header.module';
-import {AuthModule} from './features/auth/auth.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppFooterModule} from './features/app-footer/app-footer.module';
+import {AppRoutingModule} from './app.routing';
+import {CoreModule} from '@core/core.module';
+import {LoaderService} from '@core/services';
+import {SpinnerModule} from '@shared/components';
+import {environment} from '@env/environment';
+import {MainModule} from '@modules/main/main.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    // angular
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    BrowserModule,
+
+    // pwa
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+
+    // core
     CoreModule,
-    appRouting,
+
+    // routing
+    AppRoutingModule,
+
     SpinnerModule,
-
-    // stworzyc i przeniesc do MAIN COMPONENT
-    AuthModule,
-    AppHeaderModule,
-    PageHeaderModule,
-    AppFooterModule,
-
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule
+    MainModule
   ],
-  providers: [],
+  providers: [LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

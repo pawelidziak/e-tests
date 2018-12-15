@@ -1,0 +1,93 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+button {
+  outline: none;
+}
+
+// CARD
+.info-card {
+  border-radius: $border-radius;
+  padding: 0;
+}
+
+.test-info-content {
+  padding: .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
+}
+
+.info-card-header {
+  font-size: $font-small;
+  color: $text_secondary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media #{$gt-xs_size} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .no-edit-buttons {
+    @media #{$lt_xs_size} {
+      margin-top: .5*$margin;
+    }
+  }
+}
+
+.test-name {
+  margin: .5*$margin 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// ICON WITH TEXT
+.icon-with-text {
+  display: flex;
+  align-items: center;
+}
+
+.test-icon {
+  @include mat-icon-size(20px);
+  margin-right: .25*$margin;
+  @media #{$gt-md_size} {
+    @include mat-icon-size(24px);
+    margin-right: .5*$margin;
+  }
+}
+
+// BUTTONS
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end
+}
+
+.box-button {
+  width: 100%;
+  margin: .5*$margin 0;
+  border-radius: $border-radius;
+  @include upper-text();
+  /deep/ .mat-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.not-available {
+  font-size: $font-small;
+  color: $text_secondary;
+  width: 100%;
+  text-align: center;
+}
+
+// TABS
+.tabs-card {
+  margin-top: 2*$margin;
+  min-height: 100px;
+}

@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/index';
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class LoaderService {
 
   private _isOnLoad: BehaviorSubject<boolean> = new BehaviorSubject(false);

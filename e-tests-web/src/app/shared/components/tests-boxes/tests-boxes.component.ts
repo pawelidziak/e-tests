@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TestModel} from '../../../core/models/Test';
+import {TestModel} from '@core/models';
 import {slideFromTop} from '../../animations';
-import {AppSettingsService} from "../../../core/services/app-settings.service";
-import {ALL_ROUTES} from "../../ROUTES";
+import {AppSettingsService} from '@core/services';
+import {ALL_ROUTES} from '@shared/routes';
 
 @Component({
   selector: 'app-test-boxes',

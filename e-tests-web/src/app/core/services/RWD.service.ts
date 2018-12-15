@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/index';
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RWDService {
   private _isXSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   private _isSmallScreen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);

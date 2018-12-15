@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TestModel} from '../../../../core/models/Test';
-import {ALL_ROUTES} from '../../../ROUTES';
+import {TestModel} from '@core/models';
+import {ALL_ROUTES} from '@shared/routes';
 import {Router} from '@angular/router';
 
 @Component({
@@ -19,18 +19,6 @@ export class OneTestBoxComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  private calculateTagsLimit(): void {
-    let charLength = 0;
-    for (const tag of this.oneBox.tags) {
-      charLength += tag.length + 3;     // + 3 because separator ' | '
-      if (charLength < this.MAX_TAGS_LENGTH) {
-        this.maxTags++;
-      } else {
-        return;
-      }
-    }
   }
 
   public calculateProgress(): number {

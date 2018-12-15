@@ -1,11 +1,10 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {TestModel} from '../../../core/models/Test';
-import {ALL_ROUTES} from '../../ROUTES';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {AppSettingsService} from '../../../core/services/app-settings.service';
-import {RWDService} from '../../../core/services/RWD.service';
+import {TestModel} from '@core/models';
+import {ALL_ROUTES} from '@shared/routes';
+import {AppSettingsService, RWDService} from '@core/services';
 import {expandPanelAnimation, slideFromTop} from '../../animations';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-tests-table',

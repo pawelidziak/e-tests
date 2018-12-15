@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
-import {LocalStorageService} from './local-storage.service';
-import {TRANSLATIONS} from '../../shared/translations/translation';
+import {TRANSLATIONS} from '@shared/translations/translation';
+import {LocalStorageUtils} from '@shared/utils';
 
 export const MY_COLORS = {
   MATERIAL_GREEN: '#8BC34A',
@@ -16,11 +16,6 @@ export interface MyTheme {
   textColor: string;
 }
 
-/*
-#5E5094
-#3D73AE
-#1C95CA
- */
 export const MY_THEMES: Array<MyTheme> = [
   {
     name: 'blue-theme',
@@ -56,7 +51,9 @@ export const MY_THEMES: Array<MyTheme> = [
   }
 ];
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppSettingsService {
   private readonly APP_SETTINGS_KEY = 'app-settings';
 
@@ -105,7 +102,7 @@ export class AppSettingsService {
   }
 
   private assignSettings() {
-    this._currentSettings = LocalStorageService.getObject(this.APP_SETTINGS_KEY);
+    this._currentSettings = LocalStorageUtils.getObject(this.APP_SETTINGS_KEY);
     if (this._currentSettings) {
       const index = MY_THEMES.findIndex(x => x.name === this._currentSettings.theme);
       if (index !== -1) {
@@ -125,7 +122,7 @@ export class AppSettingsService {
   }
 
   private saveSettingsToLocalStorage(): void {
-    LocalStorageService.setObject(this.APP_SETTINGS_KEY, this._currentSettings);
+    LocalStorageUtils.setObject(this.APP_SETTINGS_KEY, this._currentSettings);
   }
 
   private applyTheme(): void {
