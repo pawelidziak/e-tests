@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {User} from 'firebase';
-import {Observable} from 'rxjs/internal/Observable';
-import {MatDialog} from '@angular/material';
-import {AuthComponent} from '../../features/auth/auth.component';
-import * as firebase from 'firebase/app';
 import {Router} from '@angular/router';
-import {ALL_ROUTES} from '../../shared/ROUTES';
+import {MatDialog} from '@angular/material';
+import {Observable} from 'rxjs/internal/Observable';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {ALL_ROUTES} from '@shared/routes';
+import * as firebase from 'firebase/app';
+import {AuthComponent} from '@core/components/auth/components/auth.component';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   private readonly USERS_PATH = 'users';
   private _user: any = null;
@@ -147,18 +148,9 @@ export class AuthService {
     return Promise.all([updateProfileAuth, updateProfileInFS]);
   }
 
-  public getCurrentUserData(): Observable<User> {
-    return this.afs.doc<User>(`${this.USERS_PATH}/${this.currentUserId}`).valueChanges();
-  }
-
-  public getUserDataById(userId: string): Observable<User> {
-    this.checkIfUserExists(userId);
-    return this.afs.doc<User>(`${this.USERS_PATH}/${userId}`).valueChanges();
-  }
-
   /**
    * Method checks if 'user' with given id exists in firestore, if not it navigate to 404 page
-   * @param {userId} userId
+   * @param userId
    */
   private checkIfUserExists(userId: string): void {
     this.afs.doc(`${this.USERS_PATH}/${userId}`).ref.get()

@@ -13,7 +13,6 @@ import {
 /*
       STEPS
  */
-
 const TRANSFORM_FROM_RIGHT = [
   style({transform: 'translateX(3%)', opacity: 0}),
   animate('.25s ease-in-out', style({transform: 'translateX(0%)', opacity: 1}))

@@ -1,0 +1,103 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.section-test-learn {
+  padding-top: .5*$margin;
+  @media #{$gt-md_size} {
+    padding-top: $margin;
+  }
+}
+
+button {
+  outline: none;
+  @include upper-text();
+}
+
+.test-learn-card {
+  padding: 0;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5*$margin;
+}
+
+/*
+    TEST LEARN HEADER
+ */
+.test-learn-header {
+  height: 48px;
+  width: 100%;
+  padding: 0 .25*$margin;
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-small;
+  align-items: center;
+  color: $text_secondary;
+}
+
+.my-progress-bar {
+  height: 4px;
+}
+
+.one-info_small {
+  display: flex;
+  align-items: center;
+  padding: 0 .5*$margin;
+
+  &:last-child {
+    padding: 0;
+  }
+}
+
+.one-info_big {
+  display: flex;
+  align-items: center
+}
+
+.info-icon {
+  @include mat-icon-size(20px);
+  margin-right: 5px;
+}
+
+.info-value {
+  font-weight: 700;
+  margin-left: 5px;
+  font-size: $font-normal;
+}
+
+/*
+    EXERCISE CONTENT
+ */
+.test-learn-exercise {
+  padding: .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
+}
+
+/*
+    TEST END
+ */
+#done {
+  @include mat-icon-size(96px);
+  color: $material-green;
+}
+
+.test-end-header {
+  text-align: center;
+  margin: 2*$margin 0;
+
+}
+
+.test-end-action {
+  margin-top: $margin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .end-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

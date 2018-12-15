@@ -1,0 +1,40 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.section-display-exercises {
+  overflow: hidden;
+  padding: $margin .5*$margin;
+}
+
+button {
+  outline: none;
+}
+
+.exercises-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: $margin;
+  height: 48px;
+}
+
+.exercise-actions {
+  display: flex;
+  justify-content: center;
+  margin: $margin 0;
+}
+
+#newExerciseButton {
+  margin-top: $margin;
+  border-radius: $border-radius;
+  min-width: 200px;
+  @include upper-text();
+}
+
+.no-results {
+  text-align: center;
+}
+
+.no-results-icon {
+  @include mat-icon-size(76px);
+}

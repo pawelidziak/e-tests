@@ -1,0 +1,51 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.dashboard-card {
+  margin-top: 350px;
+  @media #{$gt-md_size} {
+    margin-top: 500px;
+  }
+  box-shadow: none !important;
+}
+
+.all-devices {
+  text-align: center;
+  padding: 200px 0 150px;
+  @media #{$gt-sm_size} {
+    padding: 200px 0 250px;
+  }
+  @media #{$gt-md_size} {
+    padding: 50px 0 250px;
+  }
+}
+
+.join-us {
+  text-align: center;
+  padding: 100px 0 50px;
+  @media #{$gt-lg_size} {
+    padding: 200px 0 150px
+  }
+}
+
+/*
+      ADDITIONAL ELEMENTS
+ */
+.devices-icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2*$margin;
+}
+
+.dashboard-button {
+  @include upper-text();
+}
+
+.dashboard-large-icon {
+  color: $text_secondary;
+  margin: 0 6px;
+  @include mat-icon-size(72px);
+  @media #{$gt-sm_size} {
+    @include mat-icon-size(102px);
+  }
+}

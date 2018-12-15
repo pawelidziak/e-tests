@@ -12,7 +12,9 @@ export interface Breadcrumb {
   path: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HeaderService {
   private _breadcrumb: Breadcrumb[] = [];
   private _appHeaderVisibility = true;

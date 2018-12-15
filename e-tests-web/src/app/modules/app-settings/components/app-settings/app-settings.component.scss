@@ -1,0 +1,17 @@
+@import '../../../../../assets/scss/variables';
+
+button {
+  outline: none;
+}
+
+.app-setting {
+  margin: .5*$margin;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .app-settings-select {
+    display: flex;
+    align-items: center;
+  }
+}
