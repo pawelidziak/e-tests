@@ -9,6 +9,7 @@ export const LANG_EN_TRANS = {
   'error-general': 'Something went wrong.. Please try again.',
   'change-success': 'The changes were saved successfully',
   'instructions-send-to-email': 'Instructions have been sent to the email.',
+  'new-app-version': 'New version available. Load new version?',
 
   // AUTH
   'auth-login': 'Login',

@@ -1,6 +1,7 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {routeAnimations} from '@shared/animations';
 import {RWDService, AuthService, LoaderService, AppSettingsService} from '@core/services';
+import {SwUpdate} from '@angular/service-worker';
 
 @Component({
   selector: 'app-main',
@@ -19,6 +20,7 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(private rwdService: RWDService,
               private loader: LoaderService,
               private auth: AuthService,
+              private swUpdate: SwUpdate,
               public appSettings: AppSettingsService) {
   }
 
@@ -26,6 +28,16 @@ export class MainComponent implements OnInit, OnDestroy {
     this.loader.start();
     this.getUser();
     this.getRWDValue();
+
+    if (this.swUpdate.isEnabled) {
+      this.subscriptions.push(
+        this.swUpdate.available.subscribe(() => {
+          if (confirm(this.appSettings.translateText('new-app-version'))) {
+            window.location.reload();
+          }
+        })
+      );
+    }
   }
 
   ngOnDestroy(): void {

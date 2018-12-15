@@ -9,6 +9,7 @@ export const LANG_PL_TRANS = {
   'error-general': 'Coś poszło nie tak... Proszę spróbuj ponownie.',
   'change-success': 'Zmiany zostały zapisane.',
   'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
+  'new-app-version': 'Dostępna nowa wersja. Załadować?',
 
   // AUTH
   'auth-login': 'Logowanie',

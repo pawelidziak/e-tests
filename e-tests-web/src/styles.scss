@@ -3,10 +3,16 @@
 @import 'assets/scss/variables';
 @import 'assets/scss/mixins';
 
+@font-face {
+  font-family: 'Arvo';
+  font-display: auto;
+  src: local('Arvo'), url(https://fonts.gstatic.com/s/arvo/v9/rC7kKhY-eUDY-ucISTIf5PesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+}
+
 html, body {
   padding: 0;
   margin: 0;
-  font-family: Camphor, Nunito Sans, Open Sans, Segoe UI, sans-serif, Arial, sans-serif;
+  font-family: 'Roboto', 'Camphor', sans-serif;
   scroll-behavior: smooth;
 }
 
