@@ -89,7 +89,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     this.checkClicked.emit();
 
     if (this.isAnswerCorrect) {
-      setTimeout(() => this.showNextExercise(), 1000)
+      setTimeout(() => this.showNextExercise(), 1000);
     }
   }
 
@@ -170,7 +170,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     this.handleKeyboardShortcuts(event.keyCode);
   }
 
-  private handleKeyboardShortcuts(keyCode: number) {
+  private handleKeyboardShortcuts(keyCode: number): void  {
     if (this.userIsAuthenticated) {
       if (!this.isCheckClicked) {
         // 1, 2, ... 9

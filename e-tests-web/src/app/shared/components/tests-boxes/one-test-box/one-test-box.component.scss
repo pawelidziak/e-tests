@@ -7,7 +7,6 @@
   height: 100%;
   border-radius: $border-radius;
   border: 1px solid $hover_color;
-  //@include box_shadow;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -24,15 +23,6 @@
   display: flex;
   align-items: center;
   margin-bottom: .5*$margin;
-}
-
-.box-item-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .box-item-row {
-    margin-bottom: 0;
-  }
 }
 
 .tag-row {

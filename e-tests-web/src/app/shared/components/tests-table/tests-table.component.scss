@@ -44,7 +44,6 @@ tr:last-child, td:last-child {
 }
 
 .mat-cell, .mat-header-cell {
-  //border-color: $divider_color !important;
   border: none;
   @media #{$lt_md_size} {
     &:first-of-type {
@@ -59,7 +58,6 @@ tr:last-child, td:last-child {
 /**
     MAT COLUMNS
  */
-
 .mat-column-rate {
   font-size: $font-small;
 }
@@ -102,7 +100,6 @@ tr:last-child, td:last-child {
 
 .detail-row-collapsed {
   height: 0;
-  //background-color: $hover_color;
 }
 
 /**

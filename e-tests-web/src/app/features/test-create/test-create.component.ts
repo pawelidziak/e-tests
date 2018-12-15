@@ -41,7 +41,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   /**
    * If is not logged in - open auth dialog
    */
-  private isLoggedIn() {
+  private isLoggedIn(): void  {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
       res => {
         if (!res) {
@@ -56,7 +56,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   /**
    * Method used by CanDeactivateGuard to show redirect alert
    */
-  canDeactivate() {
+  canDeactivate(): boolean {
     if (!this.testCreatedFlag && this.isUnsavedData()) {
       return window.confirm('Are you sure? Unsaved changes will be lost.');
     }

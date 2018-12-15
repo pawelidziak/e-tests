@@ -52,7 +52,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private getTest() {
+  private getTest(): void {
     this.loader.start();
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
@@ -84,7 +84,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     this.importedExercises.splice(index, 1);
   }
 
-  public getFiles(event: any) {
+  public getFiles(event: any): void {
     this.errorMsg = '';
     if (event.length > 0 && event.length <= 100) {
       if (this.filesIncorrect(event)) {
@@ -99,7 +99,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private uploadFiles() {
+  private uploadFiles(): void {
     for (let i = 0; i < this.selectedFiles.length; i++) {
       const fileReader = new FileReader();
       this.filesOnLoad = true;
@@ -147,7 +147,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
     this.selectedFiles = [];
   }
 
-  public changeParser(parser: SelectParser) {
+  public changeParser(parser: SelectParser): void {
     this.selectedParser = parser;
   }
 

@@ -1,35 +1,7 @@
 @import '../../shared/variables';
-@import '../../shared/mixins';
 
 button {
   outline: none;
-}
-
-.settings-card2 {
-  position: relative;
-  //border-radius: $border-radius;
-  min-height: 70vh;
-  margin-top: $margin;
-  padding: 3*$margin $margin 2*$margin $margin;
-  //box-shadow: none !important;
-}
-
-.section-icon-container {
-  position: absolute;
-  top: -46px;
-  right: 46px;
-  padding: 0;
-  @include size(92px, 92px);
-  border-radius: 50%;
-  box-shadow: none !important;
-}
-
-.section-icon {
-  @include mat-icon-size(92px)
-}
-
-.settings-card {
-  border-radius: $border-radius;
 }
 
 .app-setting {

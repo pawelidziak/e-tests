@@ -1,7 +1,7 @@
 @import '../../shared/variables';
 @import '../../shared/mixins';
 
-button {
+.save-button {
   @include upper-text();
   position: absolute;
   left: 0;
@@ -10,6 +10,7 @@ button {
   padding: .25*$margin 0;
   font-size: 1.2*$font-normal;
   outline: none;
+  border-radius: 0 0 20px 0;
 }
 
 .create-card {
@@ -26,12 +27,6 @@ button {
   flex-direction: column;
   @media #{$gt-sm_size} {
     flex-direction: row;
-  }
-  .detail {
-    width: 100%;
-    @media #{$gt-sm_size} {
-      width: auto;
-    }
   }
 }
 

@@ -43,7 +43,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private isLoggedIn() {
+  private isLoggedIn(): void  {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
         () => {
@@ -90,7 +90,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
   /**
    *    GET TEST SETTINGS
    */
-  private getTestSettings() {
+  private getTestSettings(): void  {
     for (let i = 0; i < this.userTests.length; i++) {
       this.loader.start();
       this.subscriptions.push(
@@ -109,7 +109,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
   /**
    *    ASSIGN TEST TO SETTINGS
    */
-  private assignTests(settings: any[]) {
+  private assignTests(settings: any[]): void  {
     for (let i = 0; i < settings.length; i++) {
       this.loader.start();
       this.subscriptions.push(
@@ -142,7 +142,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     return tmpTest;
   }
 
-  private pushOrSetToList(tmpTest: TestModel) {
+  private pushOrSetToList(tmpTest: TestModel): void  {
     const index = this.startedTests.findIndex(x => x.id === tmpTest.id);
     if (index === -1) {
       this.startedTests.push(tmpTest);

@@ -9,7 +9,7 @@ import {HeaderService} from '../../core/services/header.service';
 })
 export class AboutComponent implements OnInit {
 
-  usedTechs: any = [
+ public usedTechs: any = [
     {label: 'Angular 7', link: 'https://angular.io/'},
     {label: 'Angular Material', link: 'https://material.angular.io/'},
     {label: 'Material icons', link: 'https://material.io/tools/icons/'},

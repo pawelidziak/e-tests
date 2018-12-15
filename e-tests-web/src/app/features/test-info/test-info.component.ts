@@ -27,7 +27,6 @@ export class TestInfoComponent implements OnInit, OnDestroy {
   public editTestMode: boolean;
   private copyTest: TestModel;
 
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private testService: TestService,
@@ -53,7 +52,7 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private getTest() {
+  private getTest(): void  {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
@@ -78,15 +77,13 @@ export class TestInfoComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getAuthor() {
+  private getAuthor(): void  {
     this.subscriptions.push(
       this.testService.getAuthor(this.test.authorId).subscribe(
         res => {
           this.test.authorObj = res;
           this.loader.complete();
-        }, error => {
-          this.loader.complete();
-        }
+        }, error => this.loader.complete()
       ));
 
   }

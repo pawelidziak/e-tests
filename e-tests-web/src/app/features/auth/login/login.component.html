@@ -18,7 +18,7 @@
         <input matInput type="email"
                [placeholder]="'login-email-placeholder' | translate"
                [formControl]="email">
-        <mat-icon class="login-icon"
+        <mat-icon class="color-secondary"
                   matSuffix
                   aria-label="Email">
           mail
@@ -34,7 +34,7 @@
                [type]="hidePassword ? 'password' : 'text'"
                [placeholder]="'login-password-placeholder' | translate"
                [formControl]="password">
-        <mat-icon class="login-icon"
+        <mat-icon class="color-secondary"
                   matSuffix
                   aria-label="Password visibility"
                   (click)="hidePassword = !hidePassword">
@@ -53,7 +53,7 @@
 
     </form>
     <a mat-button
-       class="width-100"
+       class="width-100 color-secondary"
        style="text-align: left"
        (click)="showForgotPassword = true">
       {{ 'login-forgot-passwd' | translate}}

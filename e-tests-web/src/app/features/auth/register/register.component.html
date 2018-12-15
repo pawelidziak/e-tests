@@ -15,7 +15,7 @@
                matInput
                [placeholder]="'register-display-name-placeholder' | translate"
                [formControl]="displayName">
-        <mat-icon matSuffix class="register-icon">account_circle</mat-icon>
+        <mat-icon matSuffix class="color-secondary">account_circle</mat-icon>
         <mat-error *ngIf="displayName.hasError('required')" [innerHTML]="'register-display-name-error-required' | translate"></mat-error>
       </mat-form-field>
 
@@ -23,7 +23,7 @@
       <mat-form-field color="accent" appearance="outline">
         <mat-label>{{ 'login-email-label' | translate}}</mat-label>
         <input type="email" matInput [placeholder]="'login-email-placeholder' | translate" [formControl]="email">
-        <mat-icon matSuffix class="register-icon">mail</mat-icon>
+        <mat-icon matSuffix class="color-secondary">mail</mat-icon>
         <mat-error *ngIf="email.hasError('required')" [innerHTML]="'login-email-error-required' | translate"></mat-error>
         <mat-error *ngIf="email.hasError('email')" [innerHTML]="'login-email-error-format' | translate"></mat-error>
       </mat-form-field>
@@ -36,7 +36,7 @@
                [placeholder]="'login-password-placeholder' | translate"
                [formControl]="password">
         <mat-icon matSuffix
-                  class="register-icon"
+                  class="color-secondary"
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
@@ -51,7 +51,7 @@
                [formControl]="confirmPassword"
                appCompare="password">
         <mat-icon matSuffix
-                  class="register-icon"
+                  class="color-secondary"
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>

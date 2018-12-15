@@ -69,7 +69,6 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isMediumScreen.subscribe(
         res => {
-          // this.headerService.hidePageHeader();
           if (res) {
             this.headerService.hideAppAndPageHeader();
             this.isMediumScreen = true;
@@ -85,7 +84,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * If is not logged in - open auth dialog
    */
-  private isLoggedIn() {
+  private isLoggedIn(): void  {
     this.subscriptions.push(this.auth.currentUserObservable.subscribe(
       res => {
         this.loader.start();
@@ -104,7 +103,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * INITIAL
    */
-  private getTest() {
+  private getTest(): void  {
     this.subscriptions.push(
       this.testService.getTestById(this.testId).subscribe(
         res => {
@@ -281,7 +280,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * REVIEWED EXERCISE
    */
-  private addToReviewed() {
+  private addToReviewed(): void  {
     const index = this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === this.currentExercise.exercise.createDate);
     if (index !== -1) {
       this.test.settings.progress.reviewedExercisesIds[index].occurrences = this.currentExercise.occurrences;
@@ -293,7 +292,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     }
   }
 
-  private deleteFromReviewed(exercise: ExerciseWithOccurrences) {
+  private deleteFromReviewed(exercise: ExerciseWithOccurrences): void  {
     const reviewedIndex = this.test.settings.progress.reviewedExercisesIds.findIndex(x => x.id === exercise.exercise.createDate);
     this.test.settings.progress.reviewedExercisesIds.splice(reviewedIndex, 1);
   }
@@ -305,7 +304,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   /**
    * MASTERED EXERCISE
    */
-  private addToMastered(exercise: ExerciseWithOccurrences) {
+  private addToMastered(exercise: ExerciseWithOccurrences): void  {
     this.test.settings.progress.masteredExercisesIds.push(exercise.exercise.createDate);
   }
 
@@ -313,7 +312,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
     return this.test.settings.progress.masteredExercisesIds.findIndex(x => x === id) !== -1;
   }
 
-  private deleteFromPreparedExercises(exercise: ExerciseWithOccurrences) {
+  private deleteFromPreparedExercises(exercise: ExerciseWithOccurrences): void  {
     const index = this.preparedTestExercises.findIndex(x => x.exercise.createDate === exercise.exercise.createDate);
     if (index !== -1) {
       this.preparedTestExercises.splice(index, 1);
@@ -374,7 +373,7 @@ export class TestLearnComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event) {
+  beforeunloadHandler() {
     this.saveProgress();
   }
 

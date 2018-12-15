@@ -39,7 +39,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private isLoggedIn() {
+  private isLoggedIn(): void  {
     this.subscriptions.push(
       this.auth.currentUserObservable.subscribe(
         res => {
@@ -66,7 +66,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getTestAuthor() {
+  private getTestAuthor(): void  {
     for (const test of this.testList) {
       this.subscriptions.push(
         this.testService.getAuthor(test.authorId).subscribe(
@@ -81,7 +81,7 @@ export class TestSearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getTestSettings() {
+  private getTestSettings(): void  {
     if (this.testList.length) {
       for (const test of this.testList) {
         this.subscriptions.push(

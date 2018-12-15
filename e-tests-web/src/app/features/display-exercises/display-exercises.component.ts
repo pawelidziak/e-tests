@@ -2,7 +2,7 @@ import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
 import {Exercise} from '../../core/models/Exercise';
 import {AuthService} from '../../core/services/auth.service';
 import {AppSettingsService} from '../../core/services/app-settings.service';
-import {scaleOneZero, slideFromRightToRight} from '../../shared/animations';
+import {slideFromRightToRight} from '../../shared/animations';
 import {MatDialog} from '@angular/material';
 import {
   AddEditExerciseComponent,
@@ -15,7 +15,7 @@ import {TestService} from '../../core/services/test.service';
   selector: 'app-display-exercises',
   templateUrl: './display-exercises.component.html',
   styleUrls: ['./display-exercises.component.scss'],
-  animations: [scaleOneZero(), slideFromRightToRight()]
+  animations: [slideFromRightToRight()]
 })
 export class DisplayExercisesComponent implements OnInit, OnDestroy {
   @Input() readonly origExerciseList: Array<Exercise>;
@@ -54,7 +54,7 @@ export class DisplayExercisesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private saveExercises() {
+  private saveExercises(): void {
     if (JSON.stringify(this.copyExerciseList) !== JSON.stringify(this.origExerciseList) &&
       this.copyExerciseList.length <= 100) {
       this.testService.saveExercises(this.testId, this.copyExerciseList)

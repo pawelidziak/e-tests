@@ -14,12 +14,11 @@
             </a>
           </button>
         </div>
-
       </div>
     </div>
 
     <div class="col-12 col-md-6">
-      <mat-card class="about-card">
+      <mat-card class="card-radius">
         <h4 class="my-sub-title" style="text-align: center;">{{ 'about-technologies-libraries' | translate}}</h4>
         <div class="one-tech" *ngFor="let oneTech of usedTechs">
           <h5 class="paragraph-font">{{oneTech.label}}</h5>
@@ -27,8 +26,6 @@
             <mat-icon aria-label="Link">link</mat-icon>
           </button>
         </div>
-
-
       </mat-card>
 
     </div> <!-- /col-md-auto -->

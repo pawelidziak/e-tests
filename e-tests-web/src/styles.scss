@@ -1,5 +1,4 @@
 @import '~normalize.css/normalize.css';
-@import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
 @import 'app/shared/variables';
 @import 'app/shared/mixins';
@@ -175,4 +174,15 @@ h1, h2, h3, h4, h5, h6 {
       flex-direction: row;
     }
   }
+}
+
+/*
+      CARD
+ */
+.card-radius {
+  border-radius: $border-radius;
+}
+
+.color-secondary {
+  color: $text_secondary;
 }
