@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '@core/services';
 import {MatDialogRef, MatTabGroup} from '@angular/material';
 import {AuthComponent} from '@core/components/auth/components/auth.component';
+import {ALL_ROUTES} from '@shared/routes';
+import {environment} from '@env/environment';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +27,8 @@ export class RegisterComponent implements OnInit {
   public email = new FormControl('', [Validators.required, Validators.email]);
   public password = new FormControl('', Validators.required);
   public confirmPassword = new FormControl('', Validators.required);
+  public confirmPolicies = new FormControl(false, Validators.required);
+  public confirmPoliciesAccepted = true;
 
   constructor(private auth: AuthService) {
   }
@@ -38,13 +42,15 @@ export class RegisterComponent implements OnInit {
       displayName: this.displayName,
       email: this.email,
       password: this.password,
-      confirmPassword: this.confirmPassword
+      confirmPassword: this.confirmPassword,
+      confirmPolicies: this.confirmPolicies
     });
   }
 
   public register(): void {
     const passwordMismatch = this.password.value !== this.confirmPassword.value;
-    if (this.registerForm.invalid || passwordMismatch) {
+    this.confirmPoliciesAccepted = this.confirmPolicies.value;
+    if (this.registerForm.invalid || passwordMismatch || !this.confirmPoliciesAccepted) {
       return;
     }
 
@@ -67,5 +73,9 @@ export class RegisterComponent implements OnInit {
   public scrollTop(): void {
     const element = document.querySelector('#registerContainer');
     element.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  public navigateToPolicy(): void {
+    window.open(`${environment.appUrl}${ALL_ROUTES.POLICIES}`, '_blank');
   }
 }

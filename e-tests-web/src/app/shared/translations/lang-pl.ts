@@ -11,6 +11,15 @@ export const LANG_PL_TRANS = {
   'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
   'new-app-version': 'Dostępna nowa wersja. Załadować?',
 
+  // COOKIE LAW
+  'cookie-text': 'Korzystając z aplikacji wyrażasz zgodę na używanie przez nas plików cookie. Dowiedz się więcej: ',
+  'accept-cookie': 'Akceptuj',
+
+  // POLICIES
+  'policies-title': 'Zasady',
+  'privacy-policy': 'Polityka prywatności',
+  'cookie-policy': `Polityka 'cookies'`,
+
   // AUTH
   'auth-login': 'Logowanie',
   'auth-register': 'Rejestracja',
@@ -63,6 +72,9 @@ export const LANG_PL_TRANS = {
   'register-confirm-password-placeholder': 'Potwierdź hasło',
   'register-confirm-password-error-compare': 'Hasło nie jest takie same',
   'register-button': 'Stwórz konto',
+  'confirm-policies': 'Akceptuję regulamin',
+  'confirm-policies-required': 'Musisz zaakceptować regulamin',
+  'regulations': 'Regulamin',
 
   // APP HEADER
   'app-header-home': 'Główna',

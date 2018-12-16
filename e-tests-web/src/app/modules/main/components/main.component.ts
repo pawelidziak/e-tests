@@ -2,6 +2,8 @@ import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {routeAnimations} from '@shared/animations';
 import {RWDService, AuthService, LoaderService, AppSettingsService} from '@core/services';
 import {SwUpdate} from '@angular/service-worker';
+import {MatSnackBar} from '@angular/material';
+import {CookieLawComponent} from '@core/components/cookie-law/components/cookie-law.component';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +23,7 @@ export class MainComponent implements OnInit, OnDestroy {
               private loader: LoaderService,
               private auth: AuthService,
               private swUpdate: SwUpdate,
+              private snackBar: MatSnackBar,
               public appSettings: AppSettingsService) {
   }
 
@@ -28,16 +31,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.loader.start();
     this.getUser();
     this.getRWDValue();
-
-    if (this.swUpdate.isEnabled) {
-      this.subscriptions.push(
-        this.swUpdate.available.subscribe(() => {
-          if (confirm(this.appSettings.translateText('new-app-version'))) {
-            window.location.reload();
-          }
-        })
-      );
-    }
+    this.checkCookieLaw();
+    this.checkSwUpdate();
   }
 
   ngOnDestroy(): void {
@@ -63,6 +58,28 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.rwdService.isSmallScreen.subscribe(res => this.isSmallScreen = res)
     );
+  }
+
+  private checkCookieLaw(): void {
+    setTimeout(() => {
+      if (!this.appSettings.cookieAccepted) {
+        this.snackBar.openFromComponent(CookieLawComponent, {
+          duration: 86400000,
+        });
+      }
+    }, 2000);
+  }
+
+  private checkSwUpdate(): void {
+    if (this.swUpdate.isEnabled) {
+      this.subscriptions.push(
+        this.swUpdate.available.subscribe(() => {
+          if (confirm(this.appSettings.translateText('new-app-version'))) {
+            window.location.reload();
+          }
+        })
+      );
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])

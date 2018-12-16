@@ -9,5 +9,6 @@ export const ALL_ROUTES = {
   APP_SETTINGS: 'settings',
   DOWNLOAD: 'download',
   ABOUT: 'about',
-  USER_PROFILE: 'profile'
+  USER_PROFILE: 'profile',
+  POLICIES: 'policy'
 };
