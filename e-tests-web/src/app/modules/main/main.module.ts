@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {MainComponent} from './components/main.component';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
-import {MatCardModule} from '@angular/material';
-import {AppFooterModule, AppHeaderModule, AuthModule, PageHeaderModule} from '@core/components';
+import {MatCardModule, MatSnackBarModule} from '@angular/material';
+import {AppFooterModule, AppHeaderModule, AuthModule, CookieLawComponent, PageHeaderModule} from '@core/components';
 
 @NgModule({
   declarations: [
@@ -18,12 +18,14 @@ import {AppFooterModule, AppHeaderModule, AuthModule, PageHeaderModule} from '@c
     AppFooterModule,
     AuthModule,
 
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [],
   exports: [
     MainComponent,
-  ]
+  ],
+  entryComponents: [CookieLawComponent]
 })
 export class MainModule {
 }

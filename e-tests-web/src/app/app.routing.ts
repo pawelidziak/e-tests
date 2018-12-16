@@ -68,6 +68,12 @@ const appRoutes: Routes = [
     loadChildren: '../app/modules/user-profile/user-profile.module#UserProfileModule',
     canActivate: [AuthGuard]
   },
+  // POLICIES
+  {
+    path: `${ALL_ROUTES.POLICIES}`,
+    // path: 'profile',
+    loadChildren: '../app/modules/policies/policies.module#PoliciesModule'
+  },
   // otherwise redirect to ''
   {path: '**', redirectTo: ''}
 ];

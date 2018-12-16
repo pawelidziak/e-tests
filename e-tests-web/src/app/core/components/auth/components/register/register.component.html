@@ -1,9 +1,9 @@
 <div class="register-container" id="registerContainer">
 
+  <h4 class="register-text">{{ 'register-header' | translate}}</h4>
+
   <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
   <div class="ok-msg" *ngIf="responseMsg">{{responseMsg}}</div>
-
-  <h4 class="register-text">{{ 'register-header' | translate}}</h4>
 
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="register-form">
@@ -16,7 +16,9 @@
                [placeholder]="'register-display-name-placeholder' | translate"
                [formControl]="displayName">
         <mat-icon matSuffix class="color-secondary">account_circle</mat-icon>
-        <mat-error *ngIf="displayName.hasError('required')" [innerHTML]="'register-display-name-error-required' | translate"></mat-error>
+        <mat-error *ngIf="displayName.hasError('required')"
+                   [innerHTML]="'register-display-name-error-required' | translate">
+        </mat-error>
       </mat-form-field>
 
       <!-- EMAIL -->
@@ -24,7 +26,8 @@
         <mat-label>{{ 'login-email-label' | translate}}</mat-label>
         <input type="email" matInput [placeholder]="'login-email-placeholder' | translate" [formControl]="email">
         <mat-icon matSuffix class="color-secondary">mail</mat-icon>
-        <mat-error *ngIf="email.hasError('required')" [innerHTML]="'login-email-error-required' | translate"></mat-error>
+        <mat-error *ngIf="email.hasError('required')"
+                   [innerHTML]="'login-email-error-required' | translate"></mat-error>
         <mat-error *ngIf="email.hasError('email')" [innerHTML]="'login-email-error-format' | translate"></mat-error>
       </mat-form-field>
 
@@ -40,7 +43,9 @@
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
-        <mat-error *ngIf="password.hasError('required')" [innerHTML]="'login-password-error-required' | translate"></mat-error>
+        <mat-error *ngIf="password.hasError('required')"
+                   [innerHTML]="'login-password-error-required' | translate">
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field color="accent" appearance="outline">
@@ -55,17 +60,38 @@
                   (click)="hidePassword = !hidePassword">
           {{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
-        <mat-error *ngIf="confirmPassword.hasError('required')" [innerHTML]="'login-password-error-required' | translate"></mat-error>
-        <mat-error *ngIf="confirmPassword.hasError('compare')">{{ 'register-confirm-password-error-compare' | translate}}</mat-error>
+        <mat-error *ngIf="confirmPassword.hasError('required')"
+                   [innerHTML]="'login-password-error-required' | translate">
+        </mat-error>
+        <mat-error *ngIf="confirmPassword.hasError('compare')">
+          {{ 'register-confirm-password-error-compare' | translate}}
+        </mat-error>
       </mat-form-field>
+
+      <!-- POLICIES -->
+      <div class="policies">
+        <mat-checkbox style="margin-top: 8px;"
+                      [(formControl)]="confirmPolicies">
+          {{ 'confirm-policies' | translate}}
+        </mat-checkbox>
+        <span class="confirm-error"
+              *ngIf="!confirmPoliciesAccepted" [innerHTML]="'confirm-policies-required' | translate">
+        </span>
+      </div>
+
     </div>
 
-    <button mat-raised-button
-            id="registerButton"
-            color="accent"
-            type="submit">
-      {{ 'register-button' | translate }}
-    </button>
+    <div class="d-flex-end">
+      <button mat-raised-button
+              id="registerButton"
+              color="accent"
+              type="submit">
+        {{ 'register-button' | translate }}
+      </button>
+    </div>
 
   </form>
+  <div class="d-flex-end">
+    <button mat-button (click)="navigateToPolicy()">{{ 'regulations' | translate}}</button>
+  </div>
 </div>

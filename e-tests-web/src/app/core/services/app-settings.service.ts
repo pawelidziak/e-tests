@@ -2,6 +2,8 @@ import {Inject, Injectable} from '@angular/core';
 import {TRANSLATIONS} from '@shared/translations/translation';
 import {LocalStorageUtils} from '@shared/utils';
 
+const COOKIE_ACCEPTED = 'cookie-accepted';
+
 export const MY_COLORS = {
   MATERIAL_GREEN: '#8BC34A',
   MATERIAL_RED: '#F44336'
@@ -61,9 +63,11 @@ export class AppSettingsService {
   private _currentSettings: AppSettings;
   private _currentLang = 'en';
   private _logoutAfterRefresh: boolean;
+  private _cookieAccepted: boolean;
 
   constructor(@Inject(TRANSLATIONS) private _translations: any) {
     this.assignSettings();
+    this.assignCookie();
   }
 
   get currentTheme(): MyTheme {
@@ -99,6 +103,10 @@ export class AppSettingsService {
 
   set logoutAfterRefresh(value: boolean) {
     this._logoutAfterRefresh = value;
+  }
+
+  get cookieAccepted(): boolean {
+    return this._cookieAccepted;
   }
 
   private assignSettings() {
@@ -142,6 +150,15 @@ export class AppSettingsService {
     }
 
     return key;
+  }
+
+  private assignCookie(): void {
+    this._cookieAccepted = !!LocalStorageUtils.getObject(COOKIE_ACCEPTED);
+  }
+
+  public acceptCookies(): void {
+    this._cookieAccepted = true;
+    LocalStorageUtils.setObject(COOKIE_ACCEPTED, true);
   }
 }
 

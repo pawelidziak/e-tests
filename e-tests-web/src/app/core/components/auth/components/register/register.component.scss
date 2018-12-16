@@ -35,3 +35,20 @@
   @include upper-text();
   @include fs-small-X-normal();
 }
+
+.policies {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-error {
+  color: $material-red;
+}
+
+.d-flex-end {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 12px;
+}

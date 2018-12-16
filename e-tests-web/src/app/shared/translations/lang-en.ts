@@ -11,6 +11,15 @@ export const LANG_EN_TRANS = {
   'instructions-send-to-email': 'Instructions have been sent to the email.',
   'new-app-version': 'New version available. Load new version?',
 
+  // COOKIE LAW
+  'cookie-text': 'By using the application you agree to our use of cookies. Learn more: ',
+  'accept-cookie': 'Accept',
+
+  // POLICIES
+  'policies-title': 'Policy',
+  'privacy-policy': 'Privacy policy',
+  'cookie-policy': 'Cookie policy',
+
   // AUTH
   'auth-login': 'Login',
   'auth-register': 'Register',
@@ -63,6 +72,9 @@ export const LANG_EN_TRANS = {
   'register-confirm-password-placeholder': 'Confirm password',
   'register-confirm-password-error-compare': 'Password does not match',
   'register-button': 'Register',
+  'confirm-policies': 'Accept regulations',
+  'confirm-policies-required': 'You must accept the regulations',
+  'regulations': 'Regulations',
 
   // APP HEADER
   'app-header-home': 'Home',
