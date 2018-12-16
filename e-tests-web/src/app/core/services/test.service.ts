@@ -107,22 +107,24 @@ export class TestService {
   /**
    *      GET TEST BY ID
    */
-  public getTestById(testId: string, checkCache: boolean = true): Observable<TestModel> {
+  public getTestById(testId: string, checkCache: boolean = true, checkExist: boolean = true): Observable<TestModel> {
     if (checkCache) {
       if (this.currentTestId !== testId || !CacheUtils.get(TEST_KEY)) {
-        CacheUtils.set(TEST_KEY, this.requestTestById(testId).pipe(shareReplay(CACHE_SIZE)));
+        CacheUtils.set(TEST_KEY, this.requestTestById(testId, checkExist).pipe(shareReplay(CACHE_SIZE)));
       }
       return CacheUtils.get(TEST_KEY);
     }
-    return this.requestTestById(testId);
+    return this.requestTestById(testId, checkExist);
   }
 
   public removeCurrentTestFromCache(): void {
     CacheUtils.clear(TEST_KEY);
   }
 
-  private requestTestById(testId: string): Observable<TestModel> {
-    this.checkIfTestExists(testId);
+  private requestTestById(testId: string, checkExist: boolean): Observable<TestModel> {
+    if (checkExist) {
+      this.checkIfTestExists(testId);
+    }
     this.currentTestId = testId;
     return this.afs.doc<TestModel>(`${this.TEST_PATH}/${testId}`).valueChanges();
   }

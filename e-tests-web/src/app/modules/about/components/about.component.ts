@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderService, AppSettingsService} from '@core/services';
+import {ALL_ROUTES} from '@shared/routes';
 
 @Component({
   selector: 'app-about',
@@ -7,6 +8,8 @@ import {HeaderService, AppSettingsService} from '@core/services';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
+
+  public ALL_ROUTES = ALL_ROUTES;
 
  public usedTechs: any = [
     {label: 'Angular 7', link: 'https://angular.io/'},

@@ -109,7 +109,7 @@ export class UserTestsComponent implements OnInit, OnDestroy {
     for (let i = 0; i < settings.length; i++) {
       this.loader.start();
       this.subscriptions.push(
-        this.testService.getTestById(settings[i].id, false).subscribe(
+        this.testService.getTestById(settings[i].id, false, false).subscribe(
           res => {
             if (res) {
               const tmpTest = this.createTestWithSettings(res, settings[i]);
