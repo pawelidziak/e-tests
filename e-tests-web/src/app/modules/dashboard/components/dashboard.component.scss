@@ -1,11 +1,17 @@
 @import '../../../../assets/scss/variables';
 @import '../../../../assets/scss/mixins';
 
+.header-buttons {
+  display: flex;
+  margin-top: 48px;
+  button {
+    @include upper-text();
+    margin-right: 12px;
+  }
+}
+
 .dashboard-card {
   margin-top: 350px;
-  @media #{$gt-md_size} {
-    margin-top: 500px;
-  }
   box-shadow: none !important;
 }
 
@@ -65,6 +71,10 @@
 
 #dashboardCube {
   opacity: .5;
+  display: none;
+  @media #{$gt-sm_size} {
+    display: block;
+  }
 }
 
 .phone {

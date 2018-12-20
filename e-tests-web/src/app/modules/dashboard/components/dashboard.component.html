@@ -1,20 +1,27 @@
 <section class="section-padding" style="position: relative;">
-  <div class="row">
+  <div class="row" style="height: 40vh;">
     <div class="col-12 col-md-6"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
         <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
         <p class="my-sub-title">{{ 'create-paragraph' | translate }}</p>
+        <div class="header-buttons">
+          <button mat-raised-button [routerLink]="'/' + ALL_ROUTES.CREATE_TEST">Create</button>
+          <button mat-raised-button color="accent" [routerLink]="'/' + ALL_ROUTES.SEARCH">Search</button>
+        </div>
       </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div id="dashboardCube"></div>
     </div>
   </div>
 
-  <div class="illustration">
-    <div id="dashboardCube"></div>
-    <!--<mat-card class="phone">-->
-      <!--<app-skeleton-loading style="overflow: hidden;" [showAnimation]="false"></app-skeleton-loading>-->
-    <!--</mat-card>-->
-  </div>
+  <!--<div class="illustration">-->
+  <!--<div id="dashboardCube"></div>-->
+  <!--<mat-card class="phone">-->
+  <!--<app-skeleton-loading style="overflow: hidden;" [showAnimation]="false"></app-skeleton-loading>-->
+  <!--</mat-card>-->
+  <!--</div>-->
 
   <mat-card class="dashboard-card">
     <!-- ALL DEVICES -->
