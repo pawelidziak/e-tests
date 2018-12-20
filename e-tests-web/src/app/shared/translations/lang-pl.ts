@@ -89,7 +89,7 @@ export const LANG_PL_TRANS = {
 
   // APP FOOTER
   'app-footer-header': 'Projekt <strong>E-testo</strong> wciąż jest w wersji beta.',
-  'app-footer-paragraph': 'Jeśli znajdziesz błąd lub masz propozycję <strong>zmiany/ulepszenia</strong>, prosimy o kontakt na <a href="mailto:contact@e-testo.com"><strong>contact@e-testo.com</strong></a>',
+  'app-footer-paragraph': 'Jeśli znajdziesz błąd lub masz propozycję <strong>zmiany/ulepszenia</strong>, prosimy o kontakt na <a href="mailto:etesto.contact@gmail.com"><strong>etesto.contact@gmail.com</strong></a>',
   'app-footer-navigation': 'Nawigacja',
   'app-footer-general': 'Generalne',
   'app-footer-account': 'Konto użytkownika',
