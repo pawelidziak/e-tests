@@ -4,6 +4,7 @@ import {DashboardComponent} from './components/dashboard.component';
 import {dashboardRouting} from './dashboard.routing';
 import {OneFeatureComponent} from './components/one-feature/one-feature.component';
 import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
+import {SkeletonLoadingModule} from '@shared/components';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
 
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    SkeletonLoadingModule
   ],
   exports: [],
   providers: []

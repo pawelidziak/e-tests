@@ -1,12 +1,19 @@
-<section class="section-padding">
+<section class="section-padding" style="position: relative;">
   <div class="row">
-    <div class="col-12 col-md-9"
+    <div class="col-12 col-md-6"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
         <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
         <p class="my-sub-title">{{ 'create-paragraph' | translate }}</p>
       </div>
     </div>
+  </div>
+
+  <div class="illustration">
+    <div id="dashboardCube"></div>
+    <!--<mat-card class="phone">-->
+      <!--<app-skeleton-loading style="overflow: hidden;" [showAnimation]="false"></app-skeleton-loading>-->
+    <!--</mat-card>-->
   </div>
 
   <mat-card class="dashboard-card">

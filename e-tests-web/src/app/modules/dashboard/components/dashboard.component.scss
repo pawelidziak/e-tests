@@ -49,3 +49,33 @@
     @include mat-icon-size(102px);
   }
 }
+
+.illustration {
+  display: none;
+  @media #{$gt-sm_size} {
+    width: 50%;
+    height: 45vh;
+    top: 50px;
+    right: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#dashboardCube {
+  opacity: .5;
+}
+
+.phone {
+  position: absolute;
+  top: 30px;
+  height: 400px;
+  width: 260px;
+  @media #{$gt-lg_size} {
+    top: 60px;
+    height: 550px;
+    width: 330px;
+  }
+  @include phone_skeleton;
+}

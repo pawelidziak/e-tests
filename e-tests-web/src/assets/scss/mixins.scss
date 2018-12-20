@@ -69,8 +69,6 @@
       ROTATE
  */
 @mixin rotate($rotate) {
-  //-webkit-transform: rotate($rotate);
-  //transform: rotate($rotate);
   -webkit-transform: skewY($rotate);
   transform: skewY($rotate);
 }
@@ -84,7 +82,7 @@
   border-radius: 24px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0;
-  img {
+  * {
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid $hover_color;
     height: calc(100% - 96px);

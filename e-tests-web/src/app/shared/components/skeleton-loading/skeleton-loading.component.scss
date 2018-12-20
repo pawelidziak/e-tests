@@ -1,15 +1,12 @@
 @import '../../../../assets/scss/variables';
 
 .skeleton {
-  margin-top: 48px;
+  margin-top: 24px;
   padding: 12px;
 }
 
 @mixin skeleton-bg {
   background: rgba(0, 0, 0, .3);
-  -webkit-animation: Disappear 3s linear infinite;
-  -moz-animation: Disappear 3s linear infinite;
-  animation: Disappear 3s linear infinite;
 }
 
 @mixin title($width, $height: 16px) {
@@ -93,4 +90,10 @@
   100% {
     opacity: .5;
   }
+}
+
+.show-animation{
+  -webkit-animation: Disappear 3s linear infinite;
+  -moz-animation: Disappear 3s linear infinite;
+  animation: Disappear 3s linear infinite;
 }
