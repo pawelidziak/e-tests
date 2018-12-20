@@ -2,8 +2,8 @@
 
   <h4 class="register-text">{{ 'register-header' | translate}}</h4>
 
-  <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
-  <div class="ok-msg" *ngIf="responseMsg">{{responseMsg}}</div>
+  <div class="error-msg" *ngIf="errorMsg">{{errorMsg | translate}}</div>
+  <div class="ok-msg" *ngIf="responseMsg">{{responseMsg | translate}}</div>
 
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="register-form">
@@ -48,6 +48,7 @@
         </mat-error>
       </mat-form-field>
 
+      <!-- CONFIRM PASSWORD -->
       <mat-form-field color="accent" appearance="outline">
         <mat-label>{{ 'register-confirm-password-label' | translate}}</mat-label>
         <input matInput

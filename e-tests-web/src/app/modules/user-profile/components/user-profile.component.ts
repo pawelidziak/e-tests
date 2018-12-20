@@ -61,6 +61,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   public savePersonal(): void {
     this.fileOnLoad = true;
+
+    if (this.owner.displayName.toLocaleLowerCase().includes('admin')) {
+      this.errorMsg = 'user-profile-name-error';
+      this.fileOnLoad = false;
+      return;
+    }
+
     // SAVE PHOTO URL AND DISPLAY NAME
     if (this.selectedFile && this.previewUrl) {
       const path = `${USER_AVATARS_PATH}/${this.auth.currentUserId}`;

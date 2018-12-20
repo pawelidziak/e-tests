@@ -50,6 +50,9 @@ export class TestService {
   public updateTest(testId: string, test: TestModel): Promise<void> {
     this.removeCreatedTestFromCache();
     this.removeTestStartedFromCache();
+    if (test.authorObj) {
+      delete test.authorObj;
+    }
     return this.afs.collection(this.TEST_PATH)
       .doc(testId)
       .update(test);

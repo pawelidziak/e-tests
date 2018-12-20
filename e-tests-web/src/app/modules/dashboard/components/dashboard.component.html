@@ -106,7 +106,12 @@
     <!-- JOIN US-->
     <!-- USER NOT LOGGED -->
     <div *ngIf="!isUserLoggedIn" class="join-us">
-      <mat-icon aria-label="Logo" class="dashboard-large-icon">whatshot</mat-icon>
+      <object data="assets/icons/app-logo.svg"
+              [style.background-color]="appSettings.currentTheme.accent"
+              type="image/svg+xml"
+              class="app-logo-svg-dashboard">
+        <img src="assets/icons/app-logo.svg" alt="Logo" />
+      </object>
       <h3 class="my-title">{{ 'join-header' | translate }}</h3>
       <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
 

@@ -10,6 +10,7 @@ import {
   MatTabsModule
 } from '@angular/material';
 import {AuthComponent} from '@core/components/auth/components/auth.component';
+import {DirectivesModule} from '@shared/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {AuthComponent} from '@core/components/auth/components/auth.component';
   imports: [
     SharedModule,
     SpinnerModule,
+    DirectivesModule,
 
     MatInputModule,
     MatFormFieldModule,

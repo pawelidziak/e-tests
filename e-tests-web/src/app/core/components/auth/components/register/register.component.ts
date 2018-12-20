@@ -50,6 +50,12 @@ export class RegisterComponent implements OnInit {
   public register(): void {
     const passwordMismatch = this.password.value !== this.confirmPassword.value;
     this.confirmPoliciesAccepted = this.confirmPolicies.value;
+    this.errorMsg = '';
+    if (this.displayName.value.toLocaleLowerCase().includes('admin')) {
+      this.errorMsg = 'user-profile-name-error';
+      return;
+    }
+
     if (this.registerForm.invalid || passwordMismatch || !this.confirmPoliciesAccepted) {
       return;
     }

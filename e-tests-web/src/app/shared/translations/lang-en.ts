@@ -294,4 +294,5 @@ export const LANG_EN_TRANS = {
   'user-profile-reset-password': 'Reset password',
   'user-profile-save': 'Save',
   'user-profile-cancel': 'Cancel',
+  'user-profile-name-error': 'Wybierz inną nazwę użykownika',
 };
