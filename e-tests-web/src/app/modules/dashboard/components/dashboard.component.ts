@@ -62,15 +62,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     cubes.forEach((el) => {
       el.animate(
         [
-          {transform: 'rotateX(0) rotateY(0) rotateZ(0)'},
           {
-            transform: `rotateX(${this.getRandomInt(0, 100)}deg)
-                       rotateY(${this.getRandomInt(0, 100)}deg)
-                       rotateZ(${this.getRandomInt(0, 100)}deg)`
-          }
+            transform: `rotate3d(${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 360)}deg)`
+          },
+          {
+            transform: `rotate3d(${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 10)}, ${this.getRandomInt(0, 360)}deg)`
+          },
         ],
         {
-          duration: this.getRandomInt(8000, 10000),
+          duration: this.getRandomInt(8000, 12000),
           direction: 'alternate',
           fill: 'both',
           iterations: Infinity,
