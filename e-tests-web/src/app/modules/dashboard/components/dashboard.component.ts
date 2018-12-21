@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           }
         ],
         {
-          duration: this.getRandomInt(2000, 10000),
+          duration: this.getRandomInt(8000, 10000),
           direction: 'alternate',
           fill: 'both',
           iterations: Infinity,

@@ -32,7 +32,8 @@ export class CubeUtils {
     cube.style.width = `100%`;
     cube.style.height = `100%`;
     cube.style.transformStyle = 'preserve-3d';
-    // cube.style.animation = `${animName} ${animDuration}s infinite linear`;
+    const rotate = Math.floor(Math.random() * 100);
+    cube.style.transform = `rotateX(-${rotate}deg) rotateY(-${rotate}deg) rotateZ(-${rotate}deg)`;
 
     cube.appendChild(this.createFrontSquare(color));
     cube.appendChild(this.createBackSquare(color));

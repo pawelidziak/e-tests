@@ -70,6 +70,10 @@
 }
 
 #dashboardCube {
+  > * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   opacity: .5;
   display: none;
   @media #{$gt-sm_size} {
