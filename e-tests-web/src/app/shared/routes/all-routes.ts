@@ -1,5 +1,5 @@
 export const ALL_ROUTES = {
-  DASHBOARD: 'dashboard',
+  MAIN: '',
   SEARCH: 'search',
   CREATE_TEST: 'create',
   CREATED_TEST: 'test',

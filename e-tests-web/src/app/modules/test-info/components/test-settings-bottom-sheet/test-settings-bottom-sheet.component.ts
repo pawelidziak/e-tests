@@ -56,7 +56,7 @@ export class TestSettingsBottomSheetComponent implements OnInit {
       this.testService.deleteTest(this.test.id)
         .then(() => {
           this.bottomSheetRef.dismiss();
-          this.router.navigateByUrl(ALL_ROUTES.DASHBOARD);
+          this.router.navigateByUrl(ALL_ROUTES.MAIN);
         })
         .catch(error => console.log(error));
     }

@@ -89,7 +89,7 @@
         <app-one-feature [headerText]="'feature-import-header' | translate"
                          [headerIcon]="'import_export'"
                          [paragraph]="'feature-import-paragraph' | translate"
-                         [ariaLabel]="'Import / eskport'">
+                         [ariaLabel]="'Import / export'">
         </app-one-feature>
       </div>
 
@@ -105,7 +105,7 @@
 
     <!-- JOIN US-->
     <!-- USER NOT LOGGED -->
-    <div *ngIf="!isUserLoggedIn" class="join-us">
+    <div class="join-us">
       <object data="assets/icons/app-logo.svg"
               [style.background-color]="appSettings.currentTheme.accent"
               type="image/svg+xml"
@@ -114,41 +114,6 @@
       </object>
       <h3 class="my-title">{{ 'join-header' | translate }}</h3>
       <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
-
-      <button mat-raised-button
-              color="accent"
-              class="dashboard-button"
-              (click)="openAuthDialog()">
-        {{ 'join-button' | translate}}
-      </button>
-    </div>
-
-    <!-- USER LOGGED -->
-    <div *ngIf="isUserLoggedIn" class="join-us">
-      <mat-icon aria-label="Happy face" class="dashboard-large-icon">sentiment_very_satisfied</mat-icon>
-      <h3 [style.color]="appSettings.currentTheme.accent"
-          class="my-title">
-        {{ 'greetings-header' | translate}}
-      </h3>
-      <p class="my-sub-title">
-        {{ 'greetings-paragraph' | translate}}
-        <a href="mailto:etesto.contact@gmail.com">
-          <strong>etesto.contact@gmail.com</strong>
-        </a>
-      </p>
-
-      <button mat-button
-              [routerLink]="'/' + ALL_ROUTES.USER_TESTS_LIST"
-              class="dashboard-button"
-              color="accent">
-        {{ 'greetings-button-sets' | translate}}
-      </button>
-      <button mat-button
-              [routerLink]="'/' + ALL_ROUTES.SEARCH"
-              class="dashboard-button"
-              color="accent">
-        {{ 'greetings-button-search' | translate}}
-      </button>
     </div>
 
   </mat-card><!-- /dashboard-card -->

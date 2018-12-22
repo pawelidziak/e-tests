@@ -45,12 +45,12 @@
           <h3 class="sub-paragraph-font">{{ 'app-footer-account' | translate}}</h3>
           <button mat-raised-button
                   style="margin-top: 12px;"
-                  *ngIf="!isUserLoggedIn"
+                  *ngIf="!user"
                   color="accent"
                   (click)="openAuthDialog()">
             Login
           </button>
-          <ul class="footer-list" *ngIf="isUserLoggedIn">
+          <ul class="footer-list" *ngIf="user">
             <li *ngFor="let link of accountLinks">
               <a [routerLink]="link.path"
                  [routerLinkActive]="['active-link']">

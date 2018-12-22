@@ -44,11 +44,8 @@ export class AuthService {
 
   // Logout
   public signOut() {
-    this.router.navigate([ALL_ROUTES.DASHBOARD])
-      .then(() => {
-        this.afAuth.auth.signOut()
-          .catch(error => console.log(error));
-      });
+    this.afAuth.auth.signOut();
+    this.router.navigate([ALL_ROUTES.MAIN]);
   }
 
   // Email password register / login
@@ -156,7 +153,7 @@ export class AuthService {
     this.afs.doc(`${this.USERS_PATH}/${userId}`).ref.get()
       .then(docSnapshot => {
         if (!docSnapshot.exists) {
-          this.router.navigate([ALL_ROUTES.DASHBOARD]);
+          this.router.navigate([ALL_ROUTES.MAIN]);
         }
       });
   }

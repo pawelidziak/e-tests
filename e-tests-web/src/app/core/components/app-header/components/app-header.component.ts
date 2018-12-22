@@ -15,7 +15,6 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   @Input() height: number;
   @Input() isSmallScreen: boolean;
   @Input() user: any;
-  @Input() isUserLoaded: boolean;
 
   public ALL_ROUTES = ALL_ROUTES;
   public headerValues: HeaderValues;

@@ -29,7 +29,7 @@ export class ExerciseUtils {
   }
 
   /**
-   * Below are the methods used for parsing PWR files to E-testo Exercise object
+   * Below are the methods used for parsing PWR files to eTesto Exercise object
    * (getNewLinesIndexTab, getCorrectAnswers, getAnswers)
    */
   private static getNewLinesIndexTab(result: any): any[] {
@@ -65,12 +65,12 @@ export class ExerciseUtils {
   }
 
   /**
-   * Download file to local computer, with .e-testo extension, encoded base64
+   * Download file to local computer, with .eTesto extension, encoded base64
    * @param data
    * @param filename
    */
   public static downloadExercisesAsFile(data: any, filename: string) {
-    filename = `${filename}.e-testo`;
+    filename = `${filename}.eTesto`;
     const file = new Blob([Base64Utils.b64EncodeUnicode(JSON.stringify(data))], {type: 'application/octet-stream'});
     if (window.navigator.msSaveOrOpenBlob) {// IE10+
       window.navigator.msSaveOrOpenBlob(file, filename);

@@ -10,8 +10,7 @@
   <main class="container"
         style="position: relative; padding-bottom: 100px;">
 
-    <app-header [isUserLoaded]="isUserLoaded"
-                [height]="headerHeight"
+    <app-header [height]="headerHeight"
                 [user]="user"
                 [isSmallScreen]="isSmallScreen">
     </app-header>
@@ -39,5 +38,5 @@
   </main>
 
   <div style="flex: 1 0;"></div>
-  <app-footer></app-footer>
+  <app-footer [user]="user"></app-footer>
 </mat-card>

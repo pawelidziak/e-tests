@@ -59,7 +59,7 @@
     <nav *ngIf="isSmallScreen">
       <ul class="my-nav-list">
         <!-- ACCOUNT -->
-        <li *ngIf="isUserLoaded" (click)="slideMenu = false">
+        <li (click)="slideMenu = false">
           <a mat-raised-button
              *ngIf="!user"
              (click)="openAuthDialog()">
@@ -97,7 +97,7 @@
       <ul class="my-nav-list">
 
         <!-- USER ICONS -->
-        <li *ngIf="isUserLoaded">
+        <li>
           <a mat-raised-button
              *ngIf="!user"
              (click)="openAuthDialog()">

@@ -243,7 +243,7 @@ export class TestService {
       .then(docSnapshot => {
         if (!docSnapshot.exists) {
           this.removeCurrentTestFromCache();
-          this.router.navigate([ALL_ROUTES.DASHBOARD]).then(() => this.loader.complete());
+          this.router.navigate([ALL_ROUTES.MAIN]).then(() => this.loader.complete());
         }
       });
   }

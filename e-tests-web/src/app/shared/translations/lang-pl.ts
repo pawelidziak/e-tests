@@ -2,7 +2,7 @@ export const LANG_PL_NAME = 'pl';
 
 export const LANG_PL_TRANS = {
   // GENERAL
-  'not-available': 'Na ten moment opcja niedostępna',
+  'not-available': 'Opcja na razie jest niedostępna',
   'or': 'lub',
   'space': 'spacja',
   'tests-title': 'Testy',
@@ -24,11 +24,11 @@ export const LANG_PL_TRANS = {
   'auth-login': 'Logowanie',
   'auth-register': 'Rejestracja',
 
-  // DASHBOARD
+  // MAIN
   'dashboard-title': 'Główna',
   'dashboard-header': 'Nowy sposób na nauke',
   'device-header': 'Gdziekolwiek jesteś',
-  'device-paragraph': 'Korzystaj z E-Testo gdziekolwiek jesteś, na jakimkolwiek urządzeniu. Twoje postępy będą zachowane. <br> Pobierz aplikację na komputer, lub dodaj do ekranu startowego telefonu / tabletu!',
+  'device-paragraph': 'Korzystaj z eTesto gdziekolwiek jesteś, na jakimkolwiek urządzeniu. Twoje postępy będą zachowane. <br> Pobierz aplikację na komputer, lub dodaj do ekranu startowego telefonu / tabletu!',
   'dashboard-download-button': 'Pobierz teraz',
   'feature-learn-header': 'Ucz się',
   'feature-learn-paragraph': 'Uczenie się może być przyjemne. Rozwiązuj testy i powtarzaj swoją wiedzę',
@@ -45,10 +45,6 @@ export const LANG_PL_TRANS = {
   'join-header': 'Wypróbuj za darmo',
   'join-paragraph': 'Załóż konto i przekonaj się sam. W szybki i prosty sposób zmień podejście do nauki',
   'join-button': 'Logowanie / Rejestracja',
-  'greetings-header': 'Dziękujemy, że jesteś z nami!',
-  'greetings-paragraph': 'Jeśli masz pytania, prosimy o kontakt:',
-  'greetings-button-sets': 'Przejdź do zestawów',
-  'greetings-button-search': ' Wyszukaj test',
 
   // LOGIN / FORGOT PASSWORD
   'login-google': 'Logowanie Google',
@@ -88,7 +84,7 @@ export const LANG_PL_TRANS = {
   'app-header-logout': 'Wyloguj',
 
   // APP FOOTER
-  'app-footer-header': 'Projekt <strong>E-testo</strong> wciąż jest w wersji beta.',
+  'app-footer-header': 'Projekt <strong>eTesto</strong> wciąż jest w wersji beta.',
   'app-footer-paragraph': 'Jeśli znajdziesz błąd lub masz propozycję <strong>zmiany/ulepszenia</strong>, prosimy o kontakt na <a href="mailto:etesto.contact@gmail.com"><strong>etesto.contact@gmail.com</strong></a>',
   'app-footer-navigation': 'Nawigacja',
   'app-footer-general': 'Generalne',
@@ -96,7 +92,7 @@ export const LANG_PL_TRANS = {
 
   // SETTINGS
   'settings-title': 'Ustawienia',
-  'settings-header': 'Zmień ustawienia <strong>E-testo</strong>',
+  'settings-header': 'Zmień ustawienia <strong>eTesto</strong>',
   'settings-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   'language': 'Język',
   'app-theme': 'Styl aplikacji',
@@ -262,7 +258,7 @@ export const LANG_PL_TRANS = {
   // IMPORT EXERCISES
   'import-exercises-header': 'Importuj  <strong>zadania</strong> do testu!',
   'import-exercises-paragraph': `Wybierz odpowiedni parser, zaznacz pliki i to wszystko. <br>
-                                 Wybierz parser <strong>E-testo</strong> kiedy importujesz plik wygenerowany przez aplikację E-testo. <br>
+                                 Wybierz parser <strong>eTesto</strong> kiedy importujesz plik wygenerowany przez aplikację eTesto. <br>
                                  Wybierz parser <strong>TXT</strong> kiedy importujesz zadania z pojedynczych plików txt.`,
   'import-exercises-choose-files': 'Wybierz pliki',
   'import-exercises-imported-exercises': 'Zaimportowane',
@@ -275,7 +271,7 @@ export const LANG_PL_TRANS = {
   // ABOUT APP
   'about-title': 'O aplikacji',
   'about-header': 'O aplikacji',
-  'about-paragraph': '<strong>E-testo</strong> to aplikacja, umożliwiająca uczenie się poprzez rozwiązywanie testów. Możesz utworzyć testy lub rozwiązywać istniejące. Postęp nauki jest zapisywany, dzięki czemu możesz kontynuować naukę w dowolnym miejscu na dowolnym urządzeniu.',
+  'about-paragraph': '<strong>eTesto</strong> to aplikacja, umożliwiająca uczenie się poprzez rozwiązywanie testów. Możesz utworzyć testy lub rozwiązywać istniejące. Postęp nauki jest zapisywany, dzięki czemu możesz kontynuować naukę w dowolnym miejscu na dowolnym urządzeniu.',
   'about-contact': 'Kontakt:',
   'about-technologies-libraries': 'Technologie & biblioteki',
 

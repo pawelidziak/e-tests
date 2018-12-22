@@ -5,7 +5,6 @@
 export class Base64Utils {
 
   public static b64EncodeUnicode(str) {
-    console.log(str);
     return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
       return String.fromCharCode(parseInt(p1, 16));
     }));
