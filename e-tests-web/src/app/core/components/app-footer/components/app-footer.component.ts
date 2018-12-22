@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ALL_ROUTES} from '@shared/routes';
 import {AuthService, AppSettingsService, HeaderValues, HeaderService} from '../../../services/index';
 
@@ -9,9 +9,10 @@ import {AuthService, AppSettingsService, HeaderValues, HeaderService} from '../.
 })
 export class AppFooterComponent implements OnInit, OnDestroy {
   private subscriptions: any = [];
+  @Input()  public user: any;
 
   public generalLinks = [
-    {label: 'app-header-home', path: ALL_ROUTES.DASHBOARD},
+    {label: 'app-header-home', path: ALL_ROUTES.MAIN},
     {label: 'app-header-search', path: ALL_ROUTES.SEARCH},
     {label: 'app-header-create', path: ALL_ROUTES.CREATE_TEST},
   ];
@@ -25,7 +26,6 @@ export class AppFooterComponent implements OnInit, OnDestroy {
     {label: 'app-header-settings', path: ALL_ROUTES.APP_SETTINGS}
   ];
 
-  public isUserLoggedIn: boolean;
   public headerValues: HeaderValues;
 
   constructor(private auth: AuthService,
@@ -35,7 +35,6 @@ export class AppFooterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getHeaderValues();
-    this.checkUser();
   }
 
   ngOnDestroy(): void {
@@ -47,13 +46,6 @@ export class AppFooterComponent implements OnInit, OnDestroy {
       this.headerService.getHeaderValues().subscribe(
         res => this.headerValues = res)
     );
-  }
-
-  private checkUser(): void {
-    this.subscriptions.push(this.auth.currentUserObservable.subscribe(
-      res => this.isUserLoggedIn = !!res,
-      error => console.log(error)
-    ));
   }
 
   public openAuthDialog(): void {

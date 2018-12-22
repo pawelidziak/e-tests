@@ -12,7 +12,7 @@ export interface SelectParser {
 }
 
 export const PARSERS: SelectParser[] = [
-  {label: 'E-testo', value: 'etesto', validFileType: '.e-testo'},
+  {label: 'eTesto', value: 'etesto', validFileType: '.eTesto'},
   {label: 'TXT', value: 'txt', validFileType: '.txt'}
 ];
 
@@ -70,7 +70,7 @@ export class ImportExercisesComponent implements OnInit, OnDestroy {
               {label: 'Import', path: ''}
             ]);
           } else {
-            this.router.navigate([ALL_ROUTES.DASHBOARD]);
+            this.router.navigate([ALL_ROUTES.MAIN]);
           }
           this.loader.complete();
         },
