@@ -3,6 +3,7 @@
 
 .register-container {
   display: flex;
+  min-width: 30vw;
   flex-direction: column;
   @include fs-small-X-normal();
   button {

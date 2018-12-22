@@ -187,7 +187,7 @@ export const LANG_EN_TRANS = {
   'test-info-notes': 'Notes',
   'test-info-learn': 'Learn',
   'test-info-exam': 'Exam',
-  'test-info-no-results': 'No tasks',
+  'test-info-no-results': 'No exercises',
 
   // TEST INFO BOTTOM SHEET
   'test-info-export': 'Export',
