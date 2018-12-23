@@ -3,6 +3,8 @@ export const LANG_EN_NAME = 'en';
 export const LANG_EN_TRANS = {
   // GENERAL
   'not-available': 'At this moment, the option is unavailable',
+  'section-in-progress': 'The section is under preparation, please be patient',
+  'if-you-have-question': 'If You have any questions, please contact us at <a href="mailto:etesto.contact@gmail.com"><strong>etesto.contact@gmail.com</strong></a>',
   'or': 'or',
   'space': 'space',
   'tests-title': 'Tests',
@@ -291,4 +293,22 @@ export const LANG_EN_TRANS = {
   'user-profile-save': 'Save',
   'user-profile-cancel': 'Cancel',
   'user-profile-name-error': 'Wybierz inną nazwę użykownika',
+
+  // APP-DOWNLOAD
+  'app-download-title': 'Download',
+  'app-download-windows': 'Windows',
+  'app-download-windows-instruction-one': 'You can download the <strong>eTesto</strong> application on devices running Windows 10 from the Windows Store',
+  'app-download-win-store': 'Go to Windows Store',
+  'app-download-windows-instruction-two': 'For Windows 7 and 8 systems, you can download the launch version of the <strong>eTesto</strong> application',
+  'app-download-launch-download': 'Download the launched version',
+  'app-download-mac': 'Mac',
+  'app-download-mac-instruction': 'For MacOS, you can download the launch version of the <strong>eTesto</strong> application',
+  'app-download-mobile': 'Mobile',
+  'app-download-mobile-instruction-one': '1. To use <strong>eTesto</strong> on mobile device such as smartphone or tablet just open the <a href="https://www.etesto.eu">eTesto</a>. on Your device.',
+  'app-download-mobile-instruction-two': '2. Now you should see the popup question if you want to add the application to the start screen.',
+  'app-download-mobile-instruction-three': '3. All you need to do now is confirm.',
+  'app-download-mobile-instruction-four': `**In case the information does not appear automatically, go to your browser settings and choose "Add to the home screen" option.`,
+
+
+
 };

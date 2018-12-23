@@ -7,11 +7,11 @@ export const environment = {
   production: false,
   appUrl: 'localhost:4200/',
   firebase: {
-    apiKey: 'AIzaSyAI-J2AxSgUKNRzJhzi7_j2svVVvPFglFY',
-    authDomain: 'e-testo.firebaseapp.com',
-    databaseURL: 'https://e-testo.firebaseio.com',
-    projectId: 'e-testo',
-    storageBucket: 'e-testo.appspot.com',
-    messagingSenderId: '516263112548'
+    apiKey: 'AIzaSyA2IOEOGN9HmM4Im_kGkfDljivtXVPV_Ns',
+    authDomain: 'e-testo-dev.firebaseapp.com',
+    databaseURL: 'https://e-testo-dev.firebaseio.com',
+    projectId: 'e-testo-dev',
+    storageBucket: 'e-testo-dev.appspot.com',
+    messagingSenderId: '932060243973'
   }
 };

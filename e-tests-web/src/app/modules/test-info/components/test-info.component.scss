@@ -44,6 +44,17 @@ button {
   flex-wrap: wrap;
 }
 
+.user-photo {
+  background-size: cover;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  margin-right: .25*$margin;
+  @media #{$gt-md_size} {
+    margin-right: .5*$margin;
+  }
+}
+
 // ICON WITH TEXT
 .icon-with-text {
   display: flex;

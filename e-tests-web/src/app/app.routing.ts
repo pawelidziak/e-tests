@@ -19,6 +19,11 @@ const appRoutes: Routes = [
     path: ALL_ROUTES.APP_SETTINGS,
     loadChildren: './modules/app-settings/app-settings.module#AppSettingsModule'
   },
+  // APP DOWNLOAD
+  {
+    path: ALL_ROUTES.DOWNLOAD,
+    loadChildren: './modules/app-download/app-download.module#AppDownloadModule'
+  },
   // TEST LEARN
   {
     path: `${ALL_ROUTES.CREATED_TEST}/:${ROUTE_PARAMS.TEST_ID}/${ALL_ROUTES.TEST_LEARN}`,

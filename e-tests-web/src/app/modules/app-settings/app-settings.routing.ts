@@ -1,6 +1,6 @@
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AppSettingsComponent} from './components/app-settings/app-settings.component';
+import {AppSettingsComponent} from './components/app-settings.component';
 
 const routes: Routes = [
   {

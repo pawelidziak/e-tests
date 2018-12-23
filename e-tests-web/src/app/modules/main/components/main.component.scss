@@ -7,7 +7,10 @@
 .main-header-bg {
   width: 100%;
   position: absolute;
-  height: 85vh;
+  height: 100vh;
+  @media #{$gt-xs_size} {
+    height: 85vh;
+  }
   overflow: hidden;
   @include rotate(-2deg);
   -webkit-transform-origin: 0;
