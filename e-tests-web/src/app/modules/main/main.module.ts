@@ -3,6 +3,7 @@ import {MainComponent} from './components/main.component';
 import {RouterModule} from '@angular/router';
 import {MatCardModule, MatSnackBarModule} from '@angular/material';
 import {AppFooterModule, AppHeaderModule, AuthModule, CookieLawComponent, PageHeaderModule} from '@core/components';
+import {CommonModule} from '@angular/common';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import {AppFooterModule, AppHeaderModule, AuthModule, CookieLawComponent, PageHe
     MainComponent
   ],
   imports: [
+    CommonModule,
     RouterModule,
 
     AppHeaderModule,
