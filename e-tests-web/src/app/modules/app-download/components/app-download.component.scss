@@ -1,0 +1,19 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.icon-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: $margin 0;
+}
+
+.build-icon {
+  margin: $margin 0;
+  @include mat-icon-size(102px);
+}
+
+.tab-content {
+  padding: $margin;
+}

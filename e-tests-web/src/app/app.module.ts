@@ -9,6 +9,7 @@ import {LoaderService} from '@core/services';
 import {SpinnerModule} from '@shared/components';
 import {environment} from '@env/environment';
 import {MainModule} from '@modules/main/main.module';
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MainModule} from '@modules/main/main.module';
     AppRoutingModule,
 
     SpinnerModule,
-    MainModule
+    MainModule,
+    MatButtonModule
   ],
   providers: [LoaderService],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
-import {HeaderService, AppSettingsService, MY_THEMES, MyTheme} from '@core/services';
+import {HeaderService, AppSettingsService, MY_THEMES, MyTheme} from '../../../core/services/index';
 
 @Component({
   selector: 'app-app-settings',

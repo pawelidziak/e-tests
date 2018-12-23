@@ -35,7 +35,12 @@
           </div>
 
           <div class="icon-with-text">
+            <div class="user-photo"
+                 *ngIf="test.authorObj && test.authorObj.photoURL"
+                 [style.background-image]="'url(' + test.authorObj.photoURL +')'">
+            </div>
             <mat-icon aria-label="Author"
+                      *ngIf="test.authorObj && !test.authorObj.photoURL"
                       [matTooltip]="'test-info-author' | translate"
                       class="test-icon">
               account_circle

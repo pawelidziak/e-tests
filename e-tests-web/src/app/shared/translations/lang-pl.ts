@@ -3,6 +3,8 @@ export const LANG_PL_NAME = 'pl';
 export const LANG_PL_TRANS = {
   // GENERAL
   'not-available': 'Opcja na razie jest niedostępna',
+  'section-in-progress': 'Sekcja jest w trakcie przygotowania, prosimy o cierpliwość',
+  'if-you-have-question': 'Jeśli masz pytania, prosimy o kontakt na <a href="mailto:etesto.contact@gmail.com"><strong>etesto.contact@gmail.com</strong></a>',
   'or': 'lub',
   'space': 'spacja',
   'tests-title': 'Testy',
@@ -291,4 +293,21 @@ export const LANG_PL_TRANS = {
   'user-profile-save': 'Zapisz',
   'user-profile-cancel': 'Anuluj',
   'user-profile-name-error': 'Choose a different username',
+
+  // APP-DOWNLOAD
+  'app-download-title': 'Pobierz',
+  'app-download-windows': 'Windows',
+  'app-download-windows-instruction-one': 'Możesz pobrać aplikację <strong>eTesto</strong> na urządzenia z systemem Windows 10 ze sklepu Windows',
+  'app-download-win-store': 'Przejdź do sklepu Windows',
+  'app-download-windows-instruction-two': 'Dla systemów Windows 7 oraz 8 możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
+  'app-download-launch-download': 'Pobierz wersję uruchamianą',
+  'app-download-mac': 'Mac',
+  'app-download-mac-instruction': 'Dla systemów MacOS możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
+  'app-download-mobile': 'Mobile',
+  'app-download-mobile-instruction-one': '1. Aby korzystać z <strong>eTesto</strong> na urządzeniu mobilnym, takim jak smartfon lub tablet, wystarczy otworzyć aplikację <a href="https://www.etesto.eu">eTesto</a> na Twoim urządzeniu.',
+  'app-download-mobile-instruction-two': '2. Teraz powinno pojawić się pytanie, czy chcesz dodać aplikację do ekranu startowego.',
+  'app-download-mobile-instruction-three': '3. Wszystko, co musisz teraz zrobić, to potwierdzić.',
+  'app-download-mobile-instruction-four': `**Jeśli pytanie nie pojawi się automatycznie, przejdź do ustawień przeglądarki i wybierz opcję "Dodaj do ekranu głównego".`,
+
+
 };

@@ -25,4 +25,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  public downloadWin10(): void {
+    // TODO
+  }
+
+  public downloadWinOlder(): void {
+    // TODO
+  }
+
+  public downloadMacOS(): void {
+    // TODO
+  }
 }

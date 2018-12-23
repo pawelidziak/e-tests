@@ -11,13 +11,16 @@
 }
 
 .dashboard-card {
-  margin-top: 350px;
   box-shadow: none !important;
+  margin-top: 100px;
+  @media #{$gt-lg_size} {
+    margin-top: 450px;
+  }
 }
 
 .all-devices {
   text-align: center;
-  padding: 100px 0 150px;
+  padding: 72px 0 150px;
   @media #{$gt-sm_size} {
     padding: 200px 0 250px;
   }

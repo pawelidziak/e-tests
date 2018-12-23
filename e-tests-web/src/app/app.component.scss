@@ -4,4 +4,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+}
+
+.app-logo-svg {
+  padding: 16px;
+  width: 124px;
+  border-radius: 100%;
+  margin-bottom: 24px;
+  background-color: #29b6f6;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
