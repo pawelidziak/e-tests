@@ -4,6 +4,7 @@ import {RouterModule} from '@angular/router';
 import {MatCardModule, MatSnackBarModule} from '@angular/material';
 import {AppFooterModule, AppHeaderModule, AuthModule, CookieLawComponent, PageHeaderModule} from '@core/components';
 import {CommonModule} from '@angular/common';
+import {CookieLawModule} from '@core/components/cookie-law/cookie-law.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {CommonModule} from '@angular/common';
     AuthModule,
 
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CookieLawModule
   ],
   providers: [],
   exports: [
