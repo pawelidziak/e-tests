@@ -304,7 +304,7 @@ export const LANG_EN_TRANS = {
   'app-download-mac': 'Mac',
   'app-download-mac-instruction': 'For MacOS, you can download the launch version of the <strong>eTesto</strong> application',
   'app-download-mobile': 'Mobile',
-  'app-download-mobile-instruction-one': '1. To use <strong>eTesto</strong> on mobile device such as smartphone or tablet just open the <a href="https://www.etesto.eu">eTesto</a>. on Your device.',
+  'app-download-mobile-instruction-one': '1. To use <strong>eTesto</strong> on mobile device such as smartphone or tablet just open the <a href="https://www.etesto.eu">eTesto</a> on Your device.',
   'app-download-mobile-instruction-two': '2. Now you should see the popup question if you want to add the application to the start screen.',
   'app-download-mobile-instruction-three': '3. All you need to do now is confirm.',
   'app-download-mobile-instruction-four': `**In case the information does not appear automatically, go to your browser settings and choose "Add to the home screen" option.`,

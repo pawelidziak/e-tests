@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderService} from '@core/services';
+import {environment} from '@env/environment';
+import {ALL_ROUTES} from '@shared/routes';
 
 @Component({
   selector: 'app-app-download',
@@ -7,6 +9,8 @@ import {HeaderService} from '@core/services';
   styleUrls: ['./app-download.component.scss']
 })
 export class AppDownloadComponent implements OnInit {
+
+  private env = environment;
 
   constructor(private headerService: HeaderService) {
   }
@@ -18,15 +22,19 @@ export class AppDownloadComponent implements OnInit {
   }
 
   public downloadWin10(): void {
-    // TODO
+    this.openLink(this.env.winStore);
   }
 
   public downloadWinOlder(): void {
-    // TODO
+    this.openLink(this.env.winDownload);
   }
 
   public downloadMacOS(): void {
-    // TODO
+    this.openLink(this.env.macDownload);
+  }
+
+  private openLink(url: string): void {
+    window.open(url, '_blank');
   }
 
 }

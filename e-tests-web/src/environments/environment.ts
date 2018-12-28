@@ -6,6 +6,9 @@
 export const environment = {
   production: false,
   appUrl: 'localhost:4200/',
+  winDownload: 'https://drive.google.com/drive/folders/1I326wVQdmsKEQob1t7Xv2fz7-CCgEZGl?usp=sharing',
+  winStore: '',
+  macDownload: 'https://drive.google.com/drive/folders/18FNfgAb2SAiKzCbvjbcEB6zV7BS_Srff?usp=sharing',
   firebase: {
     apiKey: 'AIzaSyA2IOEOGN9HmM4Im_kGkfDljivtXVPV_Ns',
     authDomain: 'e-testo-dev.firebaseapp.com',

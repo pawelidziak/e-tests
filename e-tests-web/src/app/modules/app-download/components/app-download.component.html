@@ -1,44 +1,45 @@
 <section class="section-padding">
-  <mat-card class="card-radius">
+  <mat-card class="card-radius" style="padding: 0;">
 
     <div class="icon-div">
-      <mat-icon aria-label="Label" color="accent" class="build-icon">build</mat-icon>
-      <h4 class="my-title">{{ 'section-in-progress' | translate }}</h4>
-      <p class="my-sub-title" [innerHTML]="'if-you-have-question' | translate "></p>
+      <mat-icon aria-label="Smartphone" class="device-icon">smartphone</mat-icon>
+      <mat-icon aria-label="Laptop" class="device-icon">laptop</mat-icon>
+      <mat-icon aria-label="Tablet" class="device-icon">tablet</mat-icon>
     </div>
 
-    <!--<mat-tab-group mat-stretch-tabs [dynamicHeight]="true">-->
-      <!--&lt;!&ndash; WINDOWS &ndash;&gt;-->
-      <!--<mat-tab [label]="'app-download-windows' | translate">-->
-        <!--<div class="tab-content">-->
+    <mat-tab-group mat-stretch-tabs [dynamicHeight]="true">
+      <!-- MOBILE -->
+      <mat-tab [label]="'app-download-mobile' | translate">
+        <div class="tab-content">
+          <p class="my-title">{{ 'app-download-mobile' | translate }}</p>
+          <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-one' | translate"></p>
+          <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-two' | translate"></p>
+          <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-three' | translate"></p>
+          <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-four' | translate"></p>
+        </div>
+      </mat-tab>
+
+      <!-- WINDOWS -->
+      <mat-tab [label]="'app-download-windows' | translate">
+        <div class="tab-content">
           <!--<p class="my-title">Windows 10</p>-->
           <!--<p class="my-sub-title" [innerHTML]="'app-download-windows-instruction-one' | translate"></p>-->
-          <!--<button mat-raised-button>{{ 'app-download-win-store' | translate}}</button>-->
-          <!--<p class="my-title">Windows 7, 8</p>-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-windows-instruction-two' | translate"></p>-->
-          <!--<button mat-raised-button>{{ 'app-download-launch-download' | translate}}</button>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
+          <!--<button mat-raised-button (click)="downloadWin10()">{{ 'app-download-win-store' | translate}}</button>-->
+          <p class="my-title">Windows 7, 8</p>
+          <p class="my-sub-title" [innerHTML]="'app-download-windows-instruction-two' | translate"></p>
+          <button mat-raised-button (click)="downloadWinOlder()">{{ 'app-download-launch-download' | translate}}</button>
+        </div>
+      </mat-tab>
 
-      <!--&lt;!&ndash; MAC &ndash;&gt;-->
-      <!--<mat-tab [label]="'app-download-mac' | translate">-->
-        <!--<div class="tab-content">-->
-          <!--<p class="my-title">MacOS</p>-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-mac-instruction' | translate"></p>-->
-          <!--<button mat-raised-button>{{ 'app-download-launch-download' | translate}}</button>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
-
-      <!--&lt;!&ndash; MOBILE &ndash;&gt;-->
-      <!--<mat-tab [label]="'app-download-mobile' | translate">-->
-        <!--<div class="tab-content">-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-one' | translate"></p>-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-two' | translate"></p>-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-three' | translate"></p>-->
-          <!--<p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-four' | translate"></p>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
-    <!--</mat-tab-group>-->
+      <!-- MAC -->
+      <mat-tab [label]="'app-download-mac' | translate">
+        <div class="tab-content">
+          <p class="my-title">MacOS</p>
+          <p class="my-sub-title" [innerHTML]="'app-download-mac-instruction' | translate"></p>
+          <button mat-raised-button (click)="downloadMacOS()">{{ 'app-download-launch-download' | translate}}</button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
 
   </mat-card>
 </section>

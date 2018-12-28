@@ -3,15 +3,19 @@
 
 .icon-div {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: $margin 0;
+  padding: $margin;
 }
 
-.build-icon {
-  margin: $margin 0;
-  @include mat-icon-size(102px);
+.device-icon {
+  color: $text_secondary;
+  margin: 24px 6px;
+  @include mat-icon-size(72px);
+  @media #{$gt-sm_size} {
+    margin: 48px 24px;
+    @include mat-icon-size(102px);
+  }
 }
 
 .tab-content {
