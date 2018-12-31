@@ -1,7 +1,7 @@
 <header *ngIf="headerValues.appHeaderVisibility"
         [style.color]="appSettings?.currentTheme?.textColor"
         [style.height]="height + 'px'"
-        style="margin: 12px 0;">
+        style="margin: 12px 0 0;">
 
   <!-- SMALL SLIDE DEVICE NAV -->
   <nav class="my-fixed-nav"
@@ -48,7 +48,7 @@
   </nav>
 
   <!-- APP HEADER-CONTAINER -->
-  <div class="container app-header-container">
+  <div class="app-header-container">
 
     <a class="app-logo" [routerLink]="'/'">
       <span class="logo-text">eTest</span>

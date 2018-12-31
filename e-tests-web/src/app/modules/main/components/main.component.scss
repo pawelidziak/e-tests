@@ -8,9 +8,6 @@
   width: 100%;
   position: absolute;
   height: 100vh;
-  @media #{$gt-xs_size} {
-    height: 85vh;
-  }
   overflow: hidden;
   @include rotate(-2deg);
   -webkit-transform-origin: 0;
@@ -20,28 +17,24 @@
     position: absolute;
     transform-origin: 50% 48%;
     border-radius: 43%;
-    width: 200%;
     height: 200%;
+    width: 200%;
     &:first-child {
-      background-color: rgba(0, 0, 0, 0.04);
-      top: -115%;
-      left: -98%;
-      @include rotate(42deg);
-      @media #{$gt-xs_size} {
+      top: -111%;
+      left: -85%;
+      @include rotate(9deg);
+      @media #{$gt-md_size} {
         top: -117%;
-        left: -92%;
+        left: -70%;
         @include rotate(-12deg);
       }
     }
     &:nth-child(2) {
-      display: none;
-      @media #{$gt-xs_size} {
-        background-color: rgba(0, 0, 0, 0.03);
-        display: block;
-        right: -90%;
-        top: -138%;
-        @include rotate(-13deg);
-      }
+      background-color: rgba(0, 0, 0, 0.03);
+      display: block;
+      right: -90%;
+      top: -125%;
+      @include rotate(-13deg);
     }
   }
 }

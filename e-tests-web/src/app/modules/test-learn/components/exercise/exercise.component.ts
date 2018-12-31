@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseWithOccurrences} from '@core/models';
-import {MY_COLORS, AppSettingsService} from '../../../../core/services/app-settings.service';
 import {slideFromBottom, slideFromRight} from '@shared/animations';
+import {AppSettingsService, MY_COLORS} from '@core/services';
 
 export enum KEY_CODE {
   FIRST_ANSWER_KEY = 49,
@@ -135,7 +135,9 @@ export class ExerciseComponent implements OnInit, OnChanges {
   }
 
   public scrollTop(): void {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+    const element = document.getElementById('learnSection');
+    element.scrollIntoView();
   }
 
   private drawFeedBackMessage(): string {
@@ -170,7 +172,7 @@ export class ExerciseComponent implements OnInit, OnChanges {
     this.handleKeyboardShortcuts(event.keyCode);
   }
 
-  private handleKeyboardShortcuts(keyCode: number): void  {
+  private handleKeyboardShortcuts(keyCode: number): void {
     if (this.userIsAuthenticated) {
       if (!this.isCheckClicked) {
         // 1, 2, ... 9

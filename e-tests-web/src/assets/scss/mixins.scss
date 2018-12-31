@@ -82,7 +82,7 @@
   border-radius: 24px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0;
-  * {
+  .phone_inner {
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid $hover_color;
     height: calc(100% - 96px);

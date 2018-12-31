@@ -3,13 +3,14 @@
   <div class="title-100"></div>
   <div class="title-80"></div>
   <div class="title-60"></div>
-  <div style="width: 70%">
-    <div class="answer" *ngFor="let fake of generateFake(3)">
+  <div style="width: 70%; margin-top: 12px;">
+    <div class="answer" *ngFor="let fake of generateFake(4); let i=index;">
       <div class="answer-text-100"></div>
       <div class="answer-text-80"></div>
+      <div *ngIf="i % 2 === 0" class="answer-text-60"></div>
     </div>
   </div>
-  <div style="margin-top: 12px; display: flex;">
+  <div style="margin-top: 24px; display: flex;">
     <div class="button"></div>
     <div class="button"></div>
   </div>

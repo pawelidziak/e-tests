@@ -64,7 +64,7 @@ const SCALE_ZERO = [
 export function routeAnimations() {
   return trigger('routeAnimations', [
     transition('* => *', [
-      query(':enter > *', style({opacity: 0, position: 'absolute'}), {optional: true}),
+      query(':enter > *', style({opacity: 0, position: 'fixed'}), {optional: true}),
       sequence([
         query(':leave', animateChild(), {optional: true}),
         query(':leave > *', [

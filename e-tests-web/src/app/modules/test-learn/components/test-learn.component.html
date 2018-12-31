@@ -1,6 +1,12 @@
 <section class="section-test-learn">
-  <app-skeleton-loading *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)"></app-skeleton-loading>
-  <mat-card class="test-learn-card" *ngIf="userIsAuthenticated && isConfigSet && test">
+
+  <div style="margin-top: 72px;"
+       id="learnSection">
+    <app-skeleton-loading *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)"></app-skeleton-loading>
+  </div>
+
+  <mat-card class="test-learn-card"
+            *ngIf="userIsAuthenticated && isConfigSet && test">
 
     <!-- LEARN HEADER -->
     <div class="test-learn-header">

@@ -1,7 +1,6 @@
 @import '../../../../assets/scss/variables';
 
 .skeleton {
-  margin-top: 24px;
   padding: 12px;
 }
 
@@ -9,7 +8,7 @@
   background: rgba(0, 0, 0, .3);
 }
 
-@mixin title($width, $height: 16px) {
+@mixin title($width, $height: 6px) {
   margin: 6px 0;
   width: $width;
   height: .5*$height;
@@ -37,15 +36,22 @@
   border: 1px solid rgba(0, 0, 0, .2);
   border-radius: $border-radius;
   padding: 12px;
-  margin-top: 24px;
+  margin-top: 12px;
+  @media #{$gt-md_size} {
+    margin-top: 24px;
+  }
 }
 
 .answer-text-100 {
-  @include title(100%, 10px);
+  @include title(100%, 3px);
 }
 
 .answer-text-80 {
-  @include title(80%, 10px);
+  @include title(80%, 3px);
+}
+
+.answer-text-60 {
+  @include title(60%, 3px);
 }
 
 .button {

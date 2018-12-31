@@ -1,6 +1,6 @@
-<section class="section-padding" style="position: relative;">
-  <div class="row">
-    <div class="col-12 col-md-6"
+<section class="section-padding">
+  <div class="row" style="min-height: 80vh">
+    <div class="col-12 col-md-8 col-lg-6"
          [style.color]="appSettings.currentTheme.textColor">
       <div class="sub-title-text">
         <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
@@ -11,19 +11,30 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6">
-      <div id="dashboardCube"></div>
+    <div class="col-md-4 col-lg-6 phone-container">
+      <mat-card class="phone"
+                [style.background-color]="appSettings.currentTheme.name === 'dark-theme' ? '#595959' : '#FAFAFA'">
+        <div class="phone_inner" style="cursor: pointer;"
+             (click)="scrollToMore()">
+          <div class="skeleton-container">
+            <app-skeleton-loading [showAnimation]="false"></app-skeleton-loading>
+          </div>
+          <div class="logo-container">
+            <div class="img-logo-circle" [style.background-color]="appSettings.currentTheme.accent">
+              <img src="assets/icons/app-logo.svg" class="app-logo-svg" alt="Logo">
+            </div>
+          </div>
+          <div class="start-container">
+            <button mat-button color="accent" class="start-button">
+              {{ 'lets-start' | translate }}
+            </button>
+          </div>
+        </div>
+      </mat-card>
     </div>
   </div>
 
-  <!--<div class="illustration">-->
-  <!--<div id="dashboardCube"></div>-->
-  <!--<mat-card class="phone">-->
-  <!--<app-skeleton-loading style="overflow: hidden;" [showAnimation]="false"></app-skeleton-loading>-->
-  <!--</mat-card>-->
-  <!--</div>-->
-
-  <mat-card class="dashboard-card">
+  <mat-card class="dashboard-card" id="dashboardCard">
     <!-- ALL DEVICES -->
     <div class="all-devices">
       <div class="devices-icons">
@@ -110,9 +121,9 @@
               [style.background-color]="appSettings.currentTheme.accent"
               type="image/svg+xml"
               class="app-logo-svg-dashboard">
-        <img src="assets/icons/app-logo.svg" alt="Logo" />
+        <img src="assets/icons/app-logo.svg" alt="Logo"/>
       </object>
-      <h3 class="my-title">{{ 'join-header' | translate }}</h3>
+      <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">{{ 'join-header' | translate }}</h3>
       <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
     </div>
 

@@ -12,6 +12,7 @@ export const LANG_EN_TRANS = {
   'change-success': 'The changes were saved successfully',
   'instructions-send-to-email': 'Instructions have been sent to the email.',
   'new-app-version': 'New version available. Load new version?',
+  'lets-start': `Let's start`,
 
   // COOKIE LAW
   'cookie-text': 'By using the application you agree to our use of cookies. Learn more: ',
@@ -46,7 +47,6 @@ export const LANG_EN_TRANS = {
   'feature-started-paragraph': 'Check the started tests along with their progress',
   'join-header': 'Try it for free',
   'join-paragraph': 'Create an account and see for yourself. Change the approach to learning in a quick and easy way',
-  'join-button': 'Login / Register',
 
   // LOGIN / FORGOT PASSWORD / REGISTER
   'login-google': 'Google login',
@@ -308,7 +308,4 @@ export const LANG_EN_TRANS = {
   'app-download-mobile-instruction-two': '2. Now you should see the popup question if you want to add the application to the start screen.',
   'app-download-mobile-instruction-three': '3. All you need to do now is confirm.',
   'app-download-mobile-instruction-four': `**In case the information does not appear automatically, go to your browser settings and choose "Add to the home screen" option.`,
-
-
-
 };

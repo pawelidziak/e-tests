@@ -12,6 +12,7 @@ export const LANG_PL_TRANS = {
   'change-success': 'Zmiany zostały zapisane.',
   'instructions-send-to-email': 'Instrukcje zostały wysłane na adres e-mail.',
   'new-app-version': 'Dostępna nowa wersja. Załadować?',
+  'lets-start': `Zacznij teraz`,
 
   // COOKIE LAW
   'cookie-text': 'Korzystając z aplikacji wyrażasz zgodę na używanie przez nas plików cookie. Dowiedz się więcej: ',
@@ -46,7 +47,6 @@ export const LANG_PL_TRANS = {
   'feature-started-paragraph': 'Sprawdzaj rozpoczęte testy wraz z ich postępem',
   'join-header': 'Wypróbuj za darmo',
   'join-paragraph': 'Załóż konto i przekonaj się sam. W szybki i prosty sposób zmień podejście do nauki',
-  'join-button': 'Logowanie / Rejestracja',
 
   // LOGIN / FORGOT PASSWORD
   'login-google': 'Logowanie Google',
@@ -305,9 +305,7 @@ export const LANG_PL_TRANS = {
   'app-download-mac-instruction': 'Dla systemów MacOS możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
   'app-download-mobile': 'Mobile',
   'app-download-mobile-instruction-one': '1. Aby korzystać z <strong>eTesto</strong> na urządzeniu mobilnym, takim jak smartfon lub tablet, wystarczy otworzyć aplikację <a href="https://www.etesto.eu">eTesto</a> na Twoim urządzeniu.',
-  'app-download-mobile-instruction-two': '2. Teraz powinno pojawić się pytanie, czy chcesz dodać aplikację do ekranu startowego.',
+  'app-download-mobile-instruction-two': '2. Powinno pojawić się pytanie, czy chcesz dodać aplikację do ekranu startowego.',
   'app-download-mobile-instruction-three': '3. Wszystko, co musisz teraz zrobić, to potwierdzić.',
   'app-download-mobile-instruction-four': `**Jeśli pytanie nie pojawi się automatycznie, przejdź do ustawień przeglądarki i wybierz opcję "Dodaj do ekranu głównego".`,
-
-
 };
