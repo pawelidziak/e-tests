@@ -1,8 +1,8 @@
-<section class="section-test-learn">
+<section class="section-test-learn" id="learnSection">
 
   <div style="margin-top: 72px;"
-       id="learnSection">
-    <app-skeleton-loading *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)"></app-skeleton-loading>
+       *ngIf="!loader.isOnLoad.getValue() && (!userIsAuthenticated || !isConfigSet)">
+    <app-skeleton-loading ></app-skeleton-loading>
   </div>
 
   <mat-card class="test-learn-card"
