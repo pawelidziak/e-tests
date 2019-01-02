@@ -14,8 +14,7 @@ import {appDownloadRouting} from './app-download.routing';
 
     MatCardModule,
     MatButtonModule,
-    MatIconModule,
-    MatTabsModule
+    MatIconModule
   ],
   providers: []
 })
