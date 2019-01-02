@@ -30,6 +30,7 @@ export const LANG_PL_TRANS = {
   // MAIN
   'dashboard-title': 'Główna',
   'dashboard-header': 'Nowy sposób na nauke',
+  'dashboard-paragraph': 'Nauka jest w twoich rękach! Zmień swoje podejście, już dziś zacznij uczyć się w prosty oraz przyjemny sposób. Stwórz / wybierz test, rozwiązuj, powtarzaj, zapamiętaj. Sprawdzaj postęp, korzystaj gdziekolwiek jesteś!',
   'device-header': 'Gdziekolwiek jesteś',
   'device-paragraph': 'Korzystaj z eTesto gdziekolwiek jesteś, na jakimkolwiek urządzeniu. Twoje postępy będą zachowane. <br> Pobierz aplikację na komputer, lub dodaj do ekranu startowego telefonu / tabletu!',
   'dashboard-download-button': 'Pobierz teraz',
@@ -95,7 +96,7 @@ export const LANG_PL_TRANS = {
   // SETTINGS
   'settings-title': 'Ustawienia',
   'settings-header': 'Zmień ustawienia <strong>eTesto</strong>',
-  'settings-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'settings-paragraph': 'Zmień język lub wygląd aplikacji. Ustawienia przechowywane są w pamięci podręcznej przeglądarki / urządzenia.',
   'language': 'Język',
   'app-theme': 'Styl aplikacji',
   'blue': 'Niebieski',
@@ -106,7 +107,7 @@ export const LANG_PL_TRANS = {
   // CREATE-TEST
   'create-title': 'Stwórz',
   'create-header': 'Stwórz <strong>nowy</strong> test!',
-  'create-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'create-paragraph': 'To proste, wystarczy że wpiszesz nazwę testu oraz opisujące go tagi. Dla większego zrozumienia zawartości warto dodać opis testu. Im trafniejsza nazwa, tagi oraz opis, test będzie lepiej rozpoznawalny.',
   'create-save': 'Zapisz',
 
   // TEST NAME FORM
@@ -136,12 +137,12 @@ export const LANG_PL_TRANS = {
   // SEARCH-TEST
   'search-title': 'Szukaj',
   'search-header': 'Przeszukuj dowolne zestawy do nauki!',
-  'search-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'search-paragraph': 'Wyszukaj interesujący Cie test poprzez wpisanie nazwy, tagów, autora lub opisu.',
 
   // STUDY-SETS
   'study-sets-title': 'Zestawy',
   'study-sets-header': 'Wybierz zestaw do nauki',
-  'study-sets-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'study-sets-paragraph': 'Przeglądaj niedawno rozpoczęte i stworzone przez Ciebie testy. Sprawdzaj postęp, powtarzaj wiedzę.',
   'study-sets-recently': 'Niedawno zaczęte',
   'study-sets-user': 'Twoje',
 

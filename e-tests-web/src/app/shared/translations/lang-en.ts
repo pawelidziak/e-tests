@@ -30,6 +30,7 @@ export const LANG_EN_TRANS = {
   // MAIN
   'dashboard-title': 'Home',
   'dashboard-header': 'The new way of studying',
+  'dashboard-paragraph': 'Everything is is in Your hands! Change your approach, start learning in a simple and fun way. Create / select test, solve, repeat, remember. Check the progress, use wherever you are!',
   'device-header': 'Wherever You are',
   'device-paragraph': 'Use eTesto wherever you are, on any device. Your progress will be saved. <br> Download the application to your computer, or add it to the start screen of your phone / tablet!',
   'dashboard-download-button': 'Download now',
@@ -95,7 +96,7 @@ export const LANG_EN_TRANS = {
   // SETTINGS
   'settings-title': 'Settings',
   'settings-header': 'Change <strong>eTesto</strong> settings',
-  'settings-paragraph': '2Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'settings-paragraph': 'Change the language or theme of the application. Settings are stored in the browser / device cache.',
   'language': 'Language',
   'app-theme': 'App theme',
   'blue': 'Blue',
@@ -106,7 +107,7 @@ export const LANG_EN_TRANS = {
   // CREATE-TEST
   'create-title': 'Create',
   'create-header': `Let's <strong>create</strong> a new test!`,
-  'create-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'create-paragraph': 'It\'s simple, just enter the name of the test and the tags describing it. For a better understanding of the content, it is worth adding a test description. The more accurate the name, the tags and the description, the test will be better recognized.',
   'create-save': 'Save',
 
   // TEST NAME FORM
@@ -136,12 +137,12 @@ export const LANG_EN_TRANS = {
   // SEARCH-TEST
   'search-title': 'Search',
   'search-header': 'Search any study sets <strong>You</strong> want!',
-  'search-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'search-paragraph': 'Search for the test you are interested in by name, tags, author or description.',
 
   // STUDY-SETS
   'study-sets-title': 'Study sets',
   'study-sets-header': 'Choose <strong>study set',
-  'study-sets-paragraph': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'study-sets-paragraph': 'Browse Your recently launched and created tests. Check progress, repeat knowledge.',
   'study-sets-recently': 'Recently started',
   'study-sets-user': 'Yours',
 
