@@ -4,6 +4,7 @@ export const environment = {
   winDownload: 'https://drive.google.com/drive/folders/1I326wVQdmsKEQob1t7Xv2fz7-CCgEZGl?usp=sharing',
   winStore: '',
   macDownload: 'https://drive.google.com/drive/folders/18FNfgAb2SAiKzCbvjbcEB6zV7BS_Srff?usp=sharing',
+  linuxDownload: 'https://drive.google.com/drive/folders/12WQSSxS_lnJZaL4IJIeUZj6MohbgbqAm?usp=sharing',
   firebase: {
     apiKey: 'AIzaSyBalsg9SECDPG9esC0WWJW4XAvHLkf_kUs',
     authDomain: 'e-testo-prod.firebaseapp.com',

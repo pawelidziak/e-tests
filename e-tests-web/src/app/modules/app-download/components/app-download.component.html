@@ -16,23 +16,12 @@
     </div>
 
     <div class="sys-content">
-      <h3 class="my-title text-center">Windows</h3>
-      <p class="my-sub-title" [innerHTML]="'app-download-windows-instruction-one' | translate"></p>
-      <p class="my-sub-title" [innerHTML]="'app-download-windows-instruction-two' | translate"></p>
+      <h3 class="my-title text-center">Windows / MacOS / Linux</h3>
+      <p class="my-sub-title" [innerHTML]="'app-download-launch-version' | translate"></p>
       <div class="download-buttons">
-        <button mat-raised-button color="accent" (click)="downloadWin10()">{{ 'app-download-win-store' | translate}}
-        </button>
-        <button mat-raised-button color="accent" (click)="downloadWinOlder()">{{ 'app-download-win-launch' | translate}}
-        </button>
-      </div>
-    </div>
-
-    <div class="sys-content">
-      <h3 class="my-title text-center">MacOS / Linux</h3>
-      <p class="my-sub-title" [innerHTML]="'app-download-mac-linux-instruction' | translate"></p>
-      <div class="download-buttons">
+        <button mat-raised-button color="accent" (click)="downloadWin()">Windows</button>
         <button mat-raised-button color="accent" (click)="downloadMacOS()">MacOS</button>
-        <button mat-raised-button color="accent" (click)="downloadMacOS()">Linux</button>
+        <button mat-raised-button color="accent" (click)="downloadLinux()">Linux</button>
       </div>
     </div>
   </mat-card>

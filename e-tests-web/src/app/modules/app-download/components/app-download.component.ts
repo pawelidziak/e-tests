@@ -21,16 +21,16 @@ export class AppDownloadComponent implements OnInit {
     ]);
   }
 
-  public downloadWin10(): void {
-    this.openLink(this.env.winStore);
-  }
-
-  public downloadWinOlder(): void {
+  public downloadWin(): void {
     this.openLink(this.env.winDownload);
   }
 
   public downloadMacOS(): void {
     this.openLink(this.env.macDownload);
+  }
+
+  public downloadLinux(): void {
+    this.openLink(this.env.linuxDownload);
   }
 
   private openLink(url: string): void {

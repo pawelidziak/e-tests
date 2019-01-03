@@ -293,15 +293,11 @@ export const LANG_PL_TRANS = {
   'user-profile-reset-password': 'Zresetuj hasło',
   'user-profile-save': 'Zapisz',
   'user-profile-cancel': 'Anuluj',
-  'user-profile-name-error': 'Choose a different username',
+  'user-profile-name-error': 'Wybierz inną nazwę użykownika',
 
   // APP-DOWNLOAD
   'app-download-title': 'Pobierz',
-  'app-download-windows-instruction-one': 'Możesz pobrać aplikację <strong>eTesto</strong> na urządzenia z systemem Windows 10 ze sklepu Windows',
-  'app-download-win-store': 'Sklep Windows',
-  'app-download-win-launch': 'Windows - wersja uruchamialna',
-  'app-download-windows-instruction-two': 'Dla systemów Windows 7 oraz 8 możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
-  'app-download-mac-linux-instruction': 'Dla systemów MacOS / Linux możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
+  'app-download-launch-version': 'Dla systemów Windows, MacOS lub Linux możesz pobrać wersję uruchamianą aplikacji <strong>eTesto</strong>',
   'app-download-mobile': 'Mobile',
   'app-download-mobile-instruction-one': '1. Aby korzystać z <strong>eTesto</strong> na urządzeniu mobilnym, takim jak smartfon lub tablet, wystarczy otworzyć aplikację <a href="https://www.etesto.eu">eTesto</a> w przeglądarce na Twoim urządzeniu.',
   'app-download-mobile-instruction-two': '2. Powinno pojawić się pytanie, czy chcesz dodać aplikację do ekranu startowego.',
