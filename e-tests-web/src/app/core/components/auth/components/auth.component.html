@@ -1,0 +1,18 @@
+<section class="section-auth">
+  <mat-dialog-content>
+    <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+    <app-spinner [hidden]="!loading"></app-spinner>
+
+    <mat-tab-group [dynamicHeight]="true" #matTabGrp>
+      <mat-tab [label]="'auth-login' | translate">
+        <app-login [matTabGrp]="matTabGrp" [authDialog]="dialogRef" (onLoading)="loading = $event"></app-login>
+      </mat-tab>
+
+      <mat-tab [label]="'auth-register' | translate">
+        <app-register [matTabGrp]="matTabGrp" [authDialog]="dialogRef" (onLoading)="loading = $event"></app-register>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-dialog-content>
+</section>

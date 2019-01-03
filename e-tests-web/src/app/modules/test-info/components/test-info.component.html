@@ -1,0 +1,203 @@
+<section *ngIf="test && exercises" class="section-padding">
+
+  <mat-card class="info-card">
+
+    <div class="test-info-content">
+      <div class="info-card-header">
+
+        <!-- LEFT -->
+        <div class="d-flex-align-center" style="flex-wrap: wrap">
+          <!--<div class="icon-with-text">-->
+          <!--<mat-icon aria-label="Rate"-->
+          <!--[matTooltip]="'test-info-rate' | translate"-->
+          <!--class="test-icon">-->
+          <!--star-->
+          <!--</mat-icon>-->
+          <!--<span>5.1</span>-->
+          <!--</div>-->
+
+          <div class="icon-with-text">
+            <mat-icon aria-label="Exercises"
+                      [matTooltip]="'test-info-exercises' | translate"
+                      class="test-icon">
+              folder
+            </mat-icon>
+            <span>{{test.exercises.length}}</span>
+          </div>
+
+          <div class="icon-with-text" style="margin: 0 12px;">
+            <mat-icon aria-label="Date"
+                      [matTooltip]="'test-info-created' | translate"
+                      class="test-icon">
+              date_range
+            </mat-icon>
+            <span>{{test.createDate | date: 'dd.MM.yyyy'}}</span>
+          </div>
+
+          <div class="icon-with-text">
+            <div class="user-photo"
+                 *ngIf="test.authorObj && test.authorObj.photoURL"
+                 [style.background-image]="'url(' + test.authorObj.photoURL +')'">
+            </div>
+            <mat-icon aria-label="Author"
+                      *ngIf="test.authorObj && !test.authorObj.photoURL"
+                      [matTooltip]="'test-info-author' | translate"
+                      class="test-icon">
+              account_circle
+            </mat-icon>
+            <span>{{test.authorObj?.displayName}}</span>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <!-- EDIT /SHARE / MORE BUTTONS -->
+        <div *ngIf="!editTestMode" class="no-edit-buttons">
+          <button mat-icon-button
+                  [matTooltip]="'test-info-edit' | translate"
+                  *ngIf="auth.currentUserId === test.authorId"
+                  (click)="startEditMode()">
+            <mat-icon aria-label="Edit icon">edit</mat-icon>
+          </button>
+          <button mat-icon-button
+                  (click)="openShareSnackbar()"
+                  [matTooltip]="'test-info-share' | translate">
+            <mat-icon aria-label="Share icon">share</mat-icon>
+          </button>
+          <button mat-icon-button
+                  [matTooltip]="'test-info-more' | translate"
+                  (click)="openMoreBottomSheet()">
+            <mat-icon aria-label="More icon">more_horiz</mat-icon>
+          </button>
+        </div>
+
+        <!-- SAVE / CLOSE BUTTONS -->
+        <div *ngIf="auth.currentUserId === test.authorId && editTestMode">
+          <button mat-icon-button
+                  color="accent"
+                  [matTooltip]="'test-info-save' | translate"
+                  [disabled]="testIncorrect()"
+                  (click)="stopEditMode(true)">
+            <mat-icon aria-label="Save icon">save</mat-icon>
+          </button>
+          <button mat-icon-button
+                  color="warn"
+                  [matTooltip]="'test-info-cancel' | translate"
+                  (click)="stopEditMode(false)">
+            <mat-icon aria-label="Cancel">close</mat-icon>
+          </button>
+        </div>
+
+      </div> <!-- /info-card-header -->
+
+      <!-- NO EDITABLE BOX -->
+      <div *ngIf="!editTestMode">
+        <div class="row">
+          <!-- TEST INFO-->
+          <div class="col-12 col-md-9 col-lg-10">
+            <h3 class="my-title test-name"
+                *ngIf="!editTestMode">
+              {{test.name}}
+            </h3>
+
+            <div class="d-flex-align-center sub-paragraph-font">
+              <mat-icon aria-label="Tags"
+                        [matTooltip]="'test-info-tags' | translate"
+                        class="test-icon">
+                local_offer
+              </mat-icon>
+              <div class="tag-list">
+              <span *ngFor="let tag of test.tags let i=index;">
+                <span>{{tag}}</span>
+                <span *ngIf="i < test.tags.length - 1" style="padding: 0 5px; opacity: .6">|</span>
+              </span>
+              </div>
+            </div>
+
+            <div class="my-sub-title" *ngIf="test.desc?.length > 0">{{test.desc}}</div>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="col-12 col-md-3 col-lg-2 buttons-container">
+            <button mat-raised-button
+                    #learnButton
+                    [style.background-image]="!learnButton.disabled ? 'linear-gradient(150deg, '+
+                                              appSettings?.currentTheme?.accent+' 15%,'+
+                                              appSettings?.currentTheme?.primary +' 70%)' : ''"
+                    class="box-button"
+                    (click)="navigateToLearn()"
+                    [disabled]="exercises.length === 0"
+                    color="accent">
+              <mat-icon aria-label="Learn">play_arrow</mat-icon>
+              <span>{{ 'test-info-learn' | translate}}</span>
+            </button>
+            <button mat-raised-button
+                    #examButton
+                    [style.background-image]="!examButton.disabled ? 'linear-gradient(150deg, '+
+                                              appSettings?.currentTheme?.accent+' 15%,'+
+                                              appSettings?.currentTheme?.primary +' 70%)' : ''"
+                    class="box-button"
+                    disabled
+                    color="accent">
+              <mat-icon aria-label="Exam">event_note</mat-icon>
+              <span>{{ 'test-info-exam' | translate}}</span>
+            </button>
+            <span class="not-available">{{ 'not-available' | translate }}</span>
+          </div><!-- /BUTTONS -->
+        </div> <!-- /ROW -->
+      </div><!-- /NO EDITABLE BOX -->
+
+      <!-- EDITABLE BOX -->
+      <div *ngIf="editTestMode" class="test-text-container">
+        <app-test-name [(testName)]="test.name"
+                       [margins]="'24px 0 0'"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-name>
+        <app-test-tags [(testTags)]="test.tags"
+                       [width100]="true"
+                       [appearance]="'outline'"
+                       [margins]="'24px 0'">
+        </app-test-tags>
+        <app-test-desc [(testDesc)]="test.desc"
+                       [width100]="true"
+                       [appearance]="'outline'">
+        </app-test-desc>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <mat-tab-group color="accent" class="tabs-card">
+
+      <!-- EXERCISES -->
+      <mat-tab [label]="'test-info-exercises' | translate">
+        <app-display-exercises *ngIf="exercises"
+                               [origExerciseList]="exercises"
+                               [testId]="testId"
+                               [authorId]="test.authorId">
+        </app-display-exercises>
+      </mat-tab>
+
+      <!-- COMMENTS -->
+      <!--<mat-tab [label]="'test-info-opinions' | translate">-->
+      <!--<ng-template matTabContent>-->
+      <!--<div style="padding: 24px; text-align: center;">-->
+      <!--<p class="my-title">{{ 'not-available' | translate}}</p>-->
+      <!--</div>-->
+      <!--</ng-template>-->
+      <!--</mat-tab>-->
+
+      <!-- NOTES -->
+      <!--<mat-tab [label]="'test-info-notes' | translate">-->
+      <!--<ng-template matTabContent>-->
+      <!--<div style="padding: 24px; text-align: center;">-->
+      <!--<p class="my-title">{{ 'not-available' | translate}}</p>-->
+      <!--</div>-->
+      <!--</ng-template>-->
+      <!--</mat-tab>-->
+    </mat-tab-group>
+  </mat-card>
+
+</section>
+
+
+

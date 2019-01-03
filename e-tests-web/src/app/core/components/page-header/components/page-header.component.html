@@ -1,0 +1,41 @@
+<header class="page-header"
+        *ngIf="headerValues && headerValues.pageHeaderVisibility"
+        [style.color]="appSettings.currentTheme.textColor"
+        [style.height]="height + 'px'">
+
+  <div *ngIf="isXSmallScreen" class="my-breadcrumb">
+    <button mat-icon-button
+            style="margin-left: -12px;"
+            *ngIf="headerValues.breadcrumb.length > 1"
+            [routerLink]="headerValues.breadcrumb[headerValues.breadcrumb.length - 2]?.path">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
+    <span class="current-url">
+      {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1]?.label | translate | limitChar: maxChar}}
+    </span>
+  </div>
+
+  <div class="my-breadcrumb" *ngIf="!isXSmallScreen">
+    <span *ngFor="let route of headerValues.breadcrumb; let i=index" class="breadcrumb-item">
+
+      <a [routerLink]="route.path"
+         *ngIf="i < headerValues.breadcrumb.length - 1">
+        {{route.label | translate | limitChar: maxChar}}
+      </a>
+
+      <mat-icon aria-label="Separator"
+                *ngIf="i < headerValues.breadcrumb.length - 1"
+                class="breadcrumb-icon">
+        chevron_right
+      </mat-icon>
+
+      <span *ngIf="i === headerValues.breadcrumb.length - 1" class="current-url">
+        {{headerValues.breadcrumb[headerValues.breadcrumb.length - 1].label | translate | limitChar: maxChar}}
+      </span>
+    </span>
+  </div>
+
+  <!--<button mat-flat-button color="primary" id="premiumButton" *ngIf="user">-->
+    <!--PREMIUM-->
+  <!--</button>-->
+</header>

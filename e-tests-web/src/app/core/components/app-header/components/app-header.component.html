@@ -1,0 +1,177 @@
+<header *ngIf="headerValues.appHeaderVisibility"
+        [style.color]="appSettings?.currentTheme?.textColor"
+        [style.height]="height + 'px'"
+        style="margin: 12px 0 0;">
+
+  <!-- SMALL SLIDE DEVICE NAV -->
+  <nav class="my-fixed-nav"
+       *ngIf="slideMenu"
+       [@slideFromTopToTop]>
+    <mat-card class="my-fixed-nav-card">
+
+      <div class="close-nav">
+        <h3 class="paragraph-font">Menu</h3>
+        <button mat-icon-button (click)="slideMenu = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <ul class="my-nav-list my-slide-nav-list">
+        <!-- GENERAL LINKS -->
+        <li *ngFor="let link of generalLinks"
+            (click)="slideMenu = false"
+            [routerLink]="link.path"
+            [routerLinkActive]="['active-link']">
+          <a mat-button>
+            <mat-icon>{{link.icon}}</mat-icon>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
+          </a>
+        </li>
+
+        <li>
+          <mat-divider></mat-divider>
+        </li>
+
+        <!-- OTHER LINKS -->
+        <li *ngFor="let link of otherLinks"
+            (click)="slideMenu = false"
+            [routerLink]="link.path"
+            [routerLinkActive]="['active-link']">
+          <a mat-button>
+            <mat-icon>{{link.icon}}</mat-icon>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
+          </a>
+        </li>
+
+      </ul>
+    </mat-card>
+  </nav>
+
+  <!-- APP HEADER-CONTAINER -->
+  <div class="app-header-container">
+
+    <a class="app-logo" [routerLink]="'/'">
+      <span class="logo-text">eTest</span>
+      <img src="assets/icons/app-logo.svg" class="app-logo-svg" alt="Logo">
+    </a>
+
+    <!-- SMALL DEVICE NAV -->
+    <nav *ngIf="isSmallScreen">
+      <ul class="my-nav-list">
+        <!-- ACCOUNT -->
+        <li (click)="slideMenu = false">
+          <a mat-raised-button
+             *ngIf="!user"
+             (click)="openAuthDialog()">
+            Login
+          </a>
+          <a mat-icon-button
+             [matMenuTriggerFor]="accountMenu"
+             *ngIf="user && !user.photoURL">
+            <mat-icon aria-label="Account">account_circle</mat-icon>
+          </a>
+          <div *ngIf="user && user.photoURL"
+               [matMenuTriggerFor]="accountMenu"
+               class="user-photo"
+               [style.background-image]="'url(' + user.photoURL +')'">
+          </div>
+        </li>
+        <!-- STUDY SETS -->
+        <li *ngIf="user" (click)="slideMenu = false">
+          <a mat-icon-button
+             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+             [routerLinkActive]="['active-link']">
+            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+          </a>
+        </li>
+        <li (click)="slideMenu = true">
+          <a mat-icon-button>
+            <mat-icon>menu</mat-icon>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- LARGE DEVICE NAV -->
+    <nav *ngIf="!isSmallScreen" style="width: 100%">
+      <ul class="my-nav-list">
+
+        <!-- USER ICONS -->
+        <li>
+          <a mat-raised-button
+             *ngIf="!user"
+             (click)="openAuthDialog()">
+            Login
+          </a>
+          <a mat-button
+             [matMenuTriggerFor]="accountMenu"
+             *ngIf="user"
+             class="user-button">
+            <mat-icon aria-label="Account" *ngIf="!user.photoURL">account_circle</mat-icon>
+            <div *ngIf="user.photoURL"
+                 class="user-photo"
+                 [style.background-image]="'url(' + user.photoURL +')'">
+            </div>
+            <span style="padding-left: 12px;">{{user.displayName}}</span>
+          </a>
+        </li>
+
+        <!-- STUDY SETS -->
+        <li *ngIf="user">
+          <a mat-button
+             [routerLink]="ALL_ROUTES.USER_TESTS_LIST"
+             [routerLinkActive]="['active-link']">
+            <mat-icon aria-label="Sets">collections_bookmark</mat-icon>
+            <span style="padding-left: 12px;">{{ 'app-header-study-sets' | translate}}</span>
+          </a>
+        </li>
+
+        <!-- GENERAL LINKS -->
+        <li *ngFor="let link of generalLinks">
+          <a mat-button
+             [routerLink]="link.path"
+             [routerLinkActive]="['active-link']">
+            <mat-icon>{{link.icon}}</mat-icon>
+            <span style="padding-left: 12px;">{{link.label | translate}}</span>
+          </a>
+        </li>
+
+        <!-- MORE ICON -->
+        <li>
+          <a mat-icon-button [matMenuTriggerFor]="moreMenu">
+            <mat-icon aria-label="Settings">more_vert</mat-icon>
+          </a>
+        </li>
+      </ul>
+
+    </nav><!-- /LARGE DEVICE NAV -->
+  </div><!-- /APP HEADER-CONTAINER -->
+
+  <!-- ACCOUNT MENU -->
+  <mat-menu #accountMenu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item [routerLink]="ALL_ROUTES.USER_PROFILE">
+        <mat-icon aria-label="Profile">person</mat-icon>
+        <span>{{ 'app-header-profile' | translate}}</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon aria-label="Logout">power_settings_new</mat-icon>
+        <span>{{ 'app-header-logout' | translate}}</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- MORE MENU -->
+  <mat-menu #moreMenu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item *ngFor="let link of otherLinks" [routerLink]="link.path">
+        <mat-icon>{{link.icon}}</mat-icon>
+        <span>{{link.label | translate}}</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+</header>

@@ -1,0 +1,22 @@
+<section class="section-padding" [style.color]="appSettings.currentTheme.textColor" *ngIf="!loader.isOnLoad.getValue()">
+
+  <h3 class="my-title" [innerHTML]="'study-sets-header' | translate"></h3>
+
+  <p class="my-sub-title" style="margin-bottom: 48px;">{{ 'study-sets-paragraph' | translate}}</p>
+
+  <mat-card class="tab-card">
+    <mat-tab-group mat-stretch-tabs
+                   color="accent"
+                   style="height: 100%;"
+                   [(selectedIndex)]="selectedTabIndex"
+                   [dynamicHeight]="true">
+      <mat-tab [label]="'study-sets-recently' | translate">
+        <app-test-boxes [testList]="startedTests"></app-test-boxes>
+      </mat-tab>
+      <mat-tab [label]="'study-sets-user' | translate">
+        <app-test-boxes [testList]="userTests"></app-test-boxes>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+</section>

@@ -1,0 +1,105 @@
+<div class="section-exercise">
+
+  <!-- TITLE AND ANSWERS -->
+  <div *ngIf="!isCheckClicked" [@slideFromRight]>
+    <span class="question question-big_padding">{{exerciseWithOccurrences.exercise.question}}</span>
+
+    <div class="answers-grid">
+      <button mat-raised-button
+              *ngFor="let answer of exerciseWithOccurrences.exercise.answers; let i=index;"
+              id="answer-button-{{i}}"
+              class="one-answer-button"
+              (click)="addAnswer(i)">
+
+        <!-- answer letters A, B ... n -->
+        <span *ngFor="let letter of answerLetters; let j=index;"
+              class="answer-letter-button"
+              [style.color]="accentColor">
+          <span *ngIf="i===j">{{letter}}</span>
+        </span>
+
+        <span>{{answer}}</span>
+
+        <mat-icon *ngIf="checkIfAnswerIsSelected(i)"
+                  [style.color]="accentColor"
+                  class="answer-selected">
+          check
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ANSWER NOTIFICATION -->
+  <div *ngIf="isCheckClicked" class="answer-notification" [@slideFromBottom]>
+
+    <!-- CORRECT FEEDBACK -->
+    <div class="answer-feedback" *ngIf="isAnswerCorrect">
+      <mat-icon aria-label="Happy face" class="feedback-icon">sentiment_very_satisfied</mat-icon>
+      <span [style.color]="MY_COLORS.MATERIAL_GREEN">{{feedbackMsg | translate}}</span>
+    </div>
+    <!-- INCORRECT FEEDBACK -->
+    <div class="answer-feedback" *ngIf="!isAnswerCorrect">
+      <mat-icon aria-label="Sad face" class="feedback-icon">sentiment_very_dissatisfied</mat-icon>
+      <span [style.color]="MY_COLORS.MATERIAL_RED">{{feedbackMsg | translate}}</span>
+    </div>
+
+    <div class="question">
+      <span>{{exerciseWithOccurrences.exercise.question}}</span>
+    </div>
+
+    <!-- CORRECT -->
+    <div class="answers-container">
+      <p class="answer-title"
+         [style.color]="MY_COLORS.MATERIAL_GREEN">{{ 'test-learn-correct-answers' | translate}}</p>
+
+      <div class="one-answer"
+           *ngFor="let answerIndex of exerciseWithOccurrences.exercise.correctAnswers">
+            <span class="answer-letter"
+                  [style.color]="accentColor">
+            {{answerLetters[answerIndex]}}
+            </span>
+        <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
+      </div>
+    </div>
+
+    <!-- INCORRECT -->
+    <div class="answers-container" *ngIf="!isAnswerCorrect">
+      <p class="answer-title"
+         [style.color]="MY_COLORS.MATERIAL_RED">{{ 'test-learn-selected-answers' | translate}}</p>
+
+      <span *ngIf="clickedAnswersIndexes.length === 0">none..</span>
+
+      <div class="one-answer"
+           *ngFor="let answerIndex of clickedAnswersIndexes">
+            <span class="answer-letter"
+                  [style.color]="accentColor">
+                  {{answerLetters[answerIndex]}}
+            </span>
+        <span>{{exerciseWithOccurrences.exercise.answers[answerIndex]}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex: 1 0;"></div>
+
+  <!-- CHECK / NEXT BUTTONS -->
+  <div class="exercise-buttons-container">
+    <button mat-raised-button
+            class="exercise-button"
+            color="accent"
+            (click)="checkAnswers()"
+            *ngIf="!isCheckClicked">
+      <mat-icon aria-label="Check">check</mat-icon>
+      <span>{{ 'test-learn-check' | translate}}</span>
+    </button>
+    <button mat-raised-button
+            class="exercise-button"
+            color="accent"
+            (click)="showNextExercise()"
+            *ngIf="isCheckClicked && !isAnswerCorrect">
+      <mat-icon aria-label="Next">skip_next</mat-icon>
+      <span>{{ 'test-learn-next' | translate}}</span>
+    </button>
+  </div>
+
+</div>

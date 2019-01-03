@@ -1,0 +1,41 @@
+<div class="single-exercise">
+
+  <!-- EXERCISE HEADER -->
+  <div class="exercise-header ">
+
+    <!-- HEADER BUTTONS -->
+    <button mat-icon-button
+            *ngIf="isAuthor"
+            style="float: right;"
+            class="edit-exercise-button"
+            (click)="openExerciseDialog()"
+            [matTooltip]="'display-one-exer-edit' | translate">
+      <mat-icon aria-label="Edit">edit_mode</mat-icon>
+    </button>
+
+    <!-- NO EDITABLE TITLE -->
+    <div style="margin-top: 6px;">
+      <span class="exercise-number" *ngIf="number">{{number}}.</span>
+      <span>{{exercise.question}}</span>
+    </div>
+
+  </div><!-- /EXERCISE HEADER -->
+
+  <!-- ANSWERS -->
+  <div class="exercise-answers row">
+    <div *ngFor="let answer of exercise.answers; let j=index;"
+         class="col-12 col-md-6 single-answer">
+
+      <!-- NO EDITABLE ANSWER -->
+      <div class="no-editable-answer">
+        <span class="answer-letter"
+          [ngClass]="{'correct-answer': checkIfIsCorrect(j)}"
+          [style.color]="checkIfIsCorrect(j) ? appSettings.currentTheme.accent : ''">
+          {{getLetterFromAscii(j)}}
+        </span>
+        <span class="answer-text">{{answer}}</span>
+      </div>
+
+    </div><!-- /single-answer -->
+  </div><!-- /ANSWERS -->
+</div>

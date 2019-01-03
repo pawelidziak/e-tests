@@ -1,0 +1,120 @@
+<section class="section-test-config">
+
+  <button mat-button style="height: 0; position: absolute;"></button> <!-- 'absorbs' the behavior -->
+
+  <div class="config-header">
+    <button mat-icon-button (click)="closeConfigDialog()" *ngIf="!testIsNewOrInProgress">
+      <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+    <button mat-icon-button (click)="backToTest()" *ngIf="testIsNewOrInProgress">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
+    <h3>{{ 'test-learn-config-header' | translate}}</h3>
+  </div>
+
+  <div class="config-row">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font">{{ 'test-learn-config-occurrences' | translate}} ({{occurrencesExerciseNumber}})</h5>
+      <mat-slider
+        [min]="1"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="occurrencesExerciseNumber">
+      </mat-slider>
+    </div>
+
+    <p class="sub-paragraph-font">{{ 'test-learn-config-occurrences-text' | translate}}</p>
+  </div>
+
+  <div class="config-row">
+    <div class="config-row-title">
+      <h5 class="paragraph-font">{{ 'test-learn-config-repetitions' | translate}} ({{repetitionExerciseNumber}})</h5>
+      <mat-slider
+        [min]="0"
+        [max]="10"
+        [step]="1"
+        thumbLabel
+        [(ngModel)]="repetitionExerciseNumber">
+      </mat-slider>
+    </div>
+    <p class="sub-paragraph-font">{{ 'test-learn-config-repetitions-text' | translate}}</p>
+  </div>
+
+  <div class="config-row" *ngIf="!isSmallScreen" style="margin: 48px 0 60px 0;">
+    <h5 class="paragraph-font">{{ 'test-learn-config-keyboard-shortcuts' | translate}}</h5>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>enter</code>
+        {{ 'or' | translate}}
+        <code>{{ 'space' | translate}}</code>
+      </span>
+      <span class="sub-paragraph-font">{{ 'test-learn-config-keyboard-shortcuts-check-next' | translate}}</span>
+    </div>
+
+    <div class="keyboard-shortcut">
+      <span class="shortcut">
+        <code>1</code>,
+        <code>2</code>,
+        <code>3</code>,
+        <code>4</code> ...
+      </span>
+      <span class="sub-paragraph-font">a/b/c/d...</span>
+    </div>
+
+  </div>
+
+  <!-- SAVE -->
+  <div class="config-row" *ngIf="!testIsEnd">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font">{{ 'test-learn-config-save' | translate}}</h5>
+      <button mat-icon-button
+              cdkFocusInitial
+              color="accent"
+              (click)="closeDrawer()">
+        <mat-icon aria-label="Save">save</mat-icon>
+      </button>
+    </div>
+
+    <p class="sub-paragraph-font padding-top-12"
+       *ngIf="!testIsNewOrInProgress"
+       [innerHTML]="'test-learn-config-save-text' | translate">
+    </p>
+  </div>
+
+  <!-- RESTART -->
+  <div class="config-row" *ngIf="!testIsNewOrInProgress">
+
+    <div class="config-row-title">
+      <h5 class="paragraph-font" *ngIf="!confirmRestart">{{ 'test-learn-config-restart' | translate}}</h5>
+      <h5 class="paragraph-font" *ngIf="confirmRestart">{{ 'test-learn-config-confirm-restart' | translate}}</h5>
+      <button mat-icon-button
+              *ngIf="!confirmRestart"
+              [color]="testIsNewOrInProgress ? 'accent' : 'warn'"
+              (click)="confirmRestart = true">
+        <mat-icon aria-label="Restart">refresh</mat-icon>
+      </button>
+
+      <div *ngIf="confirmRestart">
+        <button mat-icon-button
+                color="accent"
+                (click)="closeDrawer(true)">
+          <mat-icon aria-label="Confirm">done</mat-icon>
+        </button>
+        <button mat-icon-button
+                color="warn"
+                (click)="confirmRestart = false">
+          <mat-icon aria-label="Cancel">cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <p class="sub-paragraph-font padding-top-12"
+      [innerHTML]="'test-learn-config-restart-text' | translate">
+    </p>
+  </div>
+
+</section> <!-- end section-test-config-->

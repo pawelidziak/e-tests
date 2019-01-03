@@ -1,0 +1,24 @@
+<mat-list>
+  <mat-list-item class="my-list-item"
+                 (click)="exportToFile()">
+    <mat-icon mat-list-icon>arrow_downward</mat-icon>
+    <h4 mat-line>{{ 'test-info-export' | translate}}</h4>
+    <p mat-line>{{ 'test-info-export-text' | translate}}</p>
+  </mat-list-item>
+
+  <mat-list-item class="my-list-item"
+                 (click)="navigateToImport()"
+                 *ngIf="auth.currentUserId === test.authorId">
+    <mat-icon mat-list-icon>arrow_upward</mat-icon>
+    <h4 mat-line>{{ 'test-info-import' | translate}}</h4>
+    <p mat-line>{{ 'test-info-import-text' | translate}}</p>
+  </mat-list-item>
+
+  <mat-list-item class="my-list-item"
+                 (click)="deleteTest()"
+                 *ngIf="auth.currentUserId === test.authorId">
+    <mat-icon mat-list-icon>delete</mat-icon>
+    <h4 mat-line>{{ 'test-info-delete' | translate}}</h4>
+    <p mat-line [innerHTML]="'test-info-delete-text' | translate"></p>
+  </mat-list-item>
+</mat-list>

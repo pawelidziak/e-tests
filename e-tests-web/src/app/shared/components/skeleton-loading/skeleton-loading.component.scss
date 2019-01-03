@@ -1,0 +1,105 @@
+@import '../../../../assets/scss/variables';
+
+.skeleton {
+  padding: 12px;
+}
+
+@mixin skeleton-bg {
+  background: rgba(0, 0, 0, .3);
+}
+
+@mixin title($width, $height: 6px) {
+  margin: 6px 0;
+  width: $width;
+  height: .5*$height;
+  @media #{$gt-sm_size} {
+    height: $height;
+  }
+  border-radius: $border-radius;
+  @include skeleton-bg;
+  z-index: 999;
+}
+
+.title-100 {
+  @include title(100%);
+}
+
+.title-80 {
+  @include title(80%);
+}
+
+.title-60 {
+  @include title(60%);
+}
+
+.answer {
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: $border-radius;
+  padding: 12px;
+  margin-top: 12px;
+  @media #{$gt-md_size} {
+    margin-top: 24px;
+  }
+}
+
+.answer-text-100 {
+  @include title(100%, 3px);
+}
+
+.answer-text-80 {
+  @include title(80%, 3px);
+}
+
+.answer-text-60 {
+  @include title(60%, 3px);
+}
+
+.button {
+  @include skeleton-bg;
+  width: 100px;
+  height: 30px;
+  border-radius: .5*$border-radius;
+  margin-right: 12px;
+}
+
+@-webkit-keyframes Disappear {
+  0% {
+    opacity: .5;
+  }
+  50% {
+    opacity: .1;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+@-moz-keyframes Disappear {
+  0% {
+    opacity: .5;
+  }
+  50% {
+    opacity: .1;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+@keyframes Disappear {
+  0% {
+    opacity: .5;
+  }
+  50% {
+    opacity: .1;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+.show-animation{
+  -webkit-animation: Disappear 3s linear infinite;
+  -moz-animation: Disappear 3s linear infinite;
+  animation: Disappear 3s linear infinite;
+}

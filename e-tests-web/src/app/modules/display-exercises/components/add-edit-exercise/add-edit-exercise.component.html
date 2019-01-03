@@ -1,0 +1,94 @@
+<section class="add-edit-dialog-section">
+  <mat-dialog-content>
+
+    <div class="exercise-container">
+      <div class="exercise-question">
+        <mat-form-field color="accent"
+                        class="width-100"
+                        floatLabel="never">
+          <input matInput
+                 myAutofocus
+                 type="text"
+                 [placeholder]="'display-one-exer-question-placeholder' | translate"
+                 [(ngModel)]="exercise.question">
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div *ngFor="let answer of exercise.answers; let j=index; trackBy: customTrackBy"
+             class="col-12 col-md-6 add-edit-single-answer">
+
+          <!--EDITABLE ANSWER-->
+          <div class="editable-answer">
+            <mat-checkbox #matCheck
+                          [matTooltip]="'display-one-exer-correct-answer' | translate"
+                          [checked]="checkIfIsCorrect(j)"
+                          (change)="changeCorrectAnswer(j, matCheck.checked)"
+                          class="answer-checkbox"></mat-checkbox>
+
+            <mat-form-field color="accent"
+                            class="answer-text width-100"
+                            appearance="outline">
+              <mat-label>{{('display-one-exer-answer-label' | translate) + getLetterFromAscii(j)}}</mat-label>
+              <input matInput
+                     [placeholder]="'display-one-exer-answer-placeholder' | translate"
+                     [(ngModel)]="exercise.answers[j]">
+            </mat-form-field>
+
+            <button mat-icon-button
+                    style="outline: none;"
+                    id="deleteAnswerButton"
+                    [matTooltip]="'display-one-exer-delete' | translate"
+                    (click)="deleteOneAnswer(j)"
+                    *ngIf="j > 1">
+              <mat-icon aria-label="Delete answer">delete_outline</mat-icon>
+            </button>
+          </div>
+
+        </div><!-- /single-answer -->
+
+        <div *ngIf="exercise.answers.length < 9" class="col-12 add-answer">
+          <button mat-button color="accent" style="opacity: 1;" (click)="exercise.answers.push('');">
+            <mat-icon aria-label="Add answer">add</mat-icon>
+            <span>{{ 'display-one-exer-add-answer' |translate}}</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="overview">
+
+      <h2 class="overview-header header-line-right">Overview</h2>
+
+      <app-display-one-exercise [exercise]="exercise">
+      </app-display-one-exercise>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="exercise-dialog-actions">
+    <div>
+      <button *ngIf="!isNew"
+              mat-icon-button
+              color="warn"
+              (click)="deleteExercise()">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button
+              color="accent"
+              (click)="saveExercise()">
+        Save
+      </button>
+      <button mat-button
+              mat-dialog-close>
+        Cancel
+      </button>
+    </div>
+  </mat-dialog-actions>
+
+</section>

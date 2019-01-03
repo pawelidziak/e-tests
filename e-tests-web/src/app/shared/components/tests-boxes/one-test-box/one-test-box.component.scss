@@ -1,0 +1,43 @@
+@import '../../../../../assets/scss/variables';
+@import '../../../../../assets/scss/mixins';
+
+.box-item {
+  z-index: 1;
+  color: $text_secondary;
+  height: 100%;
+  border-radius: $border-radius;
+  border: 1px solid $hover_color;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    z-index: 2;
+    transform: scale(1.05);
+  }
+  padding: $margin;
+}
+
+.box-item-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5*$margin;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box-item-icon {
+  @include mat-icon-size(15px);
+  margin-right: .25*$margin;
+}
+
+.in-progress-bar {
+  margin-bottom: .5*$margin;
+  height: 6px;
+  border-radius: $border-radius;
+}
+

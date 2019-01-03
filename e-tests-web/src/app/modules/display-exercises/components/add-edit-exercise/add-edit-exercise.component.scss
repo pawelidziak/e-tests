@@ -1,0 +1,101 @@
+@import '../../../../../assets/scss/variables';
+@import '../../../../../assets/scss/mixins';
+
+.add-edit-dialog-section {
+  padding: 24px;
+}
+
+.exercise-question {
+  display: flex;
+  align-items: center;
+}
+
+/*
+  ANSWERS
+ */
+/deep/ .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.add-edit-single-answer {
+  display: flex;
+  align-items: center;
+  margin-bottom: .25*$margin;
+  @media #{$gt-md_size}{
+    margin-bottom: .5*$margin;
+  }
+}
+
+.answer-text {
+  min-width: 0;
+  padding-left: .5*$margin;
+  @media #{$gt-xs_size}{
+    padding-left: $margin;
+  }
+  font-size: 1.1*$font-small;
+}
+
+.editable-answer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.answer-checkbox {
+  height: 20px;
+}
+
+.add-answer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    outline: none;
+  }
+}
+
+#deleteAnswerButton {
+  margin-right: -12px;
+  @media #{$gt-lg_size} {
+    margin-right: -19px;
+  }
+  color: $text_secondary;
+  &:hover {
+    color: $material-red;
+  }
+}
+
+/*
+  OVERVIEW
+ */
+.overview-header {
+  margin: 2*$margin 0 $margin;
+  @media #{$gt-lg_size} {
+    margin: 3*$margin 0 $margin;
+  }
+  font: 500 20px/32px Roboto
+}
+
+.header-line-right {
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  &:after {
+    content: '';
+    display: inline-block;
+    background: $divider_color;
+    margin-right: -100%;
+    margin-left: .5*$margin;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+  }
+}
+
+.exercise-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

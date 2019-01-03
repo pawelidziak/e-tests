@@ -1,0 +1,43 @@
+/**
+        define colors here
+ */
+
+$bg-dark: #33333D;
+// #33333D
+// #37373F
+
+$primary: #009688; //#673ab7;
+$primary-dark: #00695c; //#512DA8;
+$primary-light: #b2dfdb;
+$accent: #ef6c00; //#03A9F4;
+
+// #4CAF50 - fajny zielony
+
+$text-white: #FAFAFA;
+$text-dark: #202020;
+$text_secondary: #757575;
+
+$divider_color: #E0E0E0;
+$hover_color: rgba(0, 0, 0, 0.1);
+
+$material-red: #F44336;
+$material-green: #8BC34A;
+
+// media queries variables
+$gt-xs_size: 'screen and (min-width: 600px)'; // Small devices (landscape phones, 600px and up)
+$gt-sm_size: 'screen and (min-width: 768px)'; // Medium devices (tablets, 768px and up)
+$gt-md_size: 'screen and (min-width: 960px)'; // Large devices (desktops, 992px and up)
+$gt-lg_size: 'screen and (min-width: 1280px)'; // Extra large devices (large desktops, 1200px and up)
+
+$btw_xs_sm: 'screen and (min-width: 576px) and (max-width: 768px)';
+$btw_sm_md: 'screen and (min-width: 768px) and (max-width: 960px)';
+$lt_xs_size: 'screen and (max-width: 600px)';
+$lt_md_size: 'screen and (max-width: 960px)';
+
+// sizes
+$margin: 24px;
+
+$font-normal: 15px;
+$font-small: 12px;
+
+$border-radius: 10px;

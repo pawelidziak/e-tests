@@ -1,0 +1,79 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+button {
+  outline: none;
+}
+
+.select-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: $border-radius;
+}
+
+.select-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.parser-button {
+  margin-right: .25*$margin;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  @include fs-small-X-normal();
+}
+
+.selected-parser {
+  font-weight: bold;
+  padding: 0 .5*$margin;
+}
+
+.import-card {
+  border-radius: $border-radius;
+  margin-top: $margin;
+}
+
+.import-card-header {
+  padding: $margin 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media #{$gt-sm_size} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.import-warning {
+  margin: 12px 0;
+  @media #{$gt-sm_size} {
+    margin: 0;
+  }
+}
+
+.import-buttons {
+  display: flex;
+  align-items: center;
+  button {
+    @include upper-text();
+    margin-left: .5*$margin;
+  }
+}
+
+.drop-zone {
+  margin-top: $margin;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 300px;
+  border: 2px dashed;
+  border-radius: $border-radius;
+
+  &.hovering {
+    border: 2px solid;
+    opacity: .5;
+  }
+}

@@ -2,10 +2,59 @@
 
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-deep-purple);
-$my-app-accent: mat-palette($mat-blue);
-$my-app-warn: mat-palette($mat-red);
+// Typography
+$custom-typography: mat-typography-config(
+  $font-family: Roboto,
+  $headline: mat-typography-level(24px, 48px, 400),
+  $body-1: mat-typography-level(16px, 24px, 400)
+);
+@include angular-material-typography($custom-typography);
 
-$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+// Blue theme
+$blue-primary: mat-palette($mat-indigo, A700);
+$blue-accent: mat-palette($mat-light-blue);
+$blue-warn: mat-palette($mat-red);
 
-@include angular-material-theme($my-app-theme);
+$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
+
+// Purple theme
+$purple-primary: mat-palette($mat-deep-purple, 700);
+$purple-accent: mat-palette($mat-deep-purple, A200);
+$purple-warn: mat-palette($mat-red);
+
+$purple-theme: mat-light-theme($purple-primary, $purple-accent, $purple-warn);
+
+// Green theme
+$green-primary: mat-palette($mat-green, 800);
+$green-accent: mat-palette($mat-green, 600);
+$green-warn: mat-palette($mat-red);
+
+$green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
+
+// Dark theme$mat-blue-grey, 400
+$dark-primary: mat-palette($mat-blue-grey, 900);
+$dark-accent: mat-palette($mat-blue-grey, 600);
+$dark-warn: mat-palette($mat-red, 500);
+
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// ADD THEMES
+
+// default
+@include angular-material-theme($blue-theme);
+
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+}
+
+.purple-theme {
+  @include angular-material-theme($purple-theme);
+}
+
+.green-theme {
+  @include angular-material-theme($green-theme);
+}
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+}

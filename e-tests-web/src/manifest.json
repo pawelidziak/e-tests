@@ -1,31 +1,51 @@
 {
-  "name": "Electronic Tests",
-  "short_name": "E-Tests",
-  "description": "Learn simply and pleasantly",
+  "name": "eTesto",
+  "short_name": "eTesto",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
-      "src": "assets/app-icon/icon-128x128.png",
+      "src": "assets/icons/etesto72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/etesto96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/etesto128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "assets/app-icon/icon-152x152.png",
+      "src": "assets/icons/etesto144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/etesto152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "assets/app-icon/icon-256x256.png",
-      "sizes": "256x256",
+      "src": "assets/icons/etesto192.png",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "assets/app-icon/icon-512x512.png",
+      "src": "assets/icons/etesto384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/etesto512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#673ab7"
+  ]
 }

@@ -1,0 +1,67 @@
+<footer *ngIf="headerValues.pageHeaderVisibility">
+  <mat-card class="app-footer">
+
+    <div class="container">
+      <nav class="row">
+
+        <div class="col-12 col-md-6 app-info">
+        <span class="beta-paragraph"
+              [style.background-color]="appSettings.currentTheme.accent"
+              [style.color]="appSettings.currentTheme.textColor">
+          beta
+        </span>
+          <h3 class="my-sub-title" [innerHTML]="'app-footer-header' | translate"></h3>
+          <p [innerHTML]="'app-footer-paragraph' | translate"></p>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">{{ 'app-footer-navigation' | translate}}</h3>
+          <ul class="footer-list">
+            <li *ngFor="let link of generalLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label | translate}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">{{ 'app-footer-general' | translate}}</h3>
+          <ul class="footer-list">
+            <li *ngFor="let link of supportLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label | translate}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div class="col-4 col-md-2">
+          <h3 class="sub-paragraph-font">{{ 'app-footer-account' | translate}}</h3>
+          <button mat-raised-button
+                  style="margin-top: 12px;"
+                  *ngIf="!user"
+                  color="accent"
+                  (click)="openAuthDialog()">
+            Login
+          </button>
+          <ul class="footer-list" *ngIf="user">
+            <li *ngFor="let link of accountLinks">
+              <a [routerLink]="link.path"
+                 [routerLinkActive]="['active-link']">
+                {{link.label | translate}}
+              </a>
+            </li>
+            <li (click)="logout()" style="cursor: pointer;"><a>{{'app-header-logout' | translate}}</a></li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </mat-card>
+</footer>

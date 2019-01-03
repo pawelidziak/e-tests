@@ -1,0 +1,132 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.header-buttons {
+  display: flex;
+  margin-top: 48px;
+  button {
+    @include upper-text();
+    margin-right: 12px;
+  }
+}
+
+/**
+      PHONE & ANIMATION
+ */
+
+.phone-container {
+  display: none;
+  @media #{$gt-sm_size} {
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+    transform: rotate(6deg);
+  }
+}
+
+.phone {
+  margin-right: -100px;
+  height: 520px;
+  width: 310px;
+  @media #{$gt-md_size} {
+    height: 580px;
+    width: 370px;
+  }
+  @include phone_skeleton;
+}
+
+.skeleton-container {
+  opacity: 0.3;
+}
+
+.logo-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .img-logo-circle {
+    animation: pulse 10s ease-in-out infinite;
+    width: 40%;
+    border-radius: 50%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.start-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  .start-button {
+    @include upper-text();
+    width: 100%;
+    @media #{$gt-md_size} {
+      padding: 6px 0;
+    }
+  }
+}
+
+/**
+      DASHBOARD CARD
+ */
+
+.dashboard-card {
+  box-shadow: none !important;
+}
+
+.all-devices {
+  text-align: center;
+  padding: 72px 0 150px;
+  @media #{$gt-sm_size} {
+    padding: 200px 0 250px;
+  }
+  @media #{$gt-md_size} {
+    padding: 50px 0 210px;
+  }
+}
+
+.join-us {
+  text-align: center;
+  padding: 100px 0 50px;
+  @media #{$gt-lg_size} {
+    padding: 200px 0 150px
+  }
+}
+
+/*
+      ADDITIONAL ELEMENTS
+ */
+.devices-icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2*$margin;
+}
+
+.dashboard-button {
+  @include upper-text();
+}
+
+.dashboard-large-icon {
+  color: $text_secondary;
+  margin: 0 6px;
+  @include mat-icon-size(72px);
+  @media #{$gt-sm_size} {
+    @include mat-icon-size(102px);
+  }
+}
+
+.app-logo-svg-dashboard {
+  padding: 16px;
+  width: 124px;
+  border-radius: 100%;
+  margin-bottom: 24px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}

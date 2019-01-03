@@ -1,0 +1,110 @@
+@import '../../../../../assets/scss/variables';
+@import '../../../../../assets/scss/mixins';
+
+.app-header-container {
+  z-index: 2;
+  font-size: 1.1*$font-normal;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.my-fixed-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: .5*$margin;
+  overflow: hidden;
+  z-index: 9;
+  box-shadow: 0 50px 100px rgba(50, 50, 93, .1), 0 15px 35px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, .1);
+}
+
+.my-fixed-nav-card {
+  padding: 0;
+}
+
+.close-nav {
+  display: flex;
+  align-items: center;
+  padding-left: .5*$margin;
+  justify-content: space-between;
+}
+
+.my-nav-list {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  a {
+    text-decoration: none;
+  }
+}
+
+.my-slide-nav-list {
+  display: flex;
+  flex-direction: column;
+  color: $text_secondary;
+  li {
+    width: 100%;
+  }
+  a {
+    width: 100%;
+    padding: .5*$margin 0;
+    outline: none;
+  }
+
+}
+
+.active-link {
+  background: $hover_color;
+}
+
+.mat-menu-item, button {
+  outline: none;
+}
+
+.user-button {
+  /deep/ .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.user-photo {
+  background-size: cover;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
+
+/**
+    LOGO
+ */
+.app-logo {
+  margin-right: 48px;
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 20px;
+  transition: 0.2s opacity ease-in-out;
+  &:hover {
+    opacity: 0.5;
+  }
+  .logo-text {
+    font-size: 24px;
+    margin-right: 2px;
+    letter-spacing: 1px;
+    @media #{$gt-sm_size} {
+      font-weight: bold;
+    }
+  }
+  .app-logo-svg {
+    width: 24px;
+  }
+}

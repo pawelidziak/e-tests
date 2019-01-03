@@ -1,0 +1,13 @@
+<mat-form-field [appearance]="appearance"
+                [color]="color"
+                [ngClass]="{'width-100': width100}"
+                [style.margin]="margins">
+  <mat-label>{{ 'test-desc-label' | translate}}</mat-label>
+  <textarea matInput
+            [placeholder]="'test-desc-placeholder' | translate"
+            rows="4"
+            type="text"
+            [formControl]="testDescControl"
+            (keyup)="setValue(testDescControl.value)">
+  </textarea>
+</mat-form-field>

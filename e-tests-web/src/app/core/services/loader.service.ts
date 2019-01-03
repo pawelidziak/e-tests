@@ -1,29 +1,31 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/do';
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class LoaderService {
+
+  private _isOnLoad: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor() {
   }
 
-  private _status: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  get status(): BehaviorSubject<boolean> {
-    return this._status;
+  get isOnLoad(): BehaviorSubject<boolean> {
+    return this._isOnLoad;
   }
 
   start() {
-    this.display(true);
+    this.setOnLoadValue(true);
   }
 
   complete() {
-    this.display(false);
+    this.setOnLoadValue(false);
   }
 
-  private display(value: boolean) {
-    this._status.next(value);
+  private setOnLoadValue(value: boolean) {
+    this._isOnLoad.next(value);
   }
 
 }

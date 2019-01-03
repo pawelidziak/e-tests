@@ -1,0 +1,91 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+/*
+      MAIN HEADER BG
+ */
+.main-header-bg {
+  width: 100%;
+  position: absolute;
+  height: 100vh;
+  overflow: hidden;
+  @include rotate(-2deg);
+  -webkit-transform-origin: 0;
+  transform-origin: 0;
+
+  span {
+    position: absolute;
+    transform-origin: 50% 48%;
+    border-radius: 43%;
+    height: 200%;
+    width: 200%;
+    &:first-child {
+      top: -111%;
+      left: -85%;
+      @include rotate(9deg);
+      @media #{$gt-md_size} {
+        top: -117%;
+        left: -70%;
+        @include rotate(-12deg);
+      }
+    }
+    &:nth-child(2) {
+      background-color: rgba(0, 0, 0, 0.03);
+      display: block;
+      right: -90%;
+      top: -125%;
+      @include rotate(-13deg);
+    }
+  }
+}
+
+.main-card {
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.router-bg {
+  opacity: 0.9;
+  overflow: hidden;
+  position: absolute;
+  top: 1400px;
+  left: -1000px;
+  right: -1000px;
+  height: calc(100% - 1400px);
+  span {
+    height: 850px;
+    width: 100%;
+    position: absolute;
+    &:first-child {
+      top: 75px;
+      @include rotate(-2deg);
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+    &:nth-child(2) {
+      top: 1600px;
+      @include rotate(2deg);
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+    &:nth-child(3) {
+      top: 3125px;
+      @include rotate(-2deg);
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+    &:nth-child(4) {
+      top: 4650px;
+      @include rotate(2deg);
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    &:nth-child(5) {
+      top: 6175px;
+      @include rotate(-2deg);
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+  }
+}

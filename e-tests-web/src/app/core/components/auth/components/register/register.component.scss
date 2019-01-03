@@ -1,0 +1,55 @@
+@import '../../../../../../assets/scss/variables';
+@import '../../../../../../assets/scss/mixins';
+
+.register-container {
+  display: flex;
+  min-width: 30vw;
+  flex-direction: column;
+  @include fs-small-X-normal();
+  button {
+    outline: none;
+  }
+}
+
+.register-text {
+  text-align: center;
+  color: $text_secondary;
+  @include upper-text();
+  @include fs-small-X-normal();
+  border-bottom: 1px solid $hover_color;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-text, .register-form {
+  padding: $margin .5*$margin;
+  @media #{$gt-md_size} {
+    padding: $margin;
+  }
+}
+
+#registerButton {
+  width: 100%;
+  @include upper-text();
+  @include fs-small-X-normal();
+}
+
+.policies {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-error {
+  color: $material-red;
+}
+
+.d-flex-end {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 12px;
+}

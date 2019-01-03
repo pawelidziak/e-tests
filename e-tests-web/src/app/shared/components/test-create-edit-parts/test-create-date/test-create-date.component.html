@@ -1,0 +1,11 @@
+<mat-form-field [appearance]="appearance"
+                [color]="color"
+                [ngClass]="{'width-100': width100}"
+                [style.margin]="margins">
+  <mat-label>{{ 'test-create-label' | translate}}</mat-label>
+  <input matInput placeholder="Create date"
+         [formControl]="testCreateDateControl"
+         [value]="testCreateDateControl.value | date: 'dd.MM.yyyy'">
+
+</mat-form-field>
+

@@ -1,0 +1,25 @@
+<mat-form-field [appearance]="appearance"
+                [color]="color"
+                [ngClass]="{'width-100': width100}"
+                [style.margin]="margins">
+  <mat-label>{{ 'test-tags-label' | translate}}</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let tag of testTags"
+              class="one-tag"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeTag(tag)">
+      {{tag}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input [placeholder]="'test-tags-placeholder' | translate"
+           #chipInput
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addTag(chipInput)"
+           (focusout)="addTag(chipInput)"/>
+  </mat-chip-list>
+  <mat-hint [innerHTML]="'test-tags-hint' | translate"></mat-hint>
+  <mat-error *ngIf="chipList.errorState" [innerHTML]="'test-tags-error' | translate"></mat-error>
+</mat-form-field>

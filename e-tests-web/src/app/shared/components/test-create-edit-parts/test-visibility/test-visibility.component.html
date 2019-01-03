@@ -1,0 +1,7 @@
+<mat-checkbox [formControl]="testVisibilityControl"
+              [matTooltip]="tooltip"
+              [color]="color"
+              [style.margin]="margins"
+              (change)="setValue(testVisibilityControl.value)">
+  {{ 'test-visibility-public' | translate  }}
+</mat-checkbox>

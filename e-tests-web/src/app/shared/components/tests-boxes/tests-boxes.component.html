@@ -1,0 +1,54 @@
+<mat-card class="tests-boxes-card" *ngIf="testList" [@slideFromTop]>
+
+  <div class="row">
+    <div class="col-12" style="margin-bottom: 24px;">
+      <mat-form-field color="accent"
+                      floatLabel="never"
+                      style="width: 100%;">
+        <input matInput
+               [placeholder]="'test-boxes-placeholder' | translate"
+               [(ngModel)]="searchText"
+               [disabled]="testList.length === 0">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-3"
+         *ngFor="let user_test of testList | searchTest: searchText"
+         style="margin-bottom: 30px">
+      <app-one-test-box [oneBox]="user_test"></app-one-test-box>
+    </div>
+  </div>
+
+  <div *ngIf="testList.length > 0 && (testList | searchTest: searchText).length === 0"
+       class="no-matches">
+    <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
+    <p class="text">{{ 'no-results' | translate}}</p>
+    <button mat-stroked-button color="accent" (click)="searchText = ''">{{ 'clear-input' | translate}}</button>
+  </div>
+
+</mat-card>
+
+<div *ngIf="!testList"
+     style="padding-top: 80px;"
+     class="no-matches">
+  <p class="my-sub-title">{{ 'no-results' | translate}}</p>
+  <div class="no-matches-buttons">
+    <a mat-flat-button
+       color="accent"
+       class="go-search-button"
+       [routerLink]="'/'+ALL_ROUTES.SEARCH">
+      <mat-icon>search</mat-icon>
+      <span style="margin-left: 12px;">{{ 'go-to-search' | translate}}</span>
+    </a>
+    <span style="margin: 12px; font-size: 12px;">or</span>
+    <a mat-flat-button
+       color="accent"
+       class="go-search-button"
+       [routerLink]="'/'+ALL_ROUTES.CREATE_TEST">
+      <mat-icon>add</mat-icon>
+      <span style="margin-left: 12px;">{{ 'create-test' | translate}}</span>
+    </a>
+  </div>
+</div>

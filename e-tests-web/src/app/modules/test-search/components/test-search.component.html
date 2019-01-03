@@ -1,0 +1,20 @@
+<section class="section-padding" [style.color]="appSettings.currentTheme.textColor">
+
+  <div class="search-header">
+    <h3 class="my-title" [innerHTML]="'search-header' | translate"></h3>
+    <div style="display: flex;">
+      <button mat-icon-button (click)="isTable = false">
+        <mat-icon aria-label="Table">view_module</mat-icon>
+      </button>
+      <button mat-icon-button (click)="isTable = true">
+        <mat-icon aria-label="Boxes">format_list_bulleted</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <p class="my-sub-title" style="margin-bottom: 48px;">{{ 'search-paragraph' | translate}}</p>
+
+  <app-test-boxes *ngIf="!isTable" [testList]="testList"></app-test-boxes>
+  <app-tests-table *ngIf="isTable" [testList]="testList"></app-tests-table>
+
+</section>

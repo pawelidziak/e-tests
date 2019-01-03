@@ -1,0 +1,28 @@
+<section class="section-padding">
+  <mat-card class="card-radius">
+
+    <div class="icon-div">
+      <mat-icon aria-label="Smartphone" class="device-icon">smartphone</mat-icon>
+      <mat-icon aria-label="Laptop" class="device-icon">laptop</mat-icon>
+      <mat-icon aria-label="Tablet" class="device-icon">tablet</mat-icon>
+    </div>
+
+    <div class="sys-content">
+      <h3 class="my-title text-center">{{ 'app-download-mobile' | translate }}</h3>
+      <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-one' | translate"></p>
+      <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-two' | translate"></p>
+      <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-three' | translate"></p>
+      <p class="my-sub-title" [innerHTML]="'app-download-mobile-instruction-four' | translate"></p>
+    </div>
+
+    <div class="sys-content">
+      <h3 class="my-title text-center">Windows / MacOS / Linux</h3>
+      <p class="my-sub-title" [innerHTML]="'app-download-launch-version' | translate"></p>
+      <div class="download-buttons">
+        <button mat-raised-button color="accent" (click)="downloadWin()">Windows</button>
+        <button mat-raised-button color="accent" (click)="downloadMacOS()">MacOS</button>
+        <button mat-raised-button color="accent" (click)="downloadLinux()">Linux</button>
+      </div>
+    </div>
+  </mat-card>
+</section>

@@ -1,0 +1,41 @@
+<mat-card class="main-card">
+  <div class="main-header-bg"
+       aria-hidden="true">
+    <span [style.background-image]="'linear-gradient(150deg, '+
+                       appSettings?.currentTheme?.accent+' 43%  , '+
+                       appSettings?.currentTheme?.primary+')'"></span>
+    <span></span>
+  </div>
+  <main class="container"
+        style="position: relative; padding-bottom: 100px;">
+
+    <app-header [height]="headerHeight"
+                [user]="user"
+                [isSmallScreen]="isSmallScreen">
+    </app-header>
+
+    <app-page-header [height]="headerHeight" [user]="user"></app-page-header>
+
+    <div [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+      <div class="router-bg">
+        <span [style.background-image]="'linear-gradient(to right, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'"></span>
+        <span [style.background-image]="'linear-gradient(to left, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'"></span>
+        <span [style.background-image]="'linear-gradient(to right, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'"></span>
+        <span [style.background-image]="'linear-gradient(to left, '+
+                       appSettings?.currentTheme?.primary+', '+
+                       appSettings?.currentTheme?.accent+')'"></span>
+      </div>
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
+
+  </main>
+
+  <div style="flex: 1 0;"></div>
+  <app-footer [user]="user"></app-footer>
+</mat-card>

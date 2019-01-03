@@ -1,0 +1,133 @@
+<section class="section-padding">
+  <div class="row" style="min-height: 80vh">
+    <div class="col-12 col-md-8 col-lg-6"
+         [style.color]="appSettings.currentTheme.textColor">
+      <div class="sub-title-text">
+        <h3 class="my-title" [innerHTML]="'dashboard-header' | translate"></h3>
+        <p class="my-sub-title">{{ 'dashboard-paragraph' | translate }}</p>
+        <div class="header-buttons">
+          <button mat-raised-button [routerLink]="'/' + ALL_ROUTES.CREATE_TEST">Create</button>
+          <button mat-raised-button color="accent" [routerLink]="'/' + ALL_ROUTES.SEARCH">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-6 phone-container">
+      <mat-card class="phone"
+                [style.background-color]="appSettings.currentTheme.name === 'dark-theme' ? '#595959' : '#FAFAFA'">
+        <div class="phone_inner" style="cursor: pointer;"
+             (click)="scrollToMore()">
+          <div class="skeleton-container">
+            <app-skeleton-loading [showAnimation]="false"></app-skeleton-loading>
+          </div>
+          <div class="logo-container">
+            <div class="img-logo-circle" [style.background-color]="appSettings.currentTheme.accent">
+              <img src="assets/icons/app-logo.svg" class="app-logo-svg" alt="Logo">
+            </div>
+          </div>
+          <div class="start-container">
+            <button mat-button color="accent" class="start-button">
+              {{ 'lets-start' | translate }}
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <mat-card class="dashboard-card" id="dashboardCard">
+    <!-- ALL DEVICES -->
+    <div class="all-devices">
+      <div class="devices-icons">
+        <mat-icon aria-label="Smartphone" class="dashboard-large-icon">smartphone</mat-icon>
+        <mat-icon aria-label="Laptop" class="dashboard-large-icon">laptop</mat-icon>
+        <mat-icon aria-label="Tablet" class="dashboard-large-icon">tablet</mat-icon>
+      </div>
+
+      <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">
+        {{ 'device-header' | translate }}
+      </h3>
+      <p class="my-sub-title" [innerHTML]="'device-paragraph' | translate"></p>
+
+      <button mat-raised-button
+              class="dashboard-button"
+              [routerLink]="'/' + ALL_ROUTES.DOWNLOAD"
+              color="accent">
+        <mat-icon aria-label="Download">cloud_download</mat-icon>
+        <span style="margin-left: 12px;">{{ 'dashboard-download-button' | translate }}</span>
+      </button>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row">
+      <!-- LEARN -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-learn-header' | translate"
+                         [headerIcon]="'school'"
+                         [paragraph]="'feature-learn-paragraph' | translate"
+                         [ariaLabel]="'Learn'">
+        </app-one-feature>
+      </div>
+
+      <!-- NEW TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-create-header' | translate"
+                         [headerIcon]="'add_circle_outline'"
+                         [paragraph]="'feature-create-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
+      </div>
+
+      <!-- SEARCH TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-search-header' | translate"
+                         [headerIcon]="'search'"
+                         [paragraph]="'feature-search-paragraph' | translate"
+                         [ariaLabel]="'Create'">
+        </app-one-feature>
+      </div>
+
+      <!-- TEST LEARN CONFIG -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-config-header' | translate"
+                         [headerIcon]="'settings'"
+                         [paragraph]="'feature-config-paragraph' | translate"
+                         [ariaLabel]="'Settings'">
+        </app-one-feature>
+      </div>
+
+      <!-- IMPORT EXERCISES -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-import-header' | translate"
+                         [headerIcon]="'import_export'"
+                         [paragraph]="'feature-import-paragraph' | translate"
+                         [ariaLabel]="'Import / export'">
+        </app-one-feature>
+      </div>
+
+      <!-- STARTED TEST -->
+      <div class="col-12 col-md-6">
+        <app-one-feature [headerText]="'feature-started-header' | translate"
+                         [headerIcon]="'collections_bookmark'"
+                         [paragraph]="'feature-started-paragraph' | translate"
+                         [ariaLabel]="'Progress'">
+        </app-one-feature>
+      </div>
+    </div>
+
+    <!-- JOIN US-->
+    <!-- USER NOT LOGGED -->
+    <div class="join-us">
+      <object data="assets/icons/app-logo.svg"
+              [style.background-color]="appSettings.currentTheme.accent"
+              type="image/svg+xml"
+              class="app-logo-svg-dashboard">
+        <img src="assets/icons/app-logo.svg" alt="Logo"/>
+      </object>
+      <h3 class="my-title" [style.color]="appSettings.currentTheme.accent">{{ 'join-header' | translate }}</h3>
+      <p class="my-sub-title">{{ 'join-paragraph' | translate }}</p>
+    </div>
+
+  </mat-card><!-- /dashboard-card -->
+
+</section>
+

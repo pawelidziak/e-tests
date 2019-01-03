@@ -1,0 +1,35 @@
+@import '../../../../../assets/scss/variables';
+@import '../../../../../assets/scss/mixins';
+
+/**
+      TEXT
+ */
+.feature-container {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-icon {
+  @include mat-icon-size(72px);
+  margin: 0 6px;
+  @media #{$gt-xs_size} {
+    @include mat-icon-size(102px);
+    margin: 0 12px;
+  }
+}
+
+.feature-header {
+  color: $text_secondary;
+  font-size: 1.5*$font-normal;
+  @include upper-text();
+  margin: 12px 0;
+  text-align: center;
+}
+
+.feature-paragraph {
+  text-align: center;
+  color: $text_secondary;
+}

@@ -1,0 +1,75 @@
+<section class="section-display-exercises" *ngIf="copyExerciseList" id="sectionExercise">
+
+  <!-- EXERCISES HEADER -->
+  <div class="exercises-header">
+
+    <mat-form-field *ngIf="searchInputFocused"
+                    [@slideFromRightToRight]
+                    appearance="legacy"
+                    color="accent"
+                    class="width-100"
+                    floatLabel="never">
+      <mat-label>{{ 'display-exer-label' | translate}}</mat-label>
+      <input matInput [(ngModel)]="searchText"
+             [placeholder]="'display-exer-placeholder' | translate">
+      <button mat-button matSuffix
+              mat-icon-button
+              aria-label="Close"
+              (click)="searchInputFocused = false; searchText = ''">
+        <mat-icon aria-label="Close">close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-icon-button
+            [matTooltip]="'display-exer-search' | translate"
+            *ngIf="!searchInputFocused"
+            [disabled]="copyExerciseList.length === 0"
+            (click)="searchInputFocused = true">
+      <mat-icon aria-label="Search">search</mat-icon>
+    </button>
+
+    <button mat-mini-fab
+            style="margin-left: 6px;"
+            [matTooltip]="'display-exer-exercise' | translate"
+            *ngIf="auth.currentUserId === authorId"
+            [disabled]="copyExerciseList.length > 99"
+            (click)="openExerciseDialog()">
+      <mat-icon aria-label="Add">add</mat-icon>
+    </button>
+
+  </div> <!-- /EXERCISES HEADER -->
+
+  <div *ngFor="let exercise of copyExerciseList | searchExercise : searchText; let i=index">
+    <app-display-one-exercise [exercise]="exercise"
+                              [number]="i + 1"
+                              [isAuthor]="auth.currentUserId === authorId"
+                              (exerciseUpdated)="handleExerciseUpdated($event)"
+                              (exerciseDeleted)="handleExerciseDeleted($event)">
+    </app-display-one-exercise>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div *ngIf="copyExerciseList.length === 0" class="no-results">
+    <mat-icon aria-label="No matches icon" class="no-results-icon">sentiment_very_dissatisfied</mat-icon>
+    <p class="my-sub-title">{{ 'test-info-no-results' | translate}}</p>
+  </div>
+
+  <!-- NO MATCHES -->
+  <div *ngIf="copyExerciseList.length > 0 && (copyExerciseList | searchExercise: searchText).length === 0"
+       class="no-matches">
+    <mat-icon aria-label="No matches icon" class="no-matches-icon">sentiment_very_dissatisfied</mat-icon>
+    <p class="text">{{ 'no-results' | translate}}</p>
+    <button mat-stroked-button color="accent" (click)="searchText = ''">{{ 'clear-input' | translate}}</button>
+  </div>
+
+  <div class="exercise-actions">
+    <button mat-raised-button
+            *ngIf="auth.currentUserId === authorId && copyExerciseList.length > 5 && searchText === ''"
+            color="accent"
+            id="newExerciseButton"
+            [disabled]="copyExerciseList.length > 99"
+            (click)="openExerciseDialog()">
+      <span>{{ 'display-exer-exercise' | translate}}</span>
+    </button>
+  </div>
+</section>

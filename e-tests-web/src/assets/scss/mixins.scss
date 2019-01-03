@@ -1,0 +1,100 @@
+@import "variables";
+
+@mixin box_shadow() {
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.23);
+}
+
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin mat-icon-size($size: 24px) {
+  font-size: $size;
+  @include size($size, $size)
+}
+
+/*
+      FLEX UTILITIES
+ */
+
+@mixin flex-center-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+      BUTTONS
+ */
+@mixin upper-text($size: $font-normal) {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: $size;
+}
+
+/*
+      SIZES
+ */
+@mixin fs-small-X-normal($breakpoint: $gt-lg_size) {
+  font-size: $font-small;
+  @media #{$breakpoint} {
+    font-size: $font-normal;
+  }
+}
+
+/*
+      BORDER
+ */
+@mixin top-to-bottom-border($size: 1px, $color: $hover_color) {
+  border-top: $size solid $color;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($color), to(transparent));
+  background-image: -webkit-linear-gradient($color, transparent);
+  background-image: -moz-linear-gradient($color, transparent),
+  -moz-linear-gradient($color, transparent);
+  background-image: -o-linear-gradient($color, transparent),
+  -o-linear-gradient($color, transparent);
+  background-image: linear-gradient($color, transparent),
+  linear-gradient($color, transparent);
+  -moz-background-size: $size 100%;
+  background-size: $size 100%;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+}
+
+
+/*
+      ROTATE
+ */
+@mixin rotate($rotate) {
+  -webkit-transform: skewY($rotate);
+  transform: skewY($rotate);
+}
+
+
+/*
+      PHONE SKELETON
+ */
+@mixin phone_skeleton() {
+  z-index: 2;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
+  .phone_inner {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid $hover_color;
+    height: calc(100% - 96px);
+    width: calc(100% - 24px);
+    position: absolute;
+    top: 48px;
+    left: 12px;
+  }
+}
+
+@mixin border-none(){
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
