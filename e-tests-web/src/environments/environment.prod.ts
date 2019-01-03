@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  appUrl: 'https://etesto.eu',
+  appUrl: 'https://etesto.eu/',
   winDownload: 'https://drive.google.com/drive/folders/1I326wVQdmsKEQob1t7Xv2fz7-CCgEZGl?usp=sharing',
   winStore: '',
   macDownload: 'https://drive.google.com/drive/folders/18FNfgAb2SAiKzCbvjbcEB6zV7BS_Srff?usp=sharing',
