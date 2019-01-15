@@ -30,7 +30,7 @@ export const LANG_EN_TRANS = {
   // MAIN
   'dashboard-title': 'Home',
   'dashboard-header': 'The new way of studying',
-  'dashboard-paragraph': 'Everything is is in Your hands! Change your approach, start learning in a simple and fun way. Create / select test, solve, repeat, remember. Check the progress, use wherever you are!',
+  'dashboard-paragraph': 'Everything is in Your hands! Change your approach, start learning in a simple and fun way. Create / select test, solve, repeat, remember. Check the progress, use wherever you are!',
   'device-header': 'Wherever You are',
   'device-paragraph': 'Use eTesto wherever you are, on any device. Your progress will be saved. <br> Download the application to your computer, or add it to the start screen of your phone / tablet!',
   'dashboard-download-button': 'Download now',
